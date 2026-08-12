@@ -29,5 +29,6 @@ source file but are commented out; they are reproduced in
 
 ## Related
 
+- [Current API error codes](/docs/errors/current-error-codes)
 - [Transaction Enquiry](/docs/transactions/transaction-enquiry)
 - [Error codes](/docs/errors/error-codes)

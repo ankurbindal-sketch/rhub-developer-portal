@@ -1,0 +1,359 @@
+{
+  "documentTitle": "RHUB current API error codes",
+  "provider": "RHUB team",
+  "receivedOn": "2026-08-12",
+  "authoritative": true,
+  "notes": "Supplied directly by the RHUB team as the current API error-handling reference. Independent of RHUB_FULL_SOURCE_EXPORT.json. Update this file and re-run tools/generate.py to refresh the published page.",
+  "semantics": {
+    "heading": "How resultCode and resultDescription relate",
+    "paragraphs": [
+      "The resultCode represents a category/class of error rather than a unique identifier for every individual validation condition.",
+      "The same resultCode may therefore appear against multiple resultDescription values.",
+      "The resultDescription carries the specific, actionable reason for the failure and should be used for precise error handling and messaging shown to end users.",
+      "resultCode should be used for coarse-grained handling, such as distinguishing request-format/validation issues from business-rule rejection or system-level failure."
+    ],
+    "examples": [
+      {
+        "resultCode": "400",
+        "meaning": "broadly represents request validation failures"
+      },
+      {
+        "resultCode": "5000 and 5001",
+        "meaning": "represent business-rule/field validation failures"
+      },
+      {
+        "resultCode": "1000",
+        "meaning": "represents a system/technical failure"
+      }
+    ],
+    "caution": "resultCode must not be treated as a unique key for a specific validation condition."
+  },
+  "uncodedEntryRule": "Where resultCode is null the RHUB team supplied no code. It is published as \"Not provided\" and no code is inferred.",
+  "entries": [
+    {
+      "sNo": 1,
+      "resultCode": "400",
+      "resultDescription": "payin amount should not be Empty"
+    },
+    {
+      "sNo": 2,
+      "resultCode": "400",
+      "resultDescription": "payout amount should not be Empty"
+    },
+    {
+      "sNo": 3,
+      "resultCode": "5001",
+      "resultDescription": "payin amount is not matching with amount used while creating quotation. Please check"
+    },
+    {
+      "sNo": 4,
+      "resultCode": "400",
+      "resultDescription": "transactioninfoRequest.requestDate.NotNull"
+    },
+    {
+      "sNo": 5,
+      "resultCode": "1027",
+      "resultDescription": "Currency Not Found"
+    },
+    {
+      "sNo": 6,
+      "resultCode": "1000",
+      "resultDescription": "technical.failure"
+    },
+    {
+      "sNo": 7,
+      "resultCode": "400",
+      "resultDescription": "request date should not be Blank"
+    },
+    {
+      "sNo": 8,
+      "resultCode": "5001",
+      "resultDescription": "sendClientTxnReference is mandatory."
+    },
+    {
+      "sNo": 9,
+      "resultCode": "5001",
+      "resultDescription": "sendClientTxnReference document must be uploaded before payout process."
+    },
+    {
+      "sNo": 10,
+      "resultCode": "5001",
+      "resultDescription": "document reference must be uploaded before payout process."
+    },
+    {
+      "sNo": 11,
+      "resultCode": "5000",
+      "resultDescription": "descriptionText field is missing! Length should be between 1 and 25"
+    },
+    {
+      "sNo": 12,
+      "resultCode": "5000",
+      "resultDescription": "Special characters not allowed In descriptionText"
+    },
+    {
+      "sNo": 13,
+      "resultCode": "5000",
+      "resultDescription": "PaymentMode must be 'Cash' or 'Bank' or 'UPI'"
+    },
+    {
+      "sNo": 14,
+      "resultCode": "1197",
+      "resultDescription": "invalid.request"
+    },
+    {
+      "sNo": 15,
+      "resultCode": "5001",
+      "resultDescription": "destinationCountryCode should be same as what we used while creating quotation. Please check!"
+    },
+    {
+      "sNo": 16,
+      "resultCode": "5001",
+      "resultDescription": "Invalid sourceCountry!"
+    },
+    {
+      "sNo": 17,
+      "resultCode": "400",
+      "resultDescription": "Invalid JSON format"
+    },
+    {
+      "sNo": 18,
+      "resultCode": "5001",
+      "resultDescription": "isAutoRegistered is mandatory."
+    },
+    {
+      "sNo": 19,
+      "resultCode": "5001",
+      "resultDescription": "declaration is mandatory."
+    },
+    {
+      "sNo": 20,
+      "resultCode": "5001",
+      "resultDescription": "Document reference number is mandatory."
+    },
+    {
+      "sNo": 21,
+      "resultCode": "400",
+      "resultDescription": "settlement currency should not be Blank"
+    },
+    {
+      "sNo": 22,
+      "resultCode": "400",
+      "resultDescription": "fx rate value should not be null"
+    },
+    {
+      "sNo": 23,
+      "resultCode": "400",
+      "resultDescription": "senderMargin value should not be null"
+    },
+    {
+      "sNo": 24,
+      "resultCode": "5000",
+      "resultDescription": "Business Name field is missing! Length should be between 1 and 70"
+    },
+    {
+      "sNo": 25,
+      "resultCode": "5000",
+      "resultDescription": "Industry field is missing! Length should be between 1 and 10"
+    },
+    {
+      "sNo": 26,
+      "resultCode": "5001",
+      "resultDescription": "Invalid Sender Business Type."
+    },
+    {
+      "sNo": 27,
+      "resultCode": "5001",
+      "resultDescription": "Invalid Receiver Business Type."
+    },
+    {
+      "sNo": 28,
+      "resultCode": "5000",
+      "resultDescription": "Special characters not allowed In Sender BusinessRegistrationNumber"
+    },
+    {
+      "sNo": 29,
+      "resultCode": "5001",
+      "resultDescription": "Sender Invalid Business Registration Issued At."
+    },
+    {
+      "sNo": 30,
+      "resultCode": "5001",
+      "resultDescription": "Receiver Invalid Business Registration Issued At."
+    },
+    {
+      "sNo": 31,
+      "resultCode": "5001",
+      "resultDescription": "Sender Invalid Business Registration Type."
+    },
+    {
+      "sNo": 32,
+      "resultCode": "5001",
+      "resultDescription": "Receiver Invalid Business Registration Type."
+    },
+    {
+      "sNo": 33,
+      "resultCode": "5001",
+      "resultDescription": "Please enter minimum 7 digit Contact Number for Sender"
+    },
+    {
+      "sNo": 34,
+      "resultCode": "5001",
+      "resultDescription": "Please enter minimum 7 digit Contact Number for Receiver"
+    },
+    {
+      "sNo": 35,
+      "resultCode": "5000",
+      "resultDescription": "State field should not contain leading or trailing whitespace!"
+    },
+    {
+      "sNo": 36,
+      "resultCode": "5000",
+      "resultDescription": "City field should not contain leading or trailing whitespace!"
+    },
+    {
+      "sNo": 37,
+      "resultCode": "5001",
+      "resultDescription": "Sender Invalid Business Country Code."
+    },
+    {
+      "sNo": 38,
+      "resultCode": "5001",
+      "resultDescription": "Receiver Invalid Business Country Code."
+    },
+    {
+      "sNo": 39,
+      "resultCode": "1384",
+      "resultDescription": "authentication failed username or password is incorrect or Beneficiary name does not match"
+    },
+    {
+      "sNo": 40,
+      "resultCode": "5000",
+      "resultDescription": "Special characters not allowed In Receiver IFSC Code"
+    },
+    {
+      "sNo": 41,
+      "resultCode": "400",
+      "resultDescription": "quote id should not be blank"
+    },
+    {
+      "sNo": 42,
+      "resultCode": "400",
+      "resultDescription": "compliance remittance Purpose Should Not Be empty"
+    },
+    {
+      "sNo": 43,
+      "resultCode": "5001",
+      "resultDescription": "RemittancePurpose is not valid. Please check!"
+    },
+    {
+      "sNo": 44,
+      "resultCode": "5001",
+      "resultDescription": "SourceOfFund is not valid. Please check!"
+    },
+    {
+      "sNo": 45,
+      "resultCode": "5001",
+      "resultDescription": "Relationship is not valid. Please check!"
+    },
+    {
+      "sNo": 46,
+      "resultCode": "5001",
+      "resultDescription": "Please note that the Sender CustomerCode is mandatory. Kindly ensure that the sender is registered before initiating any payment transactions!"
+    },
+    {
+      "sNo": 47,
+      "resultCode": "5003",
+      "resultDescription": "destinationCountryCode could not be null or empty!"
+    },
+    {
+      "sNo": 48,
+      "resultCode": "5003",
+      "resultDescription": "Please enter a valid receiverCurrencyCode and destinationCountryCode!"
+    },
+    {
+      "sNo": 49,
+      "resultCode": "1368",
+      "resultDescription": "Some parameters are missing in quotation request"
+    },
+    {
+      "sNo": 50,
+      "resultCode": "400",
+      "resultDescription": "fxRateQuotation sendCurrencyCode Should Not Be Null"
+    },
+    {
+      "sNo": 51,
+      "resultCode": "1071",
+      "resultDescription": "Wallet Owner Not Found"
+    },
+    {
+      "sNo": 52,
+      "resultCode": "1382",
+      "resultDescription": "payout quotation failed."
+    },
+    {
+      "sNo": 53,
+      "resultCode": null,
+      "resultDescription": "Wallet Not Found"
+    },
+    {
+      "sNo": 54,
+      "resultCode": "1364",
+      "resultDescription": "master business type not found"
+    },
+    {
+      "sNo": 55,
+      "resultCode": "1056",
+      "resultDescription": "Transaction Not Found"
+    },
+    {
+      "sNo": 56,
+      "resultCode": "4117",
+      "resultDescription": "Beneficiary not found"
+    },
+    {
+      "sNo": 57,
+      "resultCode": "4001",
+      "resultDescription": "Invalid docReferenceNumber. Please upload document first"
+    },
+    {
+      "sNo": 58,
+      "resultCode": "4107",
+      "resultDescription": "Residence status type not found"
+    },
+    {
+      "sNo": 59,
+      "resultCode": "4001",
+      "resultDescription": "Individual customer registration Invalid Id Type Code"
+    },
+    {
+      "sNo": 60,
+      "resultCode": "4001",
+      "resultDescription": "Individual customer registration Invalid Occupation Code"
+    },
+    {
+      "sNo": 61,
+      "resultCode": "5001",
+      "resultDescription": "Customer already registered with customer ID - 100000896013888I"
+    },
+    {
+      "sNo": 62,
+      "resultCode": "4001",
+      "resultDescription": "TradeName is mandatory!"
+    },
+    {
+      "sNo": 63,
+      "resultCode": "4001",
+      "resultDescription": "Business Customer Registration Invalid Nature Of Business."
+    },
+    {
+      "sNo": 64,
+      "resultCode": "4001",
+      "resultDescription": "Business Customer Registration Invalid Country Code."
+    },
+    {
+      "sNo": 65,
+      "resultCode": "4001",
+      "resultDescription": "Business Customer Registration Invalid Legal Status Code."
+    }
+  ]
+}

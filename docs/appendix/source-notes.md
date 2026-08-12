@@ -19,6 +19,14 @@ This page is the audit trail for RHUB Developer Portal 1.0: what the source cont
 | Empty source files | 0 |
 | Total source characters | 685293 |
 
+## Supplemental authoritative sources
+
+Material supplied directly by the RHUB team, outside the documentation export, is kept in its own data file so it can be updated independently and republished by re-running the generator.
+
+| Supplemental source | Supplied by | Received | Portal page |
+|---|---|---|---|
+| `source/RHUB_CURRENT_ERROR_CODES.json` | RHUB team | 2026-08-12 | [Current API error codes](/docs/errors/current-error-codes) |
+
 ## Publication status in the source sidebar
 
 The export includes the site sidebar. Fourteen files are linked from it; the other fifteen are served but their sidebar entries are commented out. This portal reproduces all 29 and labels the difference rather than assuming one.
@@ -219,6 +227,7 @@ These topics are absent from the supplied source and are therefore absent from t
 | `PAYOUT-WPT.md` | docs/payout/wpt-payout.md | COMPLETE | Published WPT Payout contract carried over in full. |
 | `QUOTA.md` | docs/quotation/quotation.md | COMPLETE | Published Quotation contract carried over in full. The file also contains a commented-out Final Quotation section — reproduced in the appendix and cross-checked against the standalone finalQuotation.md source page. |
 | `README.md` | docs/intro.md | COMPLETE | About Us and Overview sections carried over verbatim. |
+| `RHUB_CURRENT_ERROR_CODES.json` | docs/errors/current-error-codes.md | COMPLETE | Supplemental authoritative data supplied directly by the RHUB team (not part of the 29-file documentation export). All 65 entries published, duplicates preserved as separate rows, 16 distinct result codes, 1 entry published with "Not provided". |
 | `WPT.md` | docs/wpt/ (index + 3 API pages), docs/appendix/unpublished-apis.md | PARTIAL | 3 active sections (Customer Registration, Quotation, Payout) documented in full; 6 commented-out sections reproduced in the appendix. Marked PARTIAL because the whole file is commented out of the live sidebar (publication status REVIEW REQUIRED). |
 | `apisequence.md` | docs/getting-started/integration-flow.md | COMPLETE | Sequence list and all cross-references remapped to portal routes. Source diagram (img/apiseq.png) is commented out in the source and the asset is not in the export. |
 | `balance.md` | docs/legacy/balance.md | PARTIAL | Page content carried over in full. Marked PARTIAL because the source file is commented out of the live documentation sidebar, so whether the contract is current is REVIEW REQUIRED. |

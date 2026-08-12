@@ -150,5 +150,6 @@ HTTP Status Codes
 
 ## Related
 
+- [Current API error codes](/docs/errors/current-error-codes)
 - [Transaction status codes](/docs/errors/transaction-status-codes)
 - [Payout](/docs/payout/payout)

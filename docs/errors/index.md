@@ -8,13 +8,17 @@ description: "How RHUB transaction status codes differ from HTTP and application
 
 # Errors and response codes
 
-The RHUB source documents two distinct code families. They are **not** interchangeable and
-this portal keeps them apart:
+RHUB documents three distinct code families. They are **not** interchangeable and this
+portal keeps them apart:
 
-| Family | What it describes | Source file | Page |
+| Family | What it describes | Supplied by | Page |
 |---|---|---|---|
-| Transaction status codes | The lifecycle status of a transaction in production | `responseCodes.md` | [Transaction status codes](/docs/errors/transaction-status-codes) |
-| HTTP and application error codes | Protocol-level status codes and RHUB application error codes | `ErrorCodes.md` | [Error codes](/docs/errors/error-codes) |
+| Current API error codes | The current API error-handling reference: `resultCode` classes and their `resultDescription` values | RHUB team, 2026-08-12 | [Current API error codes](/docs/errors/current-error-codes) |
+| Transaction status codes | The lifecycle status of a transaction in production | Documentation export (`responseCodes.md`) | [Transaction status codes](/docs/errors/transaction-status-codes) |
+| HTTP and application error codes | Protocol-level status codes and RHUB application error codes | Documentation export (`ErrorCodes.md`) | [Error codes](/docs/errors/error-codes) |
+
+Start with **Current API error codes** for live error handling. The other two pages remain
+available and unchanged; they come from the original documentation export.
 
 :::warning[REVIEW REQUIRED — resolution guidance]
 

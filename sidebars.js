@@ -93,7 +93,11 @@ const sidebars = {
       label: 'Errors and response codes',
       collapsed: true,
       link: {type: 'doc', id: 'errors/errors-index'},
-      items: ['errors/transaction-status-codes', 'errors/error-codes'],
+      items: [
+        'errors/current-error-codes',
+        'errors/transaction-status-codes',
+        'errors/error-codes',
+      ],
     },
     {
       type: 'category',

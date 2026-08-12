@@ -19,6 +19,15 @@ PORTAL = os.path.dirname(HERE)
 DOCS = os.path.join(PORTAL, 'docs')
 
 EXPORT = json.load(open(SRC_JSON))
+
+# Supplemental authoritative data supplied directly by the RHUB team, kept in its own
+# file so it can be updated independently of the documentation export. Optional: if the
+# file is absent the portal simply omits the current-error-code page.
+CURRENT_ERRORS_JSON = os.environ.get(
+    'RHUB_CURRENT_ERRORS_JSON',
+    os.path.join(os.path.dirname(HERE), 'source', 'RHUB_CURRENT_ERROR_CODES.json'))
+CURRENT_ERRORS = (json.load(open(CURRENT_ERRORS_JSON))
+                  if os.path.exists(CURRENT_ERRORS_JSON) else None)
 FILES = {f['file']: f['content'] for f in EXPORT['files']}
 SOURCE_URL = EXPORT['source']
 EXPORTED_AT = EXPORT['exportedAt']
@@ -690,13 +699,17 @@ API must always be supplied. The source's own wording is reproduced below.
 def build_errors():
     body = """# Errors and response codes
 
-The RHUB source documents two distinct code families. They are **not** interchangeable and
-this portal keeps them apart:
+RHUB documents three distinct code families. They are **not** interchangeable and this
+portal keeps them apart:
 
-| Family | What it describes | Source file | Page |
+| Family | What it describes | Supplied by | Page |
 |---|---|---|---|
-| Transaction status codes | The lifecycle status of a transaction in production | `responseCodes.md` | [Transaction status codes](/docs/errors/transaction-status-codes) |
-| HTTP and application error codes | Protocol-level status codes and RHUB application error codes | `ErrorCodes.md` | [Error codes](/docs/errors/error-codes) |
+| Current API error codes | The current API error-handling reference: `resultCode` classes and their `resultDescription` values | RHUB team, %s | [Current API error codes](/docs/errors/current-error-codes) |
+| Transaction status codes | The lifecycle status of a transaction in production | Documentation export (`responseCodes.md`) | [Transaction status codes](/docs/errors/transaction-status-codes) |
+| HTTP and application error codes | Protocol-level status codes and RHUB application error codes | Documentation export (`ErrorCodes.md`) | [Error codes](/docs/errors/error-codes) |
+
+Start with **Current API error codes** for live error handling. The other two pages remain
+available and unchanged; they come from the original documentation export.
 
 :::warning[REVIEW REQUIRED — resolution guidance]
 
@@ -706,6 +719,7 @@ establishes retry policy, idempotency behaviour or backoff expectations.
 
 :::
 """
+    body = body % (CURRENT_ERRORS['receivedOn'] if CURRENT_ERRORS else 'REVIEW REQUIRED')
     write('errors/index.md',
           {'id': 'errors-index', 'title': 'Errors and response codes',
            'sidebar_label': 'Overview', 'slug': '/errors',
@@ -732,6 +746,7 @@ source file but are commented out; they are reproduced in
 
 ## Related
 
+- [Current API error codes](/docs/errors/current-error-codes)
 - [Transaction Enquiry](/docs/transactions/transaction-enquiry)
 - [Error codes](/docs/errors/error-codes)
 """
@@ -756,6 +771,7 @@ source file but are commented out; they are reproduced in
 
 ## Related
 
+- [Current API error codes](/docs/errors/current-error-codes)
 - [Transaction status codes](/docs/errors/transaction-status-codes)
 - [Payout](/docs/payout/payout)
 """
@@ -766,6 +782,171 @@ source file but are commented out; they are reproduced in
         'Both source tables (HTTP status codes, application error codes) carried over in full. '
         'Marked PARTIAL because the file is commented out of the live sidebar, so its '
         'publication status is REVIEW REQUIRED, and because the source gives no resolution guidance.')
+
+
+
+# --------------------------------------------------------------------------
+# 6b. current API error codes (supplemental authoritative data)
+# --------------------------------------------------------------------------
+
+
+def existing_code_index():
+    """Codes already documented by the documentation export, for conflict checking."""
+    app, http, validation = {}, {}, {}
+    ec = R.strip_comments(FILES['ErrorCodes.md'])
+    section = ec.split('Application Error Codes', 1)
+    for m in re.finditer(r'<tr[^>]*>(.*?)</tr>', section[0], re.S | re.I):
+        cells = [re.sub(r'<[^>]+>', '', c).strip()
+                 for c in re.findall(r'<td[^>]*>(.*?)</td>', m.group(1), re.S | re.I)]
+        if len(cells) >= 3 and re.match(r'^\d+$', cells[0]):
+            http[cells[0]] = cells[2]
+    if len(section) > 1:
+        for m in re.finditer(r'<tr[^>]*>(.*?)</tr>', section[1], re.S | re.I):
+            cells = [re.sub(r'<[^>]+>', '', c).strip()
+                     for c in re.findall(r'<td[^>]*>(.*?)</td>', m.group(1), re.S | re.I)]
+            if len(cells) >= 2 and re.match(r'^\d+$', cells[0]):
+                app.setdefault(cells[0], set()).add(cells[1])
+    for block in R.comment_bodies(FILES['responseCodes.md']):
+        for m in re.finditer(r'^\|\s*(\d{4})\s*\|\s*(.+?)\s*\|\s*$', block, re.M):
+            validation.setdefault(m.group(1), set()).add(m.group(2).strip())
+    return http, app, validation
+
+
+def build_current_error_codes():
+    if not CURRENT_ERRORS:
+        return None
+    d = CURRENT_ERRORS
+    entries = d['entries']
+    coded = [e for e in entries if e['resultCode'] is not None]
+    uncoded = [e for e in entries if e['resultCode'] is None]
+    unique = sorted(set(e['resultCode'] for e in coded), key=lambda c: (len(c), c))
+    counts = collections.Counter(e['resultCode'] for e in coded)
+
+    http, app, validation = existing_code_index()
+    conflicts = []
+    for c in unique:
+        news = sorted(set(e['resultDescription'] for e in coded if e['resultCode'] == c))
+        if c in http:
+            conflicts.append(('%s' % c,
+                              'Also appears in the export\'s **HTTP status code** table as "%s". '
+                              'The source does not establish whether the HTTP status and the '
+                              '`resultCode` of the same numeral are the same thing.' % http[c]))
+        if c in app:
+            same = set(app[c]) & set(news)
+            if same:
+                conflicts.append(('%s' % c,
+                                  'Also in the export\'s **application error code** table with the '
+                                  'same description ("%s"). Consistent — no conflict.'
+                                  % sorted(same)[0]))
+            else:
+                conflicts.append(('%s' % c,
+                                  'Also in the export\'s **application error code** table, but with '
+                                  'different description(s): %s. Not reconciled.'
+                                  % ', '.join('"%s"' % x for x in sorted(app[c]))))
+        if c in validation:
+            same = set(validation[c]) & set(news)
+            ci = {x.casefold() for x in validation[c]} & {x.casefold() for x in news}
+            if same:
+                note = 'the same description ("%s")' % sorted(same)[0]
+            elif ci:
+                note = ('the same description apart from letter case ("%s")'
+                        % sorted(validation[c])[0])
+            else:
+                note = ('a different description: %s'
+                        % ', '.join('"%s"' % x for x in sorted(validation[c])))
+            conflicts.append(('%s' % c,
+                              'Also in the **validation code** table that is commented out of '
+                              '`responseCodes.md` (publication status unverified), with %s.' % note))
+
+    sem = d['semantics']
+    lines = ['# Current API error codes', '',
+             ':::info[Authoritative and current]', '',
+             'This reference was supplied directly by the **%s** on **%s** as the current API '
+             'error-handling behaviour. It is maintained separately from the documentation '
+             'export that the rest of this portal is built from, and it does not replace the '
+             '[transaction status codes](/docs/errors/transaction-status-codes) or the '
+             '[HTTP and application error codes](/docs/errors/error-codes), which remain '
+             'available unchanged.' % (d['provider'], d['receivedOn']), '', ':::', '',
+             '## %s' % sem['heading'], '']
+    for para in sem['paragraphs'][:2]:
+        lines += [para, '']
+    lines += ['Examples:', '']
+    for ex in sem['examples']:
+        lines.append('- **%s** — %s.' % (ex['resultCode'], ex['meaning']))
+    lines += ['']
+    for para in sem['paragraphs'][2:]:
+        lines += [para, '']
+    lines += [':::caution[Do not key on resultCode alone]', '',
+              sem['caution'],
+              'Handle `resultCode` coarsely and branch on `resultDescription` for the specific '
+              'condition.', '', ':::', '',
+              '## Error code reference', '',
+              'All %d entries as supplied. Rows that share a `resultCode` are listed separately '
+              'and are **not** merged, because one code covers many distinct conditions.'
+              % len(entries), '',
+              '| S. No. | Result Code | Result Description |', '|---|---|---|']
+    for e in entries:
+        code = e['resultCode'] if e['resultCode'] is not None else '*Not provided*'
+        desc = e['resultDescription'].replace('|', '\\|')
+        lines.append('| %d | %s | %s |' % (e['sNo'], code, desc))
+
+    lines += ['', '### Entry %d — no result code supplied' % uncoded[0]['sNo'], '',
+              ':::warning[REVIEW REQUIRED — result code not provided]', '',
+              '**Result Code: Not provided**', '',
+              '**Result Description:** %s' % uncoded[0]['resultDescription'], '',
+              'The RHUB team supplied no `resultCode` for this entry. No code has been inferred '
+              'or assigned.', '', ':::', '',
+              '## Result codes at a glance', '',
+              'The %d entries use **%d distinct result codes**, plus one entry with no code.'
+              % (len(entries), len(unique)), '',
+              '| Result Code | Entries | Conditions covered |', '|---|---|---|']
+    for c in unique:
+        lines.append('| %s | %d | %s |' % (c, counts[c],
+                                           'multiple distinct conditions' if counts[c] > 1
+                                           else 'one condition in this list'))
+    lines.append('| *Not provided* | 1 | one condition in this list |')
+
+    lines += ['', '## Relationship to the documentation-export error pages', '']
+    if conflicts:
+        lines += ['The following result codes also appear in documentation-export material. '
+                  'The overlaps are reported, not reconciled.', '',
+                  '| Result code | Observation |', '|---|---|']
+        seen = set()
+        for c, note in conflicts:
+            if (c, note) in seen:
+                continue
+            seen.add((c, note))
+            lines.append('| %s | %s |' % (c, note))
+        lines += ['']
+    lines += [':::warning[REVIEW REQUIRED — precedence between the code families]', '',
+              'Where a numeral appears in more than one family, the supplied material does not '
+              'state which takes precedence, nor whether the export\'s error tables are '
+              'superseded by this current list. That has not been resolved by guessing. Note '
+              'also that `ErrorCodes.md` is commented out of the live RHUB documentation '
+              'sidebar, so its own currency is already unverified.', '', ':::', '',
+              ':::note[Not established]', '',
+              'No remediation steps, retry policy, backoff behaviour or HTTP-status mapping were '
+              'supplied for these codes, so none is documented here.', '', ':::', '',
+              '## Related', '',
+              '- [Errors and response codes overview](/docs/errors)',
+              '- [Transaction status codes](/docs/errors/transaction-status-codes)',
+              '- [HTTP and application error codes](/docs/errors/error-codes)',
+              '- [Payout](/docs/payout/payout)',
+              '- [Transaction Enquiry](/docs/transactions/transaction-enquiry)']
+
+    write('errors/current-error-codes.md',
+          {'title': 'Current API error codes', 'sidebar_label': 'Current API error codes',
+           'description': 'Current RHUB API error-handling reference: resultCode classes and '
+                          'resultDescription values, supplied by the RHUB team.'},
+          '\n'.join(lines))
+
+    rec(os.path.basename(CURRENT_ERRORS_JSON), 'docs/errors/current-error-codes.md', 'COMPLETE',
+        'Supplemental authoritative data supplied directly by the RHUB team (not part of the '
+        '29-file documentation export). All %d entries published, duplicates preserved as '
+        'separate rows, %d distinct result codes, 1 entry published with "Not provided".'
+        % (len(entries), len(unique)))
+    return {'entries': len(entries), 'unique': len(unique), 'uncoded': len(uncoded),
+            'conflicts': conflicts}
 
 
 # --------------------------------------------------------------------------
@@ -1028,6 +1209,18 @@ def build_source_notes(master_rows, wpt_rows, tpl_rows):
              '| Empty source files | 0 |',
              '| Total source characters | %d |' % sum(len(v) for v in FILES.values()),
              '',
+             '## Supplemental authoritative sources', '',
+             'Material supplied directly by the RHUB team, outside the documentation export, is '
+             'kept in its own data file so it can be updated independently and republished by '
+             're-running the generator.', '',
+             '| Supplemental source | Supplied by | Received | Portal page |', '|---|---|---|---|']
+    if CURRENT_ERRORS:
+        lines.append('| `source/%s` | %s | %s | [Current API error codes](/docs/errors/current-error-codes) |'
+                     % (os.path.basename(CURRENT_ERRORS_JSON), CURRENT_ERRORS['provider'],
+                        CURRENT_ERRORS['receivedOn']))
+    else:
+        lines.append('| — | — | — | none present at build time |')
+    lines += ['',
              '## Publication status in the source sidebar', '',
              'The export includes the site sidebar. Fourteen files are linked from it; the other '
              'fifteen are served but their sidebar entries are commented out. This portal '
@@ -1176,6 +1369,7 @@ def main():
     master_rows = build_master()
     build_validation()
     build_errors()
+    build_current_error_codes()
     wpt_rows = build_wpt()
     tpl_rows = build_template()
     build_legacy()
@@ -1185,10 +1379,13 @@ def main():
     build_source_notes(master_rows, wpt_rows, tpl_rows)
 
     covered = {m[0] for m in MANIFEST}
+    supplemental = sorted(covered - set(FILES))
     missing = sorted(set(FILES) - covered)
     print('pages written: %d' % len(PAGES))
     print('APIs indexed : %d' % len(API_INDEX))
-    print('source files accounted for: %d/%d' % (len(covered), len(FILES)))
+    print('export source files accounted for: %d/%d' % (len(covered & set(FILES)), len(FILES)))
+    if supplemental:
+        print('supplemental authoritative sources: %s' % ', '.join(supplemental))
     if missing:
         print('MISSING:', missing)
     json.dump({'pages': PAGES, 'apis': API_INDEX, 'manifest': MANIFEST,

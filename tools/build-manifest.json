@@ -33,6 +33,7 @@
   "errors/index.md",
   "errors/transaction-status-codes.md",
   "errors/error-codes.md",
+  "errors/current-error-codes.md",
   "wpt/customer-registration.md",
   "wpt/quotation.md",
   "wpt/payout.md",
@@ -339,6 +340,12 @@
    "docs/errors/error-codes.md",
    "PARTIAL",
    "Both source tables (HTTP status codes, application error codes) carried over in full. Marked PARTIAL because the file is commented out of the live sidebar, so its publication status is REVIEW REQUIRED, and because the source gives no resolution guidance."
+  ],
+  [
+   "RHUB_CURRENT_ERROR_CODES.json",
+   "docs/errors/current-error-codes.md",
+   "COMPLETE",
+   "Supplemental authoritative data supplied directly by the RHUB team (not part of the 29-file documentation export). All 65 entries published, duplicates preserved as separate rows, 16 distinct result codes, 1 entry published with \"Not provided\"."
   ],
   [
    "WPT.md",
