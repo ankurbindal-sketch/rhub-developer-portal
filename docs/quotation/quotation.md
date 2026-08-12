@@ -9,8 +9,6 @@ description: "RHUB Quotation API — fetch the forex rate between payin and payo
 
 <span className="rhub-method rhub-method--post">POST</span>
 
-*Source of truth: `QUOTA.md` — from the RHUB documentation export of 2026-08-12 (`https://docs.remittanceshub.com/`).*
-
 :::info[Endpoint]
 
 `POST`  `http://host/ewallet/api/v1/fxratequotation/api`
@@ -130,7 +128,6 @@ POST http://host/ewallet/api/v1/fxratequotation/api
 }
 }
 ```
-
 
 ## Related APIs
 

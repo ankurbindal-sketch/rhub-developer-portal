@@ -8,8 +8,6 @@ description: "RHUB Update Customer-Details API (source page not linked in the li
 
 <span className="rhub-method rhub-method--post">POST</span>
 
-*Source of truth: `updateCustomerDetails.md` — from the RHUB documentation export of 2026-08-12 (`https://docs.remittanceshub.com/`).*
-
 :::warning[Publication status — REVIEW REQUIRED]
 
 This page is reproduced from the source file `updateCustomerDetails.md`, which **is present in the RHUB

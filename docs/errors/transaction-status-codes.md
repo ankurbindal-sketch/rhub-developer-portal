@@ -6,8 +6,6 @@ description: "RHUB transaction statuses available in production."
 
 # Transaction status codes
 
-*Source of truth: `responseCodes.md` — from the RHUB documentation export of 2026-08-12 (`https://docs.remittanceshub.com/`).*
-
 In Production, the following statuses will be available:
 
 | Name | Description            |

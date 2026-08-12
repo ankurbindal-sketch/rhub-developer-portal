@@ -8,8 +8,6 @@ description: "RHUB Customer Registration API — register business and individua
 
 <span className="rhub-method rhub-method--post">POST</span>
 
-*Source of truth: `CUSTOMEREGIS.md` — from the RHUB documentation export of 2026-08-12 (`https://docs.remittanceshub.com/`).*
-
 There are two methods for registering a customer:
 
 * Using this API.
@@ -387,7 +385,6 @@ POST http://host/ewallet/api/v1/customer-registration
     }
   }
 ```
-
 
 ## Related APIs
 

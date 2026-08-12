@@ -6,8 +6,6 @@ description: "Country-specific SWIFT field requirements for RHUB payouts."
 
 # Country validations (SWIFT rail)
 
-*Source of truth: `COUNTRYVALIDATIONS.md` — from the RHUB documentation export of 2026-08-12 (`https://docs.remittanceshub.com/`).*
-
 :::info[How to use these tables]
 
 These tables state, per country group, which bank-related [Payout](/docs/payout/payout)
@@ -16,7 +14,6 @@ currency tables, they qualify **Conditional** fields; fields marked Mandatory in
 API must always be supplied. The source's own wording is reproduced below.
 
 :::
-
 
 [Go To Payout(Receiver details)](/docs/payout/payout#receiver-req-param)
 
@@ -337,7 +334,6 @@ Note: “YES” indicates that the field is mandatory and accepts the value/info
 | US | SWIFT | Yes | Yes | Yes | No | Yes used for routing no | No | Yes |
 
 <br />
-
 
 ## Related
 

@@ -8,8 +8,6 @@ description: "RHUB Account Type master API."
 
 <span className="rhub-method rhub-method--get">GET</span>
 
-*Source of truth: `master.md` — from the RHUB documentation export of 2026-08-12 (`https://docs.remittanceshub.com/`).*
-
 [Go To Payout](/docs/payout/payout#transactioninfo-req-param)
 
 :::info[Endpoint]
@@ -72,7 +70,6 @@ GET http://host/ewallet/api/v1/accountType/all
 ]
 }
 ```
-
 
 ## Related APIs
 

@@ -12,8 +12,6 @@ Welcome to the developer documentation for **RHUB (RemittancesHub)**. This porta
 re-presentation of the authoritative RHUB technical documentation, reorganised for
 integration work.
 
-*Source of truth: `README.md` — from the RHUB documentation export of 2026-08-12 (`https://docs.remittanceshub.com/`).*
-
 ## About Us
 
 >RemittancesHub (RHUB) is a licensed financial institution operating an Alternate Cross Border Network for Inbound & Outbound Payments, which enables international fund transfers into Bank Accounts of Beneficiaries (both corporate & individual):

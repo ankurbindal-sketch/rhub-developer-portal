@@ -8,8 +8,6 @@ description: "RHUB Template Management — Forex Margin API."
 
 <span className="rhub-method rhub-method--get">GET</span>
 
-*Source of truth: `template.md` — from the RHUB documentation export of 2026-08-12 (`https://docs.remittanceshub.com/`).*
-
 :::warning[Publication status — REVIEW REQUIRED]
 
 This page is reproduced from the source file `template.md`, which **is present in the RHUB
@@ -114,7 +112,6 @@ GET http://host/ewallet/api/v1/sendClientMarginTemplate/getWalletOwner/100000909
 ]
 }
 ```
-
 
 ## Related APIs
 

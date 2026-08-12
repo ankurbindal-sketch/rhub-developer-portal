@@ -8,8 +8,6 @@ description: "RHUB Template Management — Update Forex Margin API."
 
 <span className="rhub-method rhub-method--post">POST</span>
 
-*Source of truth: `template.md` — from the RHUB documentation export of 2026-08-12 (`https://docs.remittanceshub.com/`).*
-
 :::warning[Publication status — REVIEW REQUIRED]
 
 This page is reproduced from the source file `template.md`, which **is present in the RHUB
@@ -139,7 +137,6 @@ walletOwnerCode: "1000009093"
 }
 }
 ```
-
 
 ## Related APIs
 

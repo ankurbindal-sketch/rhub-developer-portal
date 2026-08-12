@@ -8,8 +8,6 @@ description: "RHUB WPT Customer Registration API."
 
 <span className="rhub-method rhub-method--post">POST</span>
 
-*Source of truth: `WPT.md` — from the RHUB documentation export of 2026-08-12 (`https://docs.remittanceshub.com/`).*
-
 :::warning[Publication status — REVIEW REQUIRED]
 
 This page is reproduced from the source file `WPT.md`, which **is present in the RHUB
@@ -253,7 +251,6 @@ POST http://host/ewallet/api/v1/customer-registration
 }
 }
 ```
-
 
 ## Related APIs
 

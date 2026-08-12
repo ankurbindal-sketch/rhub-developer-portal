@@ -8,8 +8,6 @@ description: "RHUB Owner Details API (source page not linked in the live documen
 
 <span className="rhub-method rhub-method--post">POST</span>
 
-*Source of truth: `ownerDetails.md` — from the RHUB documentation export of 2026-08-12 (`https://docs.remittanceshub.com/`).*
-
 :::warning[Publication status — REVIEW REQUIRED]
 
 This page is reproduced from the source file `ownerDetails.md`, which **is present in the RHUB

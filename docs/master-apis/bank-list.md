@@ -8,8 +8,6 @@ description: "RHUB Bank List master API."
 
 <span className="rhub-method rhub-method--get">GET</span>
 
-*Source of truth: `master.md` — from the RHUB documentation export of 2026-08-12 (`https://docs.remittanceshub.com/`).*
-
 :::info[Endpoint]
 
 `GET`  `http://host/ewallet/api/v1/payoutbanklist/{country}/{currency}/{recieverCode}`
@@ -144,7 +142,6 @@ The response of the Bank List API may differ depending on the correspondent’s 
 ]
 }
 ```
-
 
 ## Related APIs
 

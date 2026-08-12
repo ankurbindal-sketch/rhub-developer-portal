@@ -6,8 +6,6 @@ description: "The RHUB API call sequence, as documented in the RHUB source."
 
 # Integration flow
 
-*Source of truth: `apisequence.md` — from the RHUB documentation export of 2026-08-12 (`https://docs.remittanceshub.com/`).*
-
 The RHUB supports the API call in the following sequence.
  1. [Login (Authentication) API](/docs/authentication/authentication)
  ➤ Required to authenticate and obtain access tokens for subsequent calls.

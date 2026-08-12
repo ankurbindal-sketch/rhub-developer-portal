@@ -8,8 +8,6 @@ description: "RHUB Balance Enquiry API — retrieve the current wallet or accoun
 
 <span className="rhub-method rhub-method--get">GET</span>
 
-*Source of truth: `ENQUIRY.md` — from the RHUB documentation export of 2026-08-12 (`https://docs.remittanceshub.com/`).*
-
 :::info[Endpoint]
 
 `GET`  `http://host/ewallet/api/v1/wallet/walletOwner/{walletOwnerCode}`
@@ -247,7 +245,6 @@ GET - http:host/ewallet/api/v1/wallet/walletOwner/1000008444
   ]
 }
 ```
-
 
 ## Related APIs
 

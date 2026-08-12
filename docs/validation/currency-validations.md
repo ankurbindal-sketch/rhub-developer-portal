@@ -6,8 +6,6 @@ description: "Currency- and correspondent-specific conditional field requirement
 
 # Currency validations (LOCAL rail)
 
-*Source of truth: `CURRENCYVALIDATIONS.md` — from the RHUB documentation export of 2026-08-12 (`https://docs.remittanceshub.com/`).*
-
 :::info[How to use these tables]
 
 These tables state, per currency and rail, which [Payout](/docs/payout/payout) fields the
@@ -16,7 +14,6 @@ that fields marked Mandatory in the Payout API must always be supplied regardles
 correspondent. The source's own wording is reproduced below.
 
 :::
-
 
 :::note
 
@@ -195,7 +192,6 @@ Note: “YES” indicates that the field is mandatory, while “NO” indicates 
 *Decimal values are not allowed in the payout amount for these currencies.
 
 <br />
-
 
 ## Related
 

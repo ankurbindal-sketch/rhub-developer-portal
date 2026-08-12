@@ -6,8 +6,6 @@ description: "Bank payout and wallet payout transaction flows as described in th
 
 # Transaction flows
 
-*Source of truth: `transactionflow.md` — from the RHUB documentation export of 2026-08-12 (`https://docs.remittanceshub.com/`).*
-
 The following are the transaction flows.
 * Bank payout transaction flow
 * Wallet payout transaction flow

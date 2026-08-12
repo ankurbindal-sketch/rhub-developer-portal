@@ -8,8 +8,6 @@ description: "RHUB Login (Authentication) API (source page not linked in the liv
 
 <span className="rhub-method rhub-method--post">POST</span>
 
-*Source of truth: `loginauthentication.md` — from the RHUB documentation export of 2026-08-12 (`https://docs.remittanceshub.com/`).*
-
 :::warning[Publication status — REVIEW REQUIRED]
 
 This page is reproduced from the source file `loginauthentication.md`, which **is present in the RHUB

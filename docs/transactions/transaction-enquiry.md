@@ -8,8 +8,6 @@ description: "RHUB Transaction Enquiry API — check the status of a previously 
 
 <span className="rhub-method rhub-method--get">GET</span>
 
-*Source of truth: `ENQUIRY.md` — from the RHUB documentation export of 2026-08-12 (`https://docs.remittanceshub.com/`).*
-
 :::info[Endpoint]
 
 `GET`  `http://host/ewallet/api/v1/transactionInfo/api?types=all&status=all&transId={value}`
@@ -196,7 +194,6 @@ http://host/ewallet/api/v1/transactionInfo/api?types=all&status=all&transId=1***
     ]
   }
 ```
-
 
 ## Related APIs
 

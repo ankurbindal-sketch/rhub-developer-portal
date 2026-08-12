@@ -14,18 +14,11 @@ Every section on this page exists in the RHUB source **inside an HTML comment**,
 
 ## Customer Enquiry (from ENQUIRY.md)
 
-*Source of truth: `ENQUIRY.md` — from the RHUB documentation export of 2026-08-12 (`https://docs.remittanceshub.com/`).*
-
 ### Customer Enquiry
 
 `GET` — status: **REVIEW REQUIRED (commented out in source)**
 
-
-
-
 ## Final Quotation (from QUOTA.md)
-
-*Source of truth: `QUOTA.md` — from the RHUB documentation export of 2026-08-12 (`https://docs.remittanceshub.com/`).*
 
 ### Final Quotation
 
@@ -186,10 +179,7 @@ POST http://host/ewallet/api/v1/fxratequotation/api
  }
 ```
 
-
 ## WPT sections (from WPT.md)
-
-*Source of truth: `WPT.md` — from the RHUB documentation export of 2026-08-12 (`https://docs.remittanceshub.com/`).*
 
 ### Authentication
 
@@ -257,7 +247,6 @@ password : 21ED0D51*****FB437*****8ED2123B6
 "locale": "en"
 }
 ```
-
 
 ### Update Customer Details
 
@@ -516,7 +505,6 @@ PUT http://host/ewallet/api/v1/customer-registration/10000***71
 }
 ```
 
-
 ### Owner Details
 
 `POST` — status: **REVIEW REQUIRED (commented out in source)**
@@ -659,7 +647,6 @@ POST http://host/api/v1/customer-registration
 ]
 }
 ```
-
 
 ### Search Customer
 
@@ -905,7 +892,6 @@ http://host/ewallet/api/v1/customer-registration/all?customerId=100000892912003I
 }
 ```
 
-
 ### Search Beneficiary
 
 `GET` — status: **REVIEW REQUIRED (commented out in source)**
@@ -1027,7 +1013,6 @@ http://host/ewallet/api/v1/customer-registration/beneficiary?customerTypeCode=10
 }
 ```
 
-
 ### Document Upload
 
 `POST` — status: **REVIEW REQUIRED (commented out in source)**
@@ -1116,10 +1101,7 @@ http://host/ewallet/api/v1/documentUpload/upload/customer
 }
 ```
 
-
 ## Commented code tables (from responseCodes.md)
-
-*Source of truth: `responseCodes.md` — from the RHUB documentation export of 2026-08-12 (`https://docs.remittanceshub.com/`).*
 
 | Code | Description            |
 |------|------------------------|
@@ -1129,7 +1111,6 @@ http://host/ewallet/api/v1/documentUpload/upload/customer
 | IP | In Process |
 | -1 | Technical Failure |
 
-
 ```text
  | PI   | Payout Initiated       |
 | PN   | Payout Pending         |
@@ -1138,7 +1119,6 @@ http://host/ewallet/api/v1/documentUpload/upload/customer
 ```
 
 *Source fragment: this table has no header row in the RHUB source (it is a continuation of a preceding table). It is reproduced verbatim rather than given an invented header — REVIEW REQUIRED.*
-
 
 #### Validation Code
 

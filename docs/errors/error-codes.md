@@ -6,8 +6,6 @@ description: "RHUB HTTP status codes and application error codes."
 
 # Error codes
 
-*Source of truth: `ErrorCodes.md` — from the RHUB documentation export of 2026-08-12 (`https://docs.remittanceshub.com/`).*
-
 :::warning[Publication status — REVIEW REQUIRED]
 
 This page is reproduced from the source file `ErrorCodes.md`, which **is present in the RHUB
@@ -149,7 +147,6 @@ HTTP Status Codes
 | 1251 | Unauthorised Device Or IP Address | Request originated from an untrusted source. |
 | 1311 | Login attempts exceeded | Account locked after 5 failed password attempts. |
 | 4126 | Password is Incorrect | The password provided does not match our records. |
-
 
 ## Related
 

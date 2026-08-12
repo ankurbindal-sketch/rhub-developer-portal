@@ -51,21 +51,55 @@ def write(relpath, front, body):
         else:
             fm.append('%s: "%s"' % (k, str(v).replace('"', '\\"')))
     fm.append('---')
-    text = '\n'.join(fm) + '\n\n' + body.strip() + '\n'
+    text = '\n'.join(fm) + '\n\n' + collapse_blank_lines(body).strip() + '\n'
     open(path, 'w').write(text)
     PAGES.append(relpath)
     return relpath
 
 
-PROV = ('*Source: `%s` from the authoritative RHUB source export '
-        '(%s, exported %s).*')
+def collapse_blank_lines(text):
+    """Collapse runs of 3+ blank lines outside fenced code blocks.
+
+    Needed because disabling the provenance line leaves an empty slot in the
+    page templates. Content inside code fences is never touched.
+    """
+    out = []
+    in_code = False
+    blanks = 0
+    for line in text.split('\n'):
+        if line.strip().startswith('```'):
+            in_code = not in_code
+            blanks = 0
+            out.append(line)
+            continue
+        if not in_code and not line.strip():
+            blanks += 1
+            if blanks > 1:
+                continue
+        else:
+            blanks = 0
+        out.append(line)
+    return '\n'.join(out)
 
 
 def provenance(files):
-    if isinstance(files, str):
-        files = [files]
-    return ('*Source of truth: %s — from the RHUB documentation export of %s '
-            '(`%s`).*' % (', '.join('`%s`' % f for f in files), EXPORTED_AT[:10], SOURCE_URL))
+    """Per-page source-of-truth metadata line — intentionally disabled.
+
+    This helper used to inject a line of the form
+    "Source of truth: <file> — from the RHUB documentation export of <date> (<url>)"
+    at the top of every generated page. That was build metadata rather than RHUB
+    documentation, so it is no longer emitted on the public pages.
+
+    The helper is retained (returning an empty string) so that all call sites stay
+    intact and no page structure changes. Source-file provenance is still recorded,
+    in full, in docs/appendix/source-notes.md, and the source export itself remains
+    in source/ — nothing about the audit trail is lost.
+
+    Note: this is not the same as the source references that belong to the RHUB
+    documentation itself (for example the publication-status warnings that name a
+    source file, or the source-to-page map in the appendix). Those are unaffected.
+    """
+    return ''
 
 
 UNPUBLISHED_WARNING = """:::warning[Publication status — REVIEW REQUIRED]

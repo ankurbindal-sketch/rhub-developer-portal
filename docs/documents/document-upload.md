@@ -8,8 +8,6 @@ description: "RHUB Document Upload API — upload customer documents such as ID 
 
 <span className="rhub-method rhub-method--post">POST</span>
 
-*Source of truth: `DocumentUpload.md` — from the RHUB documentation export of 2026-08-12 (`https://docs.remittanceshub.com/`).*
-
 :::info[Endpoint]
 
 `POST`  `http://host/ewallet/api/v1/documentUpload/upload/customer`
@@ -93,7 +91,6 @@ http://host/ewallet/api/v1/documentUpload/upload/customer
   createdByName	"marvel "
 }
 ```
-
 
 ## Related APIs
 

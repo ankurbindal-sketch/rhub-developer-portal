@@ -8,8 +8,6 @@ description: "Audit trail: source integrity, publication status, conflicts, gaps
 
 This page is the audit trail for RHUB Developer Portal 1.0: what the source contains, where each file landed, and every point at which the source does not establish something.
 
-*Source of truth: `RHUB_FULL_SOURCE_EXPORT.json` — from the RHUB documentation export of 2026-08-12 (`https://docs.remittanceshub.com/`).*
-
 ## Export integrity
 
 | Check | Result |

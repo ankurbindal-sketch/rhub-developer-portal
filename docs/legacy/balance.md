@@ -8,8 +8,6 @@ description: "RHUB Balance API (source page not linked in the live documentation
 
 <span className="rhub-method rhub-method--get">GET</span>
 
-*Source of truth: `balance.md` — from the RHUB documentation export of 2026-08-12 (`https://docs.remittanceshub.com/`).*
-
 :::warning[Publication status — REVIEW REQUIRED]
 
 This page is reproduced from the source file `balance.md`, which **is present in the RHUB

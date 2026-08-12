@@ -9,8 +9,6 @@ description: "RHUB Login (Authentication) API — obtain an access token."
 
 <span className="rhub-method rhub-method--post">POST</span>
 
-*Source of truth: `AUTH.md` — from the RHUB documentation export of 2026-08-12 (`https://docs.remittanceshub.com/`).*
-
 :::note[Authentication scheme]
 
 The source documents this endpoint, its request parameters, its header parameters and its
@@ -85,7 +83,6 @@ password : 21ED0D51*****FB437*****8ED2123B6
 "locale": "en"
 }
 ```
-
 
 ## Related APIs
 

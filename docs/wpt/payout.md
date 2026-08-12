@@ -8,8 +8,6 @@ description: "RHUB WPT Payout API."
 
 <span className="rhub-method rhub-method--post">POST</span>
 
-*Source of truth: `WPT.md` — from the RHUB documentation export of 2026-08-12 (`https://docs.remittanceshub.com/`).*
-
 :::warning[Publication status — REVIEW REQUIRED]
 
 This page is reproduced from the source file `WPT.md`, which **is present in the RHUB
@@ -214,7 +212,6 @@ The Payout API is used to perform all types of transactions (B2B,C2C,C2B,B2C).
   }
 }
 ```
-
 
 ## Related APIs
 

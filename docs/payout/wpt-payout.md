@@ -8,8 +8,6 @@ description: "RHUB WPT Payout API — wallet payout transactions."
 
 <span className="rhub-method rhub-method--post">POST</span>
 
-*Source of truth: `PAYOUT-WPT.md` — from the RHUB documentation export of 2026-08-12 (`https://docs.remittanceshub.com/`).*
-
 :::info[Endpoint]
 
 `POST`  `http://host/ewallet/api/v1/payoutProcess/api`
@@ -369,7 +367,6 @@ POST http://host/ewallet/api/v1/payoutProcess/api
   }
 }
 ```
-
 
 ## Related APIs
 

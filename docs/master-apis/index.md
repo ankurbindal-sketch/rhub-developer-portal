@@ -8,8 +8,6 @@ description: "Inventory of the RHUB master / reference APIs."
 
 # Master / reference APIs
 
-*Source of truth: `master.md` — from the RHUB documentation export of 2026-08-12 (`https://docs.remittanceshub.com/`).*
-
 The master APIs supply the configuration and reference data required by the transactional APIs. The source states that these APIs provide necessary configuration data (for example remittance purpose, source of funds, bank lists and occupations), and that they are subject to specific requirements and can be invoked at any point within the sequence, depending on the use case.
 
 ## Published master APIs

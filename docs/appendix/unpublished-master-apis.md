@@ -6,8 +6,6 @@ description: "Master API sections that are commented out in the RHUB source."
 
 # Unpublished master APIs
 
-*Source of truth: `master.md` — from the RHUB documentation export of 2026-08-12 (`https://docs.remittanceshub.com/`).*
-
 :::warning[REVIEW REQUIRED — not published by the source]
 
 Each section below is present in `master.md` **inside an HTML comment**, which means it is not rendered by the live RHUB documentation. The contracts are reproduced here verbatim so that no source content is lost, but the source does not establish whether they are current, forthcoming or withdrawn. Confirm with RHUB before using them.
@@ -132,7 +130,6 @@ GET http://host/ewallet/api/v1/customerLegalStatus/getByCustomerTypeCode/100002
 }
 ```
 
-
 ## Payment Mode
 
 `GET` — status: **REVIEW REQUIRED (commented out in source)**
@@ -196,7 +193,6 @@ GET http://host/api/v1/getPaymentMode/paymentmode
  ]
 }
 ```
-
 
 ## Branch List
 
@@ -325,7 +321,6 @@ GET http://host/ewallet/api/v1/payoutbranchlist/BEL/UTIB/1000008396
 }
 ```
 
-
 ## Customer Type
 
 `GET` — status: **REVIEW REQUIRED (commented out in source)**
@@ -403,7 +398,6 @@ GET - http://host/api/v1/customerType/all
 ]
 }
 ```
-
 
 ## Resident Status
 
@@ -513,7 +507,6 @@ GET - http://host/ewallet/api/v1/residenceStatus/customerTypeCode/100001
 }
 ```
 
-
 ## Purpose of Opening Business
 
 `GET` — status: **REVIEW REQUIRED (commented out in source)**
@@ -592,7 +585,6 @@ http://host/ewallet/api/v1/purposeOfOpeningBusiness/getByCustomerTypeCode/100002
 ]
 }
 ```
-
 
 ## Transaction Volume
 
@@ -717,7 +709,6 @@ GET - http://host/ewallet/api/v1/businessTxnVolume/getByCustomerTypeCode/100001
 ]
 }
 ```
-
 
 ## ID Type
 
@@ -907,7 +898,6 @@ GET - http://host/api/v1/idType/getByCustomerTypeCode/{customerTypeCode}
 }
 ```
 
-
 ## Customer Document Fetch
 
 `GET` — status: **REVIEW REQUIRED (commented out in source)**
@@ -995,7 +985,6 @@ http://host/ewallet/api/v1/documentUpload/1000008867?docReferenceNumber=CUS2C83P
 ]
 }
 ```
-
 
 ## Payout Validator
 

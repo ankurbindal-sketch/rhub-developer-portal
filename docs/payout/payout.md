@@ -9,8 +9,6 @@ description: "RHUB Payout API — perform B2B, C2C, C2B and B2C transactions."
 
 <span className="rhub-method rhub-method--post">POST</span>
 
-*Source of truth: `PAYOUT-Api.md` — from the RHUB documentation export of 2026-08-12 (`https://docs.remittanceshub.com/`).*
-
 :::info[Endpoint]
 
 `POST`  `http://host/ewallet/api/v1/payoutProcess/api`
@@ -479,7 +477,6 @@ Rest request details remain same as mentioned above.
   }
 }
 ```
-
 
 ## Related APIs
 

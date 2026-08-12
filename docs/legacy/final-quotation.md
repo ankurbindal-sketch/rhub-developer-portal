@@ -8,8 +8,6 @@ description: "RHUB Final Quotation API (source page not linked in the live docum
 
 <span className="rhub-method rhub-method--post">POST</span>
 
-*Source of truth: `finalQuotation.md` — from the RHUB documentation export of 2026-08-12 (`https://docs.remittanceshub.com/`).*
-
 :::warning[Publication status — REVIEW REQUIRED]
 
 This page is reproduced from the source file `finalQuotation.md`, which **is present in the RHUB
