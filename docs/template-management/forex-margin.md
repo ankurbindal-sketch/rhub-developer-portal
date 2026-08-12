@@ -2,6 +2,7 @@
 title: "Forex Margin"
 sidebar_label: "Forex Margin"
 description: "RHUB Template Management — Forex Margin API."
+unlisted: true
 ---
 
 # Forex Margin
@@ -17,11 +18,12 @@ withdrawn. Treat it as reference material and confirm with RHUB before integrati
 
 :::
 
-:::info[Endpoint]
-
-`GET`  `http://host/ewallet/api/v1/sendClientMarginTemplate/getWalletOwner/{senderCode}`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--get">GET</span>
+    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/sendClientMarginTemplate/getWalletOwner/{senderCode}'}</code>
+  </div>
+</div>
 
 This API is used to get the forex margin set by client.
 

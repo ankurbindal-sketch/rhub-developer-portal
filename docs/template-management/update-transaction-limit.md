@@ -2,6 +2,7 @@
 title: "Update Transaction Limit"
 sidebar_label: "Update Transaction Limit"
 description: "RHUB Template Management — Update Transaction Limit API."
+unlisted: true
 ---
 
 # Update Transaction Limit
@@ -17,11 +18,12 @@ withdrawn. Treat it as reference material and confirm with RHUB before integrati
 
 :::
 
-:::info[Endpoint]
-
-`POST`  `http://host/ewallet/api/v1/sendclienttransactionlimittemplate`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--post">POST</span>
+    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/sendclienttransactionlimittemplate'}</code>
+  </div>
+</div>
 
 The API to add transaction limit.
 

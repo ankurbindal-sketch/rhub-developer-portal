@@ -8,11 +8,12 @@ description: "RHUB Document Upload API — upload customer documents such as ID 
 
 <span className="rhub-method rhub-method--post">POST</span>
 
-:::info[Endpoint]
-
-`POST`  `http://host/ewallet/api/v1/documentUpload/upload/customer`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--post">POST</span>
+    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/documentUpload/upload/customer'}</code>
+  </div>
+</div>
 
 The Document Upload API is used to upload the ID proof documents of the specific customer of the send client.
 

@@ -11,11 +11,12 @@ description: "RHUB Remittance Purpose master API."
 [Go To Payout](/docs/payout/payout#transactioninfo-req-param)
 [Go To WPT](/docs/payout/wpt-payout#transactioninfo-req-param)
 
-:::info[Endpoint]
-
-`GET`  `http://host/ewallet/api/v1/purposeOfRemittance/RHUB/{transactionType}/{countryCode}`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--get">GET</span>
+    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/purposeOfRemittance/RHUB/{transactionType}/{countryCode}'}</code>
+  </div>
+</div>
 
 The Remittance Purpose API is used to fetch the purpose to send the remittance.
 

@@ -18,11 +18,12 @@ withdrawn. Treat it as reference material and confirm with RHUB before integrati
 
 :::
 
-:::info[Endpoint]
-
-`POST`  `https://sandbox-client.remittanceshub.com:8030/ewallet/oauth/token`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--post">POST</span>
+    <code className="rhub-endpoint__url">{'https://sandbox-client.remittanceshub.com:8030/ewallet/oauth/token'}</code>
+  </div>
+</div>
 
 The Login API is used to authenticate and authorize the user.
 

@@ -25,11 +25,12 @@ Every section on this page exists in the RHUB source **inside an HTML comment**,
 
 `POST` — status: **REVIEW REQUIRED (commented out in source)**
 
-:::info[Endpoint]
-
-`POST`  `http://host/ewallet/api/v1/fxratequotation/api`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--post">POST</span>
+    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/fxratequotation/api'}</code>
+  </div>
+</div>
 
 The Quotation API is used to fetch the forex rate between the payin and payout currencies. This is the final price.
 
@@ -186,11 +187,12 @@ POST http://host/ewallet/api/v1/fxratequotation/api
 
 `POST` — status: **REVIEW REQUIRED (commented out in source)**
 
-:::info[Endpoint]
-
-`POST`  `http://host/ewallet/oauth/token`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--post">POST</span>
+    <code className="rhub-endpoint__url">{'http://host/ewallet/oauth/token'}</code>
+  </div>
+</div>
 
 The Login API is used to authenticate and authorize the user.
 
@@ -253,11 +255,12 @@ password : 21ED0D51*****FB437*****8ED2123B6
 
 `PUT` — status: **REVIEW REQUIRED (commented out in source)**
 
-:::info[Endpoint]
-
-`PUT`  `http://host/ewallet/api/v1/customer-registration/{customerCode}`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--put">PUT</span>
+    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/customer-registration/{customerCode}'}</code>
+  </div>
+</div>
 
 The Update Customer API is used to update the details of the registered customer.
 
@@ -510,11 +513,12 @@ PUT http://host/ewallet/api/v1/customer-registration/10000***71
 
 `POST` — status: **REVIEW REQUIRED (commented out in source)**
 
-:::info[Endpoint]
-
-`POST`  `http://host/api/v1/owner-details`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--post">POST</span>
+    <code className="rhub-endpoint__url">{'http://host/api/v1/owner-details'}</code>
+  </div>
+</div>
 
 The Owner Details API is used to create / update the owner in the system.
 
@@ -653,11 +657,12 @@ POST http://host/api/v1/customer-registration
 
 `GET` — status: **REVIEW REQUIRED (commented out in source)**
 
-:::info[Endpoint]
-
-`GET`  `http://host/ewallet/api/v1/customer-registration/all?{customerId}&{fullName}&{walletOwnerCode}&{customerTypeCode}&{offset}&{limit}`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--get">GET</span>
+    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/customer-registration/all?{customerId}&{fullName}&{walletOwnerCode}&{customerTypeCode}&{offset}&{limit}'}</code>
+  </div>
+</div>
 
 The customer search api is used to search for the registered customer based on the customer id or name.
 
@@ -897,11 +902,12 @@ http://host/ewallet/api/v1/customer-registration/all?customerId=100000892912003I
 
 `GET` — status: **REVIEW REQUIRED (commented out in source)**
 
-:::info[Endpoint]
-
-`GET`  `http://host/ewallet/api/v1/customer-registration/beneficiary?{customerTypeCode=value}&{walletOwnerCode=value}&{customerCode=value}&{offset}&{limit}`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--get">GET</span>
+    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/customer-registration/beneficiary?{customerTypeCode=value}&{walletOwnerCode=value}&{customerCode=value}&{offset}&{limit}'}</code>
+  </div>
+</div>
 
 The beneficiary search api is used to search for the beneficiary of registered customer.
 
@@ -1018,11 +1024,12 @@ http://host/ewallet/api/v1/customer-registration/beneficiary?customerTypeCode=10
 
 `POST` — status: **REVIEW REQUIRED (commented out in source)**
 
-:::info[Endpoint]
-
-`POST`  `http://host/ewallet/api/v1/documentUpload/upload/customer`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--post">POST</span>
+    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/documentUpload/upload/customer'}</code>
+  </div>
+</div>
 
 The Document Upload API is used to upload the ID proof documents of the specific customer of the send client.
 

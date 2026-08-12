@@ -18,11 +18,12 @@ withdrawn. Treat it as reference material and confirm with RHUB before integrati
 
 :::
 
-:::info[Endpoint]
-
-`GET`  `http://host/ewallet/api/v1/customer-registration/{parameter}?{sortBy}&{sort}&{offset}&{limit}`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--get">GET</span>
+    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/customer-registration/{parameter}?{sortBy}&{sort}&{offset}&{limit}'}</code>
+  </div>
+</div>
 
 The Customer-Inquiry API is used to fetch the details of the customer.
 

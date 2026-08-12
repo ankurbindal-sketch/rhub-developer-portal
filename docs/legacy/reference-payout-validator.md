@@ -18,11 +18,12 @@ withdrawn. Treat it as reference material and confirm with RHUB before integrati
 
 :::
 
-:::info[Endpoint]
-
-`GET`  `http://host/api/v1/payoutValidator/{partnerCode}/{serviceTypeCode}/{currency}/{userTypeCode}/{modeOfPayment}`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--get">GET</span>
+    <code className="rhub-endpoint__url">{'http://host/api/v1/payoutValidator/{partnerCode}/{serviceTypeCode}/{currency}/{userTypeCode}/{modeOfPayment}'}</code>
+  </div>
+</div>
 
 The Reference API is used to fetch the validator for the receiver.
 

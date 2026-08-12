@@ -17,11 +17,12 @@ Each section below is present in `master.md` **inside an HTML comment**, which m
 
 `GET` — status: **REVIEW REQUIRED (commented out in source)**
 
-:::info[Endpoint]
-
-`GET`  `http://host/ewallet/api/v1/customerLegalStatus/getByCustomerTypeCode/{code}`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--get">GET</span>
+    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/customerLegalStatus/getByCustomerTypeCode/{code}'}</code>
+  </div>
+</div>
 
 The Legal Status code Api of Business.
 
@@ -135,11 +136,12 @@ GET http://host/ewallet/api/v1/customerLegalStatus/getByCustomerTypeCode/100002
 
 `GET` — status: **REVIEW REQUIRED (commented out in source)**
 
-:::info[Endpoint]
-
-`GET`  `http://host/api/v1/getPaymentMode/paymentmode`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--get">GET</span>
+    <code className="rhub-endpoint__url">{'http://host/api/v1/getPaymentMode/paymentmode'}</code>
+  </div>
+</div>
 
 The Payment Mode API is used to fetch the mode of payment.
 
@@ -199,11 +201,12 @@ GET http://host/api/v1/getPaymentMode/paymentmode
 
 `GET` — status: **REVIEW REQUIRED (commented out in source)**
 
-:::info[Endpoint]
-
-`GET`  `http://host/ewallet/api/v1/payoutbranchlist/{countryCode}/{bankCode}/{recieverCode}`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--get">GET</span>
+    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/payoutbranchlist/{countryCode}/{bankCode}/{recieverCode}'}</code>
+  </div>
+</div>
 
 The Branch API is used to fetch the list of the payout banks.
 
@@ -326,11 +329,12 @@ GET http://host/ewallet/api/v1/payoutbranchlist/BEL/UTIB/1000008396
 
 `GET` — status: **REVIEW REQUIRED (commented out in source)**
 
-:::info[Endpoint]
-
-`GET`  `http://host/ewallet/api/v1/customerType/{parameter}`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--get">GET</span>
+    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/customerType/{parameter}'}</code>
+  </div>
+</div>
 
 The Customer Type API is used to fetch all types of the customer.
 
@@ -404,11 +408,12 @@ GET - http://host/api/v1/customerType/all
 
 `GET` — status: **REVIEW REQUIRED (commented out in source)**
 
-:::info[Endpoint]
-
-`GET`  `http://host/ewallet/api/v1/residenceStatus/customerTypeCode/{customerTypeCode}`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--get">GET</span>
+    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/residenceStatus/customerTypeCode/{customerTypeCode}'}</code>
+  </div>
+</div>
 
 The Resident Status API is used to fetch all types of the resident status.
 
@@ -512,11 +517,12 @@ GET - http://host/ewallet/api/v1/residenceStatus/customerTypeCode/100001
 
 `GET` — status: **REVIEW REQUIRED (commented out in source)**
 
-:::info[Endpoint]
-
-`GET`  `http://host/ewallet/api/v1/purposeOfOpeningBusiness/getByCustomerTypeCode/{customerTypeCode}`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--get">GET</span>
+    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/purposeOfOpeningBusiness/getByCustomerTypeCode/{customerTypeCode}'}</code>
+  </div>
+</div>
 
 The Purpose of Opening Business API is used to fetch the purpose of opening the business by the customer.
 
@@ -591,11 +597,12 @@ http://host/ewallet/api/v1/purposeOfOpeningBusiness/getByCustomerTypeCode/100002
 
 `GET` — status: **REVIEW REQUIRED (commented out in source)**
 
-:::info[Endpoint]
-
-`GET`  `http://host/ewallet/api/v1/businessTxnVolume/getByCustomerTypeCode/{customerTypeCode}`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--get">GET</span>
+    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/businessTxnVolume/getByCustomerTypeCode/{customerTypeCode}'}</code>
+  </div>
+</div>
 
 The Customer Sub Type API is used to fetch the transaction volume of the customer.
 
@@ -715,17 +722,18 @@ GET - http://host/ewallet/api/v1/businessTxnVolume/getByCustomerTypeCode/100001
 
 `GET` — status: **REVIEW REQUIRED (commented out in source)**
 
-:::info[Endpoint]
-
-**Of all customers**
-
-`GET`  `http://host/api/v1/idType/{parameter}`
-
-**Of a single customer**
-
-`GET`  `http://host/api/v1/idType/getByCustomerTypeCode/{parameter}`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__label">Of all customers</div>
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--get">GET</span>
+    <code className="rhub-endpoint__url">{'http://host/api/v1/idType/{parameter}'}</code>
+  </div>
+  <div className="rhub-endpoint__label">Of a single customer</div>
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--get">GET</span>
+    <code className="rhub-endpoint__url">{'http://host/api/v1/idType/getByCustomerTypeCode/{parameter}'}</code>
+  </div>
+</div>
 
 The ID Type API is used to fetch the ID type of the customer.
 
@@ -903,11 +911,12 @@ GET - http://host/api/v1/idType/getByCustomerTypeCode/{customerTypeCode}
 
 `GET` — status: **REVIEW REQUIRED (commented out in source)**
 
-:::info[Endpoint]
-
-`GET`  `http://host/ewallet/api/v1/documentUpload/{senderCode}/{docReferenceNumber}`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--get">GET</span>
+    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/documentUpload/{senderCode}/{docReferenceNumber}'}</code>
+  </div>
+</div>
 
 The Document Fetch API is used to fetch the details ID proof documents of the specific customer of the send client.
 
@@ -991,11 +1000,12 @@ http://host/ewallet/api/v1/documentUpload/1000008867?docReferenceNumber=CUS2C83P
 
 `GET` — status: **REVIEW REQUIRED (commented out in source)**
 
-:::info[Endpoint]
-
-`GET`  `http://host/api/v1/payoutValidator/{recieverCode}/{serviceTypeCode}/{currency}/{userTypeCode}/{modeOfPayment}`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--get">GET</span>
+    <code className="rhub-endpoint__url">{'http://host/api/v1/payoutValidator/{recieverCode}/{serviceTypeCode}/{currency}/{userTypeCode}/{modeOfPayment}'}</code>
+  </div>
+</div>
 
 The Pay Validator API is used to fetch the validator for the receiver.
 

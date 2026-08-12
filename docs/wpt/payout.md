@@ -17,11 +17,12 @@ withdrawn. Treat it as reference material and confirm with RHUB before integrati
 
 :::
 
-:::info[Endpoint]
-
-`POST`  `http://host/ewallet/api/v1/payoutProcess/api`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--post">POST</span>
+    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/payoutProcess/api'}</code>
+  </div>
+</div>
 
 The Payout API is used to perform all types of transactions (B2B,C2C,C2B,B2C).
 

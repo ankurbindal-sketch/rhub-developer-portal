@@ -12,6 +12,46 @@ Welcome to the developer documentation for **RHUB (RemittancesHub)**. This porta
 re-presentation of the authoritative RHUB technical documentation, reorganised for
 integration work.
 
+<div className="rhub-cards">
+
+<div className="rhub-card">
+<span className="rhub-card__kicker">Get started</span>
+
+### [Authentication](/docs/authentication/authentication)
+
+Authenticate and obtain the access token required for subsequent calls.
+
+</div>
+
+<div className="rhub-card">
+<span className="rhub-card__kicker">API reference</span>
+
+### [Explore RHUB API contracts](/docs/api-index)
+
+Every documented API, with its method and endpoint, in a single index.
+
+</div>
+
+<div className="rhub-card">
+<span className="rhub-card__kicker">Integration flow</span>
+
+### [The documented API sequence](/docs/getting-started/integration-flow)
+
+The call sequence RHUB supports, and which APIs are called based on the need.
+
+</div>
+
+<div className="rhub-card">
+<span className="rhub-card__kicker">Errors and validation</span>
+
+### [Result codes and field rules](/docs/errors)
+
+Current API error codes, transaction status codes, and correspondent validation requirements.
+
+</div>
+
+</div>
+
 ## About Us
 
 >RemittancesHub (RHUB) is a licensed financial institution operating an Alternate Cross Border Network for Inbound & Outbound Payments, which enables international fund transfers into Bank Accounts of Beneficiaries (both corporate & individual):
@@ -29,28 +69,39 @@ JSON format is a light weight data interchange format, and text format has multi
 
 The APIs described on this forum are limited to Financial Institution Customer.
 
-## Where to start
-
-| Step | Page |
-|---|---|
-| 1. Understand the call sequence | [Integration flow](/docs/getting-started/integration-flow) |
-| 2. Read the portal conventions | [How to read this reference](/docs/getting-started/conventions) |
-| 3. Authenticate | [Authentication](/docs/authentication/authentication) |
-| 4. Price a transaction | [Quotation](/docs/quotation/quotation) |
-| 5. Send funds | [Payout](/docs/payout/payout) · [WPT Payout](/docs/payout/wpt-payout) |
-| 6. Track the transaction | [Transaction Enquiry](/docs/transactions/transaction-enquiry) |
-
 ## Core integration journey
 
-```text
-LOGIN / AUTHENTICATION
-        ↓
-QUOTATION
-        ↓
-PAYOUT
-        ↓
-TRANSACTION ENQUIRY
-```
+<div className="rhub-flow">
+
+<div className="rhub-flow__step">
+<span className="rhub-flow__index">01</span>
+
+[Login / Authentication](/docs/authentication/authentication)
+
+</div>
+
+<div className="rhub-flow__step">
+<span className="rhub-flow__index">02</span>
+
+[Quotation](/docs/quotation/quotation)
+
+</div>
+
+<div className="rhub-flow__step">
+<span className="rhub-flow__index">03</span>
+
+[Payout](/docs/payout/payout)
+
+</div>
+
+<div className="rhub-flow__step">
+<span className="rhub-flow__index">04</span>
+
+[Transaction Enquiry](/docs/transactions/transaction-enquiry)
+
+</div>
+
+</div>
 
 The source states that the API call sequence is limited to the Login API, Quotation API,
 Payout API and Transaction Enquiry API, and that the remaining APIs can be called based on

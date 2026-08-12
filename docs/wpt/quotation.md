@@ -17,11 +17,12 @@ withdrawn. Treat it as reference material and confirm with RHUB before integrati
 
 :::
 
-:::info[Endpoint]
-
-`POST`  `http://host/ewallet/api/v1/fxratequotation/api`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--post">POST</span>
+    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/fxratequotation/api'}</code>
+  </div>
+</div>
 
 The Quotation API is used to fetch the forex rate between the payin and payout currencies. This is an indicative price and transaction limit.
 

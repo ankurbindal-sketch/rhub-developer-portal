@@ -2,6 +2,7 @@
 title: "Update Service Fee"
 sidebar_label: "Update Service Fee"
 description: "RHUB Template Management — Update Service Fee API."
+unlisted: true
 ---
 
 # Update Service Fee
@@ -17,11 +18,12 @@ withdrawn. Treat it as reference material and confirm with RHUB before integrati
 
 :::
 
-:::info[Endpoint]
-
-`POST`  `http://host/ewallet/api/v1/senderClientfeeTemplate`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--post">POST</span>
+    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/senderClientfeeTemplate'}</code>
+  </div>
+</div>
 
 The API to add client service fees.
 

@@ -15,11 +15,12 @@ There are two methods for registering a customer:
 
 If you choose auto-registration (on-the-fly registration) during payout, this API is not required.
 
-:::info[Endpoint]
-
-`POST`  `http://host/ewallet/api/v1/customer-registration`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--post">POST</span>
+    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/customer-registration'}</code>
+  </div>
+</div>
 
 The Customer-Registration API is used to register or create the customer in the system.
 

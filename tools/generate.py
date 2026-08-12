@@ -61,6 +61,13 @@ HIDDEN_FROM_PUBLIC_NAV = {
     'legacy/transaction-inquiry.md',
     'legacy/balance.md',
     'legacy/reference-payout-validator.md',
+    'template-management/index.md',
+    'template-management/service-fee.md',
+    'template-management/update-service-fee.md',
+    'template-management/transaction-list.md',
+    'template-management/update-transaction-limit.md',
+    'template-management/forex-margin.md',
+    'template-management/update-forex-margin.md',
     'appendix/source-notes.md',
     'appendix/unpublished-master-apis.md',
     'appendix/unpublished-apis.md',
@@ -195,7 +202,14 @@ def slugify(name):
 
 
 def endpoint_of(body):
-    """First endpoint URL found in a converted body (for the API index only)."""
+    """First endpoint URL found in a converted body (for the API index only).
+
+    Matches the endpoint block emitted by rhubconv.render_endpoint first, then falls
+    back to a plain backticked URL. The value itself is never rewritten.
+    """
+    m = re.search(r'rhub-endpoint__url">\{\'([^\']+)\'\}', body)
+    if m:
+        return m.group(1)
     m = re.search(r'`(https?://[^`]+)`', body)
     return m.group(1) if m else 'REVIEW REQUIRED'
 
@@ -240,32 +254,81 @@ Welcome to the developer documentation for **RHUB (RemittancesHub)**. This porta
 re-presentation of the authoritative RHUB technical documentation, reorganised for
 integration work.
 
-{provenance('README.md')}
+<div className="rhub-cards">
+
+<div className="rhub-card">
+<span className="rhub-card__kicker">Get started</span>
+
+### [Authentication](/docs/authentication/authentication)
+
+Authenticate and obtain the access token required for subsequent calls.
+
+</div>
+
+<div className="rhub-card">
+<span className="rhub-card__kicker">API reference</span>
+
+### [Explore RHUB API contracts](/docs/api-index)
+
+Every documented API, with its method and endpoint, in a single index.
+
+</div>
+
+<div className="rhub-card">
+<span className="rhub-card__kicker">Integration flow</span>
+
+### [The documented API sequence](/docs/getting-started/integration-flow)
+
+The call sequence RHUB supports, and which APIs are called based on the need.
+
+</div>
+
+<div className="rhub-card">
+<span className="rhub-card__kicker">Errors and validation</span>
+
+### [Result codes and field rules](/docs/errors)
+
+Current API error codes, transaction status codes, and correspondent validation requirements.
+
+</div>
+
+</div>
 
 {readme}
 
-## Where to start
-
-| Step | Page |
-|---|---|
-| 1. Understand the call sequence | [Integration flow](/docs/getting-started/integration-flow) |
-| 2. Read the portal conventions | [How to read this reference](/docs/getting-started/conventions) |
-| 3. Authenticate | [Authentication](/docs/authentication/authentication) |
-| 4. Price a transaction | [Quotation](/docs/quotation/quotation) |
-| 5. Send funds | [Payout](/docs/payout/payout) · [WPT Payout](/docs/payout/wpt-payout) |
-| 6. Track the transaction | [Transaction Enquiry](/docs/transactions/transaction-enquiry) |
-
 ## Core integration journey
 
-```text
-LOGIN / AUTHENTICATION
-        ↓
-QUOTATION
-        ↓
-PAYOUT
-        ↓
-TRANSACTION ENQUIRY
-```
+<div className="rhub-flow">
+
+<div className="rhub-flow__step">
+<span className="rhub-flow__index">01</span>
+
+[Login / Authentication](/docs/authentication/authentication)
+
+</div>
+
+<div className="rhub-flow__step">
+<span className="rhub-flow__index">02</span>
+
+[Quotation](/docs/quotation/quotation)
+
+</div>
+
+<div className="rhub-flow__step">
+<span className="rhub-flow__index">03</span>
+
+[Payout](/docs/payout/payout)
+
+</div>
+
+<div className="rhub-flow__step">
+<span className="rhub-flow__index">04</span>
+
+[Transaction Enquiry](/docs/transactions/transaction-enquiry)
+
+</div>
+
+</div>
 
 The source states that the API call sequence is limited to the Login API, Quotation API,
 Payout API and Transaction Enquiry API, and that the remaining APIs can be called based on

@@ -18,11 +18,12 @@ withdrawn. Treat it as reference material and confirm with RHUB before integrati
 
 :::
 
-:::info[Endpoint]
-
-`GET`  `https://sandbox-client.remittanceshub.com:8030/ewallet/api/v1/transactionInfo/{parameter}?{fromDate}&{toDate}&{types}&{status}&{sendingPartnerCode}&{offset}&{limit}`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--get">GET</span>
+    <code className="rhub-endpoint__url">{'https://sandbox-client.remittanceshub.com:8030/ewallet/api/v1/transactionInfo/{parameter}?{fromDate}&{toDate}&{types}&{status}&{sendingPartnerCode}&{offset}&{limit}'}</code>
+  </div>
+</div>
 
 The Transaction Inquiry API is used to fetch the statement for the specified period.
 

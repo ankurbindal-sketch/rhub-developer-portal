@@ -10,11 +10,12 @@ description: "RHUB Business Registration Type master API."
 
 [Go To Payout](/docs/payout/payout#transactioninfo-req-param)
 
-:::info[Endpoint]
-
-`GET`  `http://host/ewallet/api/v1/masterBusinessRegistrationTypes/RHUB/{transactionType}`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--get">GET</span>
+    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/masterBusinessRegistrationTypes/RHUB/{transactionType}'}</code>
+  </div>
+</div>
 
 The Business registration type API is used to fetch the registration type of business customers.
 

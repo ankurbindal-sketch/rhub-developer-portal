@@ -2,6 +2,7 @@
 title: "Transaction List"
 sidebar_label: "Transaction List"
 description: "RHUB Template Management — Transaction List API."
+unlisted: true
 ---
 
 # Transaction List
@@ -17,11 +18,12 @@ withdrawn. Treat it as reference material and confirm with RHUB before integrati
 
 :::
 
-:::info[Endpoint]
-
-`GET`  `http://host/ewallet/api/v1/sendclienttransactionlimittemplate/walletowner/{senderCode}`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--get">GET</span>
+    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/sendclienttransactionlimittemplate/walletowner/{senderCode}'}</code>
+  </div>
+</div>
 
 This API is used to get the transaction limit set by client.
 

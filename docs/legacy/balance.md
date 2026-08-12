@@ -18,11 +18,12 @@ withdrawn. Treat it as reference material and confirm with RHUB before integrati
 
 :::
 
-:::info[Endpoint]
-
-`GET`  `http://host/api/v1/balance/{parameter}`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--get">GET</span>
+    <code className="rhub-endpoint__url">{'http://host/api/v1/balance/{parameter}'}</code>
+  </div>
+</div>
 
 The Balance API is used to fetch the current balance in the ledger of the partner. The balance can be fetched for the entire ledger of a specific currency.
 

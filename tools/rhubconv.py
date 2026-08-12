@@ -440,7 +440,7 @@ def md_table_rows(block):
     return rows
 
 
-def convert_endpoint_tables(text):
+def convert_endpoint_tables(text, ep_store):
     """Markdown tables of the form 'About the API | Request URL | Request Method'."""
     lines = text.split('\n')
     out = []
@@ -456,7 +456,7 @@ def convert_endpoint_tables(text):
             if rows and len(rows) >= 3:
                 header = rows[0]
                 data_rows = rows[2:]
-                out.extend(render_endpoint(header, data_rows))
+                out.extend(render_endpoint(header, data_rows, ep_store))
                 i = j
                 continue
         out.append(lines[i])
@@ -464,7 +464,13 @@ def convert_endpoint_tables(text):
     return '\n'.join(out)
 
 
-def render_endpoint(header, data_rows):
+def render_endpoint(header, data_rows, ep_store):
+    """Render an 'About the API / Request URL / Request Method' table as an endpoint block.
+
+    Presentation only: the method string and the URL string are reproduced exactly as the
+    source writes them. The URL is emitted inside a JSX string expression so that path
+    placeholders such as {countryCode} survive MDX untouched.
+    """
     lines = ['']
     hl = [h.lower() for h in header]
     for row in data_rows:
@@ -480,23 +486,29 @@ def render_endpoint(header, data_rows):
             elif 'url' in k:
                 label = re.sub(r'^request url\s*', '', k, flags=re.I).strip()
                 urls.append((label, cell))
-        method = methods[0] if methods else ''
-        lines.append(':::info[Endpoint]')
-        lines.append('')
+        method = (methods[0] if methods else '').strip()
+        lines.append('<div className="rhub-endpoint">')
         for label, url in urls:
             clean = url.replace('<br />', '').replace('\\|', '|').strip()
             clean = re.sub(r'\s+', '', clean)
-            prefix = '`%s`  ' % method.strip() if method.strip() else ''
             if label:
-                lines.append('**%s**' % label.strip().capitalize())
-                lines.append('')
-            lines.append('%s`%s`' % (prefix, clean))
-            lines.append('')
-        lines.append(':::')
-        lines.append('')
+                lines.append('  <div className="rhub-endpoint__label">%s</div>'
+                             % label.strip().capitalize())
+            lines.append('  <div className="rhub-endpoint__row">')
+            if method:
+                lines.append('    <span className="rhub-method rhub-method--%s">%s</span>'
+                             % (method.lower(), method))
+            lines.append("    <code className=\"rhub-endpoint__url\">{%s}</code>"
+                         % repr(clean))
+            lines.append('  </div>')
+        lines.append('</div>')
+        token = '@@RHUBEP%d@@' % len(ep_store)
+        ep_store.append('\n'.join(lines[1:]))
+        out = ['', token, '']
         if about:
-            lines.append(about.replace('<br />', ' ').strip())
-            lines.append('')
+            out.append(about.replace('<br />', ' ').strip())
+            out.append('')
+        return out
     return lines
 
 
@@ -507,7 +519,7 @@ def render_endpoint(header, data_rows):
 
 def escape_mdx(text):
     """Escape MDX-hostile characters outside fenced/inline code."""
-    parts = re.split(r'(```.*?```|`[^`\n]*`|@@RHUBCODE\d+@@)', text, flags=re.S)
+    parts = re.split(r'(```.*?```|`[^`\n]*`|@@RHUBCODE\d+@@|@@RHUBEP\d+@@)', text, flags=re.S)
     for idx in range(0, len(parts)):
         if idx % 2 == 1:
             continue
@@ -573,7 +585,8 @@ def convert(source_text, promote_headings=0, drop_first_h1=False):
     t = convert_notes(t)
     t = convert_anchors(t)
     t = convert_inline(t)
-    t = convert_endpoint_tables(t)
+    ep_store = []
+    t = convert_endpoint_tables(t, ep_store)
 
     if promote_headings:
         def lift(m):
@@ -587,6 +600,8 @@ def convert(source_text, promote_headings=0, drop_first_h1=False):
 
     t = escape_mdx(t)
     t = fix_md_tables(t)
+    for i, block in enumerate(ep_store):
+        t = t.replace('@@RHUBEP%d@@' % i, block)
     t = restore_code(t, store)
     return tidy(t)
 

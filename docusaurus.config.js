@@ -112,13 +112,16 @@ const config = {
       logo: {
         alt: 'RemittancesHub — Cross Border Business Payments',
         src: 'img/rhub.png',
-        width: 165,
-        height: 28,
+        width: 189,
+        height: 32,
       },
       items: [
+        // "Master APIs" was removed from the global navbar: the Master / reference API
+        // section is already a top-level sidebar category and is listed in the API Index,
+        // so a third entry point added clutter without adding a route. The pages and the
+        // sidebar section are unchanged.
         {type: 'docSidebar', sidebarId: 'docsSidebar', position: 'left', label: 'Documentation'},
-        {to: '/docs/api-index', label: 'API index', position: 'left'},
-        {to: '/docs/master-apis', label: 'Master APIs', position: 'left'},
+        {to: '/docs/api-index', label: 'API Index', position: 'left'},
         {to: '/docs/errors', label: 'Errors', position: 'left'},
       ],
     },

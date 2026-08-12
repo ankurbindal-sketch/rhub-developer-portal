@@ -106,28 +106,15 @@ const sidebars = {
       link: {type: 'doc', id: 'wpt/wpt-index'},
       items: ['wpt/customer-registration', 'wpt/quotation', 'wpt/payout'],
     },
-    {
-      type: 'category',
-      label: 'Template management',
-      collapsed: true,
-      link: {type: 'doc', id: 'template-management/template-index'},
-      items: [
-        'template-management/service-fee',
-        'template-management/update-service-fee',
-        'template-management/transaction-list',
-        'template-management/update-transaction-limit',
-        'template-management/forex-margin',
-        'template-management/update-forex-margin',
-      ],
-    },
     // Recovery / audit material is intentionally NOT exposed here.
     //
     // The following categories were removed from the public developer navigation and must
-    // not be re-added: "Unlinked source pages" (docs/legacy/*), "Project reference"
+    // not be re-added: "Template management" (docs/template-management/*),
+    // "Unlinked source pages" (docs/legacy/*), "Project reference"
     // (docs/appendix/source-notes, unpublished-master-apis, unpublished-apis, licence).
     //
     // The pages themselves are still generated and still ship in the repository for
-    // auditability. tools/generate.py marks them `unlisted: true` (see
+    // auditability. tools/generate.py marks all of them `unlisted: true` (see
     // HIDDEN_FROM_PUBLIC_NAV there), which also keeps them out of site search and the
     // sitemap. The licence page stays public and is reachable from the footer.
   ],

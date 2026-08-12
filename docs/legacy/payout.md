@@ -18,11 +18,12 @@ withdrawn. Treat it as reference material and confirm with RHUB before integrati
 
 :::
 
-:::info[Endpoint]
-
-`POST`  `https://sandbox-client.remittanceshub.com:8030/ewallet/api/v1/payoutProcess`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--post">POST</span>
+    <code className="rhub-endpoint__url">{'https://sandbox-client.remittanceshub.com:8030/ewallet/api/v1/payoutProcess'}</code>
+  </div>
+</div>
 
 The Payout API is used to perform the business-to-business (B2B) transaction.
 

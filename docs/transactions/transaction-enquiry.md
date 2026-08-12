@@ -8,11 +8,12 @@ description: "RHUB Transaction Enquiry API — check the status of a previously 
 
 <span className="rhub-method rhub-method--get">GET</span>
 
-:::info[Endpoint]
-
-`GET`  `http://host/ewallet/api/v1/transactionInfo/api?types=all&status=all&transId={value}`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--get">GET</span>
+    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/transactionInfo/api?types=all&status=all&transId={value}'}</code>
+  </div>
+</div>
 
 The Transaction Enquiry API is used to fetch the statement for the specified period.
 

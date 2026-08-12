@@ -10,11 +10,12 @@ description: "RHUB Customer/Individual Document Type master API."
 
 [Go To Customer Registration](/docs/customers/customer-registration)
 
-:::info[Endpoint]
-
-`GET`  `http://host/ewallet/api/v1/customerDocumentType/getByCustomerTypeCode/{customerTypeCode}`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--get">GET</span>
+    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/customerDocumentType/getByCustomerTypeCode/{customerTypeCode}'}</code>
+  </div>
+</div>
 
 The Customer Document Type API is used to fetch the ID proof documents of the customer. (for specific customer type)
 

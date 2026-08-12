@@ -8,11 +8,12 @@ description: "RHUB WPT Payout API — wallet payout transactions."
 
 <span className="rhub-method rhub-method--post">POST</span>
 
-:::info[Endpoint]
-
-`POST`  `http://host/ewallet/api/v1/payoutProcess/api`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--post">POST</span>
+    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/payoutProcess/api'}</code>
+  </div>
+</div>
 
 This Payout API is used to perform all types of Wallet transactions (C2C).
 

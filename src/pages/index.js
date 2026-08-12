@@ -38,6 +38,33 @@ const SEQUENCE = [
   },
 ];
 
+const ENTRY_POINTS = [
+  {
+    kicker: 'Get started',
+    title: 'Authentication and integration basics',
+    body: 'Authenticate, obtain an access token, and learn the conventions this reference uses.',
+    to: '/docs/authentication/authentication',
+  },
+  {
+    kicker: 'API reference',
+    title: 'Explore RHUB API contracts',
+    body: 'Every documented API, with its method and endpoint, in a single index.',
+    to: '/docs/api-index',
+  },
+  {
+    kicker: 'Integration flow',
+    title: 'The source-backed API sequence',
+    body: 'The call sequence RHUB supports, and which APIs are called based on the need.',
+    to: '/docs/getting-started/integration-flow',
+  },
+  {
+    kicker: 'Errors and validation',
+    title: 'Result codes and field requirements',
+    body: 'Current API error codes, transaction status codes and correspondent validation rules.',
+    to: '/docs/errors',
+  },
+];
+
 const CAPABILITIES = [
   {
     kicker: 'Customers',
@@ -136,6 +163,26 @@ function Rail() {
   );
 }
 
+function EntryPoints() {
+  return (
+    <section className="rhub-section">
+      <div className="container">
+        <span className="rhub-eyebrow">Start here</span>
+        <h2>Choose where to go</h2>
+        <div className="rhub-grid">
+          {ENTRY_POINTS.map((c) => (
+            <Link key={c.title} className="rhub-card" to={c.to}>
+              <span className="rhub-card__kicker">{c.kicker}</span>
+              <h3>{c.title}</h3>
+              <p>{c.body}</p>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Capabilities() {
   return (
     <section className="rhub-section">
@@ -188,6 +235,7 @@ export default function Home() {
       title="RHUB Developer Portal"
       description="Developer documentation for the RHUB (RemittancesHub) cross-border remittance APIs: authentication, quotation, payout, transaction enquiry, master data and validation rules.">
       <Hero />
+      <EntryPoints />
       <Rail />
       <Capabilities />
       <Fidelity />

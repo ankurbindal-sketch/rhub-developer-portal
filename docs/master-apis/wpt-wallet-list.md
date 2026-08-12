@@ -8,11 +8,12 @@ description: "RHUB WPT Wallet List master API."
 
 <span className="rhub-method rhub-method--get">GET</span>
 
-:::info[Endpoint]
-
-`GET`  `http://host/ewallet/api/v1/walletList/{countryCode}/{currencyCode}/{receiverCode}/WPT`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--get">GET</span>
+    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/walletList/{countryCode}/{currencyCode}/{receiverCode}/WPT'}</code>
+  </div>
+</div>
 
 The Wallet list API is used to fetch the list of WPT providers.
 

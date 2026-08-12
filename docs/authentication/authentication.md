@@ -19,11 +19,12 @@ are **REVIEW REQUIRED** and are not inferred here.
 
 :::
 
-:::info[Endpoint]
-
-`POST`  `http://host/ewallet/oauth/token`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--post">POST</span>
+    <code className="rhub-endpoint__url">{'http://host/ewallet/oauth/token'}</code>
+  </div>
+</div>
 
 The Login API is used to authenticate and authorize the user.
 

@@ -8,11 +8,12 @@ description: "RHUB Bank List master API."
 
 <span className="rhub-method rhub-method--get">GET</span>
 
-:::info[Endpoint]
-
-`GET`  `http://host/ewallet/api/v1/payoutbanklist/{country}/{currency}/{recieverCode}`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--get">GET</span>
+    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/payoutbanklist/{country}/{currency}/{recieverCode}'}</code>
+  </div>
+</div>
 
 The Bank List API is used to fetch the list of the bank.
 

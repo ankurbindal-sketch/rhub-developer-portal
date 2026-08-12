@@ -4,6 +4,7 @@ title: "Template management"
 sidebar_label: "Overview"
 slug: "/template-management"
 description: "RHUB template management APIs: service fee, transaction limit, forex margin."
+unlisted: true
 ---
 
 # Template management

@@ -8,11 +8,12 @@ description: "RHUB Balance Enquiry API — retrieve the current wallet or accoun
 
 <span className="rhub-method rhub-method--get">GET</span>
 
-:::info[Endpoint]
-
-`GET`  `http://host/ewallet/api/v1/wallet/walletOwner/{walletOwnerCode}`
-
-:::
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--get">GET</span>
+    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/wallet/walletOwner/{walletOwnerCode}'}</code>
+  </div>
+</div>
 
 The Balance API is used to fetch the current balance in the ledger of the partner. The balance can be fetched for the entire ledger of a specific currency.
 
