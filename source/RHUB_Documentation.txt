@@ -1,0 +1,2062 @@
+========== README.md ==========
+![RHub](./img/rhub.png)
+# The RemittancesHub
+
+## About Us
+
+>RemittancesHub (RHUB) is a licensed financial institution operating an Alternate Cross Border Network for Inbound & Outbound Payments, which enables international fund transfers into Bank Accounts of Beneficiaries (both corporate & individual):
+
+* In near real-time.
+* At significantly lower costs vs. traditional channels.
+* With end-to-end transaction tracking.
+* Visit https://www.remittanceshub.com/ to know more.
+
+
+## Overview
+
+To integrate the RHUB services the Representational State Transfer (REST) API is used. The HTTP methods POST, GET, PUT, and DELETE HTTP methods are used to send the Request parameter of the API in JavaScript Object Notation (JSON) format.
+
+JSON format is a light weight data interchange format, and text format has multiple name/value pairs, and is independent of language.
+
+The APIs described on this forum are limited to Financial Institution Customer.
+
+VM127:4 
+
+========== apisequence.md ==========
+![RHub](./img/rhub.png)
+# Sequence of API Call
+
+The RHUB supports the API call in the following sequence.
+ 1. <a class='hyperlinkHeading' href='#/AUTH'>Login (Authentication) API</a>
+ ➤ Required to authenticate and obtain access tokens for subsequent calls.
+ 2. <a class='hyperlinkHeading' href='#/QUOTA'> Quotation API</a>
+ ➤ Used to fetch the exchange rate and charges before initiating a payout.
+ 3. <a class='hyperlinkHeading' href='#/master?id=get-bank-list'> Bank List API</a>
+ ➤ Retrieves the list of bank details and related parameters required by a specific correspondent, based on the provided receiver code.
+ 4. <a class='hyperlinkHeading' href='#/PAYOUT-Api?id=post-document-upload'>Document Upload API</a>
+ ➤ Enables the client to upload customer-related documents, including ID proofs and invoices.
+ 5. <a class='hyperlinkHeading' href='#/PAYOUT-Api'>Payout API</a>
+ ➤ Initiates the fund transfer based on the selected quotation and beneficiary.
+ 6. <a class='hyperlinkHeading' href='#/ENQUIRY?id=get-transaction-enquiry'>Transaction Enquiry API</a>
+ ➤ Used to check the status of a previously initiated payout.
+ 7. <a class='hyperlinkHeading' href='#/ENQUIRY?id=get-balance'>Balance API</a>
+ ➤ Retrieves the current wallet or account balance.
+ * <a class='hyperlinkHeading' href='#/master'>Master API</a>
+ ➤ These provide necessary configuration data (e.g., remittance purpose, source of funds, bank lists, occupations etc). This API is subject to specific requirements and can be invoked at any point within the sequence, depending on the use case.
+
+<!-- The following flow describes the API call sequence. -->
+
+<!-- ![Sequence of Api Call](./img/apiseq.png) -->
+
+However, the API call sequence is limited to the Login API, Quotation API, Payout API, and Transaction Enquiry API and the remaining APIs can be called based on the need.
+VM127:4 
+
+========== AUTH.md ==========
+![RHub](./img/rhub.png)
+<!-- # Customer Registration -->
+
+## <span class="backgroundBlueBtn">POST</span> **Authentication**
+
+| About the API |	Request URL |	Request Method |
+  |:-------------|:--------------|:--------------|
+  |The Login API is used to authenticate and authorize the user.	| http://host/ewallet/oauth/token	| POST |
+
+
+### Request Parameter
+
+<!-- | Parameters     | Data Type | Requirement | Description |
+|----------|:-----:|:-----------:|--------|
+| grant_type     | String   |M  | URL parameter |
+| scope         | String   |M  | It is the read and write access to the endpoints|
+| username      | String   |M  | The user ID or username |
+| password      | String   |M  | The password in unreadable format | -->
+
+<table>
+  <tr>
+    <th>Parameters</th>
+    <th>Input Type</th>
+    <th>Length</th>
+    <th>Requirement</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>grant_type</td>
+    <td>Alphanumeric</td>
+    <td class="textCenter">08</td>
+    <td class="textCenter">M</td>
+    <td>password</td>
+  </tr>
+  <!-- <tr>
+    <td>scope</td>
+    <td>Alphanumeric</td>
+    <td class="textCenter">50</td>
+    <td class="textCenter">M</td>
+    <td>Defines read and write access to the endpoints</td>
+  </tr> -->
+  <tr>
+    <td>username</td>
+    <td>Alphanumeric</td>
+    <td class="textCenter">10</td>
+    <td class="textCenter">M</td>
+    <td>The user ID or username.</td>
+  </tr>
+  <tr>
+    <td>password</td>
+    <td>Alphanumeric (Encrypted)</td>
+    <td class="textCenter">0 - 128</td>
+    <td class="textCenter">M</td>
+    <td>Password in unreadable/hashed format</td>
+  </tr>
+</table>
+
+
+
+<p class="version">* M : Mandatory, O : Optional, C : Conditional</p>
+
+### Header Parameter
+<!-- | Parameters     | Data Type  | Requirement | Description |
+|----------|:------------:|:-----:|--------|
+| authorization     | String  |M  | URL parameter | -->
+
+<table>
+  <tr>
+    <th>Parameters</th>
+    <th>Input Type</th>
+    <th>Length</th>
+    <th>Requirement</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>channel</td>
+    <td>Alpha</td>
+    <td class="textCenter">03</td>
+    <td class="textCenter">M</td>
+    <td>WEB</td>
+  </tr>
+  <tr>
+    <td>source</td>
+    <td>Alpha</td>
+    <td class="textCenter">05</td>
+    <td class="textCenter">M</td>
+    <td>AGENT</td>
+  </tr>
+  <tr>
+    <td>Accept-Language</td>
+    <td>Alpha</td>
+    <td class="textCenter">02</td>
+    <td class="textCenter">M</td>
+    <td>en</td>
+  </tr>
+</table>
+
+
+
+<p class="version">* M : Mandatory, O : Optional, C : Conditional</p>
+
+### Request Details
+
+<div class="tap-to-open">
+  <button onclick="toggleContent('code')" class="buttonGrey"> <ion-icon class="icons show" name="eye"></ion-icon> <ion-icon class="icons hide" name="eye-off"></ion-icon></button>
+  <div class="code" style="display: none;">
+
+        POST /services HTTP/1.0
+        HOST: XXX.XXX.XXX.XXX:Port
+        Content-Type: application/json; charset=utf-8
+        POST http://host/ewallet/oauth/token
+        FormData : grant_type=password&scope=read%20write&username=1000008340
+        password : 21ED0D51*****FB437*****8ED2123B6
+
+  </div>
+  </div>
+
+### Response Parameter
+
+| Parameters     | Data Type  | Requirement | Description |
+|----------|:-----:|:------------:|--------|
+| access_token     | String   |M  | Token to identify and authorize the user. |
+| token_type         | String   |M  | Type of the access token.|
+| expires_in      | String   |M  | Duration of time in seconds within which the access token expires. |
+| scope     | String   |M  |  |
+| clientCode     | String   |M  |  |
+| locale    | String   |M  |  |
+
+<p class="version">* M : Mandatory, O : Optional, C : Conditional</p>
+
+### Response Details
+
+<div class="tap-to-open">
+  <button onclick="toggleContent('code')" class="buttonGrey"> <ion-icon class="icons show" name="eye"></ion-icon> <ion-icon class="icons hide" name="eye-off"></ion-icon></button>
+  <div class="code" style="display: none;">
+
+    {
+    "access_token": "15*****f-54fe-43d9-***7-b7dc****1b9",
+    "token_type": "bearer",
+    "expires_in": 21150,
+    "scope": "read write trust",
+    "clientCode": "1000008483",
+    "locale": "en"
+    }
+
+  </div>
+</div>
+
+ <!-- {
+    "access_token": "ebf44678-d205-42ac-9dae-2bdea2fbdca5",
+    "token_type": "bearer",
+    "expires_in": 43199,
+    "scope": "read write",
+    "timeZone": "(UTC+02:00)",
+    "userCountryCode": "100132",
+    "userCode": "105432",
+    "firstLoginStatus": "N",
+    "walletOwnerCode": "1000008340",
+    "username": "Abdou1495",
+    } -->
+
+<!-- ----------------------------------------------------------------------------- -->
+VM127:4 
+
+========== QUOTA.md ==========
+![RHub](./img/rhub.png)
+
+<!-- # QUOTATION -->
+
+## <span class="backgroundBlueBtn">POST</span> **Quotation**
+
+| About the API |	Request URL |	Request Method |
+|:-------------|:--------------|:--------------|
+|The Quotation API is used to fetch the forex rate between the payin and payout currencies. This is an indicative price and transaction limit.	| http://host/ewallet/api/v1/fxratequotation/api| POST |
+
+The Quotation API is used to generate a transaction quotation before initiating a payout. It provides an estimated cost, exchange rate, and payout amount based on the transaction parameters shared by the sender. This API ensures transparency by allowing users to view applicable rates, fees, and final payout values before confirming the actual transaction.
+
+### Request Parameter
+
+<!-- | Parameters     | Data Type  | Requirement | Description |
+|----------|:---------:|:-------:|--------|
+| payinAmount     | String   |C  | The payin amount from the end sender. |
+| payoutAmount     | String   |C  | The amount that will be credited to the end receiver’s account. |
+| sendCurrencyCode     | String   |M  | The code of the currency in which the sender sends the money. |
+| destinationCountryCode     | String   |M  | The code of the country in which the sender sends the money. |
+| receiveCurrencyCode     | String   |M  | The code of the currency in which the receiver receives the money. |
+| serviceTypeCode     | String   |M  | The following are the service types<br> • B2B<br> • C2C<br> • B2C<br> • C2B<br> • WPT |
+| settlementCurrencyCode     | String   |M  | The code of the currency in which the settlement is done. |
+| paymentMode   | String   |M  | The following modes that can be used for payment.<br> • Cash <br> •  Bank |
+| sourceCountry   | String   |M  | 3-digit Country Code |
+| senderCode   | String   |M  | The send partner code |
+| customerCode   | String   |O  | The registered customer code |
+| chargeTypeCode   | String   |O  | Types of charges | -->
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameters</th>
+      <th>Input Type</th>
+      <th>Length</th>
+      <th>Requirement</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>payinAmount</td>
+      <td class="textCenter">Numeric with decimal</td>
+      <td class="textCenter">01 - 16</td>
+      <td class="textCenter">C</td>
+      <td>The payin amount from the end sender. eg: 1500.56 <br>
+      either enter the payinAmount or payoutAmount</td>
+    </tr>
+    <tr>
+      <td>payoutAmount</td>
+      <td class="textCenter">Numeric with decimal</td>
+      <td class="textCenter">01 - 16</td>
+      <td class="textCenter">C</td>
+      <td>The amount that will be credited to the end receiver’s account. eg: 1500.56<br>
+      either enter the payinAmount or payoutAmount</td>
+    </tr>
+    <tr>
+      <td>sendCurrencyCode</td>
+      <td class="textCenter">Alphanumeric with hyphens</td>
+      <td class="textCenter">03 - 15</td>
+      <td class="textCenter">M</td>
+      <td>The code of the currency in which the sender sends the money. eg: USD-USA, EUR</td>
+    </tr>
+    <tr>
+      <td>destinationCountryCode</td>
+      <td class="textCenter">Alpha</td>
+      <td class="textCenter">03</td>
+      <td class="textCenter">M</td>
+      <td>The 3-digit country code of the country in which the sender sends the money. eg: USA, SGP</td>
+    </tr>
+    <tr>
+      <td>receiveCurrencyCode</td>
+      <td class="textCenter">Alphanumeric with hyphens</td>
+      <td class="textCenter">03 - 15</td>
+      <td class="textCenter">M</td>
+      <td>The code of the currency in which the receiver receives the money. eg: USD-USA, EUR</td>
+    </tr>
+    <tr>
+      <td>serviceTypeCode</td>
+      <td class="textCenter">Alphanumeric</td>
+      <td class="textCenter">03</td>
+      <td class="textCenter">M</td>
+      <td>The following are the service types. eg: B2C<br>• B2B<br>• C2C<br>• B2C<br>• C2B<br>• WPT</td>
+    </tr>
+    <tr>
+      <td>settlementCurrencyCode</td>
+      <td class="textCenter">Alphanumeric with hyphens</td>
+      <td class="textCenter">03 - 15</td>
+      <td class="textCenter">M</td>
+      <td>The code of the currency in which the settlement is done. eg: USD-USA, EUR</td>
+    </tr>
+    <tr>
+      <td>paymentMode</td>
+      <td class="textCenter">Alpha</td>
+      <td class="textCenter">04</td>
+      <td class="textCenter">M</td>
+      <td>The following modes that can be used for payment. eg: Cash <br>• Cash<br>• Bank</td>
+    </tr>
+    <tr>
+      <td>sourceCountry</td>
+      <td class="textCenter">Alpha</td>
+      <td class="textCenter">03</td>
+      <td class="textCenter">M</td>
+      <td>Sourcing Country's 3-digit Country Code. eg: USA, SGP</td>
+    </tr>
+    <tr>
+      <td>senderCode</td>
+      <td class="textCenter">Numeric</td>
+      <td class="textCenter">10</td>
+      <td class="textCenter">M</td>
+      <td>The send partner code. eg:1000009999</td>
+    </tr>
+    <tr>
+      <td>customerCode</td>
+      <td class="textCenter">Nu
+VM127:4 
+
+========== DocumentUpload.md ==========
+![RHub](./img/rhub.png)
+
+## <span class="backgroundBlueBtn">POST</span> **Document Upload**
+
+
+<table>
+<colgroup>
+<col style="width: 45%" />
+<col style="width: 45%" />
+<col style="width: 10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>About the API</th>
+<th>Request URL</th>
+<th>Request Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The Document Upload API is used to upload the ID proof documents of the specific customer of the send client.</td>
+<td>http://host/ewallet/api/v1/documentUpload/upload/customer</td>
+<td class="textCenter">POST</td>
+</tr>
+</tbody>
+</table>
+
+
+### Request Parameter
+
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameters</th>
+<th>Input Type</th>
+<th>Length</th>
+<th>Requirement</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>walletOwnerCode</td>
+<td class="textCenter">Numeric</td>
+<td class="textCenter">10</td>
+<td class="textCenter">M</td>
+<td>To unique code of the customer whose ID proof document is to be
+uploaded. eg: 1000090909</td>
+</tr>
+<tr class="even">
+<td>docReference<br />
+Number</td>
+<td class="textCenter">Alphanumeric </td>
+<td class="textCenter">10 - 30</td>
+<td class="textCenter">M</td>
+<td>To unique code of the ID proof document that is to be uploaded. eg:ABCDE12345 (should contains 10 to 30 digits alpha numeric only)</td>
+</tr>
+<!-- removing below 2 rows on pankaj sir review -->
+<!-- <tr class="even">
+<td>docType<br />Code</td>
+<td class="textCenter">String</td>
+<td class="textCenter">O</td>
+<td>The predefined code corresponding to the different document types. (for more info, please refer to <a href='#master?id=get-id-type'> ID Type Api</a>) </td>
+</tr>
+<tr class="even">
+<td>transId</td>
+<td class="textCenter">String</td>
+<td class="textCenter">O</td>
+<td>The transaction id (can be set blank while registering customer)</td>
+</tr> -->
+
+<tr class="even"> 
+<td>file</td>
+<td class="textCenter">application/pdf, image/jpg, image/jpeg, image/png</td>
+<td class="textCenter">5000kb max</td>
+<td class="textCenter">M</td>
+<!-- <td>The actual uploaded document in base64 string format. (not more than 1000kb)</td> -->
+<td>The actual document which needs to be uploaded in pdf, jpg, jpeg or png format. (not more than 5000kb)</td>
+</tr>
+</tbody>
+</table>
+
+<p class="version">* M : Mandatory, O : Optional, C : Conditional</p>
+
+### Request Details
+
+<div class="tap-to-open">
+  <button onclick="toggleContent('code')" class="buttonGrey"> <ion-icon class="icons show" name="eye"></ion-icon> <ion-icon class="icons hide" name="eye-off"></ion-icon></button>
+  <div class="code" style="display: none;">
+
+    POST /services HTTP/1.0
+    HOST: XXX.XXX.XXX.XXX:Port
+    Content-Type: application/json; charset=utf-8
+    POST -
+    http://host/ewallet/api/v1/documentUpload/upload/customer
+
+</div>
+</div>
+
+### Response Parameter
+
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 15%" />
+<col style="width: 14%" />
+<col style="width: 35%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameters</th>
+<th>Data Type</th>
+<th>Requirement</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>transactionId</td>
+<td class="textCenter">String</td>
+<td class="textCenter">M</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>requestTime</td>
+<td class="textCenter">String</td>
+<td class="textCenter">M</td>
+<td>This is the requested date and time in the Day Mmm DD HH:MM:SS
+TIMEZONE YYYY.</td>
+</tr>
+<tr class="odd">
+<td>responseTime</td>
+<td class="textCenter">String</td>
+<td class="textCenter">M</td>
+<td>This is the response date and time in the Day Mmm DD HH:MM:SS
+TIMEZONE YYYY.</td>
+</tr>
+<tr class="even">
+<td>resultCode</td>
+<td class="textCenter">String</td>
+<td class="textCenter">M</td>
+<td>Unique code of the status of the transaction.</td>
+</tr>
+<tr class="odd">
+<td>resultDescription</td>
+<td class="textCenter">String</td> 
+<td class="textCenter">M</td>
+<td>Description of the status of the transaction.</td>
+</tr>
+<tr class="even">
+<td colspan="5" style="font-weight:bold;">Doc Upload</td>
+</tr>
+<tr class="odd">
+<td>code</td>
+<td class="textCenter">String</td>
+<td class="textCenter">M</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>walletOwnerCode</td>
+<td class="textCenter">String</td>
+<td class="textCenter">M</td>
+<td>The unique code of the customer or wallet owner whose document is to
+be fetched.</td>
+</tr>
+<tr class="odd">
+<td>docReferenceNumber</td>
+<td class="textCenter">String</td>
+<td class="textCenter">M</td>
+<td>To unique code of the document, recieved after uploading the document.</td>
+</tr>
+<tr class="even">
+<td>transId</td>
+<td class="textCenter">String</td>
+<td class="textCenter">M</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>fileName</td>
+<td class="textCenter">String</td>
+<td class="textCenter">M</td>
+<td>The file name of the ID proof document to be fetched.</td>
+</tr>
+<tr class="even">
+<td>byteArr</td>
+<td class="textCenter">String</td>
+<td class="textCenter">M</td>
+<td>The byte array used to store the binary data.</td>
+</tr>
+<tr class="odd">
+<td>fileLocation</td>
+<td class="textCenter">String</td>
+<td class="textCenter">M</td>
+<td>The location where the ID proof document is stored.</td>
+</tr>
+<tr class="even">
+<td>createdOn</td>
+<td class="textCenter">String</td>
+<td class="textCenter">M</td>
+<td>The date and time when the ID proof document was uploaded. The
+date and time conforms the following format.
+YYYY-MM-DD<br />
+&lt;Delimiter&gt;<br />
+HH:MM:SS.MS<br />
+TIMEZONE</td>
+</tr>
+<tr class="odd">
+<td>status</td>
+<td class="textCenter">String</td>
+<td class="textCenter">M</td>
+<td>The status of the ID proof document.</td>
+</tr>
+<tr class="even">
+<td>createdBy</td>
+<td class="textCenter">String</td>
+<td class="textCenter">M</td>
+<td>The unique code of the agent who uploaded the ID proof document of
+the customer or wallet owner.</td>
+</tr>
+<tr class="odd">
+<td>source</td>
+<td class="textCenter">String</td>
+<td class="textCenter">M</td>
+<td>The source who uploaded the ID proof document of the customer or
+wallet owner.</td>
+</tr>
+<tr class="even">
+<td>docTypeCode</td>
+<td class="textCenter">String</td>
+<td class="textCenter">M</td>
+<td>The unique code of the ID proof document that was uploaded.</td>
+</tr>
+<tr class="odd">
+<td>docTypeName</td>
+<td class="textCenter">String</td>
+<td class="textCenter">M</td>
+<td>The name of the ID proof document that was uploaded.</td>
+</tr>
+<tr class="even">
+<td>sendClientName</td>
+<td class="textCenter">String</td>
+<td class="textCenter">M</td>
+<td>The name of the send client under whom the customer is
+registered.</td>
+</tr>
+</tbody>
+</table>
+
+<p class="version">* M : Mandatory, O : Optional, C : Conditional</p>
+
+### Response Details
+
+<div class="tap-to-open">
+  <button onclick="toggleContent('code')" class="buttonGrey"> <ion-icon class="icons show" name="eye"></ion-icon> <ion-icon class="icons hide" name="eye-off"></ion-icon></button>
+  <div class="code" style="display: none;">
+
+    {
+      transactionId	"8299691"
+      requestTime	"Thu Jun 20 15:29:37 IST 2024"
+      responseTime	"Thu Jun 20 15:29:37 IST 2024"
+      resultCode	"0"
+      resultDescription	"Transaction successful"
+      docUpload	Object { walletOwnerCode: "1000008998", docReferenceNumber:
+       "CUSYC5A3ZH", fileName: "ID_front-960x600_CUSYC5A3ZH_20240620152937.jpg", … }
+      code	""
+      walletOwnerCode	"1000008998"
+      docReferenceNumber	"CUSYC5A3ZH"
+      transId	""
+      fileName	"ID_front-960x600_CUSYC5A3ZH_20240620152937.jpg"
+      byteArr	null
+      fileLocation	"/opt/documentUpload/1000008998/CUSYC5A3ZH"
+      createdOn	"2024-06-20T15:29:37.584+0530"
+      status	"Active"
+      createdBy	"105790"
+      source	"CLIENT"
+      docTypeCode	"100007"
+      docTypeName	"Certificate of Incorporation"
+      sendClientName	"marvel "
+      createdByName	"marvel "
+    }
+
+</div>
+</div>
+
+
+VM127:4 
+
+========== PAYOUT-Api.md ==========
+![RHub](./img/rhub.png)
+
+<!-- # Payout -->
+
+## <span class="backgroundBlueBtn">POST</span> **Payout**
+
+| About the API |	Request URL |	Request Method |
+  |:-------------|:--------------|:--------------|
+  |The Payout API is used to perform all types of transactions (B2B,C2C,C2B,B2C).	| http://host/ewallet/api/v1/payoutProcess/api | POST |
+
+
+This API ensures a seamless payout experience by validating sender and receiver details, performing compliance checks, and processing transactions securely and efficiently.
+
+<span class="textBlue textBold">Request Structure</span>
+
+The payout request is composed of four main objects, each serving a specific purpose in the transaction workflow:
+- transactionInfo - 
+Contains detailed information about the transaction, such as quotation details (received from the Quotation API), currency pair, transaction amount, and payout type.
+This section helps the system identify exchange rates, fees, and payout mode for the transaction.
+
+- sender - 
+Provides complete details of the sender, whether it’s a business entity or an individual customer.
+Includes information like name, ID and country of origin. This ensures the sender is properly verified before initiating a payout.
+
+- receiver - 
+Defines the beneficiary details, which could also be an individual or a business.
+It includes recipient information like bank account or wallet details, country, and other receiver details. The receiver object ensures funds are routed accurately to the intended destination.
+
+- compliance - 
+Contains compliance and regulatory information, including purpose codes, source of funds, and AML/KYC verification details.
+This helps ensure all transactions adhere to legal and jurisdictional requirements, reducing the risk of fraud or financial misuse.
+
+### <span class="textBlue"> transactionInfo</span> Req Param
+
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 10%" />
+<col style="width: 35%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameters</th>
+<th>Input Type</th>
+<th>Length</th>
+<th>Requirement</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="5" style="font-weight:bold;">transactionInfo</td>
+</tr>
+<tr>
+<td>payinAmount</td>
+<td class="textCenter">Numeric with decimal</td>
+<td class="textCenter">01 - 16</td>
+<td class="textCenter">M</td>
+<td>The payin amount from the end sender. eg:1000.50,700</td>
+</tr>
+<tr>
+<td>payinCurrency</td>
+<td class="textCenter">Alphanumeric with hyphens</td>
+<td class="textCenter">03 - 15</td>
+<td class="textCenter">M</td>
+<td>The payin or local currency from the end sender. eg:USD-USA, EUR</td>
+</tr>
+<tr>
+<td>type</td>
+<td class="textCenter">Alphanumeric</td>
+<td class="textCenter">03</td>
+<td class="textCenter">M</td>
+<td>The harmonized Transaction Type. Fixed default value B2C B2B, and
+C2C, C2B. eg:B2B, B2C</td>
+</tr>
+<tr>
+<td>requestDate</td>
+<td class="textCenter">Date</td>
+<td class="textCenter">10 - 19</td>
+<td class="textCenter">M</td>
+<td>dd-mm-yyyy eg: 10-01-2025</td>
+</tr>
+<tr>
+<td>sendClient<br />
+TrxReference</td>
+<td class="textCenter">Alphanumeric</td>
+<td class="textCenter">10 - 30</td>
+<td class="textCenter">M</td>
+<td>The RHUB transaction reference must contain 10 to 30 alphanumeric characters. eg:DDHD446CNNUY</td>
+</tr>
+<!-- <tr>
+<td>provider</td>
+<td class="textCenter">String</td>
+<td class="textCenter"></td>
+<td class="textCenter">O</td>
+<td></td>
+</tr> -->
+<tr>
+<td>paymentMode</td>
+<td class="textCenter">Alpha</td>
+<td class="textCenter">04</td>
+<td class="textCenter">M</td>
+<td>The following modes that can be used for payment. eg:Cash
+<ul>
+<li>Cash</li>
+<!-- <li>Cheque</li> -->
+<li>Bank</li>
+</ul></td>
+</tr>
+<tr>
+<td>descriptionText</td>
+<td class="textCenter">Alphanumeric</td>
+<td class="textCenter">01 - 25</td>
+<td class="textCenter">M</td>
+<td>The text description of the transaction provided by the client. eg:GJGJ877HNGG (maximum 25 alphanumeric characters)</td>
+</tr>
+<!-- <tr>
+<td>paymentOption</td>
+<td class="textCenter">String</td>
+<td class="textCenter"></td>
+<td class="textCenter">O</td>
+<td></td>
+</tr> -->
+<tr>
+<td>sendClientCode</td>
+<td class="textCenter">Numeric</td>
+<td class="textCenter">10</td>
+<td class="textCenter">M</td>
+<td>The send client’s transaction reference number. eg:1000009999</td>
+</tr>
+<tr>
+<td>payoutCurrency</td>
+<td class="textCenter">Alphanumeric with hyphens</td>
+<td class="textCenter">03 - 20</td>
+<td class="textCenter">M</td>
+<td>The currency in which money is credited to the end receiver’s bank
+account. eg:USD-USA, EUR</td>
+</tr>
+<tr>
+<td>payoutAmount</td>
+<td class="textCenter">Numeric with decimal</td>
+<td class="textCenter">01 - 16</td>
+<td class="textCenter">M</td>
+<td>The amount that will be credited to the end receiver’s account. eg:16700.50,5666 (including decimal values)</td>
+</tr>
+<tr>
+<td>destinationCountryCode</td>
+<td class="textCenter">Alpha</td>
+<td class="textCenter">03</td>
+<t
+VM127:4 
+
+========== PAYOUT-WPT.md ==========
+![RHub](./img/rhub.png)
+
+<!-- # Payout -->
+
+## <span class="backgroundBlueBtn">POST</span> **WPT Payout**
+
+| About the API |	Request URL |	Request Method |
+  |:-------------|:--------------|:--------------|
+  |This Payout API is used to perform all types of Wallet transactions (C2C).	| http://host/ewallet/api/v1/payoutProcess/api | POST |
+
+
+This API ensures a seamless payout experience by validating sender and receiver details, performing compliance checks, and processing transactions securely and efficiently.
+
+<span class="textOrange">Request Structure</span>
+
+The payout request is composed of four main objects, each serving a specific role in the Customer-to-Customer (C2C) transaction workflow:
+- transactionInfo - 
+Contains detailed information about the transaction, such as quotation details (received from the Quotation API), currency pair, transaction amount, and payout type.
+This section helps the system identify exchange rates, fees, and payout mode for the transaction.
+
+- sender - 
+Provides complete details of the individual initiating the transfer.
+Includes information such as full name, identification details, and country of origin. This ensures the sender is properly verified before the transaction is processed.
+
+- receiver - 
+Defines the beneficiary details, who is also an individual customer.
+It includes recipient information such as full name, wallet account or payout method details, country, and other required personal information.
+The receiver object ensures funds are routed accurately to the intended individual beneficiary.
+
+- compliance - 
+Contains regulatory and compliance-related information, including purpose of remittance, source of funds, and AML/KYC verification details.
+This ensures that the transaction adheres to legal and jurisdictional requirements and helps reduce the risk of fraud or misuse.
+
+### <span class="textBlue"> transactionInfo</span> Req Param
+
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 10%" />
+<col style="width: 35%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameters</th>
+<th>Input Type</th>
+<th>Length</th>
+<th>Requirement</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="5" style="font-weight:bold;">transactionInfo</td>
+</tr>
+<tr>
+<td>payinAmount</td>
+<td class="textCenter">Numeric with decimal</td>
+<td class="textCenter">01 - 16</td>
+<td class="textCenter">M</td>
+<td>The payin amount from the end sender. eg:1000.50,700</td>
+</tr>
+<tr>
+<td>payinCurrency</td>
+<td class="textCenter">Alphanumeric with hyphens</td>
+<td class="textCenter">03 - 15</td>
+<td class="textCenter">M</td>
+<td>The payin or local currency from the end sender. eg:USD-USA, EUR</td>
+</tr>
+<tr>
+<td>type</td>
+<td class="textCenter">Alphanumeric</td>
+<td class="textCenter">03</td>
+<td class="textCenter">M</td>
+<td>The harmonized Transaction Type. eg: WPT</td>
+</tr>
+<tr>
+<td>requestDate</td>
+<td class="textCenter">Date</td>
+<td class="textCenter">10 - 19</td>
+<td class="textCenter">M</td>
+<td>dd-mm-yyyy eg: 10-01-2025</td>
+</tr>
+<tr>
+<td>sendClient<br />
+TrxReference</td>
+<td class="textCenter">Alphanumeric</td>
+<td class="textCenter">10 - 30</td>
+<td class="textCenter">M</td>
+<td>The RHUB transaction reference must contain 10 to 30 alphanumeric characters. eg:DDHD446CNNUY</td>
+</tr>
+<!-- <tr>
+<td>provider</td>
+<td class="textCenter">String</td>
+<td class="textCenter"></td>
+<td class="textCenter">O</td>
+<td></td>
+</tr> -->
+<tr>
+<td>paymentMode</td>
+<td class="textCenter">Alpha</td>
+<td class="textCenter">04</td>
+<td class="textCenter">M</td>
+<td>The following modes that can be used for payment. eg:Cash
+<ul>
+<li>Cash</li>
+<li>Bank</li>
+</ul></td>
+</tr>
+<tr>
+<td>descriptionText</td>
+<td class="textCenter">Alphanumeric</td>
+<td class="textCenter">01 - 25</td>
+<td class="textCenter">M</td>
+<td>The text description of the transaction provided by the client. eg:GJGJ877HNGG (maximum 25 alphanumeric characters)</td>
+</tr>
+<!-- <tr>
+<td>paymentOption</td>
+<td class="textCenter">String</td>
+<td class="textCenter"></td>
+<td class="textCenter">O</td>
+<td></td>
+</tr> -->
+<tr>
+<td>sendClientCode</td>
+<td class="textCenter">Numeric</td>
+<td class="textCenter">10</td>
+<td class="textCenter">M</td>
+<td>The send client’s transaction reference number. eg:1000009999</td>
+</tr>
+<tr>
+<td>payoutCurrency</td>
+<td class="textCenter">Alphanumeric with hyphens</td>
+<td class="textCenter">03 - 20</td>
+<td class="textCenter">M</td>
+<td>The currency in which money is credited to the end receiver’s account. eg: BIF</td>
+</tr>
+<tr>
+<td>payoutAmount</td>
+<td class="textCenter">Numeric with decimal</td>
+<td class="textCenter">01 - 16</td>
+<td class="textCenter">M</td>
+<td>The amount that will be credited to the end receiver’s account. eg:16700.50,5666 (including decimal values)</td>
+</tr>
+<tr>
+<td>destinationCountryCode</td>
+<td class="textCenter">Alpha</td>
+<td class="textCenter">03</td>
+<td class="text
+VM127:4 
+
+========== ENQUIRY.md ==========
+![RHub](./img/rhub.png)
+<!-- # Enquiry -->
+
+<!-- ## <span class="backgroundGreenBtn">GET</span> **Customer Enquiry** -->
+
+<!-- | About the API |	Request URL |	Request Method |
+|:-------------|:--------------|:--------------|
+|This Customer-Enquiry API is used to fetch the details of all the customers of the client.	| http://host/ewallet/api/v1/customer-registration/all| GET |
+|This Customer-Enquiry API is used to fetch the details of all the customers based on Business/Individual type.	| http://host/ewallet/api/v1/customer-registration/all?sortBy=creationDate&offset=0&limit=10&sort=desc&walletOwnerCode={walletOwnerCode}&customerTypeCode={customerTypeCode}| GET | -->
+
+<!-- |The Customer-Enquiry API is used to fetch the details of the customer.	| http://host/ewallet/api/v1/customer-registration/{parameter}?{sortBy}&{sort}&{offset}&{limit} | GET | -->
+
+<!-- ### Request Parameter
+
+| Parameters     | Input Type |  Length  | Requirement | Description |
+|----------|:-----------:|:-----:|:-----:|--------|
+| all     | Alpha | 03  | C  | To get all the registered customer of specific client. Use 'all' to get all the customers detail. |
+| customerCode     | Numeric | 10  | C  | The 10 digit customer code of the registered customer. eg: 1000009898. Use it to get specific customer detail. | -->
+
+<!-- | Parameters     | Data Type  | Requirement | Description |
+|----------|:-----------:|:-----:|--------|
+| walletOwnerCode     | String   |O  | The 10 digit code of the send client. eg: 1000009090 |
+| customerTypeCode     | String   |O  | To fetch the details based on type. for Business: 100002, for Individual: 100001 |
+| sortBy         | String   |M  | To sort the data based on the creation date of the customer.|
+| sort         | String   |M  | |
+| offset         | String   |M  | From where to fetch the data.|
+| limit         | String   |M  | The count of the record to be displayed in a single page.|
+
+<p class="version">* M : Mandatory, O : Optional, C : Conditional</p>
+
+### Request Details 
+
+<div class="tap-to-open">
+  <button onclick="toggleContent('code')" class="buttonGrey"> <ion-icon class="icons show" name="eye"></ion-icon> <ion-icon class="icons hide" name="eye-off"></ion-icon></button>
+  <div class="code" style="display: none;">
+
+    GET /services HTTP/1.0
+    HOST: XXX.XXX.XXX.XXX:Port
+    Content-Type: application/json; charset=utf-8
+    GET http://host/ewallet/api/v1/customer-registration/all 
+    GET http://host/ewallet/api/v1/customer-registration/all?sortBy=creationDate&offset=0&limit=10&sort=desc&walletOwnerCode=1000008960&customerTypeCode=100002
+
+</div>
+</div> -->
+
+<!-- ### Request of the Specific Customer
+The details of the specific customer of the send client can be fetched based on the following parameters.
+* code
+* walletOwnerCode
+* customerTypeCode :by default
+* customerSubTypeCode
+* customerId
+* fullName
+* mobileNumber
+* dateOfBirth
+* email
+* tradeName -->
+
+<!-- ### Response Details
+
+<div class="tap-to-open">
+  <button onclick="toggleContent('code')" class="buttonGrey"> <ion-icon class="icons show" name="eye"></ion-icon> <ion-icon class="icons hide" name="eye-off"></ion-icon></button>
+  <div class="code" style="display: none;">
+
+      {
+    "transactionId": "14488177",
+    "requestTime": "Wed Dec 10 18:14:24 IST 2025",
+    "responseTime": "Wed Dec 10 18:14:24 IST 2025",
+    "resultCode": "0",
+    "resultDescription": "Transaction successful",
+    "pageable": {
+    "limit": 10,
+    "offset": 0,
+    "totalRecords": 83,
+    "sort": "desc",
+    "sortBy": "creationDate"
+    },
+    "customerRegistrationList": [
+    {
+      "id": 2953,
+      "code": "1000003041",
+      "customerTypeCode": "100002",
+      "customerSubTypeCode": "100001",
+      "walletOwnerCode": "1000008960",
+      "customerId": "100000896013041B",
+      "fullName": "VVVVFA Daredevils",
+      "tradeName": "VVVVFA Daredevils",
+      "legalStatusCode": "RHB002",
+      "natureOfBusinessCode": "RHT011",
+      "email": "pankaj.singh@remittanceshub.com",
+      "mobileNumber": "999157956",
+      "addressLine1": "new delhi new",
+      "city": "new delhi",
+      "state": "new delhi",
+      "pincode": "323434",
+      "countryCode": "MWI",
+      "idNumber": "8787666611",
+      "idCountry": "MWI",
+      "screeningStatus": "SP",
+      "screeningScore": "100.0",
+      "screeningUniqueId": "1000001-5c7f-4d24-a03f-92a10904c9a8",
+      "screeningDate": "2025-12-10T14:08:00.081+0530",
+      "thirdPartyDetermination": false,
+      "isSenderPep": false,
+      "declaration": true,
+      "customerStatus": "Active",
+      "customerState": "System Approved",
+      "customerStateCode": "AA",
+      "countryName": "Malawi",
+      "idCountryName": "Malawi",
+      "legalStatusName": "Corporation",
+      "natureOfBusinessName": "Professional Services",
+      "customerTypeName": "Juridical Owner",
+      "creationDate": "2025-12-10T14:07:29.284+0530",
+      "modificationDate": "2025-12-10T14:07:29.562+0530",
+      "createdBy": "105758",
+   
+VM127:4 
+
+========== master.md ==========
+![RHub](./img/rhub.png)
+<!-- # Master APIs -->
+
+<!-- The master APIs include multiple APIs which are used to fetch the
+following details.
+
+- Purpose of the remittance
+- Source of the fund
+- Relationship
+- Payment mode
+- Occupation
+- Bank list
+- Account type
+- Branch
+- Type of the customer
+- Resident status
+- Legal status of the customer
+- Purpose of opening the business
+- Nature of the business
+- Transaction volume of the business
+- Type of the customer’s occupation
+- Type of the ID
+- Type of the ID proof document of the customer
+- Document upload -->
+
+## <span class="backgroundGreenBtn">GET</span> **Remittance Purpose**
+
+<a class="hyperLink" href="#/PAYOUT-Api?id=-transactioninfo-req-param">Go To Payout</a>
+<a class="hyperLink" href="#/PAYOUT-WPT?id=-transactioninfo-req-param">Go To WPT</a>
+
+<table>
+<colgroup>
+<col style="width: 45%" />
+<col style="width: 45%" />
+<col style="width: 10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>About the API</th>
+<th>Request URL</th>
+<th>Request Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The Remittance Purpose API is used to fetch the purpose to send the remittance.</td>
+<!-- <td>http://host/ewallet/api/v1/<br>purposeOfRemittance/{recieverCode}/{type}/{country}</td> -->
+<td>http://host/ewallet/api/v1/<br>purposeOfRemittance/RHUB/{transactionType}/{countryCode}</td>
+<td class="textCenter">GET</td>
+</tr>
+</tbody>
+</table>
+
+### Request Parameter
+
+| Parameters      | Input Type | Length | Requirement | Description                                                                                                  |
+|-----------------|:-----------:|:-----------:|:-----------:|--------------------------------------------------------------------------------------------------------------|
+| transactionType            | Alphanumeric      |   03  | M  |  The harmonized Transaction Type. Fixed default value B2C, B2B, C2C, C2B. |
+| countryCode   | Alpha   | 03  | M  | The country code of reciever. eg: ARE,IND |
+<!-- | recieverCode | String           | M |    The code of the payout partner.        | -->
+
+<p class="version">* M : Mandatory, O : Optional, C : Conditional</p>
+
+### Request Details
+
+<div class="tap-to-open">
+  <button onclick="toggleContent('code')" class="buttonGrey"> <ion-icon class="icons show" name="eye"></ion-icon> <ion-icon class="icons hide" name="eye-off"></ion-icon></button>
+  <div class="code" style="display: none;">
+
+    GET /services HTTP/1.0
+    HOST: XXX.XXX.X.XXX:Port
+    Content-Type: application/json; charset=utf-8
+    GET http://host/ewallet/api/v1/purposeOfRemittance/RHUB/B2B/ARE
+
+</div>
+    <!-- GET http://host/ewallet/api/v1/purposeOfRemittance/100******7/B2B/ARE -->
+</div>
+
+
+### Response Parameter
+
+| Parameters        |        Data Type | Requirement | Description                                                                 |
+|-------------------|:----------:|:------------:|-------------------------------------------------------------------------------|
+| requestTime       |        String           | M  | This is the requested date and time in the Day Mmm DD HH:MM:SS TIMEZONE YYYY. |
+| responseTime      |        String           | M  | This is the response date and time in the Day Mmm DD HH:MM:SS TIMEZONE YYYY.  |
+| resultCode        |        String           | M  | The unique code of the status of the transaction.                             |
+| resultDescription |       String           | M  | Description of the status of the transaction.                                 |
+| **Result**            |       |                 |            |                                                                               |
+|           Result - data  | String           | M  |                                                                               |
+|           Result - value | String           | M  |                                                                               |
+
+<p class="version">* M : Mandatory, O : Optional, C : Conditional</p>
+
+### Response Details
+
+<!-- <div class="tap-to-open">
+  <button onclick="toggleContent('code')" class="buttonGrey"> <ion-icon class="icons show" name="eye"></ion-icon> <ion-icon class="icons hide" name="eye-off"></ion-icon></button>
+  <div class="code" style="display: none;">
+
+    {
+    "requestTime": "Thu Aug 03 12:18:12 IST 2023",
+    "responseTime": "Thu Aug 03 12:18:12 IST 2023",
+    "resultCode": "0",
+    "resultDescription": "Transaction successful",
+    "result": [
+     {
+            "data": "AES",
+            "value": "Advance payment against EOS"
+        },
+        {
+            "data": "ATS",
+            "value": "Air transport"
+        },
+        {
+            "data": "ALW",
+            "value": "Allowance"
+        },
+        {
+            "data": "BON",
+            "value": "Bonus"
+        },
+        {
+            "data": "CIN",
+            "value": "Commercial Investments"
+        },
+        {
+            "data": "COM",
+            "value": "Commission"
+     
+VM127:4 
+
+========== CUSTOMEREGIS.md ==========
+![RHub](./img/rhub.png)
+<!-- # Customer Registration -->
+
+## <span class="backgroundBlueBtn">POST</span> **Customer Registration**
+
+There are two methods for registering a customer: 
+
+* Using this API.
+* On-the-fly registration during payout.
+
+If you choose auto-registration (on-the-fly registration) during payout, this API is not required.
+
+| About the API |	Request URL |	Request Method |
+  |:-------------|:--------------|:--------------|
+  |The Customer-Registration API is used to register or create the customer in the system.	| http://host/ewallet/api/v1/customer-registration | POST |
+
+
+### Request Parameter of Business Customer
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameters</th>
+      <th>Input Type</th>
+      <th>Length</th>
+      <th>Requirement</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>customerTypeCode</td>
+      <td class="textCenter">Numeric</td>
+      <td class="textCenter">06</td>
+      <td class="textCenter">M</td>
+      <td>Individual : 100001, Business : 100002 eg: 100002</td>
+    </tr>
+    <tr>
+      <td>customerSubTypeCode</td>
+      <td class="textCenter">Numeric</td>
+      <td class="textCenter">06</td>
+      <td class="textCenter">M</td>
+      <td>100001</td>
+    </tr>
+    <tr>
+      <td>docReferenceNumber</td>
+      <td class="textCenter">Alphanumeric</td>
+      <td class="textCenter">10 - 30</td>
+      <td class="textCenter">M</td>
+      <td>10 digit unique doc reference number, used while uploading document. eg: GHJ7K87GJGG6 (should contains 10 to 30 digits alpha numeric only)</td>
+    </tr>
+    <tr>
+      <td>walletOwnerCode</td>
+      <td class="textCenter">Numeric</td>
+      <td class="textCenter">10</td>
+      <td class="textCenter">M</td>
+      <td>Send Client Code. eg:1000009999</td>
+    </tr>
+    <tr>
+      <td>tradeName</td>
+      <td class="textCenter">Alphanumeric</td>
+      <td class="textCenter">01 - 70</td>
+      <td class="textCenter">M</td>
+      <td>Company trade name. eg: Hcl tech</td>
+    </tr>
+    <tr>
+      <td>natureOfBusinessCode</td>
+      <td class="textCenter">Alphanumeric</td>
+      <td class="textCenter">06 - 10</td>
+      <td class="textCenter">M</td>
+      <td>Select the suited data received from nature of business Api. (eg: RHT011 , refer <a class="hyperLink" href="#/master??id=get-nature-of-business"> NatureOfBusinessApi</a> )</td>
+    </tr>
+    <tr>
+    <td>dialCode</td>
+    <td class="textCenter">Alphanumeric with '+' symbol</td>
+    <td class="textCenter">02 - 04</td>
+    <td class="textCenter">C</td>
+    <td>Country dial code. eg: +1, +91<br>
+      note: Required when the contact number dial code does not match the selected country code.</td>
+    </tr>
+    <tr>
+      <td>mobileNumber</td>
+      <td class="textCenter">Alphanumeric</td>
+      <td class="textCenter">07 - 20</td>
+      <td class="textCenter">M</td>
+      <td>Contact number. eg: 9090909090</td>
+    </tr>
+    <tr>
+      <td>email</td>
+      <td class="textCenter">Alphanumeric + special characters (Email format)</td>
+      <td class="textCenter">01 - 50</td>
+      <td class="textCenter">M</td>
+      <td>Email id of customer. eg: hcl@gmail.com</td>
+    </tr>
+    <tr>
+      <td>addressLine1</td>
+      <td class="textCenter">Alphanumeric</td>
+      <td class="textCenter">01 - 35</td>
+      <td class="textCenter">M</td>
+      <td>Address detail of business. eg: A455 Wall street</td>
+    </tr>
+    <tr>
+      <td>countryCode</td>
+      <td class="textCenter">Alpha</td>
+      <td class="textCenter">03</td>
+      <td class="textCenter">M</td>
+      <td>3-digit Country code of business's address. eg:MWI,DZA etc</td>
+    </tr>
+    <tr>
+      <td>state</td>
+      <td class="textCenter">Alpha</td>
+      <td class="textCenter">01 - 50</td>
+      <td class="textCenter">M</td>
+      <td>State eg: Delhi</td>
+    </tr>
+    <tr>
+      <td>city</td>
+      <td class="textCenter">Alpha</td>
+      <td class="textCenter">01 - 50</td>
+      <td class="textCenter">M</td>
+      <td>City eg: Delhi</td>
+    </tr>
+    <tr>
+      <td>pincode</td>
+      <td class="textCenter">Alphanumeric</td>
+      <td class="textCenter">01 - 10</td>
+      <td class="textCenter">M</td>
+      <td>Pincode eg: SDFC2345</td>
+    </tr>
+    <tr>
+      <td>businessRelationshipCode</td>
+      <td class="textCenter">Numeric</td>
+      <td class="textCenter">06</td>
+      <td class="textCenter">O</td>
+      <td>for International Remittance use : 100003, for Others use : 100004</td>
+    </tr>
+    <tr>
+      <td>businessAuthorizedPerson</td>
+      <td class="textCenter">Alpha</td>
+      <td class="textCenter">01 - 50</td>
+      <td class="textCenter">O</td>
+      <td>The authorized person in the company. eg: John Wick</td>
+    </tr>
+    <tr>
+      <td>legalStatusCode</td>
+      <td class="textCenter">Alphanumeric</td>
+      <td class="textCenter">06 - 10</td>
+      <td class="textCenter">M</td>
+      <td>Select the suited data received from Business Registration Type/L
+VM127:4 
+
+========== responseCodes.md ==========
+![RHub](./img/rhub.png)
+
+
+## Transaction Status Code
+
+In Production, the following statuses will be available:
+
+| Name | Description            |
+|------|------------------------|
+| In Process | Payload validated and ready for processing. |
+| Payout Processing   | Transaction validated and sent to the correspondent to credit the beneficiary.           |
+| Payout Pass   | Amount successfully credited to the beneficiary’s account.            |
+| Payout Fail   | Transaction failed.        |
+| Reverse   | Amount credited back to the wallet after failure.            |
+| Technical Failure  | Transaction failed due to timeout, network issue, or uncaught exception.     |
+
+<!-- | Code | Description            |
+|------|------------------------|
+| PF   | Payout Fail            |
+| PP   | Payout Pass            |
+| RV   | Reverse/ Reject        |
+| IP   | In Process             |
+| -1   | Technical Failure      | -->
+
+
+<!-- | PI   | Payout Initiated       |
+| PN   | Payout Pending         |
+| RA/TSS/TSA/IFSA/PC/SBOK/IDSA/BRQSA <br> (Depending upon the partner) | Payout Processing      |
+| 00   | Transaction Successful | -->
+
+<!-- ## Validation Code
+
+| Code | Description                                                                                                                            |
+|------|----------------------------------------------------------------------------------------------------------------------------------------|
+| 1358 | Fx quotation config not found for specific code                                                                                        |
+| 1360 | Payout partner does not exist                                                                                                          |
+| 1361 | Margin not configured for specific currency                                                                                            |
+| 1362 | Fxvalidity not configured for specific currency                                                                                        |
+| 1363 | Similar max and min value configuration already exist                                                                                  |
+| 1364 | Master business type not found                                                                                                         |
+| 1365 | Exchange Rate not found                                                                                                                |
+| 1366 | Transaction not allowed, please contact support@remittanceshub.com for assistance                                                      |
+| 1367 | Payout bank list not found                                                                                                             |
+| 1368 | Some parameters are missing in quotation request                                                                                       |
+| 1369 | Invalid Payin currency                                                                                                                 |
+| 1370 | Invalid Payout currency                                                                                                                |
+| 1371 | Invalid Payin settlement currency                                                                                                      |
+| 1372 | Forex quote id expired                                                                                                                 |
+| 1373 | Forex quote id already used                                                                                                            |
+| 1374 | Invalid Client Code                                                                                                                    |
+| 1375 | Invalid Email                                                                                                                          |
+| 1376 | Template already exist for specific client                                                                                             |
+| 1377 | Service to Beneficiary Country are temporarily unavailable                                                                             |
+| 1378 | Service to Sender Country are temporarily unavailable                                                                                  |
+| 1379 | Service to Beneficiary Currency are temporarily unavailable                                                                            |
+| 1380 | Your transaction limit is exceeding the permissible cash limit, please select Bank Transfer/Cheque as mode to proceed with transaction |
+| 1381 | Role inactive, please contact your administrator to enable the same                                                                    |
+ -->
+
+VM127:4 
+
+========== CURRENCYVALIDATIONS.md ==========
+![RHub](./img/rhub.png)
+
+## **Currency Validations**
+
+<div class="textNote">** Field Requirement Clarification</div>
+<br>
+<span class="version1">
+* Fields marked as Mandatory in the Payout Api must always be provided, irrespective of whether the correspondent requires them or not. These fields are enforced at the application level and are non-negotiable.<br>
+* Fields marked as Conditional are subject to correspondent-specific requirements. Such fields are mandatory only when explicitly required by the selected correspondent, as described in the corresponding conditions section below.<br>
+* Users are required to validate and comply with correspondent rules only for fields marked as Conditional in the Payout Api. Mandatory fields defined in this documentation(Payout Api) take precedence and must be supplied in all cases.<br>
+</span>
+
+<span class="textNote">Note: “YES” indicates that the field is mandatory, while “NO” indicates that it is optional.</span>
+
+
+### Sender Customer
+
+<a class="hyperLink" href="#/PAYOUT-Api?id=-sender-req-param">Go To Payout(Sender details)</a>
+
+<div class="tableBackground">
+ <table>
+    <thead>
+    <tr style="text-align: left;">
+    <th colspan="18">Sender (Individual)</th>
+    </tr>
+    <tr style="text-align: center;">
+    <th >Currency</th>
+    <th >RAIL</th>
+    <th colspan="4">Kyc detail fields</th>
+    </tr>
+    </thead>
+    <tbody>        
+    <!-- <tr>
+      <td></td>
+      <td></td>
+      <td>SENDER CUSTOMER bank details</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>SENDER CUSTOMER additional Kyc details</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr> -->
+    <tr>
+      <td></td>
+      <td></td>
+      <td>senderIdType</td>
+      <td>senderIssueDate</td>
+      <td>senderIdExpiration</td>
+      <td>senderIdCountry</td>
+    </tr>
+    <!-- <tr>
+      <td>TERRAPAY</td>
+    </tr> -->
+    <tr>
+      <td>AED</td>
+      <td>LOCAL</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+    </tr>
+    <tr>
+      <td>MYR</td>
+      <td>LOCAL</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+    </tr>
+    <tr>
+      <td>LKR</td>
+      <td>LOCAL</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+    </tr>
+    <tr>
+      <td>NGN</td>
+      <td>LOCAL</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+    </tr>
+    <tr>
+      <td>ARS</td>
+      <td>LOCAL</td>
+      <td>YES with value RHD003(Passport)</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+    </tr>
+    <tr>
+      <td>KES</td>
+      <td>LOCAL</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+    </tr>
+    <tr>
+      <td>NPR</td>
+      <td>LOCAL</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+    </tr>
+    <tr>
+      <td>KRW</td>
+      <td>LOCAL</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+    </tr>
+    <tr>
+      <td>INR</td>
+      <td>LOCAL</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+    </tr>
+    <tr>
+      <td>VND</td>
+      <td>LOCAL</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+    </tr>
+    <tr>
+      <td>MXN</td>
+      <td>LOCAL</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+    </tr>
+    <tr>
+      <td>COP</td>
+      <td>LOCAL</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+    </tr>
+    <tr>
+      <td>PHP</td>
+      <td>LOCAL</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+    </tr>
+    <tr>
+      <td>TRY</td>
+      <td>LOCAL</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+    </tr>
+    <tr>
+      <td>BRL</td>
+      <td>LOCAL</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+    </tr>
+    <tr>
+      <td>PKR</td>
+      <td>LOCAL</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+    </tr>
+    <tr>
+      <td>IDR</td>
+      <td>LOCAL</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+    </tr>
+    <tr>
+      <td>ZAR</td>
+      <td>LOCAL</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+      <td>YES</td>
+    </tr>
+    <!-- <tr style="background-color:red">
+      <td>LIGHTNET</td>
+    </tr> -->
+    <tr>
+      <td>HKD</td>
+      <td>LOCAL</td>
+      <td>YES</td>
+      <td>NO</td>
+      <td>NO</td>
+      <td>NO</td>
+    </tr>
+    <tr>
+      <td>SGD</td>
+      <td>LOCAL</td>
+      <td>YES</td>
+      <td>NO</td>
+      <td>NO</td>
+      <td>NO</td>
+    </tr>
+    <tr>
+      <td>EUR, EUR-INSTANT</td>
+      <td>LOCAL</td>
+      <td>YES</td>
+      <td>NO</td>
+      <td>NO</td>
+      <td>NO</td>
+    </tr>
+   
+VM127:4 
+
+========== COUNTRYVALIDATIONS.md ==========
+![RHub](./img/rhub.png)
+
+## **Country Validations**
+
+<a class="hyperLink" href="#/PAYOUT-Api?id=-receiver-req-param">Go To Payout(Receiver details)</a>
+
+<div class="textNote">** Field Requirement Clarification</div>
+<br>
+<span class="version1">
+* Fields marked as Mandatory in the Payout Api must always be provided, irrespective of whether the correspondent requires them or not. These fields are enforced at the application level and are non-negotiable.<br>
+* Fields marked as Conditional are subject to correspondent-specific requirements. Such fields are mandatory only when explicitly required by the selected correspondent, as described in the corresponding conditions section below.<br>
+* Users are required to validate and comply with correspondent rules only for fields marked as Conditional in the Payout Api. Mandatory fields defined in this documentation(Payout Api) take precedence and must be supplied in all cases.<br>
+</span>
+
+<!-- -------------------------------------------- -->
+
+**SWIFT Transaction Requirements** <br><br>
+**AR – Argentina, BB – Barbados, BM – Bermuda, BN – Brunei, BS – Bahamas, CO – Colombia, DZ – Algeria,** <br>
+**EC – Ecuador, FJ – Fiji, HN – Honduras, JM – Jamaica, JP – Japan, KE – Kenya, KR – South Korea,** <br>
+**KY – Cayman Islands, MO – Macao, MW – Malawi, NG – Nigeria, NI – Nicaragua, NP – Nepal, NZ – New Zealand,** <br>
+**PE – Peru, SZ – Eswatini, TH – Thailand, UG – Uganda, ZA – South Africa**
+
+For the countries listed above, when transactions are processed through the SWIFT network, the following bank-related fields are mandatory for successful transaction processing:
+
+- businessBankName, receiverBankName - used to capture Bank name details
+- businessAccountNumber, receiverAccountNumber - used to capture Bank Account Number details
+- businessSwiftCode, receiverSwiftCode - used to capture Swift Code details
+
+In the table below, the column headers represent the applicable API field requirements for both business and customer contexts.
+
+<p class="textNote">
+Note: “YES” indicates that the field is mandatory and accepts the value/information specified above. If a different value/information is accepted, it is explicitly mentioned in the table. “NO” indicates that it is optional.
+</p>
+
+<div class="tableBackground">
+<table cellspacing="0" cellpadding="5">
+    <thead>
+        <tr>
+            <th>Country</th>
+            <th>RAIL</th>
+            <th>businessBankName, receiverBankName</th>
+            <th>businessAccountNumber, receiverAccountNumber</th>
+            <th>businessSwiftCode, receiverSwiftCode</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>AR</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>BB</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>BM</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>BN</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>BS</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>CO</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>DZ</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>EC</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>FJ</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>HN</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>JM</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>JP</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>KE</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>KR</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>KY</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>MO</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>MW</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>NG</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>NI</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>NP</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>NZ</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>PE</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>SZ</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>TH</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>UG</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>ZA</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+    </tbody>
+</table>
+</div>
+
+<hr>
+
+**SWIFT Transaction Requirements** <br><br>
+**AE – United Arab Emirates, AL – Albania, AT – Austria, BE – Belgium, BG – Bulgaria, BH – Bahrain, CH – Switzerland,** <br>
+**CR – Costa Rica, CY – Cyprus, CZ – Czech Republic, DE – Germany, DK – Denmark, EE – Estonia, ES – Spain,** <br>
+**FI – Finland, FR – France, GR – Greece, GT – Guatemala, HR – Croatia, HU – Hungary, IE – Ireland, IL – Israel,** <br> 
+**IT – Italy, JO – Jordan, KW – Kuwait, KZ – Kazakhstan, LB – Lebanon, LI – Liechtenstein, LT – Lithuania,** <br>
+**LU – Luxembourg, LV – Latvia, MC – Monaco, MT – Malta, MU – Mauritius, MZ – Mozambique, NL – Netherlands,** <br>
+**NO – Norway, OM – Oman, PK – Pakistan, PL – Poland, PT – Portugal, QA – Qatar, RO – Romania, RS – Serbia,** <br>
+**SA – Saudi Arabia, SE – Sweden, SI – Slovenia, SK – Slovakia, TN – Tunisia, TR – Turkey, UA – Ukraine**
+
+For the countries listed above, when transactions are processed through the SWIFT network, the following bank-related fields are mandatory for successful transaction processing:
+
+- businessBankName, receiverBankName – used to capture bank name details
+- businessAccountNumber, receiverAccountNumber – used to capture IBAN details
+- businessSwiftCode, receiverSwiftCode – used to capture SWIFT code details
+
+In the table below, the column headers represent the applicable API field requirements for both business and customer contexts.
+
+<p class="textNote">
+Note: “YES” indicates that the field is mandatory and accepts the value/information specified above. If a different value/information is accepted, it is explicitly mentioned in the table. “NO” indicates that it is optional.
+</p>
+
+<div class="tableBackground">
+<table cellspacing="0" cellpadding="5">
+    <thead>
+        <tr>
+            <th>Country</th>
+            <th>RAIL</th>
+            <th>businessBankName, receiverBankName</th>
+            <th>businessAccountNumber, receiverAccountNumber</th>
+            <th>businessSwiftCode, receiverSwiftCode</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>AE</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>AL</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>AT</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>BE</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>BG</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>BH</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>CH</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>CR</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>CY</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>CZ</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>DE</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>DK</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>EE</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>ES</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>FI</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>FR</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>GR</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>GT</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>HR</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>HU</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>IE</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>IL</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>IT</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>JO</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>KW</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>KZ</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>LB</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>LI</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>LT</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>LU</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>LV</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>MC</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>MT</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>MU</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>MZ</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>NL</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>NO</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>OM</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>PK</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>PL</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>PT</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>QA</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>RO</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>RS</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>SA</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>SE</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>SI</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>SK</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>TN</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>TR</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>UA</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+    </tbody>
+</table>
+</div>
+
+<hr>
+
+**SWIFT Transaction Requirements** <br><br>
+**GB – United Kingdom, MY – Malaysia, ZM – Zambia**
+
+For the countries listed above, when transactions are processed through the SWIFT network, the following bank-related fields are mandatory for successful transaction processing:
+
+- businessBankName, receiverBankName – used to capture bank name details
+- businessAccountNumber, receiverAccountNumber – used to capture bank account number details
+- businessSwiftCode, receiverSwiftCode – used to capture SWIFT code details
+- businessBankCode, receiverBankCode – used to capture bank sort code details
+
+In the table below, the column headers represent the applicable API field requirements for both business and customer contexts.
+
+<p class="textNote">
+Note: “YES” indicates that the field is mandatory and accepts the value/information specified above. If a different value/information is accepted, it is explicitly mentioned in the table. “NO” indicates that it is optional.
+</p>
+
+<div class="tableBackground">
+<table cellspacing="0" cellpadding="5">
+    <thead>
+        <tr>
+            <th>Country</th>
+            <th>RAIL</th>
+            <th>businessBankName, receiverBankName</th>
+            <th>businessAccountNumber, receiverAccountNumber</th>
+            <th>businessSwiftCode, receiverSwiftCode</th>
+            <th>businessBankCode, receiverBankCode</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>GB</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>MY</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>ZM</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+    </tbody>
+</table>
+</div>
+
+<hr>
+
+**SWIFT Transaction Requirements** <br><br>
+**LK – Sri Lanka, MA – Morocco, TT – Trinidad and Tobago**
+
+For the countries listed above, when transactions are processed through the SWIFT network, the following bank-related fields are mandatory for successful transaction processing:
+
+- businessBankName, receiverBankName – used to capture bank name details
+- businessAccountNumber, receiverAccountNumber – used to capture bank account number details
+- businessSwiftCode, receiverSwiftCode – used to capture SWIFT code details
+- businessBankCode, receiverBankCode – used to capture bank code details
+- businessBankCountry, receiverBankCountry – used to capture branch code details
+
+In the table below, the column headers represent the applicable API field requirements for both business and customer contexts.
+
+<p class="textNote">
+Note: “YES” indicates that the field is mandatory and accepts the value/information specified above. If a different value/information is accepted, it is explicitly mentioned in the table. “NO” indicates that it is optional.
+</p>
+
+<div class="tableBackground">
+<table cellspacing="0" cellpadding="5">
+    <thead>
+        <tr>
+            <th>Country</th>
+            <th>RAIL</th>
+            <th>businessBankName, receiverBankName</th>
+            <th>businessAccountNumber, receiverAccountNumber</th>
+            <th>businessSwiftCode, receiverSwiftCode</th>
+            <th>businessBankCode, receiverBankCode</th>
+            <th>businessBankCountry, receiverBankCountry</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>LK</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>MA</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>TT</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+    </tbody>
+</table>
+</div>
+
+<hr>
+
+**SWIFT Transaction Requirements** <br><br>
+**CN – China, HK – Hong Kong, TW – Taiwan**
+
+For the countries listed above, when transactions are processed through the SWIFT network, the following bank-related fields are mandatory for successful transaction processing:
+
+- businessAccountHolderName, receiverAccountHolderName – used to capture beneficiary name details
+- businessBankName, receiverBankName – used to capture bank name details
+- businessAccountNumber, receiverAccountNumber – used to capture bank account number details
+- businessSwiftCode, receiverSwiftCode – used to capture SWIFT code details
+
+In the table below, the column headers represent the applicable API field requirements for both business and customer contexts.
+
+<p class="textNote">
+Note: “YES” indicates that the field is mandatory and accepts the value/information specified above. If a different value/information is accepted, it is explicitly mentioned in the table. “NO” indicates that it is optional.
+</p>
+
+<div class="tableBackground">
+<table cellspacing="0" cellpadding="5">
+    <thead>
+        <tr>
+            <th>Country</th>
+            <th>RAIL</th>
+            <th>businessAccountHolderName, receiverAccountHolderName</th>
+            <th>businessBankName, receiverBankName</th>
+            <th>businessAccountNumber, receiverAccountNumber</th>
+            <th>businessSwiftCode, receiverSwiftCode</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>CN</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>HK</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>TW</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+    </tbody>
+</table>
+</div>
+
+<hr>
+
+**SWIFT Transaction Requirements** <br><br>
+**AM – Armenia, BD – Bangladesh**
+
+For the countries listed above, when transactions are processed through the SWIFT network, the following bank-related fields are mandatory for successful transaction processing:
+
+- businessBankName, receiverBankName – used to capture bank name details
+- businessAccountNumber, receiverAccountNumber – used to capture bank account number details
+- businessSwiftCode, receiverSwiftCode – used to capture SWIFT code details
+- businessBankCode, receiverBankCode – used to capture bank code details
+
+In the table below, the column headers represent the applicable API field requirements for both business and customer contexts.
+
+<p class="textNote">
+Note: “YES” indicates that the field is mandatory and accepts the value/information specified above. If a different value/information is accepted, it is explicitly mentioned in the table. “NO” indicates that it is optional.
+</p>
+
+<div class="tableBackground">
+<table cellspacing="0" cellpadding="5">
+    <thead>
+        <tr>
+            <th>Country</th>
+            <th>RAIL</th>
+            <th>businessBankName, receiverBankName</th>
+            <th>businessAccountNumber, receiverAccountNumber</th>
+            <th>businessSwiftCode, receiverSwiftCode</th>
+            <th>businessBankCode, receiverBankCode</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>AM</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>BD</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+    </tbody>
+</table>
+</div>
+
+<hr>
+
+**SWIFT Transaction Requirements** <br><br>
+**DO – Dominican Republic, UY – Uruguay**
+
+For the countries listed above, when transactions are processed through the SWIFT network, the following bank-related fields are mandatory for successful transaction processing:
+
+- businessBankName, receiverBankName – used to capture bank name details
+- businessAccountNumber, receiverAccountNumber – used to capture bank account number details
+- businessSwiftCode, receiverSwiftCode – used to capture SWIFT code details
+- businessAccountType, receiverAccountType – used to capture account type details
+
+In the table below, the column headers represent the applicable API field requirements for both business and customer contexts.
+
+<p class="textNote">
+Note: “YES” indicates that the field is mandatory and accepts the value/information specified above. If a different value/information is accepted, it is explicitly mentioned in the table. “NO” indicates that it is optional.
+</p>
+
+<div class="tableBackground">
+<table cellspacing="0" cellpadding="5">
+    <thead>
+        <tr>
+            <th>Country</th>
+            <th>RAIL</th>
+            <th>businessBankName, receiverBankName</th>
+            <th>businessAccountNumber, receiverAccountNumber</th>
+            <th>businessSwiftCode, receiverSwiftCode</th>
+            <th>businessAccountType, receiverAccountType</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>DO</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>UY</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+    </tbody>
+</table>
+</div>
+
+<hr>
+
+**SWIFT Transaction Requirements** <br><br>
+**AU – Australia, BR – Brazil, CA – Canada, CL – Chile, EG – Egypt, GE – Georgia, ID – Indonesia, IN – India,** <br>
+**IS – Iceland, MX – Mexico, PH – Philippines, RU – Russia, SG – Singapore, US – United States, VN – Vietnam**
+
+For the countries listed above, when transactions are processed through the SWIFT network, the following bank-related fields are mandatory for successful transaction processing:
+
+- businessBankName, receiverBankName – used for Bank name details
+- businessAccountNumber, receiverAccountNumber – used for Bank Account Number details
+- businessSwiftCode, receiverSwiftCode – used for Swift Code details
+- businessBankCountry, receiverBankCountry – used to capture branch code details
+- businessBankCode, receiverBankCode – used to capture bank code/ IFSC/ BSB NO/ Routing no details based on country
+- businessAccountType, receiverAccountType – used to capture account type details
+- businessAccountHolderName, receiverAccountHolderName – used to capture beneficiary name details
+
+In the table below, the column headers represent the applicable API field requirements for both business and customer contexts.
+
+<p class="textNote">
+Note: “YES” indicates that the field is mandatory and accepts the value/information specified above. If a different value/information is accepted, it is explicitly mentioned in the table. “NO” indicates that it is optional.
+</p>
+
+<div class="tableBackground">
+<table cellspacing="0" cellpadding="5">
+    <thead>
+        <tr>
+            <th>Country</th>
+            <th>RAIL</th>
+            <th>businessBankName, receiverBankName</th>
+            <th>businessAccountNumber, receiverAccountNumber</th>
+            <th>businessSwiftCode, receiverSwiftCode</th>
+            <th>businessBankCountry, receiverBankCountry</th>
+            <th>businessBankCode, receiverBankCode</th>
+            <th>businessAccountType, receiverAccountType</th>
+            <th>businessAccountHolderName, receiverAccountHolderName</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>AU</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td><td>No</td><td>Yes used for bsb no</td><td>No</td><td>No</td></tr>
+        <tr><td>BR</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>No</td></tr>
+        <tr><td>CA</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td><td>No</td><td>Yes used for transitCode</td><td>No</td><td>No</td></tr>
+        <tr><td>CL</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td><td>No</td><td>Yes</td></tr>
+        <tr><td>EG</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td><td>No</td><td>No</td></tr>
+        <!-- <tr><td>GE</td><td>SWIFT</td><td>Yes</td><td>No</td><td>Yes</td><td>No</td><td>No</td><td>No</td><td>No</td></tr> -->
+        <tr><td>ID</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td></tr>
+        <tr><td>IN</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td><td>No</td><td>Yes used for IFSC code</td><td>No</td><td>No</td></tr>
+        <tr><td>IS</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td><td>No</td><td>No</td></tr>
+        <tr><td>MX</td><td>SWIFT</td><td>Yes</td><td>Yes (used for CLABE / Mexican bank account number)</td><td>Yes</td><td>No</td><td>No</td><td>No</td><td>No</td></tr>
+        <tr><td>PH</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td><td>No</td><td>Yes used for routing no</td><td>Yes</td><td>No</td></tr>
+        <!-- <tr><td>RU</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td><td>No</td><td>No</td></tr> -->
+        <tr><td>SG</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td></tr>
+        <tr><td>US</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td><td>No</td><td>Yes used for routing no</td><td>No</td><td>No</td></tr>
+        <!-- <tr><td>VN</td><td>SWIFT</td><td>Yes</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td><td>No</td><td>No</td></tr> -->
+    </tbody>
+</table>
+</div>
+<br>
+<!-- <div class="version">**Field Requirement Clarification<br>
+*Fields marked as Mandatory in the Payout must always be provided, irrespective of whether the correspondent requires them or not. These fields are enforced at the application level and are non-negotiable.<br>
+*Fields marked as Conditional are subject to correspondent-specific requirements. Such fields are mandatory only when explicitly required by the selected correspondent, as described in the corresponding conditions section above.<br>
+*Users are required to validate and comply with correspondent rules only for fields marked as Conditional. Mandatory fields defined in this documentation take precedence and must be supplied in all cases.<br>
+</div> -->

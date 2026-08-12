@@ -1,0 +1,566 @@
+{
+ "pages": [
+  "intro.md",
+  "getting-started/integration-flow.md",
+  "getting-started/transaction-flows.md",
+  "getting-started/conventions.md",
+  "authentication/authentication.md",
+  "customers/customer-registration.md",
+  "quotation/quotation.md",
+  "payout/payout.md",
+  "payout/wpt-payout.md",
+  "transactions/transaction-enquiry.md",
+  "balance/balance-enquiry.md",
+  "documents/document-upload.md",
+  "master-apis/remittance-purpose.md",
+  "master-apis/source-of-fund.md",
+  "master-apis/relationship.md",
+  "master-apis/document-id-type.md",
+  "master-apis/occupation.md",
+  "master-apis/business-type.md",
+  "master-apis/business-registration-type.md",
+  "master-apis/account-type.md",
+  "master-apis/wpt-wallet-list.md",
+  "master-apis/bank-list.md",
+  "master-apis/customer-legal-status.md",
+  "master-apis/nature-of-business.md",
+  "master-apis/customer-occupation-type.md",
+  "master-apis/customer-individual-document-type.md",
+  "master-apis/index.md",
+  "appendix/unpublished-master-apis.md",
+  "validation/currency-validations.md",
+  "validation/country-validations.md",
+  "errors/index.md",
+  "errors/transaction-status-codes.md",
+  "errors/error-codes.md",
+  "wpt/customer-registration.md",
+  "wpt/quotation.md",
+  "wpt/payout.md",
+  "wpt/index.md",
+  "template-management/service-fee.md",
+  "template-management/update-service-fee.md",
+  "template-management/transaction-list.md",
+  "template-management/update-transaction-limit.md",
+  "template-management/forex-margin.md",
+  "template-management/update-forex-margin.md",
+  "template-management/index.md",
+  "legacy/login-authentication.md",
+  "legacy/customer-registration.md",
+  "legacy/customer-inquiry.md",
+  "legacy/update-customer-details.md",
+  "legacy/owner-details.md",
+  "legacy/quotation.md",
+  "legacy/final-quotation.md",
+  "legacy/payout.md",
+  "legacy/transaction-inquiry.md",
+  "legacy/balance.md",
+  "legacy/reference-payout-validator.md",
+  "legacy/index.md",
+  "appendix/unpublished-apis.md",
+  "appendix/licence.md",
+  "api-index.md",
+  "appendix/source-notes.md"
+ ],
+ "apis": [
+  [
+   "Authentication",
+   "POST",
+   "http://host/ewallet/oauth/token",
+   "authentication/authentication.md"
+  ],
+  [
+   "Customer Registration",
+   "POST",
+   "http://host/ewallet/api/v1/customer-registration",
+   "customers/customer-registration.md"
+  ],
+  [
+   "Quotation",
+   "POST",
+   "http://host/ewallet/api/v1/fxratequotation/api",
+   "quotation/quotation.md"
+  ],
+  [
+   "Payout",
+   "POST",
+   "http://host/ewallet/api/v1/payoutProcess/api",
+   "payout/payout.md"
+  ],
+  [
+   "WPT Payout",
+   "POST",
+   "http://host/ewallet/api/v1/payoutProcess/api",
+   "payout/wpt-payout.md"
+  ],
+  [
+   "Transaction Enquiry",
+   "GET",
+   "http://host/ewallet/api/v1/transactionInfo/api?types=all&status=all&transId={value}",
+   "transactions/transaction-enquiry.md"
+  ],
+  [
+   "Balance Enquiry",
+   "GET",
+   "http://host/ewallet/api/v1/wallet/walletOwner/{walletOwnerCode}",
+   "balance/balance-enquiry.md"
+  ],
+  [
+   "Document Upload",
+   "POST",
+   "http://host/ewallet/api/v1/documentUpload/upload/customer",
+   "documents/document-upload.md"
+  ],
+  [
+   "Remittance Purpose",
+   "GET",
+   "http://host/ewallet/api/v1/purposeOfRemittance/RHUB/{transactionType}/{countryCode}",
+   "master-apis/remittance-purpose.md"
+  ],
+  [
+   "Source of Fund",
+   "GET",
+   "http://host/ewallet/api/v1/getSourceOfFund/RHUB/{transactionType}/{countryCode}",
+   "master-apis/source-of-fund.md"
+  ],
+  [
+   "Relationship",
+   "GET",
+   "http://host/ewallet/api/v1/getRelationship/RHUB/{transactionType}",
+   "master-apis/relationship.md"
+  ],
+  [
+   "Document ID Type",
+   "GET",
+   "http://host/ewallet/api/v1/getDocumentIdType/RHUB/{transactionType}",
+   "master-apis/document-id-type.md"
+  ],
+  [
+   "Occupation",
+   "GET",
+   "http://host/ewallet/api/v1/getOccupation/RHUB/{transactionType}",
+   "master-apis/occupation.md"
+  ],
+  [
+   "Business Type",
+   "GET",
+   "http://host/ewallet/api/v1/masterBusinessTypes/RHUB/{transactionType}",
+   "master-apis/business-type.md"
+  ],
+  [
+   "Business Registration Type",
+   "GET",
+   "http://host/ewallet/api/v1/masterBusinessRegistrationTypes/RHUB/{transactionType}",
+   "master-apis/business-registration-type.md"
+  ],
+  [
+   "Account Type",
+   "GET",
+   "http://host/ewallet/api/v1/accountType/all",
+   "master-apis/account-type.md"
+  ],
+  [
+   "WPT Wallet List",
+   "GET",
+   "http://host/ewallet/api/v1/walletList/{countryCode}/{currencyCode}/{receiverCode}/WPT",
+   "master-apis/wpt-wallet-list.md"
+  ],
+  [
+   "Bank List",
+   "GET",
+   "http://host/ewallet/api/v1/payoutbanklist/{country}/{currency}/{recieverCode}",
+   "master-apis/bank-list.md"
+  ],
+  [
+   "Customer Legal Status",
+   "GET",
+   "http://host/ewallet/api/v1/customerLegalStatus/getByCustomerTypeCode/{customerTypeCode}",
+   "master-apis/customer-legal-status.md"
+  ],
+  [
+   "Nature of Business",
+   "GET",
+   "http://host/ewallet/api/v1/natureOfBusiness/getByCustomerTypeCode/{customerTypeCode}",
+   "master-apis/nature-of-business.md"
+  ],
+  [
+   "Customer Occupation Type",
+   "GET",
+   "http://host/ewallet/api/v1/customerOccupationType/getByCustomerTypeCode/{customerTypeCode}",
+   "master-apis/customer-occupation-type.md"
+  ],
+  [
+   "Customer/Individual Document Type",
+   "GET",
+   "http://host/ewallet/api/v1/customerDocumentType/getByCustomerTypeCode/{customerTypeCode}",
+   "master-apis/customer-individual-document-type.md"
+  ],
+  [
+   "WPT \u2014 Customer Registration",
+   "POST",
+   "http://host/ewallet/api/v1/customer-registration",
+   "wpt/customer-registration.md"
+  ],
+  [
+   "WPT \u2014 Quotation",
+   "POST",
+   "http://host/ewallet/api/v1/fxratequotation/api",
+   "wpt/quotation.md"
+  ],
+  [
+   "WPT \u2014 Payout",
+   "POST",
+   "http://host/ewallet/api/v1/payoutProcess/api",
+   "wpt/payout.md"
+  ],
+  [
+   "Service Fee",
+   "GET",
+   "http://host/ewallet/api/v1/senderClientfeeTemplate/getWalletOwner/{senderCode}",
+   "template-management/service-fee.md"
+  ],
+  [
+   "Update Service Fee",
+   "POST",
+   "http://host/ewallet/api/v1/senderClientfeeTemplate",
+   "template-management/update-service-fee.md"
+  ],
+  [
+   "Transaction List",
+   "GET",
+   "http://host/ewallet/api/v1/sendclienttransactionlimittemplate/walletowner/{senderCode}",
+   "template-management/transaction-list.md"
+  ],
+  [
+   "Update Transaction Limit",
+   "POST",
+   "http://host/ewallet/api/v1/sendclienttransactionlimittemplate",
+   "template-management/update-transaction-limit.md"
+  ],
+  [
+   "Forex Margin",
+   "GET",
+   "http://host/ewallet/api/v1/sendClientMarginTemplate/getWalletOwner/{senderCode}",
+   "template-management/forex-margin.md"
+  ],
+  [
+   "Update Forex Margin",
+   "POST",
+   "http://host/ewallet/api/v1/sendClientMarginTemplate",
+   "template-management/update-forex-margin.md"
+  ]
+ ],
+ "manifest": [
+  [
+   "README.md",
+   "docs/intro.md",
+   "COMPLETE",
+   "About Us and Overview sections carried over verbatim."
+  ],
+  [
+   "apisequence.md",
+   "docs/getting-started/integration-flow.md",
+   "COMPLETE",
+   "Sequence list and all cross-references remapped to portal routes. Source diagram (img/apiseq.png) is commented out in the source and the asset is not in the export."
+  ],
+  [
+   "transactionflow.md",
+   "docs/getting-started/transaction-flows.md",
+   "REVIEW REQUIRED",
+   "Narrative carried over in full. Both flow diagrams (img/rhubbpt2.png, img/rhubwpt2.png) are referenced by the source but the binary assets are not in the export \u2014 flagged on page."
+  ],
+  [
+   "AUTH.md",
+   "docs/authentication/authentication.md",
+   "COMPLETE",
+   "Published Authentication contract carried over in full (request, header and response parameters, request and response examples)."
+  ],
+  [
+   "CUSTOMEREGIS.md",
+   "docs/customers/customer-registration.md",
+   "COMPLETE",
+   "Published Customer Registration contract carried over in full for both business and individual customers."
+  ],
+  [
+   "QUOTA.md",
+   "docs/quotation/quotation.md",
+   "COMPLETE",
+   "Published Quotation contract carried over in full. The file also contains a commented-out Final Quotation section \u2014 reproduced in the appendix and cross-checked against the standalone finalQuotation.md source page."
+  ],
+  [
+   "PAYOUT-Api.md",
+   "docs/payout/payout.md",
+   "COMPLETE",
+   "Published Payout contract carried over in full: transactionInfo, sender, receiver and compliance request objects, registered-customer variant, response parameters and examples."
+  ],
+  [
+   "PAYOUT-WPT.md",
+   "docs/payout/wpt-payout.md",
+   "COMPLETE",
+   "Published WPT Payout contract carried over in full."
+  ],
+  [
+   "ENQUIRY.md",
+   "docs/transactions/transaction-enquiry.md, docs/balance/balance-enquiry.md",
+   "COMPLETE",
+   "Both published sections (Transaction Enquiry, Balance Enquiry) carried over in full. The file also contains a commented-out Customer Enquiry section, reproduced in the appendix."
+  ],
+  [
+   "DocumentUpload.md",
+   "docs/documents/document-upload.md",
+   "COMPLETE",
+   "Published Document Upload contract carried over in full."
+  ],
+  [
+   "master.md",
+   "docs/master-apis/ (index + 14 API pages), docs/appendix/unpublished-master-apis.md",
+   "COMPLETE",
+   "14 published master APIs documented individually with full request/response contracts and examples; 10 commented-out master sections reproduced in the appendix and flagged REVIEW REQUIRED."
+  ],
+  [
+   "CURRENCYVALIDATIONS.md",
+   "docs/validation/currency-validations.md",
+   "COMPLETE",
+   "All four validation matrices (Sender/Receiver \u00d7 Individual/Business) and the field requirement clarification carried over. The source also links a downloadable Excel file (assets/TABLE_OF_VALIDATIONS.xlsx) that is not part of the export \u2014 flagged."
+  ],
+  [
+   "COUNTRYVALIDATIONS.md",
+   "docs/validation/country-validations.md",
+   "COMPLETE",
+   "All eight SWIFT country groups, their country lists, field explanations and matrices carried over."
+  ],
+  [
+   "responseCodes.md",
+   "docs/errors/transaction-status-codes.md",
+   "COMPLETE",
+   "The published production status table carried over verbatim. Three commented-out tables (short status codes, partner status codes, validation codes) reproduced in the appendix and flagged."
+  ],
+  [
+   "ErrorCodes.md",
+   "docs/errors/error-codes.md",
+   "PARTIAL",
+   "Both source tables (HTTP status codes, application error codes) carried over in full. Marked PARTIAL because the file is commented out of the live sidebar, so its publication status is REVIEW REQUIRED, and because the source gives no resolution guidance."
+  ],
+  [
+   "WPT.md",
+   "docs/wpt/ (index + 3 API pages), docs/appendix/unpublished-apis.md",
+   "PARTIAL",
+   "3 active sections (Customer Registration, Quotation, Payout) documented in full; 6 commented-out sections reproduced in the appendix. Marked PARTIAL because the whole file is commented out of the live sidebar (publication status REVIEW REQUIRED)."
+  ],
+  [
+   "template.md",
+   "docs/template-management/ (index + 6 API pages)",
+   "PARTIAL",
+   "All 6 sections documented in full (Service Fee, Update Service Fee, Transaction List, Update Transaction Limit, Forex Margin, Update Forex Margin). Marked PARTIAL because the file is commented out of the live sidebar, so its publication status is REVIEW REQUIRED."
+  ],
+  [
+   "loginauthentication.md",
+   "docs/legacy/login-authentication.md",
+   "PARTIAL",
+   "Page content carried over in full. Marked PARTIAL because the source file is commented out of the live documentation sidebar, so whether the contract is current is REVIEW REQUIRED."
+  ],
+  [
+   "customerRegistration.md",
+   "docs/legacy/customer-registration.md",
+   "PARTIAL",
+   "Page content carried over in full. Marked PARTIAL because the source file is commented out of the live documentation sidebar, so whether the contract is current is REVIEW REQUIRED."
+  ],
+  [
+   "customerInquiry.md",
+   "docs/legacy/customer-inquiry.md",
+   "PARTIAL",
+   "Page content carried over in full. Marked PARTIAL because the source file is commented out of the live documentation sidebar, so whether the contract is current is REVIEW REQUIRED."
+  ],
+  [
+   "updateCustomerDetails.md",
+   "docs/legacy/update-customer-details.md",
+   "PARTIAL",
+   "Page content carried over in full. Marked PARTIAL because the source file is commented out of the live documentation sidebar, so whether the contract is current is REVIEW REQUIRED."
+  ],
+  [
+   "ownerDetails.md",
+   "docs/legacy/owner-details.md",
+   "PARTIAL",
+   "Page content carried over in full. Marked PARTIAL because the source file is commented out of the live documentation sidebar, so whether the contract is current is REVIEW REQUIRED."
+  ],
+  [
+   "quotation.md",
+   "docs/legacy/quotation.md",
+   "PARTIAL",
+   "Page content carried over in full. Marked PARTIAL because the source file is commented out of the live documentation sidebar, so whether the contract is current is REVIEW REQUIRED."
+  ],
+  [
+   "finalQuotation.md",
+   "docs/legacy/final-quotation.md",
+   "PARTIAL",
+   "Page content carried over in full. Marked PARTIAL because the source file is commented out of the live documentation sidebar, so whether the contract is current is REVIEW REQUIRED."
+  ],
+  [
+   "payout.md",
+   "docs/legacy/payout.md",
+   "PARTIAL",
+   "Page content carried over in full. Marked PARTIAL because the source file is commented out of the live documentation sidebar, so whether the contract is current is REVIEW REQUIRED."
+  ],
+  [
+   "transactionInquiry.md",
+   "docs/legacy/transaction-inquiry.md",
+   "PARTIAL",
+   "Page content carried over in full. Marked PARTIAL because the source file is commented out of the live documentation sidebar, so whether the contract is current is REVIEW REQUIRED."
+  ],
+  [
+   "balance.md",
+   "docs/legacy/balance.md",
+   "PARTIAL",
+   "Page content carried over in full. Marked PARTIAL because the source file is commented out of the live documentation sidebar, so whether the contract is current is REVIEW REQUIRED."
+  ],
+  [
+   "payoutValidator.md",
+   "docs/legacy/reference-payout-validator.md",
+   "PARTIAL",
+   "Page content carried over in full. Marked PARTIAL because the source file is commented out of the live documentation sidebar, so whether the contract is current is REVIEW REQUIRED."
+  ],
+  [
+   "footer.md",
+   "docs/appendix/licence.md",
+   "COMPLETE",
+   "Intellectual-property statement and source version marker (Version 2.3.0) carried over."
+  ]
+ ],
+ "master_rows": [
+  [
+   "Remittance Purpose",
+   "GET",
+   "http://host/ewallet/api/v1/purposeOfRemittance/RHUB/{transactionType}/{countryCode}",
+   "remittance-purpose"
+  ],
+  [
+   "Source of Fund",
+   "GET",
+   "http://host/ewallet/api/v1/getSourceOfFund/RHUB/{transactionType}/{countryCode}",
+   "source-of-fund"
+  ],
+  [
+   "Relationship",
+   "GET",
+   "http://host/ewallet/api/v1/getRelationship/RHUB/{transactionType}",
+   "relationship"
+  ],
+  [
+   "Document ID Type",
+   "GET",
+   "http://host/ewallet/api/v1/getDocumentIdType/RHUB/{transactionType}",
+   "document-id-type"
+  ],
+  [
+   "Occupation",
+   "GET",
+   "http://host/ewallet/api/v1/getOccupation/RHUB/{transactionType}",
+   "occupation"
+  ],
+  [
+   "Business Type",
+   "GET",
+   "http://host/ewallet/api/v1/masterBusinessTypes/RHUB/{transactionType}",
+   "business-type"
+  ],
+  [
+   "Business Registration Type",
+   "GET",
+   "http://host/ewallet/api/v1/masterBusinessRegistrationTypes/RHUB/{transactionType}",
+   "business-registration-type"
+  ],
+  [
+   "Account Type",
+   "GET",
+   "http://host/ewallet/api/v1/accountType/all",
+   "account-type"
+  ],
+  [
+   "WPT Wallet List",
+   "GET",
+   "http://host/ewallet/api/v1/walletList/{countryCode}/{currencyCode}/{receiverCode}/WPT",
+   "wpt-wallet-list"
+  ],
+  [
+   "Bank List",
+   "GET",
+   "http://host/ewallet/api/v1/payoutbanklist/{country}/{currency}/{recieverCode}",
+   "bank-list"
+  ],
+  [
+   "Customer Legal Status",
+   "GET",
+   "http://host/ewallet/api/v1/customerLegalStatus/getByCustomerTypeCode/{customerTypeCode}",
+   "customer-legal-status"
+  ],
+  [
+   "Nature of Business",
+   "GET",
+   "http://host/ewallet/api/v1/natureOfBusiness/getByCustomerTypeCode/{customerTypeCode}",
+   "nature-of-business"
+  ],
+  [
+   "Customer Occupation Type",
+   "GET",
+   "http://host/ewallet/api/v1/customerOccupationType/getByCustomerTypeCode/{customerTypeCode}",
+   "customer-occupation-type"
+  ],
+  [
+   "Customer/Individual Document Type",
+   "GET",
+   "http://host/ewallet/api/v1/customerDocumentType/getByCustomerTypeCode/{customerTypeCode}",
+   "customer-individual-document-type"
+  ]
+ ],
+ "wpt_rows": [
+  [
+   "Customer Registration",
+   "POST",
+   "customer-registration"
+  ],
+  [
+   "Quotation",
+   "POST",
+   "quotation"
+  ],
+  [
+   "Payout",
+   "POST",
+   "payout"
+  ]
+ ],
+ "tpl_rows": [
+  [
+   "Service Fee",
+   "GET",
+   "service-fee"
+  ],
+  [
+   "Update Service Fee",
+   "POST",
+   "update-service-fee"
+  ],
+  [
+   "Transaction List",
+   "GET",
+   "transaction-list"
+  ],
+  [
+   "Update Transaction Limit",
+   "POST",
+   "update-transaction-limit"
+  ],
+  [
+   "Forex Margin",
+   "GET",
+   "forex-margin"
+  ],
+  [
+   "Update Forex Margin",
+   "POST",
+   "update-forex-margin"
+  ]
+ ],
+ "unresolved_links": [
+  "#/master?id=get-customer-document-type (no matching published section in source)"
+ ]
+}

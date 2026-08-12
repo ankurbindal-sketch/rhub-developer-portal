@@ -1,0 +1,461 @@
+/**
+ * RHUB Developer Portal 1.0 — theme
+ *
+ * Design direction: a settlement-ledger feel for payment-rail engineers.
+ * Deep navy ink, a rail blue for navigation, a corridor teal for read
+ * operations, and IBM Plex Sans/Mono so that field names, currency codes and
+ * country codes read as data rather than prose.
+ *
+ * No RHUB brand assets are bundled: the source export contains no logo or
+ * icon files, so the portal uses a typographic wordmark instead of inventing
+ * artwork.
+ */
+
+:root {
+  --rhub-ink: #0a1a2f;
+  --rhub-ink-soft: #33465e;
+  --rhub-rail: #0b5cab;
+  --rhub-rail-dark: #084680;
+  --rhub-rail-light: #e8f1fb;
+  --rhub-teal: #0e8a7d;
+  --rhub-amber: #a4600a;
+  --rhub-rose: #a02334;
+  --rhub-hairline: #dce3ec;
+  --rhub-paper: #f5f7fa;
+
+  --ifm-color-primary: var(--rhub-rail);
+  --ifm-color-primary-dark: var(--rhub-rail-dark);
+  --ifm-color-primary-darker: #073c6e;
+  --ifm-color-primary-darkest: #05294b;
+  --ifm-color-primary-light: #1471c9;
+  --ifm-color-primary-lighter: #2a82d6;
+  --ifm-color-primary-lightest: #5aa1e3;
+
+  --ifm-font-family-base: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, Helvetica, Arial, sans-serif;
+  --ifm-font-family-monospace: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo,
+    Consolas, monospace;
+
+  --ifm-heading-font-weight: 600;
+  --ifm-font-size-base: 16px;
+  --ifm-line-height-base: 1.65;
+  --ifm-code-font-size: 88%;
+  --ifm-heading-color: var(--rhub-ink);
+  --ifm-toc-border-color: var(--rhub-hairline);
+  --ifm-table-border-color: var(--rhub-hairline);
+  --ifm-table-head-background: var(--rhub-paper);
+  --ifm-table-stripe-background: #fafbfd;
+  --ifm-navbar-shadow: inset 0 -1px 0 var(--rhub-hairline);
+  --ifm-navbar-background-color: #ffffff;
+  --docusaurus-highlighted-code-line-bg: #e8f1fb;
+}
+
+[data-theme='dark'] {
+  --rhub-hairline: #22344a;
+  --rhub-paper: #101d2c;
+  --rhub-rail-light: #12283f;
+
+  --ifm-color-primary: #6fb0ee;
+  --ifm-color-primary-dark: #4d9ce8;
+  --ifm-color-primary-darker: #3b92e6;
+  --ifm-color-primary-darkest: #1874c8;
+  --ifm-color-primary-light: #91c4f4;
+  --ifm-color-primary-lighter: #a3cef6;
+  --ifm-color-primary-lightest: #c8e2fa;
+
+  --ifm-background-color: #0b1420;
+  --ifm-background-surface-color: #101d2c;
+  --ifm-heading-color: #eaf1f8;
+  --ifm-navbar-background-color: #0b1420;
+  --ifm-table-head-background: #14232f;
+  --ifm-table-stripe-background: #0f1b28;
+  --docusaurus-highlighted-code-line-bg: #1c3049;
+}
+
+/* ---------- navbar wordmark ---------- */
+
+.navbar__title {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.navbar__brand:hover .navbar__title {
+  color: var(--ifm-color-primary);
+}
+
+/* ---------- HTTP method badges ---------- */
+
+.rhub-method {
+  display: inline-block;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 0.18rem 0.55rem;
+  border-radius: 3px;
+  border: 1px solid currentColor;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+.rhub-method--get {
+  color: var(--rhub-teal);
+  background: rgba(14, 138, 125, 0.08);
+}
+
+.rhub-method--post {
+  color: var(--rhub-rail);
+  background: rgba(11, 92, 171, 0.08);
+}
+
+.rhub-method--put {
+  color: var(--rhub-amber);
+  background: rgba(164, 96, 10, 0.08);
+}
+
+.rhub-method--del,
+.rhub-method--delete {
+  color: var(--rhub-rose);
+  background: rgba(160, 35, 52, 0.08);
+}
+
+[data-theme='dark'] .rhub-method--get {
+  color: #4fc4b5;
+}
+
+[data-theme='dark'] .rhub-method--post {
+  color: #7cb8f2;
+}
+
+[data-theme='dark'] .rhub-method--put {
+  color: #e0a852;
+}
+
+[data-theme='dark'] .rhub-method--del {
+  color: #e88b98;
+}
+
+/* ---------- API tables: dense, scrollable, data-first ---------- */
+
+.markdown table {
+  display: table;
+  width: 100%;
+  font-size: 0.88rem;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+}
+
+.markdown table th {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--rhub-ink-soft);
+  vertical-align: bottom;
+}
+
+[data-theme='dark'] .markdown table th {
+  color: #9fb3c8;
+}
+
+.markdown table td,
+.markdown table th {
+  padding: 0.5rem 0.7rem;
+  border: 1px solid var(--rhub-hairline);
+}
+
+.markdown table td:first-child {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+
+.markdown table td code,
+.markdown table th code {
+  white-space: normal;
+}
+
+/* wide validation matrices scroll rather than squeeze */
+.markdown > table,
+.markdown .tableWrapper {
+  overflow-x: auto;
+}
+
+.theme-doc-markdown table {
+  overflow: auto;
+  display: block;
+}
+
+@media (min-width: 997px) {
+  .theme-doc-markdown table {
+    display: table;
+  }
+}
+
+/* ---------- code blocks ---------- */
+
+.theme-code-block {
+  box-shadow: none !important;
+  border: 1px solid var(--rhub-hairline);
+  border-radius: 6px;
+}
+
+/* ---------- admonitions ---------- */
+
+.theme-admonition {
+  border-radius: 6px;
+  border-left-width: 3px;
+}
+
+.theme-admonition code {
+  font-size: 0.85em;
+}
+
+/* ---------- docs chrome ---------- */
+
+.theme-doc-sidebar-container {
+  border-right: 1px solid var(--rhub-hairline) !important;
+}
+
+.menu__link {
+  font-size: 0.9rem;
+}
+
+.menu__list-item-collapsible .menu__link--sublist {
+  font-weight: 600;
+}
+
+.breadcrumbs__item--active .breadcrumbs__link {
+  font-weight: 600;
+}
+
+.pagination-nav__link {
+  border-color: var(--rhub-hairline);
+  border-radius: 6px;
+}
+
+.pagination-nav__sublabel {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+article h1 {
+  font-size: 2.1rem;
+  letter-spacing: -0.02em;
+}
+
+article h2 {
+  font-size: 1.35rem;
+  margin-top: 2.2rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--rhub-hairline);
+}
+
+article h3 {
+  font-size: 1.08rem;
+  margin-top: 1.8rem;
+}
+
+/* ---------- landing page ---------- */
+
+.rhub-hero {
+  padding: 4.5rem 0 3rem;
+  border-bottom: 1px solid var(--rhub-hairline);
+  background:
+    linear-gradient(180deg, var(--rhub-rail-light) 0%, transparent 100%);
+}
+
+.rhub-eyebrow {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--rhub-rail);
+}
+
+[data-theme='dark'] .rhub-eyebrow {
+  color: #7cb8f2;
+}
+
+.rhub-hero h1 {
+  font-size: clamp(2.1rem, 5vw, 3.2rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  margin: 0.6rem 0 1rem;
+  max-width: 22ch;
+}
+
+.rhub-hero p {
+  max-width: 58ch;
+  font-size: 1.08rem;
+  color: var(--rhub-ink-soft);
+}
+
+[data-theme='dark'] .rhub-hero p {
+  color: #a8bdd3;
+}
+
+.rhub-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+}
+
+/* signature element: the documented call sequence as a rail */
+
+.rhub-rail {
+  margin: 3rem 0 1rem;
+}
+
+.rhub-rail__label {
+  margin-bottom: 1.25rem;
+}
+
+.rhub-rail__track {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--rhub-hairline);
+}
+
+.rhub-stop {
+  position: relative;
+  padding: 1.5rem 1.25rem 1.5rem 0;
+  text-decoration: none !important;
+  color: inherit;
+}
+
+.rhub-stop::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 0;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--ifm-background-color, #fff);
+  border: 2px solid var(--rhub-rail);
+}
+
+.rhub-stop:hover::before {
+  background: var(--rhub-rail);
+}
+
+.rhub-stop__index {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--rhub-ink-soft);
+}
+
+.rhub-stop__name {
+  display: block;
+  font-weight: 600;
+  font-size: 1.05rem;
+  margin: 0.3rem 0 0.35rem;
+  color: var(--ifm-heading-color);
+}
+
+.rhub-stop__note {
+  font-size: 0.86rem;
+  color: var(--rhub-ink-soft);
+  margin: 0;
+}
+
+[data-theme='dark'] .rhub-stop__note,
+[data-theme='dark'] .rhub-stop__index {
+  color: #a8bdd3;
+}
+
+.rhub-section {
+  padding: 3rem 0;
+  border-bottom: 1px solid var(--rhub-hairline);
+}
+
+.rhub-section h2 {
+  font-size: 1.4rem;
+  letter-spacing: -0.01em;
+  margin: 0.5rem 0 1.5rem;
+}
+
+.rhub-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1px;
+  background: var(--rhub-hairline);
+  border: 1px solid var(--rhub-hairline);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.rhub-card {
+  background: var(--ifm-background-color, #fff);
+  padding: 1.4rem;
+  text-decoration: none !important;
+  color: inherit;
+  transition: background 0.15s ease;
+}
+
+.rhub-card:hover {
+  background: var(--rhub-rail-light);
+}
+
+.rhub-card h3 {
+  font-size: 1rem;
+  margin: 0.45rem 0 0.4rem;
+}
+
+.rhub-card p {
+  font-size: 0.88rem;
+  color: var(--rhub-ink-soft);
+  margin: 0;
+}
+
+[data-theme='dark'] .rhub-card p {
+  color: #a8bdd3;
+}
+
+.rhub-note {
+  border: 1px solid var(--rhub-hairline);
+  border-left: 3px solid var(--rhub-amber);
+  border-radius: 6px;
+  padding: 1.25rem 1.4rem;
+  font-size: 0.92rem;
+}
+
+.rhub-note p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 996px) {
+  .rhub-rail__track {
+    grid-template-columns: 1fr;
+    border-top: none;
+    border-left: 1px solid var(--rhub-hairline);
+  }
+
+  .rhub-stop {
+    padding: 0.9rem 0 0.9rem 1.25rem;
+  }
+
+  .rhub-stop::before {
+    top: 1.15rem;
+    left: -5px;
+  }
+
+  .rhub-hero {
+    padding: 3rem 0 2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
