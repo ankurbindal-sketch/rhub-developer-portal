@@ -120,36 +120,16 @@ const sidebars = {
         'template-management/update-forex-margin',
       ],
     },
-    {
-      type: 'category',
-      label: 'Unlinked source pages',
-      collapsed: true,
-      link: {type: 'doc', id: 'legacy/legacy-index'},
-      items: [
-        'legacy/login-authentication',
-        'legacy/customer-registration',
-        'legacy/customer-inquiry',
-        'legacy/update-customer-details',
-        'legacy/owner-details',
-        'legacy/quotation',
-        'legacy/final-quotation',
-        'legacy/payout',
-        'legacy/transaction-inquiry',
-        'legacy/balance',
-        'legacy/reference-payout-validator',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Project reference',
-      collapsed: true,
-      items: [
-        'appendix/source-notes',
-        'appendix/unpublished-master-apis',
-        'appendix/unpublished-apis',
-        'appendix/licence',
-      ],
-    },
+    // Recovery / audit material is intentionally NOT exposed here.
+    //
+    // The following categories were removed from the public developer navigation and must
+    // not be re-added: "Unlinked source pages" (docs/legacy/*), "Project reference"
+    // (docs/appendix/source-notes, unpublished-master-apis, unpublished-apis, licence).
+    //
+    // The pages themselves are still generated and still ship in the repository for
+    // auditability. tools/generate.py marks them `unlisted: true` (see
+    // HIDDEN_FROM_PUBLIC_NAV there), which also keeps them out of site search and the
+    // sitemap. The licence page stays public and is reachable from the footer.
   ],
 };
 

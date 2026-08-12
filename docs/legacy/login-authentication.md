@@ -2,6 +2,7 @@
 title: "Login (Authentication) API"
 sidebar_label: "Login (Authentication) API"
 description: "RHUB Login (Authentication) API (source page not linked in the live documentation sidebar)."
+unlisted: true
 ---
 
 # Login (Authentication) API

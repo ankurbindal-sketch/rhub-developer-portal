@@ -2,6 +2,7 @@
 title: "Reference API (Payout Validator)"
 sidebar_label: "Reference API (Payout Validator)"
 description: "RHUB Reference API (Payout Validator) (source page not linked in the live documentation sidebar)."
+unlisted: true
 ---
 
 # Reference API (Payout Validator)

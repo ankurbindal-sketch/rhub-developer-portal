@@ -4,6 +4,7 @@ title: "Unlinked source pages"
 sidebar_label: "Overview"
 slug: "/legacy"
 description: "RHUB source pages that are served but not linked from the live documentation sidebar."
+unlisted: true
 ---
 
 # Unlinked source pages

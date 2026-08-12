@@ -1,6 +1,7 @@
 import React from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 /*
  * Landing page for RHUB Developer Portal 1.0.
@@ -80,6 +81,15 @@ function Hero() {
   return (
     <header className="rhub-hero">
       <div className="container">
+        {/* Official RHUB logo supplied by RHUB; rendered at a fixed height with
+            width:auto so the 396x67 aspect ratio is preserved. */}
+        <img
+          className="rhub-hero__logo"
+          src={useBaseUrl('img/rhub.png')}
+          alt="RemittancesHub — Cross Border Business Payments"
+          width={396}
+          height={67}
+        />
         <span className="rhub-eyebrow">RHUB Developer Portal 1.0</span>
         <h1>Integrate cross-border payouts with the RemittancesHub API</h1>
         <p>

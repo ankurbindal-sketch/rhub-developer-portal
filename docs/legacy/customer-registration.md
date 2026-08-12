@@ -2,6 +2,7 @@
 title: "Customer-Registration API"
 sidebar_label: "Customer-Registration API"
 description: "RHUB Customer-Registration API (source page not linked in the live documentation sidebar)."
+unlisted: true
 ---
 
 # Customer-Registration API

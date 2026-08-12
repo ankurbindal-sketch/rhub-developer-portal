@@ -2,6 +2,7 @@
 title: "Update Customer-Details API"
 sidebar_label: "Update Customer-Details API"
 description: "RHUB Update Customer-Details API (source page not linked in the live documentation sidebar)."
+unlisted: true
 ---
 
 # Update Customer-Details API

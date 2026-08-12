@@ -2,6 +2,7 @@
 title: "Source coverage notes"
 sidebar_label: "Source coverage notes"
 description: "Audit trail: source integrity, publication status, conflicts, gaps and the source-to-page map."
+unlisted: true
 ---
 
 # Source coverage notes

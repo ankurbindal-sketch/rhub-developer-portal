@@ -2,6 +2,7 @@
 title: "Balance API"
 sidebar_label: "Balance API"
 description: "RHUB Balance API (source page not linked in the live documentation sidebar)."
+unlisted: true
 ---
 
 # Balance API

@@ -2,6 +2,7 @@
 title: "Unpublished API sections"
 sidebar_label: "Unpublished API sections"
 description: "API sections that are commented out in the RHUB source files."
+unlisted: true
 ---
 
 # Unpublished API sections

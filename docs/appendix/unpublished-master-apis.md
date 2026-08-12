@@ -2,6 +2,7 @@
 title: "Unpublished master APIs"
 sidebar_label: "Unpublished master APIs"
 description: "Master API sections that are commented out in the RHUB source."
+unlisted: true
 ---
 
 # Unpublished master APIs

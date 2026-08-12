@@ -37,6 +37,35 @@ PUBLISHED = ['README.md', 'apisequence.md', 'AUTH.md', 'QUOTA.md', 'DocumentUplo
              'PAYOUT-Api.md', 'PAYOUT-WPT.md', 'ENQUIRY.md', 'master.md', 'CUSTOMEREGIS.md',
              'responseCodes.md', 'CURRENCYVALIDATIONS.md', 'COUNTRYVALIDATIONS.md', 'footer.md']
 
+# Recovery / audit material.
+#
+# These pages are deliberately kept out of the public developer navigation while
+# remaining in the repository for auditability and future RHUB review. The pipeline
+# writes them with `unlisted: true`, which keeps them out of the sidebar, the site
+# search index and the sitemap, but still builds them and leaves them reachable by
+# direct URL. Their content is generated exactly as before — nothing is removed.
+#
+# This list is the persistent mechanism: regenerating the docs re-applies it, so the
+# pages can never drift back into public navigation. sidebars.js also omits the
+# matching categories.
+HIDDEN_FROM_PUBLIC_NAV = {
+    'legacy/index.md',
+    'legacy/login-authentication.md',
+    'legacy/customer-registration.md',
+    'legacy/customer-inquiry.md',
+    'legacy/update-customer-details.md',
+    'legacy/owner-details.md',
+    'legacy/quotation.md',
+    'legacy/final-quotation.md',
+    'legacy/payout.md',
+    'legacy/transaction-inquiry.md',
+    'legacy/balance.md',
+    'legacy/reference-payout-validator.md',
+    'appendix/source-notes.md',
+    'appendix/unpublished-master-apis.md',
+    'appendix/unpublished-apis.md',
+}
+
 MANIFEST = []      # (source file, portal path, status, notes)
 PAGES = []         # portal doc paths written
 API_INDEX = []     # (name, method, endpoint, page)
@@ -49,6 +78,9 @@ def rec(src, portal_path, status, notes):
 def write(relpath, front, body):
     path = os.path.join(DOCS, relpath)
     os.makedirs(os.path.dirname(path), exist_ok=True)
+    if relpath in HIDDEN_FROM_PUBLIC_NAV:
+        front = dict(front)
+        front['unlisted'] = True
     fm = ['---']
     for k, v in front.items():
         if v is None:

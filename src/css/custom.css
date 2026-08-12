@@ -72,15 +72,43 @@
   --docusaurus-highlighted-code-line-bg: #1c3049;
 }
 
-/* ---------- navbar wordmark ---------- */
+/* ---------- navbar brand: official RHUB logo + portal title ---------- */
+
+/* Height is fixed and width is left to the intrinsic ratio, so the supplied
+   396x67 asset is never distorted. */
+.navbar__logo {
+  height: 28px;
+  margin-right: 0.85rem;
+}
+
+.navbar__logo img {
+  height: 28px;
+  width: auto;
+  max-width: none;
+}
 
 .navbar__title {
   font-weight: 600;
   letter-spacing: -0.01em;
+  padding-left: 0.85rem;
+  border-left: 1px solid var(--rhub-hairline);
 }
 
 .navbar__brand:hover .navbar__title {
   color: var(--ifm-color-primary);
+}
+
+/* Narrow screens: keep the logo legible and drop the secondary title so the
+   brand area never collides with the menu toggle. */
+@media (max-width: 700px) {
+  .navbar__logo,
+  .navbar__logo img {
+    height: 24px;
+  }
+
+  .navbar__title {
+    display: none;
+  }
 }
 
 /* ---------- HTTP method badges ---------- */
@@ -260,6 +288,22 @@ article h3 {
 }
 
 /* ---------- landing page ---------- */
+
+/* official RHUB logo in the landing hero */
+
+.rhub-hero__logo {
+  display: block;
+  height: 44px;
+  width: auto;
+  max-width: 100%;
+  margin-bottom: 1.75rem;
+}
+
+@media (max-width: 600px) {
+  .rhub-hero__logo {
+    height: 34px;
+  }
+}
 
 .rhub-hero {
   padding: 4.5rem 0 3rem;

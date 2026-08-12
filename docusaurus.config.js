@@ -7,6 +7,9 @@ const {themes} = require('prism-react-renderer');
 const config = {
   title: 'RHUB Developer Portal',
   tagline: 'Integration documentation for the RemittancesHub cross-border payment APIs',
+  // The supplied RHUB asset is a wide wordmark (396x67, 5.9:1); it cannot serve as a
+  // square favicon without cropping or padding it, so no favicon is configured and
+  // none has been fabricated.
   favicon: undefined,
 
   url: 'https://ankurbindal-sketch.github.io',
@@ -104,16 +107,19 @@ const config = {
     navbar: {
       title: 'RHUB Developer Portal',
       hideOnScroll: false,
+      // Official RHUB asset, supplied by RHUB. 396x67 native; rendered at 28px height with
+      // width scaled to match (165x28) so the aspect ratio is preserved exactly.
+      logo: {
+        alt: 'RemittancesHub — Cross Border Business Payments',
+        src: 'img/rhub.png',
+        width: 165,
+        height: 28,
+      },
       items: [
         {type: 'docSidebar', sidebarId: 'docsSidebar', position: 'left', label: 'Documentation'},
         {to: '/docs/api-index', label: 'API index', position: 'left'},
         {to: '/docs/master-apis', label: 'Master APIs', position: 'left'},
         {to: '/docs/errors', label: 'Errors', position: 'left'},
-        {
-          href: 'https://github.com/ankurbindal-sketch/rhub-developer-portal',
-          label: 'GitHub',
-          position: 'right',
-        },
       ],
     },
     footer: {
@@ -150,10 +156,6 @@ const config = {
           items: [
             {label: 'Licence and source version', to: '/docs/appendix/licence'},
             {label: 'RemittancesHub', href: 'https://www.remittanceshub.com/'},
-            {
-              label: 'Repository',
-              href: 'https://github.com/ankurbindal-sketch/rhub-developer-portal',
-            },
           ],
         },
       ],

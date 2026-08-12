@@ -2,6 +2,7 @@
 title: "Payout API"
 sidebar_label: "Payout API"
 description: "RHUB Payout API (source page not linked in the live documentation sidebar)."
+unlisted: true
 ---
 
 # Payout API
