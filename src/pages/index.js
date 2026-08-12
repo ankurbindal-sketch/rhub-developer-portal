@@ -11,34 +11,67 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
  * claims, performance figures or capabilities have been added.
  */
 
-const SEQUENCE = [
+const JOURNEY = [
   {
-    index: 'Step 01',
-    name: 'Login (Authentication)',
-    note: 'Required to authenticate and obtain access tokens for subsequent calls.',
+    index: '01',
+    kind: 'Core transaction API',
+    name: 'Authenticate',
+    note: 'Obtain the access token every other call depends on.',
     to: '/docs/authentication/authentication',
   },
   {
-    index: 'Step 02',
+    index: '02',
+    kind: 'Preparation / decision',
+    name: 'Customer',
+    note: 'Existing customer: use the customer code you hold. New customer: register beforehand, or on the fly during Payout.',
+    to: '/docs/customers/customer-registration',
+  },
+  {
+    index: '03',
+    kind: 'Preparation',
+    name: 'KYC / KYB',
+    note: 'Required for payout — KYC for individual customers, KYB for business customers. Payout carries the reference in docReferenceNumber.',
+    to: '/docs/documents/document-upload',
+  },
+  {
+    index: '04',
+    kind: 'Core transaction API',
     name: 'Quotation',
-    note: 'Used to fetch the exchange rate and charges before initiating a payout.',
+    note: 'Obtain the rate, charges and quote identifier for the transaction.',
     to: '/docs/quotation/quotation',
   },
   {
-    index: 'Step 03',
+    index: '05',
+    kind: 'Conditional / decision',
+    name: 'Transaction documents',
+    note: 'C2C: no invoice-document requirement. B2B, B2C and C2B: invoice required, referenced by sendClientTrxReference.',
+    to: '/docs/documents/document-upload',
+  },
+  {
+    index: '06',
+    kind: 'Conditional / reference',
+    name: 'Reference data',
+    note: 'As required by route or correspondent — Bank List, other master APIs, currency and country validations.',
+    to: '/docs/master-apis',
+  },
+  {
+    index: '07',
+    kind: 'Core transaction API',
     name: 'Payout',
-    note: 'Initiates the fund transfer based on the selected quotation and beneficiary.',
+    note: 'Submit the payout request.',
     to: '/docs/payout/payout',
   },
   {
-    index: 'Step 04',
+    index: '08',
+    kind: 'Core transaction API',
     name: 'Transaction Enquiry',
-    note: 'Used to check the status of a previously initiated payout.',
+    note: 'Check the status of the payout.',
     to: '/docs/transactions/transaction-enquiry',
   },
 ];
 
 const ENTRY_POINTS = [
+
   {
     kicker: 'Get started',
     title: 'Authentication and integration basics',
@@ -53,8 +86,8 @@ const ENTRY_POINTS = [
   },
   {
     kicker: 'Integration flow',
-    title: 'The source-backed API sequence',
-    body: 'The call sequence RHUB supports, and which APIs are called based on the need.',
+    title: 'Plan your integration',
+    body: 'Where the customer, document and reference decisions apply across a payout.',
     to: '/docs/getting-started/integration-flow',
   },
   {
@@ -69,13 +102,13 @@ const CAPABILITIES = [
   {
     kicker: 'Customers',
     title: 'Customer Registration',
-    body: 'Register business and individual customers, with the full source field contract for both.',
+    body: 'Register business and individual customers, and obtain the customer code used at payout.',
     to: '/docs/customers/customer-registration',
   },
   {
     kicker: 'Documents',
     title: 'Document Upload',
-    body: 'Upload customer-related documents, including ID proofs and invoices.',
+    body: 'KYC/KYB verification documents and, for business transactions, invoice documentation.',
     to: '/docs/documents/document-upload',
   },
   {
@@ -138,27 +171,36 @@ function Hero() {
   );
 }
 
-function Rail() {
+function Journey() {
   return (
-    <section className="container rhub-rail">
-      <div className="rhub-rail__label">
-        <span className="rhub-eyebrow">The documented call sequence</span>
+    <section className="rhub-section">
+      <div className="container">
+        <span className="rhub-eyebrow">Payout journey</span>
+        <h2>What it takes to complete a payout</h2>
+        <p className="rhub-journey__lede">
+          Not every stage is an API call. Four stages are the core transaction APIs; the
+          others are preparation, decisions or reference data that depend on the customer and
+          the transaction type. Each stage is labelled accordingly.
+        </p>
+        <ol className="rhub-stages">
+          {JOURNEY.map((stage) => (
+            <li key={stage.index} className="rhub-stage">
+              <span className="rhub-stage__index">{stage.index}</span>
+              <span className="rhub-stage__kind">{stage.kind}</span>
+              <Link className="rhub-stage__name" to={stage.to}>
+                {stage.name}
+              </Link>
+              <p className="rhub-stage__note">{stage.note}</p>
+            </li>
+          ))}
+        </ol>
+        <p className="rhub-journey__more">
+          <Link to="/docs/getting-started/integration-flow">
+            See the detailed integration flow
+          </Link>{' '}
+          for exactly where each decision and conditional requirement applies.
+        </p>
       </div>
-      <div className="rhub-rail__track">
-        {SEQUENCE.map((stop) => (
-          <Link key={stop.name} className="rhub-stop" to={stop.to}>
-            <span className="rhub-stop__index">{stop.index}</span>
-            <span className="rhub-stop__name">{stop.name}</span>
-            <p className="rhub-stop__note">{stop.note}</p>
-          </Link>
-        ))}
-      </div>
-      <p className="rhub-stop__note" style={{marginTop: '1.5rem'}}>
-        The source states that the API call sequence is limited to the Login API, Quotation API,
-        Payout API and Transaction Enquiry API, and that the remaining APIs — including bank list,
-        document upload, balance and the master APIs — can be called based on the need.{' '}
-        <Link to="/docs/getting-started/integration-flow">See the full sequence</Link>.
-      </p>
     </section>
   );
 }
@@ -219,8 +261,8 @@ function Fidelity() {
           <p>
             Where RHUB has not established something, the page says{' '}
             <strong>REVIEW REQUIRED</strong> rather than filling the gap. Rate limits,
-            idempotency, retries, webhooks and SDKs are not documented by RHUB and so are absent
-            here. See{' '}
+            idempotency, retries, webhooks and SDKs are not part of the RHUB API documentation, so
+            they are absent here. See{' '}
             <Link to="/docs/getting-started/conventions">how to read this reference</Link>.
           </p>
         </div>
@@ -236,7 +278,7 @@ export default function Home() {
       description="Developer documentation for the RHUB (RemittancesHub) cross-border remittance APIs: authentication, quotation, payout, transaction enquiry, master data and validation rules.">
       <Hero />
       <EntryPoints />
-      <Rail />
+      <Journey />
       <Capabilities />
       <Fidelity />
     </Layout>

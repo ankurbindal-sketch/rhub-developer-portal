@@ -378,143 +378,65 @@ def api_page(relpath, front, method, title, converted, source_file, extra_top=''
 # --------------------------------------------------------------------------
 
 def build_intro():
-    body = f"""# RHUB Developer Portal
+    body = """# RHUB API Documentation
 
-RHUB (RemittancesHub) is a licensed financial institution operating an Alternate Cross
-Border Network for inbound and outbound payments. It moves funds into the bank accounts of
-beneficiaries — corporate or individual — in near real time, at lower cost than traditional
-channels, with end-to-end transaction tracking.
+Reference documentation for the RHUB (RemittancesHub) payout APIs: contracts, field tables,
+examples, validation rules and error codes. New to RHUB? Start with the
+[integration flow](/docs/getting-started/integration-flow), which sets out where each API
+fits and where the decisions are.
 
-You integrate over a REST API. Requests and responses are JSON, and every call is
-authenticated with an access token.
-
-<div className="rhub-cards">
+<div className="rhub-cards rhub-cards--two">
 
 <div className="rhub-card">
-<span className="rhub-card__kicker">Get started</span>
+<span className="rhub-card__kicker">Getting started</span>
 
-### [Authentication](/docs/authentication/authentication)
-
-Obtain the access token every other call depends on.
+- [Integration flow](/docs/getting-started/integration-flow)
+- [Transaction flows](/docs/getting-started/transaction-flows)
+- [How to read this reference](/docs/getting-started/conventions)
+- [Authentication](/docs/authentication/authentication)
 
 </div>
 
 <div className="rhub-card">
 <span className="rhub-card__kicker">API reference</span>
 
-### [Explore RHUB API contracts](/docs/api-index)
-
-Every published API, with its method, purpose and integration stage.
-
-</div>
-
-<div className="rhub-card">
-<span className="rhub-card__kicker">Integration flow</span>
-
-### [Plan your integration](/docs/getting-started/integration-flow)
-
-The decision points between authenticating and settling a payout.
+- [API index](/docs/api-index)
+- [Quotation](/docs/quotation/quotation)
+- [Payout](/docs/payout/payout) · [WPT Payout](/docs/payout/wpt-payout)
+- [Transaction Enquiry](/docs/transactions/transaction-enquiry)
+- [Balance Enquiry](/docs/balance/balance-enquiry)
+- [Customer Registration](/docs/customers/customer-registration)
+- [Document Upload](/docs/documents/document-upload)
 
 </div>
 
 <div className="rhub-card">
-<span className="rhub-card__kicker">Errors and validation</span>
+<span className="rhub-card__kicker">Reference and validation</span>
 
-### [Result codes and field rules](/docs/errors)
-
-Current API error codes, transaction statuses and correspondent validation rules.
-
-</div>
-
-</div>
-
-## Core transaction APIs
-
-Every payout runs through these four calls, in this order.
-
-<div className="rhub-flow">
-
-<div className="rhub-flow__step">
-<span className="rhub-flow__index">01</span>
-
-[Authentication](/docs/authentication/authentication)
-
-</div>
-
-<div className="rhub-flow__step">
-<span className="rhub-flow__index">02</span>
-
-[Quotation](/docs/quotation/quotation)
-
-</div>
-
-<div className="rhub-flow__step">
-<span className="rhub-flow__index">03</span>
-
-[Payout](/docs/payout/payout)
-
-</div>
-
-<div className="rhub-flow__step">
-<span className="rhub-flow__index">04</span>
-
-[Transaction Enquiry](/docs/transactions/transaction-enquiry)
-
-</div>
-
-</div>
-
-Customer and document preparation happen around this sequence — what they involve depends on
-the customer and the transaction type.
-
-<div className="rhub-cards rhub-cards--two">
-
-<div className="rhub-card">
-<span className="rhub-card__kicker">Prepare customer</span>
-
-**Existing customer** — use the customer code you already hold.
-
-**New customer** — register beforehand with
-[Customer Registration](/docs/customers/customer-registration), or register on the fly
-during [Payout](/docs/payout/payout).
+- [Master / reference APIs](/docs/master-apis)
+- [Currency validations](/docs/validation/currency-validations)
+- [Country validations](/docs/validation/country-validations)
 
 </div>
 
 <div className="rhub-card">
-<span className="rhub-card__kicker">Prepare documents</span>
+<span className="rhub-card__kicker">Errors and response codes</span>
 
-**KYC / KYB** — required for payout. Referenced by `docReferenceNumber`.
-
-**Invoice** — required for B2B, B2C and C2B. Referenced by `sendClient TrxReference`.
-
-</div>
+- [Current API error codes](/docs/errors/current-error-codes)
+- [Transaction status codes](/docs/errors/transaction-status-codes)
+- [HTTP and application error codes](/docs/errors/error-codes)
 
 </div>
 
-[Integration flow](/docs/getting-started/integration-flow) sets out the decision points in
-full, including where each branch applies.
-
-## Supporting capabilities
-
-These are called when your route or use case needs them, not on every transaction.
-
-- [Master / reference APIs](/docs/master-apis) — remittance purpose, source of fund,
-  relationship, occupation, bank list, wallet list and more
-- [Balance Enquiry](/docs/balance/balance-enquiry) — current wallet or account balance
-- [Currency validations](/docs/validation/currency-validations) and
-  [country validations](/docs/validation/country-validations) — correspondent-specific
-  conditional field requirements
-- [Errors and response codes](/docs/errors) — result codes, transaction statuses and
-  HTTP/application error codes
-
-New to the reference? [How to read this reference](/docs/getting-started/conventions)
-explains the requirement flags, field tables and REVIEW REQUIRED markers.
+</div>
 """
-    write('intro.md', {'id': 'intro', 'title': 'RHUB Developer Portal',
-                       'sidebar_label': 'Overview', 'slug': '/',
-                       'description': 'Developer documentation for the RHUB (RemittancesHub) cross-border remittance APIs.'},
+    write('intro.md', {'id': 'intro', 'title': 'RHUB API Documentation',
+                       'sidebar_label': 'Documentation home', 'slug': '/',
+                       'description': 'Directory of the RHUB API documentation: getting started, API reference, validation and error codes.'},
           body)
-    rec('README.md', 'docs/intro.md', 'COMPLETE', 'About Us and Overview sections carried over verbatim.')
+    rec('README.md', 'docs/intro.md, src/pages/index.js', 'COMPLETE',
+        'About Us and Overview content presented on the portal landing page; /docs is the '
+        'documentation directory.')
 
 
 # --------------------------------------------------------------------------
@@ -605,7 +527,7 @@ No invoice-document requirement applies.
 <span className="rhub-branch__label">B2B · B2C · C2B</span>
 
 Invoice documentation is required. The invoice reference is carried by
-`sendClient TrxReference` in the Payout request.
+`sendClientTrxReference` in the Payout request.
 
 </div>
 
@@ -857,7 +779,7 @@ is passed to Payout in `docReferenceNumber`.
 
 **Invoice** documentation supports business-related transactions. It is required for B2B,
 B2C and C2B payout processing, and the invoice/transaction reference is represented in the
-Payout request by `sendClient TrxReference`. It does not apply as an invoice requirement to
+Payout request by `sendClientTrxReference`. It does not apply as an invoice requirement to
 C2C.
 
 The source establishes a single document upload contract, reproduced below; it does not
@@ -938,9 +860,9 @@ your route and use case require.
 ### Document references in the request
 
 - `docReferenceNumber` — the KYC/KYB document reference.
-- `sendClient TrxReference` — the invoice/transaction reference for B2B, B2C and C2B.
+- `sendClientTrxReference` — the invoice/transaction reference for B2B, B2C and C2B.
 
-:::warning[REVIEW REQUIRED — C2C value for `sendClient TrxReference`]
+:::warning[REVIEW REQUIRED — C2C value for `sendClientTrxReference`]
 
 %s
 
@@ -949,11 +871,15 @@ fallback has been assumed here; confirm the expected usage with RHUB.
 
 :::
 
-:::note[Field naming in the source]
+:::note[How this field appears below]
 
-The request field table below lists this field as `sendClient TrxReference`, while the
-request example writes it as `sendClientTrxReference`. Both are reproduced exactly as the
-source has them; neither spelling has been normalised.
+In the request field table the invoice reference is split across two lines, because the
+contract cell contains a line break. The field identifier is `sendClientTrxReference`, as the
+request example writes it. The table is reproduced exactly as RHUB has it.
+
+Two entries in the [current API error codes](/docs/errors/current-error-codes) describe this
+field as `sendClientTxnReference` — "Txn" rather than "Trx". Both spellings are reproduced
+exactly as RHUB supplied them; which one the API accepts is **REVIEW REQUIRED**.
 
 :::
 

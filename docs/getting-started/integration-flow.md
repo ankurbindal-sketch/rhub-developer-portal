@@ -87,7 +87,7 @@ No invoice-document requirement applies.
 <span className="rhub-branch__label">B2B · B2C · C2B</span>
 
 Invoice documentation is required. The invoice reference is carried by
-`sendClient TrxReference` in the Payout request.
+`sendClientTrxReference` in the Payout request.
 
 </div>
 

@@ -4,7 +4,6 @@
   "receivedOn": "2026-08-12",
   "authoritative": true,
   "notes": "Operational guidance confirmed directly by the RHUB team. It explains how the documented API contracts are used together; it does not change any contract. Kept separate from RHUB_FULL_SOURCE_EXPORT.json so the original documentation export is never rewritten. Update this file and re-run tools/generate.py to refresh the guidance shown on the public pages.",
-
   "customerPaths": [
     {
       "id": "existing",
@@ -26,7 +25,6 @@
     }
   ],
   "customerNote": "Customer Registration is not a mandatory standalone call before every payout. Which of the three paths applies depends on whether the customer is already registered and how you choose to register new customers.",
-
   "documentModel": [
     {
       "type": "KYC / KYB",
@@ -40,43 +38,96 @@
       "purpose": "Supporting document for business-related transactions.",
       "appliesTo": "B2B, B2C, C2B",
       "requirement": "Mandatory for B2B, B2C and C2B payout processing. Not applicable as an invoice requirement to C2C.",
-      "payoutReference": "sendClient TrxReference"
+      "payoutReference": "sendClientTrxReference"
     }
   ],
-
   "transactionMatrix": [
-    {"type": "B2B", "sender": "Business", "receiver": "Business", "kyc": "Required", "invoice": "Required"},
-    {"type": "B2C", "sender": "Business", "receiver": "Individual", "kyc": "Required", "invoice": "Required"},
-    {"type": "C2B", "sender": "Individual", "receiver": "Business", "kyc": "Required", "invoice": "Required"},
-    {"type": "C2C", "sender": "Individual", "receiver": "Individual", "kyc": "Required", "invoice": "Not applicable as an invoice requirement"}
+    {
+      "type": "B2B",
+      "sender": "Business",
+      "receiver": "Business",
+      "kyc": "Required",
+      "invoice": "Required"
+    },
+    {
+      "type": "B2C",
+      "sender": "Business",
+      "receiver": "Individual",
+      "kyc": "Required",
+      "invoice": "Required"
+    },
+    {
+      "type": "C2B",
+      "sender": "Individual",
+      "receiver": "Business",
+      "kyc": "Required",
+      "invoice": "Required"
+    },
+    {
+      "type": "C2C",
+      "sender": "Individual",
+      "receiver": "Individual",
+      "kyc": "Required",
+      "invoice": "Not applicable as an invoice requirement"
+    }
   ],
-
   "payoutPrerequisites": [
     "Authenticate and obtain an access token.",
     "Determine customer status: use the existing customer code, or pre-register the customer, or use the supported on-the-fly registration path in the Payout request.",
     "Ensure the required KYC/KYB documentation has been uploaded and the applicable `docReferenceNumber` is available.",
-    "For B2B, B2C and C2B, ensure the required invoice documentation is available and the applicable `sendClient TrxReference` value is used.",
+    "For B2B, B2C and C2B, ensure the required invoice documentation is available and the applicable `sendClientTrxReference` value is used.",
     "Obtain a valid quotation.",
     "Obtain the master, reference, bank or validation data your route and use case require — only the ones you actually need, not every master API.",
     "Submit the Payout request."
   ],
-
   "openQuestions": [
     {
       "id": "c2c-trx-reference",
       "topic": "C2C value for the Mandatory invoice reference field",
-      "question": "The Payout contract marks `sendClient TrxReference` as Mandatory at transactionInfo level, while the confirmed invoice-document requirement applies only to B2B, B2C and C2B. The expected value or usage for C2C payouts is not established.",
+      "question": "The Payout contract marks `sendClientTrxReference` as Mandatory at transactionInfo level, while the confirmed invoice-document requirement applies only to B2B, B2C and C2B. The expected value or usage for C2C payouts is not established.",
       "placement": "payout"
     }
   ],
-
   "masterCrossLinks": [
-    {"field": "businessType", "master": "Business Type", "slug": "business-type"},
-    {"field": "business RegistrationType", "master": "Business Registration Type", "slug": "business-registration-type"},
-    {"field": "senderIdType", "master": "Document ID Type", "slug": "document-id-type"},
-    {"field": "senderOccupation", "master": "Occupation", "slug": "occupation"},
-    {"field": "natureOfBusinessCode", "master": "Nature of Business", "slug": "nature-of-business"},
-    {"field": "legalStatusCode", "master": "Customer Legal Status", "slug": "customer-legal-status"},
-    {"field": "bank-related fields", "master": "Bank List", "slug": "bank-list"}
-  ]
+    {
+      "field": "businessType",
+      "master": "Business Type",
+      "slug": "business-type"
+    },
+    {
+      "field": "business RegistrationType",
+      "master": "Business Registration Type",
+      "slug": "business-registration-type"
+    },
+    {
+      "field": "senderIdType",
+      "master": "Document ID Type",
+      "slug": "document-id-type"
+    },
+    {
+      "field": "senderOccupation",
+      "master": "Occupation",
+      "slug": "occupation"
+    },
+    {
+      "field": "natureOfBusinessCode",
+      "master": "Nature of Business",
+      "slug": "nature-of-business"
+    },
+    {
+      "field": "legalStatusCode",
+      "master": "Customer Legal Status",
+      "slug": "customer-legal-status"
+    },
+    {
+      "field": "bank-related fields",
+      "master": "Bank List",
+      "slug": "bank-list"
+    }
+  ],
+  "fieldNaming": {
+    "invoiceReference": "sendClientTrxReference",
+    "kycReference": "docReferenceNumber",
+    "note": "The Payout request field table renders the invoice reference across two lines because the source cell contains a line break (sendClient<br />TrxReference). The field identifier is sendClientTrxReference, as the Payout request example writes it. The contract table is reproduced unchanged; prose and guidance use the identifier."
+  }
 }

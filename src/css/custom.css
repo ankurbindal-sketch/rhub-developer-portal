@@ -1201,3 +1201,97 @@ article h4 {
     padding: var(--rhub-space-3) var(--rhub-space-4);
   }
 }
+
+
+/* --- homepage payout journey stages --- */
+
+.rhub-journey__lede {
+  max-width: 72ch;
+  font-size: 0.95rem;
+  color: var(--rhub-ink-3);
+  margin-bottom: var(--rhub-space-5);
+}
+
+.rhub-stages {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  background: var(--rhub-hairline);
+  border: 1px solid var(--rhub-hairline);
+  border-radius: var(--rhub-radius);
+  overflow: hidden;
+}
+
+.rhub-stage {
+  position: relative;
+  background: var(--ifm-background-color);
+  padding: var(--rhub-space-4);
+}
+
+.rhub-stage__index {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--rhub-ink-3);
+}
+
+.rhub-stage__kind {
+  display: block;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.63rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--rhub-orange-ink);
+  margin: var(--rhub-space-1) 0 var(--rhub-space-2);
+}
+
+.rhub-stage__name {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--rhub-ink);
+  text-decoration: none !important;
+  margin-bottom: var(--rhub-space-2);
+}
+
+.rhub-stage__name::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.rhub-stage:hover {
+  background: var(--rhub-surface-2);
+}
+
+.rhub-stage:hover .rhub-stage__name {
+  color: var(--rhub-orange-ink);
+}
+
+.rhub-stage__note {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--rhub-ink-3);
+  margin: 0;
+}
+
+.rhub-journey__more {
+  font-size: 0.92rem;
+  margin-top: var(--rhub-space-4);
+}
+
+/* documentation directory cards list tightly */
+.rhub-card ul {
+  margin: 0;
+  padding-left: 1.05rem;
+  font-size: 0.9rem;
+}
+
+.rhub-card li {
+  padding: 0.12rem 0;
+}

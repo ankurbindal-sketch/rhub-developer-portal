@@ -18,7 +18,7 @@ Initiate a fund transfer for a completed quotation.
 1. Authenticate and obtain an access token.
 2. Determine customer status: use the existing customer code, or pre-register the customer, or use the supported on-the-fly registration path in the Payout request.
 3. Ensure the required KYC/KYB documentation has been uploaded and the applicable `docReferenceNumber` is available.
-4. For B2B, B2C and C2B, ensure the required invoice documentation is available and the applicable `sendClient TrxReference` value is used.
+4. For B2B, B2C and C2B, ensure the required invoice documentation is available and the applicable `sendClientTrxReference` value is used.
 5. Obtain a valid quotation.
 6. Obtain the master, reference, bank or validation data your route and use case require — only the ones you actually need, not every master API.
 7. Submit the Payout request.
@@ -40,22 +40,26 @@ your route and use case require.
 ### Document references in the request
 
 - `docReferenceNumber` — the KYC/KYB document reference.
-- `sendClient TrxReference` — the invoice/transaction reference for B2B, B2C and C2B.
+- `sendClientTrxReference` — the invoice/transaction reference for B2B, B2C and C2B.
 
-:::warning[REVIEW REQUIRED — C2C value for `sendClient TrxReference`]
+:::warning[REVIEW REQUIRED — C2C value for `sendClientTrxReference`]
 
-The Payout contract marks `sendClient TrxReference` as Mandatory at transactionInfo level, while the confirmed invoice-document requirement applies only to B2B, B2C and C2B. The expected value or usage for C2C payouts is not established.
+The Payout contract marks `sendClientTrxReference` as Mandatory at transactionInfo level, while the confirmed invoice-document requirement applies only to B2B, B2C and C2B. The expected value or usage for C2C payouts is not established.
 
 The Mandatory flag below is reproduced exactly as the contract states it. No C2C value or
 fallback has been assumed here; confirm the expected usage with RHUB.
 
 :::
 
-:::note[Field naming in the source]
+:::note[How this field appears below]
 
-The request field table below lists this field as `sendClient TrxReference`, while the
-request example writes it as `sendClientTrxReference`. Both are reproduced exactly as the
-source has them; neither spelling has been normalised.
+In the request field table the invoice reference is split across two lines, because the
+contract cell contains a line break. The field identifier is `sendClientTrxReference`, as the
+request example writes it. The table is reproduced exactly as RHUB has it.
+
+Two entries in the [current API error codes](/docs/errors/current-error-codes) describe this
+field as `sendClientTxnReference` — "Txn" rather than "Trx". Both spellings are reproduced
+exactly as RHUB supplied them; which one the API accepts is **REVIEW REQUIRED**.
 
 :::
 

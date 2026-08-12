@@ -40,7 +40,7 @@ being explicit about which is which.
 
 **Requirement** — Mandatory for B2B, B2C and C2B payout processing. Not applicable as an invoice requirement to C2C.
 
-**Payout reference** — `sendClient TrxReference`
+**Payout reference** — `sendClientTrxReference`
 
 </div>
 
@@ -52,7 +52,7 @@ is passed to Payout in `docReferenceNumber`.
 
 **Invoice** documentation supports business-related transactions. It is required for B2B,
 B2C and C2B payout processing, and the invoice/transaction reference is represented in the
-Payout request by `sendClient TrxReference`. It does not apply as an invoice requirement to
+Payout request by `sendClientTrxReference`. It does not apply as an invoice requirement to
 C2C.
 
 The source establishes a single document upload contract, reproduced below; it does not

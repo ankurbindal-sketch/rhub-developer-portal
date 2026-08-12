@@ -284,9 +284,9 @@
  "manifest": [
   [
    "README.md",
-   "docs/intro.md",
+   "docs/intro.md, src/pages/index.js",
    "COMPLETE",
-   "About Us and Overview sections carried over verbatim."
+   "About Us and Overview content presented on the portal landing page; /docs is the documentation directory."
   ],
   [
    "apisequence.md",
