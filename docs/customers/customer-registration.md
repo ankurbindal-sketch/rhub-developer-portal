@@ -16,17 +16,30 @@ on subsequent transactions.
 Customer Registration is not a mandatory call before every payout. Which path applies
 depends on whether RHUB already knows the customer.
 
-### Existing customer
+<div className="rhub-cards rhub-cards--three">
+
+<div className="rhub-card">
+<span className="rhub-card__kicker">Existing customer</span>
 
 The customer has already been registered with RHUB. Use the existing customer code for the transaction. Do not register the customer again.
 
-### New customer, registered before payout
+</div>
+
+<div className="rhub-card">
+<span className="rhub-card__kicker">New customer, registered before payout</span>
 
 The customer is not yet known to RHUB and you want to register them as a separate step. Register the customer with the Customer Registration API, then use the resulting customer code for the payout.
 
-### New customer, registered on the fly
+</div>
+
+<div className="rhub-card">
+<span className="rhub-card__kicker">New customer, registered on the fly</span>
 
 The customer is not yet known to RHUB and you want to register them as part of the payout. RHUB supports customer registration as part of the Payout flow. A separate Customer Registration call is not required on this path; the Payout fields governing it (for example isAutoRegistered, declaration and the sender details) remain exactly as the Payout contract defines them.
+
+</div>
+
+</div>
 
 Coded fields in the request draw their values from the master APIs — for example
 [Business Type](/docs/master-apis/business-type),

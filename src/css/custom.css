@@ -491,7 +491,27 @@ article h4 {
   font-family: var(--ifm-font-family-monospace);
   font-size: 0.82rem;
   color: var(--rhub-ink);
-  word-break: break-word;
+  word-break: normal;
+  overflow-wrap: break-word;
+  hyphens: none;
+  min-width: 9rem;
+}
+
+/* parameter tables: stable widths for the scannable columns, room for description */
+.markdown table th:nth-child(2),
+.markdown table td:nth-child(2),
+.markdown table th:nth-child(3),
+.markdown table td:nth-child(3) {
+  min-width: 5.5rem;
+}
+
+.markdown table th:nth-child(4),
+.markdown table td:nth-child(4) {
+  min-width: 4.5rem;
+}
+
+.markdown table td:last-child {
+  min-width: 16rem;
 }
 
 .markdown table tr:hover td {
@@ -899,5 +919,285 @@ article h4 {
   * {
     transition: none !important;
     animation: none !important;
+  }
+}
+
+
+/* ========================================================================== */
+/* 11. Data grids, API index, journey, checklist                              */
+/* ========================================================================== */
+
+/* --- wide validation matrices: scroll inside the container, sticky edges --- */
+
+.rhub-datagrid {
+  overflow: auto;
+  max-height: 32rem;
+  border: 1px solid var(--rhub-hairline);
+  border-radius: var(--rhub-radius);
+  margin-bottom: var(--rhub-space-5);
+  scrollbar-width: thin;
+}
+
+.rhub-datagrid table {
+  display: table;
+  width: auto;
+  min-width: 100%;
+  margin: 0;
+  border: none;
+  font-size: 0.82rem;
+}
+
+.rhub-datagrid th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--rhub-surface);
+  white-space: normal;
+  min-width: 7rem;
+  border-top: none;
+}
+
+.rhub-datagrid td {
+  white-space: nowrap;
+  min-width: 5rem;
+}
+
+.rhub-datagrid th:first-child,
+.rhub-datagrid td:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  min-width: 6rem;
+  background: var(--ifm-background-color);
+  border-right: 1px solid var(--rhub-hairline-strong);
+}
+
+.rhub-datagrid th:first-child {
+  z-index: 3;
+  background: var(--rhub-surface);
+}
+
+.rhub-datagrid tr:hover td {
+  background: var(--rhub-surface-2);
+}
+
+.rhub-datagrid tr:hover td:first-child {
+  background: var(--rhub-surface-2);
+}
+
+/* --- API index --- */
+
+.rhub-apitable {
+  overflow-x: auto;
+  border: 1px solid var(--rhub-hairline);
+  border-radius: var(--rhub-radius);
+  margin-bottom: var(--rhub-space-5);
+  scrollbar-width: thin;
+}
+
+.rhub-apitable table {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  min-width: 60rem;
+  margin: 0;
+  border: none;
+}
+
+.rhub-apitable th,
+.rhub-apitable td {
+  min-width: 0;
+  vertical-align: top;
+}
+
+.rhub-apitable th:nth-child(1),
+.rhub-apitable td:nth-child(1) {
+  width: 15%;
+  font-family: var(--ifm-font-family-base);
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: var(--rhub-ink);
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+.rhub-apitable th:nth-child(2),
+.rhub-apitable td:nth-child(2) {
+  width: 7%;
+}
+
+.rhub-apitable th:nth-child(3),
+.rhub-apitable td:nth-child(3) {
+  width: 32%;
+}
+
+.rhub-apitable th:nth-child(4),
+.rhub-apitable td:nth-child(4) {
+  width: 12%;
+  white-space: nowrap;
+}
+
+.rhub-apitable th:nth-child(5),
+.rhub-apitable td:nth-child(5) {
+  width: 26%;
+}
+
+.rhub-apitable td:nth-child(5) code {
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-size: 0.76rem;
+  scrollbar-width: thin;
+}
+
+.rhub-apitable th:nth-child(6),
+.rhub-apitable td:nth-child(6) {
+  width: 8%;
+  white-space: nowrap;
+}
+
+/* --- integration journey --- */
+
+.rhub-journey {
+  margin: var(--rhub-space-5) 0 var(--rhub-space-6);
+  border-left: 1px solid var(--rhub-hairline);
+  padding-left: var(--rhub-space-5);
+}
+
+.rhub-journey__step {
+  position: relative;
+  padding: 0 0 var(--rhub-space-5);
+}
+
+.rhub-journey__step::before {
+  content: '';
+  position: absolute;
+  top: 0.55rem;
+  left: calc(-1 * var(--rhub-space-5) - 5px);
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--ifm-background-color);
+  border: 2px solid var(--rhub-orange);
+}
+
+.rhub-journey__index {
+  display: block;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--rhub-ink-3);
+}
+
+.rhub-journey__step > p {
+  margin: 0 0 var(--rhub-space-2);
+  max-width: 74ch;
+}
+
+.rhub-journey__step > p:first-of-type strong {
+  font-size: 1rem;
+}
+
+.rhub-branches {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: var(--rhub-space-3);
+  margin-top: var(--rhub-space-3);
+}
+
+.rhub-branch {
+  border: 1px solid var(--rhub-hairline);
+  border-radius: var(--rhub-radius);
+  background: var(--rhub-surface-2);
+  padding: var(--rhub-space-3) var(--rhub-space-4);
+}
+
+.rhub-branch__label {
+  display: block;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.67rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--rhub-orange-ink);
+  margin-bottom: var(--rhub-space-2);
+}
+
+.rhub-branch p {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+/* --- payout prerequisite checklist --- */
+
+.rhub-checklist {
+  border: 1px solid var(--rhub-hairline);
+  border-radius: var(--rhub-radius);
+  background: var(--rhub-surface-2);
+  padding: var(--rhub-space-4) var(--rhub-space-5);
+  margin-bottom: var(--rhub-space-5);
+}
+
+.rhub-checklist ol {
+  margin: 0;
+  padding-left: 1.3rem;
+}
+
+.rhub-checklist li {
+  padding: 0.2rem 0;
+  font-size: 0.92rem;
+  max-width: 74ch;
+}
+
+/* --- card variants --- */
+
+.rhub-cards--two {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.rhub-cards--three {
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+}
+
+.rhub-card p {
+  margin: 0 0 var(--rhub-space-2);
+}
+
+.rhub-card p:last-child {
+  margin-bottom: 0;
+}
+
+.rhub-card--doc p {
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+/* tighter rhythm between the overview's stacked sections */
+.markdown .rhub-cards + h2,
+.markdown .rhub-flow + p,
+.markdown .rhub-journey + h2 {
+  margin-top: var(--rhub-space-5);
+}
+
+@media (max-width: 700px) {
+  .rhub-datagrid {
+    max-height: 24rem;
+  }
+
+  .rhub-journey {
+    padding-left: var(--rhub-space-4);
+  }
+
+  .rhub-journey__step::before {
+    left: calc(-1 * var(--rhub-space-4) - 5px);
+  }
+
+  .rhub-checklist {
+    padding: var(--rhub-space-3) var(--rhub-space-4);
   }
 }

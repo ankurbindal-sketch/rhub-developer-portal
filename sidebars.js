@@ -99,17 +99,11 @@ const sidebars = {
         'errors/error-codes',
       ],
     },
-    {
-      type: 'category',
-      label: 'WPT integration set',
-      collapsed: true,
-      link: {type: 'doc', id: 'wpt/wpt-index'},
-      items: ['wpt/customer-registration', 'wpt/quotation', 'wpt/payout'],
-    },
     // Recovery / audit material is intentionally NOT exposed here.
     //
     // The following categories were removed from the public developer navigation and must
-    // not be re-added: "Template management" (docs/template-management/*),
+    // not be re-added: "WPT integration set" (docs/wpt/*), "Template management"
+    // (docs/template-management/*),
     // "Unlinked source pages" (docs/legacy/*), "Project reference"
     // (docs/appendix/source-notes, unpublished-master-apis, unpublished-apis, licence).
     //

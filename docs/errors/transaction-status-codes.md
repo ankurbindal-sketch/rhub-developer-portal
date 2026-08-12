@@ -19,10 +19,10 @@ In Production, the following statuses will be available:
 
 :::note[Scope of this list]
 
-These are the statuses the source states will be available in production. The source does
-not define transitions between them, timing, or which statuses are terminal — that is
-**REVIEW REQUIRED**. The RHUB source also carries a further status-code table and a validation-code
-table that RHUB does not publish; they are therefore not documented here.
+These are the statuses RHUB makes available in production. Transitions between them, their
+timing, and which statuses are terminal are not established — that is **REVIEW REQUIRED**.
+RHUB defines further status and validation code tables that it does not publish; they are
+therefore not documented here.
 
 :::
 

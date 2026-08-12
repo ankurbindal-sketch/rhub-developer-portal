@@ -52,6 +52,8 @@ Note: “YES” indicates that the field is mandatory and accepts the value/info
 
 :::
 
+<div className="rhub-datagrid">
+
 | Country | RAIL | businessBankName, receiverBankName | businessAccountNumber, receiverAccountNumber | businessSwiftCode, receiverSwiftCode | businessAccountHolderName, receiverAccountHolderName |
 |---|---|---|---|---|---|
 | AR | SWIFT | Yes | Yes | Yes | Yes |
@@ -81,6 +83,8 @@ Note: “YES” indicates that the field is mandatory and accepts the value/info
 | UG | SWIFT | Yes | Yes | Yes | Yes |
 | ZA | SWIFT | Yes | Yes | Yes | Yes |
 
+</div>
+
 ---
 
 **SWIFT Transaction Requirements** <br /><br />
@@ -106,6 +110,8 @@ In the table below, the column headers represent the applicable API field requir
 Note: “YES” indicates that the field is mandatory and accepts the value/information specified above. If a different value/information is accepted, it is explicitly mentioned in the table. “NO” indicates that it is optional.
 
 :::
+
+<div className="rhub-datagrid">
 
 | Country | RAIL | businessBankName, receiverBankName | businessAccountNumber, receiverAccountNumber | businessSwiftCode, receiverSwiftCode | businessAccountHolderName, receiverAccountHolderName |
 |---|---|---|---|---|---|
@@ -161,6 +167,8 @@ Note: “YES” indicates that the field is mandatory and accepts the value/info
 | TR | SWIFT | Yes | Yes | Yes | Yes |
 | UA | SWIFT | Yes | Yes | Yes | Yes |
 
+</div>
+
 ---
 
 **SWIFT Transaction Requirements** <br /><br />
@@ -182,11 +190,15 @@ Note: “YES” indicates that the field is mandatory and accepts the value/info
 
 :::
 
+<div className="rhub-datagrid">
+
 | Country | RAIL | businessBankName, receiverBankName | businessAccountNumber, receiverAccountNumber | businessSwiftCode, receiverSwiftCode | businessBankCode, receiverBankCode | businessAccountHolderName, receiverAccountHolderName |
 |---|---|---|---|---|---|---|
 | GB | SWIFT | Yes | Yes | Yes | Yes | Yes |
 | MY | SWIFT | Yes | Yes | Yes | Yes | Yes |
 | ZM | SWIFT | Yes | Yes | Yes | Yes | Yes |
+
+</div>
 
 ---
 
@@ -210,11 +222,15 @@ Note: “YES” indicates that the field is mandatory and accepts the value/info
 
 :::
 
+<div className="rhub-datagrid">
+
 | Country | RAIL | businessBankName, receiverBankName | businessAccountNumber, receiverAccountNumber | businessSwiftCode, receiverSwiftCode | businessBankCode, receiverBankCode | businessBankCountry, receiverBankCountry | businessAccountHolderName, receiverAccountHolderName |
 |---|---|---|---|---|---|---|---|
 | LK | SWIFT | Yes | Yes | Yes | Yes | Yes | Yes |
 | MA | SWIFT | Yes | Yes | Yes | Yes | Yes | Yes |
 | TT | SWIFT | Yes | Yes | Yes | Yes | Yes | Yes |
+
+</div>
 
 ---
 
@@ -236,11 +252,15 @@ Note: “YES” indicates that the field is mandatory and accepts the value/info
 
 :::
 
+<div className="rhub-datagrid">
+
 | Country | RAIL | businessAccountHolderName, receiverAccountHolderName | businessBankName, receiverBankName | businessAccountNumber, receiverAccountNumber | businessSwiftCode, receiverSwiftCode |
 |---|---|---|---|---|---|
 | CN | SWIFT | Yes | Yes | Yes | Yes |
 | HK | SWIFT | Yes | Yes | Yes | Yes |
 | TW | SWIFT | Yes | Yes | Yes | Yes |
+
+</div>
 
 ---
 
@@ -263,10 +283,14 @@ Note: “YES” indicates that the field is mandatory and accepts the value/info
 
 :::
 
+<div className="rhub-datagrid">
+
 | Country | RAIL | businessBankName, receiverBankName | businessAccountNumber, receiverAccountNumber | businessSwiftCode, receiverSwiftCode | businessBankCode, receiverBankCode | businessAccountHolderName, receiverAccountHolderName |
 |---|---|---|---|---|---|---|
 | AM | SWIFT | Yes | Yes | Yes | Yes | Yes |
 | BD | SWIFT | Yes | Yes | Yes | Yes | Yes |
+
+</div>
 
 ---
 
@@ -289,10 +313,14 @@ Note: “YES” indicates that the field is mandatory and accepts the value/info
 
 :::
 
+<div className="rhub-datagrid">
+
 | Country | RAIL | businessBankName, receiverBankName | businessAccountNumber, receiverAccountNumber | businessSwiftCode, receiverSwiftCode | businessAccountType, receiverAccountType | businessAccountHolderName, receiverAccountHolderName |
 |---|---|---|---|---|---|---|
 | DO | SWIFT | Yes | Yes | Yes | Yes | Yes |
 | UY | SWIFT | Yes | Yes | Yes | Yes | Yes |
+
+</div>
 
 ---
 
@@ -318,6 +346,8 @@ Note: “YES” indicates that the field is mandatory and accepts the value/info
 
 :::
 
+<div className="rhub-datagrid">
+
 | Country | RAIL | businessBankName, receiverBankName | businessAccountNumber, receiverAccountNumber | businessSwiftCode, receiverSwiftCode | businessBankCountry, receiverBankCountry | businessBankCode, receiverBankCode | businessAccountType, receiverAccountType | businessAccountHolderName, receiverAccountHolderName |
 |---|---|---|---|---|---|---|---|---|
 | AU | SWIFT | Yes | Yes | Yes | No | Yes used for bsb no | No | Yes |
@@ -332,6 +362,8 @@ Note: “YES” indicates that the field is mandatory and accepts the value/info
 | PH | SWIFT | Yes | Yes | Yes | No | Yes used for routing no | Yes | Yes |
 | SG | SWIFT | Yes | Yes | Yes | Yes | Yes | No | Yes |
 | US | SWIFT | Yes | Yes | Yes | No | Yes used for routing no | No | Yes |
+
+</div>
 
 <br />
 

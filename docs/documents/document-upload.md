@@ -16,10 +16,35 @@ carries.
 RHUB payouts involve two distinct kinds of document. They are often confused, so it is worth
 being explicit about which is which.
 
-| Document type | Purpose | Applies to | Requirement | Payout reference |
-|---|---|---|---|---|
-| KYC / KYB | Customer verification — KYC for individual customers, KYB for business customers. | All payout transaction types | Mandatory for payout | `docReferenceNumber` |
-| Invoice | Supporting document for business-related transactions. | B2B, B2C, C2B | Mandatory for B2B, B2C and C2B payout processing. Not applicable as an invoice requirement to C2C. | `sendClient TrxReference` |
+<div className="rhub-cards rhub-cards--two">
+
+<div className="rhub-card rhub-card--doc">
+<span className="rhub-card__kicker">KYC / KYB</span>
+
+**Purpose** — Customer verification — KYC for individual customers, KYB for business customers.
+
+**Applies to** — All payout transaction types
+
+**Requirement** — Mandatory for payout
+
+**Payout reference** — `docReferenceNumber`
+
+</div>
+
+<div className="rhub-card rhub-card--doc">
+<span className="rhub-card__kicker">Invoice</span>
+
+**Purpose** — Supporting document for business-related transactions.
+
+**Applies to** — B2B, B2C, C2B
+
+**Requirement** — Mandatory for B2B, B2C and C2B payout processing. Not applicable as an invoice requirement to C2C.
+
+**Payout reference** — `sendClient TrxReference`
+
+</div>
+
+</div>
 
 **KYC / KYB** is customer verification: KYC for individual customers, KYB for business
 customers. It is required for payout on every transaction type, and the resulting reference

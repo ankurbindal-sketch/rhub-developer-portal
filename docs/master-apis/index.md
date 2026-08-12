@@ -33,6 +33,6 @@ These 14 master APIs are documented and published in the RHUB source.
 
 :::note[Master APIs RHUB does not publish]
 
-The RHUB source file also carries ten further master sections that RHUB has not published: Legal Status Code, Payment Mode, Branch List, Customer Type, Resident Status, Purpose of Opening Business, Transaction Volume, ID Type, Customer Document Fetch and Payout Validator. They are not documented here because RHUB does not publish them — confirm with RHUB before relying on any of them.
+RHUB defines ten further master categories that it does not publish: Legal Status Code, Payment Mode, Branch List, Customer Type, Resident Status, Purpose of Opening Business, Transaction Volume, ID Type, Customer Document Fetch and Payout Validator. They are not documented here — confirm with RHUB before relying on any of them.
 
 :::

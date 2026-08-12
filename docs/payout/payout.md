@@ -13,6 +13,8 @@ Initiate a fund transfer for a completed quotation.
 
 ## Before you initiate a payout
 
+<div className="rhub-checklist">
+
 1. Authenticate and obtain an access token.
 2. Determine customer status: use the existing customer code, or pre-register the customer, or use the supported on-the-fly registration path in the Payout request.
 3. Ensure the required KYC/KYB documentation has been uploaded and the applicable `docReferenceNumber` is available.
@@ -20,6 +22,8 @@ Initiate a fund transfer for a completed quotation.
 5. Obtain a valid quotation.
 6. Obtain the master, reference, bank or validation data your route and use case require — only the ones you actually need, not every master API.
 7. Submit the Payout request.
+
+</div>
 
 You do not need to call every master API for every payout — fetch only the reference data
 your route and use case require.

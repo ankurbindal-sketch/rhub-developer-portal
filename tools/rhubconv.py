@@ -557,10 +557,9 @@ def convert_images(text):
 
     def img_note(src):
         label = IMAGE_NOTES.get(src, src)
-        return (':::caution[REVIEW REQUIRED — source image not available]\n\n'
-                'The RHUB source references the image `%s` (%s). '
-                'The binary asset is not included in the supplied source export, so it cannot be '
-                'reproduced here. No replacement diagram has been created.\n\n:::' % (src, label))
+        return (':::caution[REVIEW REQUIRED — diagram not available]\n\n'
+                'RHUB documents this step with a diagram (%s). The image is not available to '
+                'this portal and no replacement has been drawn.\n\n:::' % label)
 
     text = re.sub(r'<img[^>]*src="([^"]+)"[^>]*>', lambda m: img_note(m.group(1)), text)
     text = re.sub(r'!\[[^\]]*\]\((\./img/[^)]+)\)', lambda m: img_note(m.group(1)), text)

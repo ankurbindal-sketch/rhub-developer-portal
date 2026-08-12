@@ -6,15 +6,6 @@ description: "RHUB HTTP status codes and application error codes."
 
 # Error codes
 
-:::warning[Publication status — REVIEW REQUIRED]
-
-This page is reproduced from the source file `ErrorCodes.md`, which **is present in the RHUB
-documentation source but is commented out of the live documentation sidebar**. The
-source therefore does not establish whether this contract is current, superseded or
-withdrawn. Treat it as reference material and confirm with RHUB before integrating.
-
-:::
-
 ## HTTP Error Codes
 HTTP Status Codes
 

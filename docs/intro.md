@@ -56,47 +56,35 @@ Current API error codes, transaction statuses and correspondent validation rules
 
 </div>
 
-## The payout journey
+## Core transaction APIs
 
-<div className="rhub-flow rhub-flow--six">
+Every payout runs through these four calls, in this order.
+
+<div className="rhub-flow">
 
 <div className="rhub-flow__step">
 <span className="rhub-flow__index">01</span>
 
-[Authenticate](/docs/authentication/authentication)
+[Authentication](/docs/authentication/authentication)
 
 </div>
 
 <div className="rhub-flow__step">
 <span className="rhub-flow__index">02</span>
 
-[Prepare customer](/docs/customers/customer-registration)
+[Quotation](/docs/quotation/quotation)
 
 </div>
 
 <div className="rhub-flow__step">
 <span className="rhub-flow__index">03</span>
 
-[Prepare documents](/docs/documents/document-upload)
-
-</div>
-
-<div className="rhub-flow__step">
-<span className="rhub-flow__index">04</span>
-
-[Quotation](/docs/quotation/quotation)
-
-</div>
-
-<div className="rhub-flow__step">
-<span className="rhub-flow__index">05</span>
-
 [Payout](/docs/payout/payout)
 
 </div>
 
 <div className="rhub-flow__step">
-<span className="rhub-flow__index">06</span>
+<span className="rhub-flow__index">04</span>
 
 [Transaction Enquiry](/docs/transactions/transaction-enquiry)
 
@@ -104,19 +92,35 @@ Current API error codes, transaction statuses and correspondent validation rules
 
 </div>
 
-Steps 2 and 3 are preparation stages, not calls you always make. What they involve depends
-on the customer and the transaction type:
+Customer and document preparation happen around this sequence — what they involve depends on
+the customer and the transaction type.
 
-- **Prepare customer** — an existing customer needs no re-registration: use the customer
-  code you already hold. A new customer is either registered first with the
-  [Customer Registration API](/docs/customers/customer-registration) or registered on the
-  fly as part of the payout request.
-- **Prepare documents** — KYC/KYB documentation is required for payout, and B2B, B2C and
-  C2B transactions also require invoice documentation. See
-  [Document Upload](/docs/documents/document-upload).
+<div className="rhub-cards rhub-cards--two">
 
-The [Integration flow](/docs/getting-started/integration-flow) sets out the decision points
-in full.
+<div className="rhub-card">
+<span className="rhub-card__kicker">Prepare customer</span>
+
+**Existing customer** — use the customer code you already hold.
+
+**New customer** — register beforehand with
+[Customer Registration](/docs/customers/customer-registration), or register on the fly
+during [Payout](/docs/payout/payout).
+
+</div>
+
+<div className="rhub-card">
+<span className="rhub-card__kicker">Prepare documents</span>
+
+**KYC / KYB** — required for payout. Referenced by `docReferenceNumber`.
+
+**Invoice** — required for B2B, B2C and C2B. Referenced by `sendClient TrxReference`.
+
+</div>
+
+</div>
+
+[Integration flow](/docs/getting-started/integration-flow) sets out the decision points in
+full, including where each branch applies.
 
 ## Supporting capabilities
 

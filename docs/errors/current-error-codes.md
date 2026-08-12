@@ -145,18 +145,18 @@ The 65 entries use **16 distinct result codes**, plus one entry with no code.
 
 ## Relationship to the documentation-export error pages
 
-The following result codes also appear in documentation-export material. The overlaps are reported, not reconciled.
+These result codes also appear in other RHUB code tables. The overlaps are reported, not reconciled.
 
 | Result code | Observation |
 |---|---|
-| 400 | Also appears in the export's **HTTP status code** table as "Bad Request – Invalid request format.". The source does not establish whether the HTTP status and the `resultCode` of the same numeral are the same thing. |
-| 1000 | Also in the export's **application error code** table with the same description ("technical.failure"). Consistent — no conflict. |
-| 1364 | Also in the **validation code** table that is commented out of `responseCodes.md` (publication status unverified), with the same description apart from letter case ("Master business type not found"). |
-| 1368 | Also in the **validation code** table that is commented out of `responseCodes.md` (publication status unverified), with the same description ("Some parameters are missing in quotation request"). |
+| 400 | Also appears in the **HTTP status code** table as "Bad Request – Invalid request format.". Whether the HTTP status and the `resultCode` of the same numeral mean the same thing is not established. |
+| 1000 | Also in the **application error code** table with the same description ("technical.failure"). Consistent — no conflict. |
+| 1364 | Also appears in an RHUB validation code table that RHUB does not publish, with the same description apart from letter case ("Master business type not found"). |
+| 1368 | Also appears in an RHUB validation code table that RHUB does not publish, with the same description ("Some parameters are missing in quotation request"). |
 
 :::warning[REVIEW REQUIRED — precedence between the code families]
 
-Where a numeral appears in more than one family, the supplied material does not state which takes precedence, nor whether the export's error tables are superseded by this current list. That has not been resolved by guessing. Note also that `ErrorCodes.md` is commented out of the live RHUB documentation sidebar, so its own currency is already unverified.
+Where a numeral appears in more than one family, RHUB has not stated which takes precedence, nor whether the older error tables are superseded by this current list. That has not been resolved by guessing.
 
 :::
 

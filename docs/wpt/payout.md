@@ -2,6 +2,7 @@
 title: "WPT — Payout"
 sidebar_label: "Payout"
 description: "RHUB WPT Payout API."
+unlisted: true
 ---
 
 # WPT — Payout

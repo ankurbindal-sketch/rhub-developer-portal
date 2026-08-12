@@ -4,6 +4,7 @@ title: "WPT integration set"
 sidebar_label: "Overview"
 slug: "/wpt"
 description: "RHUB WPT (wallet payout) integration set."
+unlisted: true
 ---
 
 # WPT integration set

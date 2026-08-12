@@ -12,9 +12,9 @@ beneficiary's wallet. Which one applies determines the payout API you call —
 [WPT Payout](/docs/payout/wpt-payout) for wallet transfers — and, for wallet transfers, the
 [WPT Wallet List](/docs/master-apis/wpt-wallet-list) master API supplies the wallet values.
 
-The descriptions below are RHUB's own. RHUB illustrates each flow with a diagram; those
-image files are not part of the material supplied to this portal, and no replacement diagram
-has been drawn, because doing so would mean inventing process steps RHUB has not documented.
+RHUB illustrates each flow with a diagram. Those image files are not available to this
+portal, and no replacement diagram has been drawn, because doing so would mean inventing
+process steps RHUB has not documented.
 
 The following are the transaction flows.
 * Bank payout transaction flow
@@ -25,9 +25,9 @@ The bank transaction service enables the sender to send or transfer the money to
 The sender can send the money transfer from a bank account, or cash over the counter based on the interfaces that are provided by the sending partner.
 The following flow describes the remit to the bank flow.
 
-:::caution[REVIEW REQUIRED — source image not available]
+:::caution[REVIEW REQUIRED — diagram not available]
 
-The RHUB source references the image `./img/rhubbpt2.png` (Bank payout transaction flow diagram). The binary asset is not included in the supplied source export, so it cannot be reproduced here. No replacement diagram has been created.
+RHUB documents this step with a diagram (Bank payout transaction flow diagram). The image is not available to this portal and no replacement has been drawn.
 
 :::
 
@@ -35,8 +35,8 @@ The RHUB source references the image `./img/rhubbpt2.png` (Bank payout transacti
 The wallet transaction service enables the sender to send or transfer the money to the wallet of the beneficiary. Therefore the money is credited to the wallet of that beneficiary.
 The following flow describes the remit to the wallet flow.
 
-:::caution[REVIEW REQUIRED — source image not available]
+:::caution[REVIEW REQUIRED — diagram not available]
 
-The RHUB source references the image `./img/rhubwpt2.png` (Wallet payout transaction flow diagram). The binary asset is not included in the supplied source export, so it cannot be reproduced here. No replacement diagram has been created.
+RHUB documents this step with a diagram (Wallet payout transaction flow diagram). The image is not available to this portal and no replacement has been drawn.
 
 :::

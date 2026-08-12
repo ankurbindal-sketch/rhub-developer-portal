@@ -374,4 +374,4 @@ POST http://host/ewallet/api/v1/payoutProcess/api
 - [Payout](/docs/payout/payout)
 - [WPT Wallet List (master)](/docs/master-apis/wpt-wallet-list)
 - [Quotation](/docs/quotation/quotation)
-- [WPT integration set (unlinked source page)](/docs/wpt)
+- [Integration flow](/docs/getting-started/integration-flow)

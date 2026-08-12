@@ -43,6 +43,8 @@ Note: “YES” indicates that the field is mandatory, while “NO” indicates 
 
 *Source column groups: Kyc detail fields (4 columns)*
 
+<div className="rhub-datagrid">
+
 | Currency | RAIL | senderIdType | senderIssueDate | senderIdExpiration | senderIdCountry |  |  |  |  |  |  |  |  |  |  |  |  |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | AED | LOCAL | YES | YES | YES | YES |  |  |  |  |  |  |  |  |  |  |  |  |
@@ -73,6 +75,8 @@ Note: “YES” indicates that the field is mandatory, while “NO” indicates 
 | USD-USA | LOCAL | YES | NO | NO | NO |  |  |  |  |  |  |  |  |  |  |  |  |
 | THB | LOCAL | YES | NO | NO | NO |  |  |  |  |  |  |  |  |  |  |  |  |
 
+</div>
+
 ### Receiver Customer
 
 [Go To Payout(Receiver details)](/docs/payout/payout#receiver-req-param)
@@ -80,6 +84,8 @@ Note: “YES” indicates that the field is mandatory, while “NO” indicates 
 **Beneficary (Individual)**
 
 *Source column groups: Bank detail fields (8 columns); Additional Kyc detail fields (7 columns)*
+
+<div className="rhub-datagrid">
 
 | Currency | RAIL | receiverBankName | receiverBankCode | receiverAccountNumber | receiverSwiftCode | receiverAccountHolderName | receiverAccountType | receiverBankCountry | receiverBankAddress | receiverMsisdn | receiverIdType | receiverIdNumber | receiverDOB | receiverPinCode | receiverIdExpiration |  |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -111,6 +117,8 @@ Note: “YES” indicates that the field is mandatory, while “NO” indicates 
 | USD-USA | LOCAL | YES | NO | YES | YES it represents the Routing No | YES | NO | YES | NO | YES | NO | NO | NO | YES | NO |  |
 | THB | LOCAL | YES | NO | YES | NO | YES | NO | YES | NO | YES | NO | NO | NO | YES | NO |  |
 
+</div>
+
 *Decimal values are not allowed in the payout amount for these currencies.
 
 ### Sender Business
@@ -120,6 +128,8 @@ Note: “YES” indicates that the field is mandatory, while “NO” indicates 
 **Sender (Business)**
 
 *Source column groups: Kyc detail fields (3 columns)*
+
+<div className="rhub-datagrid">
 
 | Currency | RAIL | businessRegistrationIssueDate | businessIdValidThru | businessPinCode |
 |---|---|---|---|---|
@@ -151,6 +161,8 @@ Note: “YES” indicates that the field is mandatory, while “NO” indicates 
 | USD-USA | LOCAL | NO | NO | YES |
 | THB | LOCAL | NO | NO | YES |
 
+</div>
+
 ### Receiver Business
 
 [Go To Payout(Receiver details)](/docs/payout/payout#receiver-req-param)
@@ -158,6 +170,8 @@ Note: “YES” indicates that the field is mandatory, while “NO” indicates 
 **Beneficary (Business)**
 
 *Source column groups: Bank detail fields (4 columns); Additional Kyc detail fields (5 columns)*
+
+<div className="rhub-datagrid">
 
 | Currency | RAIL | businessBankCode | businessSwiftCode | businessAccountType | businessBankCountry | businessPrimaryContactNumber | businessRegistrationIssueDate | businessRegistrationNumber | businessPinCode | businessIdValidThru |  |  |  |  |  |  |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -188,6 +202,8 @@ Note: “YES” indicates that the field is mandatory, while “NO” indicates 
 | AUD | LOCAL | NO | YES it represents the BSB Code | NO | YES | YES | NO | NO | YES | NO |  |  |  |  |  |  |
 | USD-USA | LOCAL | NO | YES it represents the Routing No | NO | YES | YES | NO | NO | YES | NO |  |  |  |  |  |  |
 | THB | LOCAL | NO | NO | NO | YES | YES | NO | NO | YES | NO |  |  |  |  |  |  |
+
+</div>
 
 *Decimal values are not allowed in the payout amount for these currencies.
 

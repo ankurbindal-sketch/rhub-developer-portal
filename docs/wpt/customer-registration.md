@@ -2,6 +2,7 @@
 title: "WPT — Customer Registration"
 sidebar_label: "Customer Registration"
 description: "RHUB WPT Customer Registration API."
+unlisted: true
 ---
 
 # WPT — Customer Registration

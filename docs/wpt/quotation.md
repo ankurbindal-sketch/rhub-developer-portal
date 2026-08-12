@@ -2,6 +2,7 @@
 title: "WPT — Quotation"
 sidebar_label: "Quotation"
 description: "RHUB WPT Quotation API."
+unlisted: true
 ---
 
 # WPT — Quotation

@@ -10,23 +10,26 @@ Every API in the public reference, with the stage of an integration at which it 
 
 ## Transaction APIs
 
+<div className="rhub-apitable">
+
 | API | Method | Purpose | Integration stage | Endpoint | Page |
 |---|---|---|---|---|---|
 | Authentication | `POST` | The Login API is used to authenticate and authorize the user. | Start | `http://host/ewallet/oauth/token` | [Open](/docs/authentication/authentication) |
 | Customer Registration | `POST` | The Customer-Registration API is used to register or create the customer in the system. | Customer setup | `http://host/ewallet/api/v1/customer-registration` | [Open](/docs/customers/customer-registration) |
-| WPT — Customer Registration | `POST` | The Customer-Registration API is used to register or create the customer in the system. | Customer setup | `http://host/ewallet/api/v1/customer-registration` | [Open](/docs/wpt/customer-registration) |
 | Document Upload | `POST` | The Document Upload API is used to upload the ID proof documents of the specific customer of the send client. | Payout preparation | `http://host/ewallet/api/v1/documentUpload/upload/customer` | [Open](/docs/documents/document-upload) |
 | Quotation | `POST` | The Quotation API is used to fetch the forex rate between the payin and payout currencies. | Pre-payout | `http://host/ewallet/api/v1/fxratequotation/api` | [Open](/docs/quotation/quotation) |
-| WPT — Quotation | `POST` | The Quotation API is used to fetch the forex rate between the payin and payout currencies. | Pre-payout | `http://host/ewallet/api/v1/fxratequotation/api` | [Open](/docs/wpt/quotation) |
 | Payout | `POST` | The Payout API is used to perform all types of transactions (B2B,C2C,C2B,B2C). | Transaction | `http://host/ewallet/api/v1/payoutProcess/api` | [Open](/docs/payout/payout) |
 | WPT Payout | `POST` | This Payout API is used to perform all types of Wallet transactions (C2C). | Transaction | `http://host/ewallet/api/v1/payoutProcess/api` | [Open](/docs/payout/wpt-payout) |
-| WPT — Payout | `POST` | The Payout API is used to perform all types of transactions (B2B,C2C,C2B,B2C). | Transaction | `http://host/ewallet/api/v1/payoutProcess/api` | [Open](/docs/wpt/payout) |
 | Transaction Enquiry | `GET` | The Transaction Enquiry API is used to fetch the statement for the specified period. | Post-payout | `http://host/ewallet/api/v1/transactionInfo/api?types=all&status=all&transId={value}` | [Open](/docs/transactions/transaction-enquiry) |
 | Balance Enquiry | `GET` | The Balance API is used to fetch the current balance in the ledger of the partner. | Supporting / reference | `http://host/ewallet/api/v1/wallet/walletOwner/{walletOwnerCode}` | [Open](/docs/balance/balance-enquiry) |
+
+</div>
 
 ## Master / reference APIs
 
 Master APIs supply the coded values other requests expect. They are need-based: call the ones your route and use case require, in whatever order suits your implementation. They are not a sequence.
+
+<div className="rhub-apitable">
 
 | API | Method | Purpose | Integration stage | Endpoint | Page |
 |---|---|---|---|---|---|
@@ -44,6 +47,8 @@ Master APIs supply the coded values other requests expect. They are need-based: 
 | Nature of Business | `GET` | The Nature of Business API is used to fetch the nature of the business run by the customer. | Supporting / reference | `http://host/ewallet/api/v1/natureOfBusiness/getByCustomerTypeCode/{customerTypeCode}` | [Open](/docs/master-apis/nature-of-business) |
 | Customer Occupation Type | `GET` | The Customer Occupation Type API is used to fetch the occupation of the customer. | Supporting / reference | `http://host/ewallet/api/v1/customerOccupationType/getByCustomerTypeCode/{customerTypeCode}` | [Open](/docs/master-apis/customer-occupation-type) |
 | Customer/Individual Document Type | `GET` | The Customer Document Type API is used to fetch the ID proof documents of the customer. | Supporting / reference | `http://host/ewallet/api/v1/customerDocumentType/getByCustomerTypeCode/{customerTypeCode}` | [Open](/docs/master-apis/customer-individual-document-type) |
+
+</div>
 
 :::note
 
