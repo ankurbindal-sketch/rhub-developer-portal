@@ -28,6 +28,65 @@ CURRENT_ERRORS_JSON = os.environ.get(
     os.path.join(os.path.dirname(HERE), 'source', 'RHUB_CURRENT_ERROR_CODES.json'))
 CURRENT_ERRORS = (json.load(open(CURRENT_ERRORS_JSON))
                   if os.path.exists(CURRENT_ERRORS_JSON) else None)
+
+# RHUB-confirmed operational / integration guidance. Explains how the documented
+# contracts are used together; never changes a contract. Optional, like the error file.
+GUIDANCE_JSON = os.environ.get(
+    'RHUB_GUIDANCE_JSON',
+    os.path.join(os.path.dirname(HERE), 'source', 'RHUB_INTEGRATION_GUIDANCE.json'))
+GUIDANCE = (json.load(open(GUIDANCE_JSON))
+            if os.path.exists(GUIDANCE_JSON) else None)
+
+
+def customer_paths_block(heading_level=2):
+    """The three customer paths, rendered from the guidance file."""
+    if not GUIDANCE:
+        return ''
+    out = []
+    for p in GUIDANCE['customerPaths']:
+        out.append('%s %s' % ('#' * (heading_level + 1), p['label']))
+        out.append('')
+        out.append('%s %s' % (p['summary'], p['action']))
+        out.append('')
+    return '\n'.join(out)
+
+
+def document_model_table():
+    if not GUIDANCE:
+        return ''
+    rows = ['| Document type | Purpose | Applies to | Requirement | Payout reference |',
+            '|---|---|---|---|---|']
+    for d in GUIDANCE['documentModel']:
+        rows.append('| %s | %s | %s | %s | `%s` |'
+                    % (d['type'], d['purpose'], d['appliesTo'], d['requirement'],
+                       d['payoutReference']))
+    return '\n'.join(rows)
+
+
+def transaction_matrix_table():
+    if not GUIDANCE:
+        return ''
+    rows = ['| Transaction type | Sender | Receiver | KYC/KYB | Invoice |', '|---|---|---|---|---|']
+    for m in GUIDANCE['transactionMatrix']:
+        rows.append('| %s | %s | %s | %s | %s |'
+                    % (m['type'], m['sender'], m['receiver'], m['kyc'], m['invoice']))
+    return '\n'.join(rows)
+
+
+def payout_prerequisites_list():
+    if not GUIDANCE:
+        return ''
+    return '\n'.join('%d. %s' % (i, step)
+                     for i, step in enumerate(GUIDANCE['payoutPrerequisites'], 1))
+
+
+def open_question(qid):
+    if not GUIDANCE:
+        return ''
+    for q in GUIDANCE['openQuestions']:
+        if q['id'] == qid:
+            return q['question']
+    return ''
 FILES = {f['file']: f['content'] for f in EXPORT['files']}
 SOURCE_URL = EXPORT['source']
 EXPORTED_AT = EXPORT['exportedAt']
@@ -201,6 +260,23 @@ def slugify(name):
     return s.strip('-')
 
 
+def purpose_of(body):
+    """The API's own 'About the API' sentence, as written by RHUB.
+
+    It is the first prose paragraph after the endpoint block. Trimmed to one sentence for
+    the index; never reworded.
+    """
+    tail = body.split('</div>', 1)[-1]
+    for para in tail.split('\n\n'):
+        para = para.strip()
+        if not para or para.startswith(('#', '|', '`', ':::', '<', '*', '-')):
+            continue
+        sentence = re.split(r'(?<=[.!])\s', para)[0].strip()
+        sentence = re.sub(r'\s+', ' ', sentence)
+        return sentence
+    return 'REVIEW REQUIRED'
+
+
 def endpoint_of(body):
     """First endpoint URL found in a converted body (for the API index only).
 
@@ -237,7 +313,8 @@ def api_page(relpath, front, method, title, converted, source_file, extra_top=''
     body = '\n'.join(parts)
     write(relpath, front, body)
     if register:
-        API_INDEX.append((title, method, endpoint_of(converted), relpath))
+        API_INDEX.append((title, method, endpoint_of(converted), relpath,
+                          purpose_of(converted)))
     return relpath
 
 
@@ -246,13 +323,15 @@ def api_page(relpath, front, method, title, converted, source_file, extra_top=''
 # --------------------------------------------------------------------------
 
 def build_intro():
-    readme = R.convert(FILES['README.md'])
-    readme = re.sub(r'^#\s+The RemittancesHub\s*$', '', readme, count=1, flags=re.M).strip()
     body = f"""# RHUB Developer Portal
 
-Welcome to the developer documentation for **RHUB (RemittancesHub)**. This portal is a
-re-presentation of the authoritative RHUB technical documentation, reorganised for
-integration work.
+RHUB (RemittancesHub) is a licensed financial institution operating an Alternate Cross
+Border Network for inbound and outbound payments. It moves funds into the bank accounts of
+beneficiaries — corporate or individual — in near real time, at lower cost than traditional
+channels, with end-to-end transaction tracking.
+
+You integrate over a REST API. Requests and responses are JSON, and every call is
+authenticated with an access token.
 
 <div className="rhub-cards">
 
@@ -261,7 +340,7 @@ integration work.
 
 ### [Authentication](/docs/authentication/authentication)
 
-Authenticate and obtain the access token required for subsequent calls.
+Obtain the access token every other call depends on.
 
 </div>
 
@@ -270,16 +349,16 @@ Authenticate and obtain the access token required for subsequent calls.
 
 ### [Explore RHUB API contracts](/docs/api-index)
 
-Every documented API, with its method and endpoint, in a single index.
+Every published API, with its method, purpose and integration stage.
 
 </div>
 
 <div className="rhub-card">
 <span className="rhub-card__kicker">Integration flow</span>
 
-### [The documented API sequence](/docs/getting-started/integration-flow)
+### [Plan your integration](/docs/getting-started/integration-flow)
 
-The call sequence RHUB supports, and which APIs are called based on the need.
+The decision points between authenticating and settling a payout.
 
 </div>
 
@@ -288,41 +367,53 @@ The call sequence RHUB supports, and which APIs are called based on the need.
 
 ### [Result codes and field rules](/docs/errors)
 
-Current API error codes, transaction status codes, and correspondent validation requirements.
+Current API error codes, transaction statuses and correspondent validation rules.
 
 </div>
 
 </div>
 
-{readme}
+## The payout journey
 
-## Core integration journey
-
-<div className="rhub-flow">
+<div className="rhub-flow rhub-flow--six">
 
 <div className="rhub-flow__step">
 <span className="rhub-flow__index">01</span>
 
-[Login / Authentication](/docs/authentication/authentication)
+[Authenticate](/docs/authentication/authentication)
 
 </div>
 
 <div className="rhub-flow__step">
 <span className="rhub-flow__index">02</span>
 
-[Quotation](/docs/quotation/quotation)
+[Prepare customer](/docs/customers/customer-registration)
 
 </div>
 
 <div className="rhub-flow__step">
 <span className="rhub-flow__index">03</span>
 
-[Payout](/docs/payout/payout)
+[Prepare documents](/docs/documents/document-upload)
 
 </div>
 
 <div className="rhub-flow__step">
 <span className="rhub-flow__index">04</span>
+
+[Quotation](/docs/quotation/quotation)
+
+</div>
+
+<div className="rhub-flow__step">
+<span className="rhub-flow__index">05</span>
+
+[Payout](/docs/payout/payout)
+
+</div>
+
+<div className="rhub-flow__step">
+<span className="rhub-flow__index">06</span>
 
 [Transaction Enquiry](/docs/transactions/transaction-enquiry)
 
@@ -330,29 +421,35 @@ Current API error codes, transaction status codes, and correspondent validation 
 
 </div>
 
-The source states that the API call sequence is limited to the Login API, Quotation API,
-Payout API and Transaction Enquiry API, and that the remaining APIs can be called based on
-the need. See [Integration flow](/docs/getting-started/integration-flow) for the full
-source-documented sequence.
+Steps 2 and 3 are preparation stages, not calls you always make. What they involve depends
+on the customer and the transaction type:
 
-## Supporting capabilities documented in this portal
+- **Prepare customer** — an existing customer needs no re-registration: use the customer
+  code you already hold. A new customer is either registered first with the
+  [Customer Registration API](/docs/customers/customer-registration) or registered on the
+  fly as part of the payout request.
+- **Prepare documents** — KYC/KYB documentation is required for payout, and B2B, B2C and
+  C2B transactions also require invoice documentation. See
+  [Document Upload](/docs/documents/document-upload).
 
-- [Customer Registration](/docs/customers/customer-registration)
-- [Document Upload](/docs/documents/document-upload)
-- [Balance Enquiry](/docs/balance/balance-enquiry)
-- [Master / reference APIs](/docs/master-apis) — 14 published master endpoints
-- [Currency and country validations](/docs/validation/currency-validations)
-- [Errors and response codes](/docs/errors)
+The [Integration flow](/docs/getting-started/integration-flow) sets out the decision points
+in full.
 
-:::info[Documentation fidelity]
+## Supporting capabilities
 
-Every endpoint, field name, type, length, requirement flag, validation rule, example and
-error code in this portal is carried over from the RHUB source export. Where the source does
-not establish something, the page says **REVIEW REQUIRED** instead of filling the gap. See
-[How to read this reference](/docs/getting-started/conventions) and the
-[source coverage notes](/docs/appendix/source-notes).
+These are called when your route or use case needs them, not on every transaction.
 
-:::
+- [Master / reference APIs](/docs/master-apis) — remittance purpose, source of fund,
+  relationship, occupation, bank list, wallet list and more
+- [Balance Enquiry](/docs/balance/balance-enquiry) — current wallet or account balance
+- [Currency validations](/docs/validation/currency-validations) and
+  [country validations](/docs/validation/country-validations) — correspondent-specific
+  conditional field requirements
+- [Errors and response codes](/docs/errors) — result codes, transaction statuses and
+  HTTP/application error codes
+
+New to the reference? [How to read this reference](/docs/getting-started/conventions)
+explains the requirement flags, field tables and REVIEW REQUIRED markers.
 """
     write('intro.md', {'id': 'intro', 'title': 'RHUB Developer Portal',
                        'sidebar_label': 'Overview', 'slug': '/',
@@ -368,15 +465,83 @@ not establish something, the page says **REVIEW REQUIRED** instead of filling th
 def build_getting_started():
     seq = R.convert(FILES['apisequence.md'])
     seq = re.sub(r'^#\s+Sequence of API Call\s*$', '', seq, count=1, flags=re.M).strip()
+    seq = re.sub(r'^The RHUB supports the API call in the following sequence\.\s*$', '',
+                 seq, count=1, flags=re.M).strip()
     body = f"""# Integration flow
 
-{provenance('apisequence.md')}
+Integrating with RHUB is not a single fixed line of calls. Authentication, quotation, payout
+and transaction enquiry are the constant core; what happens around them depends on whether
+the customer is already registered and which transaction type you are sending.
+
+## Decision flow
+
+**1. Authenticate**
+Obtain an access token with the [Authentication API](/docs/authentication/authentication).
+
+**2. Customer status**
+
+{customer_paths_block(heading_level=2)}
+**3. KYC / KYB document**
+Customer verification documentation is required for payout — KYC for individual customers,
+KYB for business customers. Upload it and keep the resulting reference, which the Payout
+request carries in `docReferenceNumber`. See
+[Document Upload](/docs/documents/document-upload).
+
+**4. Quotation**
+Call the [Quotation API](/docs/quotation/quotation) to obtain the rate, charges and quote
+identifier for the transaction.
+
+**5. Transaction type**
+
+- **C2C** — no invoice-document requirement applies.
+- **B2B, B2C, C2B** — invoice documentation is required. The invoice/transaction reference is
+  carried by `sendClient TrxReference` in the Payout request.
+
+**6. Reference and beneficiary preparation**
+Fetch only the reference data your route needs — for example the
+[Bank List](/docs/master-apis/bank-list) for the beneficiary bank, other
+[master APIs](/docs/master-apis) for coded fields, and the
+[currency](/docs/validation/currency-validations) or
+[country](/docs/validation/country-validations) validation tables for correspondent-specific
+conditional fields.
+
+**7. Payout**
+Submit the [Payout request](/docs/payout/payout) — or the
+[WPT Payout request](/docs/payout/wpt-payout) for wallet payouts.
+
+**8. Transaction Enquiry**
+Check the status of the payout with the
+[Transaction Enquiry API](/docs/transactions/transaction-enquiry). Statuses are listed under
+[transaction status codes](/docs/errors/transaction-status-codes).
+
+## What is core, what is conditional, what is supporting
+
+| Category | APIs | When |
+|---|---|---|
+| Core transaction flow | Authentication, Quotation, Payout, Transaction Enquiry | Every payout |
+| Conditional preparation | Customer Registration, Document Upload | Depends on customer status and transaction type |
+| Supporting / reference | Master APIs, Bank List, Balance Enquiry, currency and country validations | As your route or use case requires |
+
+## Supporting capabilities
+
+None of these sit on the critical path of a payout.
+
+- [Master / reference APIs](/docs/master-apis) — configuration data such as remittance
+  purpose, source of funds, relationship, occupation, bank list and wallet list. Call them
+  when you need the coded values a request expects; there is no requirement to call them all.
+- [Balance Enquiry](/docs/balance/balance-enquiry) — the current wallet or account balance.
+  It is a supporting call, not a step that closes out a payout.
+- [Currency validations](/docs/validation/currency-validations) and
+  [country validations](/docs/validation/country-validations) — which conditional fields a
+  given correspondent, currency or country requires.
+
+## The API call sequence as documented by RHUB
 
 {seq}
 """
     write('getting-started/integration-flow.md',
           {'title': 'Integration flow', 'sidebar_label': 'Integration flow',
-           'description': 'The RHUB API call sequence, as documented in the RHUB source.'}, body)
+           'description': 'How the RHUB APIs fit together: the core payout flow, conditional preparation steps and supporting reference APIs.'}, body)
     rec('apisequence.md', 'docs/getting-started/integration-flow.md', 'COMPLETE',
         'Sequence list and all cross-references remapped to portal routes. Source diagram '
         '(img/apiseq.png) is commented out in the source and the asset is not in the export.')
@@ -385,96 +550,96 @@ def build_getting_started():
     flows = re.sub(r'^#\s+Transaction Flows\s*$', '', flows, count=1, flags=re.M).strip()
     body = f"""# Transaction flows
 
-{provenance('transactionflow.md')}
+RHUB settles a payout to one of two destinations: the beneficiary's bank account, or the
+beneficiary's wallet. Which one applies determines the payout API you call —
+[Payout](/docs/payout/payout) for bank transfers and
+[WPT Payout](/docs/payout/wpt-payout) for wallet transfers — and, for wallet transfers, the
+[WPT Wallet List](/docs/master-apis/wpt-wallet-list) master API supplies the wallet values.
+
+The descriptions below are RHUB's own. RHUB illustrates each flow with a diagram; those
+image files are not part of the material supplied to this portal, and no replacement diagram
+has been drawn, because doing so would mean inventing process steps RHUB has not documented.
 
 {flows}
 """
     write('getting-started/transaction-flows.md',
           {'title': 'Transaction flows', 'sidebar_label': 'Transaction flows',
-           'description': 'Bank payout and wallet payout transaction flows as described in the RHUB source.'}, body)
+           'description': 'Bank payout and wallet payout transaction flows as described by RHUB.'},
+          body)
     rec('transactionflow.md', 'docs/getting-started/transaction-flows.md', 'REVIEW REQUIRED',
         'Narrative carried over in full. Both flow diagrams (img/rhubbpt2.png, img/rhubwpt2.png) '
         'are referenced by the source but the binary assets are not in the export — flagged on page.')
 
     body = f"""# How to read this reference
 
-This page describes the conventions used by RHUB Developer Portal 1.0. It contains no
-technical claims of its own — every technical statement lives on the API pages and comes
-from the RHUB source export.
+This page explains the conventions used throughout the reference. It makes no technical
+claims of its own — those live on the API pages.
+
+## Where the content comes from
+
+The portal draws on three authoritative RHUB inputs:
+
+- the original RHUB documentation source, which supplies the API contracts;
+- current supplemental RHUB data, such as the
+  [current API error codes](/docs/errors/current-error-codes);
+- operational and integration guidance confirmed directly by the RHUB team, which explains
+  how the contracts are used together — for example the customer-registration paths and the
+  KYC/KYB and invoice document model.
+
+The governing principle is unchanged: **no undocumented technical behaviour is invented**.
+Guidance explains how documented contracts fit together; it never adds fields, endpoints,
+values or rules that RHUB has not established.
 
 ## Requirement flags
 
-The RHUB source marks every request field with a requirement flag. This portal preserves
-the source flag exactly and never promotes one to another:
+Every request field carries a requirement flag, reproduced exactly as RHUB states it. A
+Conditional field is never presented as Mandatory.
 
-| Flag | Source meaning |
+| Flag | Meaning |
 |---|---|
 | M | Mandatory |
 | O | Optional |
 | C | Conditional |
 
-Conditional fields are **not** documented as mandatory. Where the source explains the
-condition — for example correspondent-specific or country-specific rules — the explanation
-appears with the field table or in [Validation](/docs/validation/currency-validations).
+Where the condition is explained — typically correspondent-specific or country-specific —
+it appears with the field table or under
+[Validation](/docs/validation/currency-validations).
 
 ## Field tables
 
-Field tables reproduce the source columns. Depending on the source page these are:
+Field tables reproduce the source columns, which are either
+`Parameters | Input Type | Length | Requirement | Description` or, on older contracts,
+`Parameters | Data Type | Requirement | Description`. Where a field length is not stated,
+the column is absent rather than guessed.
 
-- `Parameters | Input Type | Length | Requirement | Description`, or
-- `Parameters | Data Type | Requirement | Description` (older source pages, where the
-  source does not state a length).
+Field names, endpoint strings and example values are reproduced literally, including
+spellings that look inconsistent. If a field is written one way in a table and another way
+in an example, both are preserved and the difference is noted rather than corrected.
 
-Where the source does not state a field length, the column is absent rather than guessed.
+## Method and endpoint blocks
 
-## Method and endpoint callouts
-
-Each API page shows the HTTP method badge and an **Endpoint** callout containing the request
-URL exactly as the source writes it. Many source URLs use the literal host placeholder
-`http://host/...`; that placeholder is reproduced as-is because the source does not
-establish the environment base URLs on those pages.
+Each API page shows its HTTP method and the request URL exactly as RHUB writes it. Many URLs
+use the literal host placeholder `http://host/...`; that placeholder is reproduced as-is
+because RHUB does not establish environment base URLs on those pages.
 
 ## Examples
 
-Request and response examples are the source's own samples, reproduced verbatim in
-copy-to-clipboard code blocks. The source frequently masks values in its examples (for
-example `15*****f-54fe-43d9-***7-b7dc****1b9`); masking is preserved. Where a source page
-has no example, the page says so rather than showing an invented one.
+Request and response examples are RHUB's own samples, reproduced verbatim in copyable code
+blocks. Masked values in the originals (for example `15*****f-54fe-43d9-***7-b7dc****1b9`)
+stay masked. Where a contract has no example, the page says so rather than showing an
+invented one.
 
 ## REVIEW REQUIRED
 
-**REVIEW REQUIRED** marks a point where the supplied RHUB source does not establish the
-information — a missing example, a missing field contract, an unavailable image asset, an
-internal source link with no matching target, or a conflict between two source files. It is
-never a placeholder for content that exists in the source.
+**REVIEW REQUIRED** marks a point where the available RHUB material does not settle
+something an integrator may need — a missing example, a contract and an operational rule
+that do not fully line up, or an unavailable diagram. It is never a placeholder for content
+that exists.
 
-The following are *not* established anywhere in the supplied source and are therefore
-absent from this portal rather than inferred: rate limits, idempotency behaviour, retry
-semantics, webhooks, SDKs, pagination rules, sandbox versus production base URLs (other than
-where a URL literally appears in the source), token refresh behaviour, and SLA claims.
-
-## Publication status of source pages
-
-The RHUB source export contains 29 Markdown files. Fourteen are linked from the live
-documentation sidebar; the remaining fifteen are served but commented out of that sidebar.
-Pages built from unlinked files carry a publication-status warning. Full details are in the
-[source coverage notes](/docs/appendix/source-notes).
-
-## Formatting transformations applied
-
-To move from the legacy docsify pages to this portal, only presentation was changed:
-
-- HTML `<table>` markup became Markdown tables; cell text, field names and values are verbatim.
-- "Tap to open" reveal widgets became syntax-highlighted, copyable code blocks.
-- "About the API / Request URL / Request Method" tables became endpoint callouts.
-- Source cross-links (`#/PAYOUT-Api?id=...`) were remapped to portal routes.
-- A handful of source tables carry a stray extra cell on some rows, which standard Markdown
-  would silently drop. Those rows were re-aligned so that every non-empty source value still
-  appears; no value was moved between columns and none was added.
-- HTML-commented blocks in the source are not rendered as live documentation; substantive
-  commented API contracts are reproduced in the [appendix](/docs/appendix/unpublished-apis)
-  with a warning, and every commented block is accounted for in the
-  [source coverage notes](/docs/appendix/source-notes).
+The following are not established by RHUB and are therefore absent rather than inferred:
+rate limits, idempotency behaviour, retry semantics, webhooks, SDKs, pagination rules,
+environment base URLs beyond those literally documented, token refresh behaviour, and SLA
+commitments.
 """
     write('getting-started/conventions.md',
           {'title': 'How to read this reference', 'sidebar_label': 'How to read this reference',
@@ -516,15 +681,27 @@ def build_quotation():
     secs = split_api_sections(FILES['QUOTA.md'])
     s = secs[0]
     conv = R.convert(s['body'], promote_headings=1)
+    extra = """Price a transaction before you initiate it.
+
+Call Quotation after authenticating and before Payout. It returns the forex rate between the
+payin and payout currencies together with the applicable charges, so the sender can see the
+rate, fees and resulting payout amount before the transaction is confirmed. The source
+describes this as an indicative price and transaction limit, not a guaranteed final price.
+
+`payinAmount` and `payoutAmount` are conditional alternatives: supply one or the other, as
+the field table below states. The quotation data returned here is then used by the
+[Payout request](/docs/payout/payout) where the contract establishes that relationship.
+
+## Contract"""
     api_page('quotation/quotation.md',
              {'title': 'Quotation', 'sidebar_label': 'Quotation',
               'slug': '/quotation/quotation',
               'description': 'RHUB Quotation API — fetch the forex rate between payin and payout currencies.'},
-             s['method'], 'Quotation', conv, 'QUOTA.md',
-             related=[('Authentication', '/docs/authentication/authentication'),
+             s['method'], 'Quotation', conv, 'QUOTA.md', extra_top=extra,
+             related=[('Integration flow', '/docs/getting-started/integration-flow'),
+                      ('Authentication', '/docs/authentication/authentication'),
                       ('Payout', '/docs/payout/payout'),
-                      ('WPT Payout', '/docs/payout/wpt-payout'),
-                      ('Final Quotation (unlinked source page)', '/docs/legacy/final-quotation')])
+                      ('WPT Payout', '/docs/payout/wpt-payout')])
     rec('QUOTA.md', 'docs/quotation/quotation.md', 'COMPLETE',
         'Published Quotation contract carried over in full. The file also contains a '
         'commented-out Final Quotation section — reproduced in the appendix and cross-checked '
@@ -535,11 +712,36 @@ def build_document_upload():
     secs = split_api_sections(FILES['DocumentUpload.md'])
     s = secs[0]
     conv = R.convert(s['body'], promote_headings=1)
+    extra = """Upload the documents a payout depends on and obtain the reference the Payout request
+carries.
+
+## Two document purposes
+
+RHUB payouts involve two distinct kinds of document. They are often confused, so it is worth
+being explicit about which is which.
+
+%s
+
+**KYC / KYB** is customer verification: KYC for individual customers, KYB for business
+customers. It is required for payout on every transaction type, and the resulting reference
+is passed to Payout in `docReferenceNumber`.
+
+**Invoice** documentation supports business-related transactions. It is required for B2B,
+B2C and C2B payout processing, and the invoice/transaction reference is represented in the
+Payout request by `sendClient TrxReference`. It does not apply as an invoice requirement to
+C2C.
+
+The source establishes a single document upload contract, reproduced below; it does not
+define a separate invoice endpoint or separate invoice-specific request fields. Where your
+implementation needs that distinction at endpoint level, confirm it with RHUB.
+
+## Contract""" % document_model_table()
     api_page('documents/document-upload.md',
              {'title': 'Document Upload', 'sidebar_label': 'Document Upload',
-              'description': 'RHUB Document Upload API — upload customer documents such as ID proofs and invoices.'},
-             s['method'], 'Document Upload', conv, 'DocumentUpload.md',
-             related=[('Customer Registration', '/docs/customers/customer-registration'),
+              'description': 'RHUB Document Upload API — KYC/KYB and invoice documentation for payout.'},
+             s['method'], 'Document Upload', conv, 'DocumentUpload.md', extra_top=extra,
+             related=[('Integration flow', '/docs/getting-started/integration-flow'),
+                      ('Customer Registration', '/docs/customers/customer-registration'),
                       ('Payout', '/docs/payout/payout'),
                       ('Customer/Individual Document Type (master)',
                        '/docs/master-apis/customer-individual-document-type')])
@@ -551,14 +753,33 @@ def build_customer_registration():
     secs = split_api_sections(FILES['CUSTOMEREGIS.md'])
     s = secs[0]
     conv = R.convert(s['body'], promote_headings=1)
+    extra = """Register an individual or business customer with RHUB and obtain the customer code used
+on subsequent transactions.
+
+## When to use this API
+
+Customer Registration is not a mandatory call before every payout. Which path applies
+depends on whether RHUB already knows the customer.
+
+%s
+Coded fields in the request draw their values from the master APIs — for example
+[Business Type](/docs/master-apis/business-type),
+[Business Registration Type](/docs/master-apis/business-registration-type),
+[Nature of Business](/docs/master-apis/nature-of-business),
+[Customer Legal Status](/docs/master-apis/customer-legal-status),
+[Occupation](/docs/master-apis/occupation) and
+[Document ID Type](/docs/master-apis/document-id-type).
+
+## Contract""" % customer_paths_block(heading_level=2)
     api_page('customers/customer-registration.md',
+
              {'title': 'Customer Registration', 'sidebar_label': 'Customer Registration',
               'description': 'RHUB Customer Registration API — register business and individual customers.'},
-             s['method'], 'Customer Registration', conv, 'CUSTOMEREGIS.md',
-             related=[('Document Upload', '/docs/documents/document-upload'),
+             s['method'], 'Customer Registration', conv, 'CUSTOMEREGIS.md', extra_top=extra,
+             related=[('Integration flow', '/docs/getting-started/integration-flow'),
+                      ('Document Upload', '/docs/documents/document-upload'),
                       ('Payout', '/docs/payout/payout'),
-                      ('Master / reference APIs', '/docs/master-apis'),
-                      ('Customer Inquiry (unlinked source page)', '/docs/legacy/customer-inquiry')])
+                      ('Master / reference APIs', '/docs/master-apis')])
     rec('CUSTOMEREGIS.md', 'docs/customers/customer-registration.md', 'COMPLETE',
         'Published Customer Registration contract carried over in full for both business and '
         'individual customers.')
@@ -568,12 +789,51 @@ def build_payout():
     secs = split_api_sections(FILES['PAYOUT-Api.md'])
     s = secs[0]
     conv = R.convert(s['body'], promote_headings=1)
+    extra = """Initiate a fund transfer for a completed quotation.
+
+## Before you initiate a payout
+
+%s
+
+You do not need to call every master API for every payout — fetch only the reference data
+your route and use case require.
+
+### Transaction types and documentation
+
+%s
+
+### Document references in the request
+
+- `docReferenceNumber` — the KYC/KYB document reference.
+- `sendClient TrxReference` — the invoice/transaction reference for B2B, B2C and C2B.
+
+:::warning[REVIEW REQUIRED — C2C value for `sendClient TrxReference`]
+
+%s
+
+The Mandatory flag below is reproduced exactly as the contract states it. No C2C value or
+fallback has been assumed here; confirm the expected usage with RHUB.
+
+:::
+
+:::note[Field naming in the source]
+
+The request field table below lists this field as `sendClient TrxReference`, while the
+request example writes it as `sendClientTrxReference`. Both are reproduced exactly as the
+source has them; neither spelling has been normalised.
+
+:::
+
+## Contract""" % (payout_prerequisites_list(), transaction_matrix_table(),
+                  open_question('c2c-trx-reference'))
     api_page('payout/payout.md',
              {'title': 'Payout', 'sidebar_label': 'Payout',
               'slug': '/payout/payout',
               'description': 'RHUB Payout API — perform B2B, C2C, C2B and B2C transactions.'},
-             s['method'], 'Payout', conv, 'PAYOUT-Api.md',
-             related=[('Quotation', '/docs/quotation/quotation'),
+             s['method'], 'Payout', conv, 'PAYOUT-Api.md', extra_top=extra,
+             related=[('Integration flow', '/docs/getting-started/integration-flow'),
+                      ('Quotation', '/docs/quotation/quotation'),
+                      ('Document Upload', '/docs/documents/document-upload'),
                       ('Currency validations (LOCAL rail)', '/docs/validation/currency-validations'),
                       ('Country validations (SWIFT rail)', '/docs/validation/country-validations'),
                       ('Transaction Enquiry', '/docs/transactions/transaction-enquiry'),
@@ -611,7 +871,7 @@ def build_enquiry():
              related=[('Payout', '/docs/payout/payout'),
                       ('Transaction status codes', '/docs/errors/transaction-status-codes'),
                       ('Balance Enquiry', '/docs/balance/balance-enquiry'),
-                      ('Transaction Inquiry (unlinked source page)', '/docs/legacy/transaction-inquiry')])
+                      ('Integration flow', '/docs/getting-started/integration-flow')])
 
     bal = by_title['Balance Enquiry']
     conv = R.convert(bal['body'], promote_headings=1)
@@ -620,7 +880,7 @@ def build_enquiry():
               'description': 'RHUB Balance Enquiry API — retrieve the current wallet or account balance.'},
              bal['method'], 'Balance Enquiry', conv, 'ENQUIRY.md',
              related=[('Transaction Enquiry', '/docs/transactions/transaction-enquiry'),
-                      ('Balance API (unlinked source page)', '/docs/legacy/balance')])
+                      ('Integration flow', '/docs/getting-started/integration-flow')])
 
     note = ''
     pre = R.convert(preamble)
@@ -675,14 +935,13 @@ def build_master():
         lines.append('| %s | `%s` | `%s` | [Open](/docs/master-apis/%s) |' %
                      (title, method, ep.replace('|', '\\|'), slug))
     lines += ['',
-              ':::warning[Additional master categories in the source — REVIEW REQUIRED]',
+              ':::note[Master APIs RHUB does not publish]',
               '',
-              'The source file `master.md` also contains ten further master sections that are '
-              '**commented out** and therefore not published: Legal Status Code, Payment Mode, '
-              'Branch List, Customer Type, Resident Status, Purpose of Opening Business, '
-              'Transaction Volume, ID Type, Customer Document Fetch and Payout Validator. Their '
-              'contracts are reproduced, with their publication status flagged, in '
-              '[Unpublished master APIs](/docs/appendix/unpublished-master-apis).',
+              'The RHUB source file also carries ten further master sections that RHUB has not '
+              'published: Legal Status Code, Payment Mode, Branch List, Customer Type, Resident '
+              'Status, Purpose of Opening Business, Transaction Volume, ID Type, Customer '
+              'Document Fetch and Payout Validator. They are not documented here because RHUB '
+              'does not publish them — confirm with RHUB before relying on any of them.',
               '',
               ':::']
     write('master-apis/index.md',
@@ -833,9 +1092,8 @@ establishes retry policy, idempotency behaviour or backoff expectations.
 
 These are the statuses the source states will be available in production. The source does
 not define transitions between them, timing, or which statuses are terminal — that is
-**REVIEW REQUIRED**. A further status-code table and a validation-code table exist in the
-source file but are commented out; they are reproduced in
-[Unpublished API sections](/docs/appendix/unpublished-apis).
+**REVIEW REQUIRED**. The RHUB source also carries a further status-code table and a validation-code
+table that RHUB does not publish; they are therefore not documented here.
 
 :::
 
@@ -1072,9 +1330,8 @@ def build_wpt():
     for title, method, slug in rows:
         lines.append('| %s | `%s` | [Open](/docs/wpt/%s) |' % (title, method, slug))
     blocks = commented_api_sections(FILES['WPT.md'])
-    lines += ['', 'The same file contains %d further sections inside HTML comments '
-                  '(%s). They are reproduced in '
-                  '[Unpublished API sections](/docs/appendix/unpublished-apis).'
+    lines += ['', 'The same source file carries %d further sections that RHUB does not '
+                  'publish (%s); they are therefore not documented here.'
               % (len(blocks), ', '.join(b['title'] for b in blocks)), '',
               '## Related', '',
               '- [WPT Payout (published page)](/docs/payout/wpt-payout)',
@@ -1427,20 +1684,67 @@ def build_source_notes(master_rows, wpt_rows, tpl_rows):
 # API index page
 # --------------------------------------------------------------------------
 
+INDEX_STAGES = {
+    'authentication/authentication.md': 'Start',
+    'customers/customer-registration.md': 'Customer setup',
+    'documents/document-upload.md': 'Payout preparation',
+    'quotation/quotation.md': 'Pre-payout',
+    'payout/payout.md': 'Transaction',
+    'payout/wpt-payout.md': 'Transaction',
+    'transactions/transaction-enquiry.md': 'Post-payout',
+    'balance/balance-enquiry.md': 'Supporting / reference',
+    'wpt/customer-registration.md': 'Customer setup',
+    'wpt/quotation.md': 'Pre-payout',
+    'wpt/payout.md': 'Transaction',
+}
+
+# Sections excluded from the public index: they are not part of public navigation.
+INDEX_EXCLUDE_PREFIXES = ('template-management/', 'legacy/', 'appendix/')
+
+
 def build_api_index():
-    lines = ['# API reference index', '',
-             'Every API contract published by the RHUB source, in one table.', '',
-             '| API | Method | Endpoint (as written in source) | Page |', '|---|---|---|---|']
-    for name, method, ep, page in API_INDEX:
-        route = '/docs/' + page.replace('.md', '').replace('/index', '/')
-        lines.append('| %s | `%s` | `%s` | [Open](%s) |' %
-                     (name, method, ep.replace('|', '\\|'), route))
-    lines += ['', ':::note', '', 'Endpoint strings are reproduced exactly as the source writes '
-              'them, including the literal `http://host` placeholder where the source uses it.',
-              '', ':::']
+    core, masters = [], []
+    for name, method, ep, page, purpose in API_INDEX:
+        if page.startswith(INDEX_EXCLUDE_PREFIXES):
+            continue
+        stage = INDEX_STAGES.get(page, 'Supporting / reference')
+        row = (name, method, purpose, stage, ep, page)
+        (masters if page.startswith('master-apis/') else core).append(row)
+
+    order = ['Start', 'Customer setup', 'Payout preparation', 'Pre-payout', 'Transaction',
+             'Post-payout', 'Supporting / reference']
+    core.sort(key=lambda r: order.index(r[3]) if r[3] in order else len(order))
+
+    def render(rows):
+        out = ['| API | Method | Purpose | Integration stage | Endpoint | Page |',
+               '|---|---|---|---|---|---|']
+        for name, method, purpose, stage, ep, page in rows:
+            route = '/docs/' + page.replace('.md', '')
+            out.append('| %s | `%s` | %s | %s | `%s` | [Open](%s) |'
+                       % (name, method, purpose.replace('|', '\\|'), stage,
+                          ep.replace('|', '\\|'), route))
+        return out
+
+    lines = ['# API index', '',
+             'Every API in the public reference, with the stage of an integration at which it '
+             'is typically used. Purposes are RHUB\'s own descriptions.', '',
+             '## Transaction APIs', '']
+    lines += render(core)
+    lines += ['', '## Master / reference APIs', '',
+              'Master APIs supply the coded values other requests expect. They are need-based: '
+              'call the ones your route and use case require, in whatever order suits your '
+              'implementation. They are not a sequence.', '']
+    lines += render(masters)
+    lines += ['', ':::note', '',
+              'Endpoint strings are reproduced exactly as RHUB writes them, including the literal '
+              '`http://host` placeholder where RHUB uses it.', '', ':::', '',
+              '## Related', '',
+              '- [Integration flow](/docs/getting-started/integration-flow)',
+              '- [How to read this reference](/docs/getting-started/conventions)',
+              '- [Errors and response codes](/docs/errors)']
     write('api-index.md',
-          {'title': 'API reference index', 'sidebar_label': 'API index',
-           'description': 'Complete index of RHUB APIs documented in this portal.'},
+          {'title': 'API index', 'sidebar_label': 'API index',
+           'description': 'Index of the public RHUB APIs, with purpose, integration stage and endpoint.'},
           '\n'.join(lines))
 
 

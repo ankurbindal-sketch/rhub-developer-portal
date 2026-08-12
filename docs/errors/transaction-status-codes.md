@@ -21,9 +21,8 @@ In Production, the following statuses will be available:
 
 These are the statuses the source states will be available in production. The source does
 not define transitions between them, timing, or which statuses are terminal — that is
-**REVIEW REQUIRED**. A further status-code table and a validation-code table exist in the
-source file but are commented out; they are reproduced in
-[Unpublished API sections](/docs/appendix/unpublished-apis).
+**REVIEW REQUIRED**. The RHUB source also carries a further status-code table and a validation-code
+table that RHUB does not publish; they are therefore not documented here.
 
 :::
 

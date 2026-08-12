@@ -1,0 +1,82 @@
+{
+  "documentTitle": "RHUB operational and integration guidance",
+  "provider": "RHUB team",
+  "receivedOn": "2026-08-12",
+  "authoritative": true,
+  "notes": "Operational guidance confirmed directly by the RHUB team. It explains how the documented API contracts are used together; it does not change any contract. Kept separate from RHUB_FULL_SOURCE_EXPORT.json so the original documentation export is never rewritten. Update this file and re-run tools/generate.py to refresh the guidance shown on the public pages.",
+
+  "customerPaths": [
+    {
+      "id": "existing",
+      "label": "Existing customer",
+      "summary": "The customer has already been registered with RHUB.",
+      "action": "Use the existing customer code for the transaction. Do not register the customer again."
+    },
+    {
+      "id": "pre-register",
+      "label": "New customer, registered before payout",
+      "summary": "The customer is not yet known to RHUB and you want to register them as a separate step.",
+      "action": "Register the customer with the Customer Registration API, then use the resulting customer code for the payout."
+    },
+    {
+      "id": "on-the-fly",
+      "label": "New customer, registered on the fly",
+      "summary": "The customer is not yet known to RHUB and you want to register them as part of the payout.",
+      "action": "RHUB supports customer registration as part of the Payout flow. A separate Customer Registration call is not required on this path; the Payout fields governing it (for example isAutoRegistered, declaration and the sender details) remain exactly as the Payout contract defines them."
+    }
+  ],
+  "customerNote": "Customer Registration is not a mandatory standalone call before every payout. Which of the three paths applies depends on whether the customer is already registered and how you choose to register new customers.",
+
+  "documentModel": [
+    {
+      "type": "KYC / KYB",
+      "purpose": "Customer verification — KYC for individual customers, KYB for business customers.",
+      "appliesTo": "All payout transaction types",
+      "requirement": "Mandatory for payout",
+      "payoutReference": "docReferenceNumber"
+    },
+    {
+      "type": "Invoice",
+      "purpose": "Supporting document for business-related transactions.",
+      "appliesTo": "B2B, B2C, C2B",
+      "requirement": "Mandatory for B2B, B2C and C2B payout processing. Not applicable as an invoice requirement to C2C.",
+      "payoutReference": "sendClient TrxReference"
+    }
+  ],
+
+  "transactionMatrix": [
+    {"type": "B2B", "sender": "Business", "receiver": "Business", "kyc": "Required", "invoice": "Required"},
+    {"type": "B2C", "sender": "Business", "receiver": "Individual", "kyc": "Required", "invoice": "Required"},
+    {"type": "C2B", "sender": "Individual", "receiver": "Business", "kyc": "Required", "invoice": "Required"},
+    {"type": "C2C", "sender": "Individual", "receiver": "Individual", "kyc": "Required", "invoice": "Not applicable as an invoice requirement"}
+  ],
+
+  "payoutPrerequisites": [
+    "Authenticate and obtain an access token.",
+    "Determine customer status: use the existing customer code, or pre-register the customer, or use the supported on-the-fly registration path in the Payout request.",
+    "Ensure the required KYC/KYB documentation has been uploaded and the applicable `docReferenceNumber` is available.",
+    "For B2B, B2C and C2B, ensure the required invoice documentation is available and the applicable `sendClient TrxReference` value is used.",
+    "Obtain a valid quotation.",
+    "Obtain the master, reference, bank or validation data your route and use case require — only the ones you actually need, not every master API.",
+    "Submit the Payout request."
+  ],
+
+  "openQuestions": [
+    {
+      "id": "c2c-trx-reference",
+      "topic": "C2C value for the Mandatory invoice reference field",
+      "question": "The Payout contract marks `sendClient TrxReference` as Mandatory at transactionInfo level, while the confirmed invoice-document requirement applies only to B2B, B2C and C2B. The expected value or usage for C2C payouts is not established.",
+      "placement": "payout"
+    }
+  ],
+
+  "masterCrossLinks": [
+    {"field": "businessType", "master": "Business Type", "slug": "business-type"},
+    {"field": "business RegistrationType", "master": "Business Registration Type", "slug": "business-registration-type"},
+    {"field": "senderIdType", "master": "Document ID Type", "slug": "document-id-type"},
+    {"field": "senderOccupation", "master": "Occupation", "slug": "occupation"},
+    {"field": "natureOfBusinessCode", "master": "Nature of Business", "slug": "nature-of-business"},
+    {"field": "legalStatusCode", "master": "Customer Legal Status", "slug": "customer-legal-status"},
+    {"field": "bank-related fields", "master": "Bank List", "slug": "bank-list"}
+  ]
+}

@@ -151,7 +151,7 @@ const config = {
             {label: 'API index', to: '/docs/api-index'},
             {label: 'Master APIs', to: '/docs/master-apis'},
             {label: 'Errors and response codes', to: '/docs/errors'},
-            {label: 'Source coverage notes', to: '/docs/appendix/source-notes'},
+            {label: 'Validation rules', to: '/docs/validation/currency-validations'},
           ],
         },
         {

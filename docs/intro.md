@@ -8,9 +8,13 @@ description: "Developer documentation for the RHUB (RemittancesHub) cross-border
 
 # RHUB Developer Portal
 
-Welcome to the developer documentation for **RHUB (RemittancesHub)**. This portal is a
-re-presentation of the authoritative RHUB technical documentation, reorganised for
-integration work.
+RHUB (RemittancesHub) is a licensed financial institution operating an Alternate Cross
+Border Network for inbound and outbound payments. It moves funds into the bank accounts of
+beneficiaries — corporate or individual — in near real time, at lower cost than traditional
+channels, with end-to-end transaction tracking.
+
+You integrate over a REST API. Requests and responses are JSON, and every call is
+authenticated with an access token.
 
 <div className="rhub-cards">
 
@@ -19,7 +23,7 @@ integration work.
 
 ### [Authentication](/docs/authentication/authentication)
 
-Authenticate and obtain the access token required for subsequent calls.
+Obtain the access token every other call depends on.
 
 </div>
 
@@ -28,16 +32,16 @@ Authenticate and obtain the access token required for subsequent calls.
 
 ### [Explore RHUB API contracts](/docs/api-index)
 
-Every documented API, with its method and endpoint, in a single index.
+Every published API, with its method, purpose and integration stage.
 
 </div>
 
 <div className="rhub-card">
 <span className="rhub-card__kicker">Integration flow</span>
 
-### [The documented API sequence](/docs/getting-started/integration-flow)
+### [Plan your integration](/docs/getting-started/integration-flow)
 
-The call sequence RHUB supports, and which APIs are called based on the need.
+The decision points between authenticating and settling a payout.
 
 </div>
 
@@ -46,56 +50,53 @@ The call sequence RHUB supports, and which APIs are called based on the need.
 
 ### [Result codes and field rules](/docs/errors)
 
-Current API error codes, transaction status codes, and correspondent validation requirements.
+Current API error codes, transaction statuses and correspondent validation rules.
 
 </div>
 
 </div>
 
-## About Us
+## The payout journey
 
->RemittancesHub (RHUB) is a licensed financial institution operating an Alternate Cross Border Network for Inbound & Outbound Payments, which enables international fund transfers into Bank Accounts of Beneficiaries (both corporate & individual):
-
-* In near real-time.
-* At significantly lower costs vs. traditional channels.
-* With end-to-end transaction tracking.
-* Visit https://www.remittanceshub.com/ to know more.
-
-## Overview
-
-To integrate the RHUB services the Representational State Transfer (REST) API is used. The HTTP methods POST, GET, PUT, and DELETE HTTP methods are used to send the Request parameter of the API in JavaScript Object Notation (JSON) format.
-
-JSON format is a light weight data interchange format, and text format has multiple name/value pairs, and is independent of language.
-
-The APIs described on this forum are limited to Financial Institution Customer.
-
-## Core integration journey
-
-<div className="rhub-flow">
+<div className="rhub-flow rhub-flow--six">
 
 <div className="rhub-flow__step">
 <span className="rhub-flow__index">01</span>
 
-[Login / Authentication](/docs/authentication/authentication)
+[Authenticate](/docs/authentication/authentication)
 
 </div>
 
 <div className="rhub-flow__step">
 <span className="rhub-flow__index">02</span>
 
-[Quotation](/docs/quotation/quotation)
+[Prepare customer](/docs/customers/customer-registration)
 
 </div>
 
 <div className="rhub-flow__step">
 <span className="rhub-flow__index">03</span>
 
-[Payout](/docs/payout/payout)
+[Prepare documents](/docs/documents/document-upload)
 
 </div>
 
 <div className="rhub-flow__step">
 <span className="rhub-flow__index">04</span>
+
+[Quotation](/docs/quotation/quotation)
+
+</div>
+
+<div className="rhub-flow__step">
+<span className="rhub-flow__index">05</span>
+
+[Payout](/docs/payout/payout)
+
+</div>
+
+<div className="rhub-flow__step">
+<span className="rhub-flow__index">06</span>
 
 [Transaction Enquiry](/docs/transactions/transaction-enquiry)
 
@@ -103,26 +104,32 @@ The APIs described on this forum are limited to Financial Institution Customer.
 
 </div>
 
-The source states that the API call sequence is limited to the Login API, Quotation API,
-Payout API and Transaction Enquiry API, and that the remaining APIs can be called based on
-the need. See [Integration flow](/docs/getting-started/integration-flow) for the full
-source-documented sequence.
+Steps 2 and 3 are preparation stages, not calls you always make. What they involve depends
+on the customer and the transaction type:
 
-## Supporting capabilities documented in this portal
+- **Prepare customer** — an existing customer needs no re-registration: use the customer
+  code you already hold. A new customer is either registered first with the
+  [Customer Registration API](/docs/customers/customer-registration) or registered on the
+  fly as part of the payout request.
+- **Prepare documents** — KYC/KYB documentation is required for payout, and B2B, B2C and
+  C2B transactions also require invoice documentation. See
+  [Document Upload](/docs/documents/document-upload).
 
-- [Customer Registration](/docs/customers/customer-registration)
-- [Document Upload](/docs/documents/document-upload)
-- [Balance Enquiry](/docs/balance/balance-enquiry)
-- [Master / reference APIs](/docs/master-apis) — 14 published master endpoints
-- [Currency and country validations](/docs/validation/currency-validations)
-- [Errors and response codes](/docs/errors)
+The [Integration flow](/docs/getting-started/integration-flow) sets out the decision points
+in full.
 
-:::info[Documentation fidelity]
+## Supporting capabilities
 
-Every endpoint, field name, type, length, requirement flag, validation rule, example and
-error code in this portal is carried over from the RHUB source export. Where the source does
-not establish something, the page says **REVIEW REQUIRED** instead of filling the gap. See
-[How to read this reference](/docs/getting-started/conventions) and the
-[source coverage notes](/docs/appendix/source-notes).
+These are called when your route or use case needs them, not on every transaction.
 
-:::
+- [Master / reference APIs](/docs/master-apis) — remittance purpose, source of fund,
+  relationship, occupation, bank list, wallet list and more
+- [Balance Enquiry](/docs/balance/balance-enquiry) — current wallet or account balance
+- [Currency validations](/docs/validation/currency-validations) and
+  [country validations](/docs/validation/country-validations) — correspondent-specific
+  conditional field requirements
+- [Errors and response codes](/docs/errors) — result codes, transaction statuses and
+  HTTP/application error codes
+
+New to the reference? [How to read this reference](/docs/getting-started/conventions)
+explains the requirement flags, field tables and REVIEW REQUIRED markers.

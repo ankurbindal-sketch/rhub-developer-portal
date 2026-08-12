@@ -31,8 +31,8 @@ These 14 master APIs are documented and published in the RHUB source.
 | Customer Occupation Type | `GET` | `http://host/ewallet/api/v1/customerOccupationType/getByCustomerTypeCode/{customerTypeCode}` | [Open](/docs/master-apis/customer-occupation-type) |
 | Customer/Individual Document Type | `GET` | `http://host/ewallet/api/v1/customerDocumentType/getByCustomerTypeCode/{customerTypeCode}` | [Open](/docs/master-apis/customer-individual-document-type) |
 
-:::warning[Additional master categories in the source — REVIEW REQUIRED]
+:::note[Master APIs RHUB does not publish]
 
-The source file `master.md` also contains ten further master sections that are **commented out** and therefore not published: Legal Status Code, Payment Mode, Branch List, Customer Type, Resident Status, Purpose of Opening Business, Transaction Volume, ID Type, Customer Document Fetch and Payout Validator. Their contracts are reproduced, with their publication status flagged, in [Unpublished master APIs](/docs/appendix/unpublished-master-apis).
+The RHUB source file also carries ten further master sections that RHUB has not published: Legal Status Code, Payment Mode, Branch List, Customer Type, Resident Status, Purpose of Opening Business, Transaction Volume, ID Type, Customer Document Fetch and Payout Validator. They are not documented here because RHUB does not publish them — confirm with RHUB before relying on any of them.
 
 :::

@@ -1,12 +1,40 @@
 ---
 title: "Document Upload"
 sidebar_label: "Document Upload"
-description: "RHUB Document Upload API — upload customer documents such as ID proofs and invoices."
+description: "RHUB Document Upload API — KYC/KYB and invoice documentation for payout."
 ---
 
 # Document Upload
 
 <span className="rhub-method rhub-method--post">POST</span>
+
+Upload the documents a payout depends on and obtain the reference the Payout request
+carries.
+
+## Two document purposes
+
+RHUB payouts involve two distinct kinds of document. They are often confused, so it is worth
+being explicit about which is which.
+
+| Document type | Purpose | Applies to | Requirement | Payout reference |
+|---|---|---|---|---|
+| KYC / KYB | Customer verification — KYC for individual customers, KYB for business customers. | All payout transaction types | Mandatory for payout | `docReferenceNumber` |
+| Invoice | Supporting document for business-related transactions. | B2B, B2C, C2B | Mandatory for B2B, B2C and C2B payout processing. Not applicable as an invoice requirement to C2C. | `sendClient TrxReference` |
+
+**KYC / KYB** is customer verification: KYC for individual customers, KYB for business
+customers. It is required for payout on every transaction type, and the resulting reference
+is passed to Payout in `docReferenceNumber`.
+
+**Invoice** documentation supports business-related transactions. It is required for B2B,
+B2C and C2B payout processing, and the invoice/transaction reference is represented in the
+Payout request by `sendClient TrxReference`. It does not apply as an invoice requirement to
+C2C.
+
+The source establishes a single document upload contract, reproduced below; it does not
+define a separate invoice endpoint or separate invoice-specific request fields. Where your
+implementation needs that distinction at endpoint level, confirm it with RHUB.
+
+## Contract
 
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
@@ -95,6 +123,7 @@ http://host/ewallet/api/v1/documentUpload/upload/customer
 
 ## Related APIs
 
+- [Integration flow](/docs/getting-started/integration-flow)
 - [Customer Registration](/docs/customers/customer-registration)
 - [Payout](/docs/payout/payout)
 - [Customer/Individual Document Type (master)](/docs/master-apis/customer-individual-document-type)

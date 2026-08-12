@@ -1,10 +1,20 @@
 ---
 title: "Transaction flows"
 sidebar_label: "Transaction flows"
-description: "Bank payout and wallet payout transaction flows as described in the RHUB source."
+description: "Bank payout and wallet payout transaction flows as described by RHUB."
 ---
 
 # Transaction flows
+
+RHUB settles a payout to one of two destinations: the beneficiary's bank account, or the
+beneficiary's wallet. Which one applies determines the payout API you call —
+[Payout](/docs/payout/payout) for bank transfers and
+[WPT Payout](/docs/payout/wpt-payout) for wallet transfers — and, for wallet transfers, the
+[WPT Wallet List](/docs/master-apis/wpt-wallet-list) master API supplies the wallet values.
+
+The descriptions below are RHUB's own. RHUB illustrates each flow with a diagram; those
+image files are not part of the material supplied to this portal, and no replacement diagram
+has been drawn, because doing so would mean inventing process steps RHUB has not documented.
 
 The following are the transaction flows.
 * Bank payout transaction flow

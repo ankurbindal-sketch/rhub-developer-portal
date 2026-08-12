@@ -25,7 +25,7 @@ The source file `WPT.md` groups a wallet-payout (WPT) integration set. The follo
 | Quotation | `POST` | [Open](/docs/wpt/quotation) |
 | Payout | `POST` | [Open](/docs/wpt/payout) |
 
-The same file contains 6 further sections inside HTML comments (Authentication, Update Customer Details, Owner Details, Search Customer, Search Beneficiary, Document Upload). They are reproduced in [Unpublished API sections](/docs/appendix/unpublished-apis).
+The same source file carries 6 further sections that RHUB does not publish (Authentication, Update Customer Details, Owner Details, Search Customer, Search Beneficiary, Document Upload); they are therefore not documented here.
 
 ## Related
 

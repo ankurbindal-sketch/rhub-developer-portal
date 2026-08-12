@@ -8,6 +8,36 @@ description: "RHUB Customer Registration API — register business and individua
 
 <span className="rhub-method rhub-method--post">POST</span>
 
+Register an individual or business customer with RHUB and obtain the customer code used
+on subsequent transactions.
+
+## When to use this API
+
+Customer Registration is not a mandatory call before every payout. Which path applies
+depends on whether RHUB already knows the customer.
+
+### Existing customer
+
+The customer has already been registered with RHUB. Use the existing customer code for the transaction. Do not register the customer again.
+
+### New customer, registered before payout
+
+The customer is not yet known to RHUB and you want to register them as a separate step. Register the customer with the Customer Registration API, then use the resulting customer code for the payout.
+
+### New customer, registered on the fly
+
+The customer is not yet known to RHUB and you want to register them as part of the payout. RHUB supports customer registration as part of the Payout flow. A separate Customer Registration call is not required on this path; the Payout fields governing it (for example isAutoRegistered, declaration and the sender details) remain exactly as the Payout contract defines them.
+
+Coded fields in the request draw their values from the master APIs — for example
+[Business Type](/docs/master-apis/business-type),
+[Business Registration Type](/docs/master-apis/business-registration-type),
+[Nature of Business](/docs/master-apis/nature-of-business),
+[Customer Legal Status](/docs/master-apis/customer-legal-status),
+[Occupation](/docs/master-apis/occupation) and
+[Document ID Type](/docs/master-apis/document-id-type).
+
+## Contract
+
 There are two methods for registering a customer:
 
 * Using this API.
@@ -389,7 +419,7 @@ POST http://host/ewallet/api/v1/customer-registration
 
 ## Related APIs
 
+- [Integration flow](/docs/getting-started/integration-flow)
 - [Document Upload](/docs/documents/document-upload)
 - [Payout](/docs/payout/payout)
 - [Master / reference APIs](/docs/master-apis)
-- [Customer Inquiry (unlinked source page)](/docs/legacy/customer-inquiry)

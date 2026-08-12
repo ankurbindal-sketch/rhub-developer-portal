@@ -250,4 +250,4 @@ GET - http:host/ewallet/api/v1/wallet/walletOwner/1000008444
 ## Related APIs
 
 - [Transaction Enquiry](/docs/transactions/transaction-enquiry)
-- [Balance API (unlinked source page)](/docs/legacy/balance)
+- [Integration flow](/docs/getting-started/integration-flow)

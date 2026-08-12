@@ -201,4 +201,4 @@ http://host/ewallet/api/v1/transactionInfo/api?types=all&status=all&transId=1***
 - [Payout](/docs/payout/payout)
 - [Transaction status codes](/docs/errors/transaction-status-codes)
 - [Balance Enquiry](/docs/balance/balance-enquiry)
-- [Transaction Inquiry (unlinked source page)](/docs/legacy/transaction-inquiry)
+- [Integration flow](/docs/getting-started/integration-flow)

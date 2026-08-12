@@ -67,187 +67,218 @@
    "Authentication",
    "POST",
    "http://host/ewallet/oauth/token",
-   "authentication/authentication.md"
+   "authentication/authentication.md",
+   "The Login API is used to authenticate and authorize the user."
   ],
   [
    "Customer Registration",
    "POST",
    "http://host/ewallet/api/v1/customer-registration",
-   "customers/customer-registration.md"
+   "customers/customer-registration.md",
+   "The Customer-Registration API is used to register or create the customer in the system."
   ],
   [
    "Quotation",
    "POST",
    "http://host/ewallet/api/v1/fxratequotation/api",
-   "quotation/quotation.md"
+   "quotation/quotation.md",
+   "The Quotation API is used to fetch the forex rate between the payin and payout currencies."
   ],
   [
    "Payout",
    "POST",
    "http://host/ewallet/api/v1/payoutProcess/api",
-   "payout/payout.md"
+   "payout/payout.md",
+   "The Payout API is used to perform all types of transactions (B2B,C2C,C2B,B2C)."
   ],
   [
    "WPT Payout",
    "POST",
    "http://host/ewallet/api/v1/payoutProcess/api",
-   "payout/wpt-payout.md"
+   "payout/wpt-payout.md",
+   "This Payout API is used to perform all types of Wallet transactions (C2C)."
   ],
   [
    "Transaction Enquiry",
    "GET",
    "http://host/ewallet/api/v1/transactionInfo/api?types=all&status=all&transId={value}",
-   "transactions/transaction-enquiry.md"
+   "transactions/transaction-enquiry.md",
+   "The Transaction Enquiry API is used to fetch the statement for the specified period."
   ],
   [
    "Balance Enquiry",
    "GET",
    "http://host/ewallet/api/v1/wallet/walletOwner/{walletOwnerCode}",
-   "balance/balance-enquiry.md"
+   "balance/balance-enquiry.md",
+   "The Balance API is used to fetch the current balance in the ledger of the partner."
   ],
   [
    "Document Upload",
    "POST",
    "http://host/ewallet/api/v1/documentUpload/upload/customer",
-   "documents/document-upload.md"
+   "documents/document-upload.md",
+   "The Document Upload API is used to upload the ID proof documents of the specific customer of the send client."
   ],
   [
    "Remittance Purpose",
    "GET",
    "http://host/ewallet/api/v1/purposeOfRemittance/RHUB/{transactionType}/{countryCode}",
-   "master-apis/remittance-purpose.md"
+   "master-apis/remittance-purpose.md",
+   "The Remittance Purpose API is used to fetch the purpose to send the remittance."
   ],
   [
    "Source of Fund",
    "GET",
    "http://host/ewallet/api/v1/getSourceOfFund/RHUB/{transactionType}/{countryCode}",
-   "master-apis/source-of-fund.md"
+   "master-apis/source-of-fund.md",
+   "The Source of Fund API is used to fetch the source of the fund."
   ],
   [
    "Relationship",
    "GET",
    "http://host/ewallet/api/v1/getRelationship/RHUB/{transactionType}",
-   "master-apis/relationship.md"
+   "master-apis/relationship.md",
+   "The Relationship API is used to fetch the relation of the beneficiary with the sender."
   ],
   [
    "Document ID Type",
    "GET",
    "http://host/ewallet/api/v1/getDocumentIdType/RHUB/{transactionType}",
-   "master-apis/document-id-type.md"
+   "master-apis/document-id-type.md",
+   "The Document ID Type API is used to fetch the list of all document types."
   ],
   [
    "Occupation",
    "GET",
    "http://host/ewallet/api/v1/getOccupation/RHUB/{transactionType}",
-   "master-apis/occupation.md"
+   "master-apis/occupation.md",
+   "The Occupation API is used to fetch the occupation."
   ],
   [
    "Business Type",
    "GET",
    "http://host/ewallet/api/v1/masterBusinessTypes/RHUB/{transactionType}",
-   "master-apis/business-type.md"
+   "master-apis/business-type.md",
+   "The Business API is used to fetch the Business type of customer."
   ],
   [
    "Business Registration Type",
    "GET",
    "http://host/ewallet/api/v1/masterBusinessRegistrationTypes/RHUB/{transactionType}",
-   "master-apis/business-registration-type.md"
+   "master-apis/business-registration-type.md",
+   "The Business registration type API is used to fetch the registration type of business customers."
   ],
   [
    "Account Type",
    "GET",
    "http://host/ewallet/api/v1/accountType/all",
-   "master-apis/account-type.md"
+   "master-apis/account-type.md",
+   "The Account Type API is used to fetch the type of the account."
   ],
   [
    "WPT Wallet List",
    "GET",
    "http://host/ewallet/api/v1/walletList/{countryCode}/{currencyCode}/{receiverCode}/WPT",
-   "master-apis/wpt-wallet-list.md"
+   "master-apis/wpt-wallet-list.md",
+   "The Wallet list API is used to fetch the list of WPT providers."
   ],
   [
    "Bank List",
    "GET",
    "http://host/ewallet/api/v1/payoutbanklist/{country}/{currency}/{recieverCode}",
-   "master-apis/bank-list.md"
+   "master-apis/bank-list.md",
+   "The Bank List API is used to fetch the list of the bank."
   ],
   [
    "Customer Legal Status",
    "GET",
    "http://host/ewallet/api/v1/customerLegalStatus/getByCustomerTypeCode/{customerTypeCode}",
-   "master-apis/customer-legal-status.md"
+   "master-apis/customer-legal-status.md",
+   "The Customer Type API is used to fetch the legal status of the customer."
   ],
   [
    "Nature of Business",
    "GET",
    "http://host/ewallet/api/v1/natureOfBusiness/getByCustomerTypeCode/{customerTypeCode}",
-   "master-apis/nature-of-business.md"
+   "master-apis/nature-of-business.md",
+   "The Nature of Business API is used to fetch the nature of the business run by the customer."
   ],
   [
    "Customer Occupation Type",
    "GET",
    "http://host/ewallet/api/v1/customerOccupationType/getByCustomerTypeCode/{customerTypeCode}",
-   "master-apis/customer-occupation-type.md"
+   "master-apis/customer-occupation-type.md",
+   "The Customer Occupation Type API is used to fetch the occupation of the customer."
   ],
   [
    "Customer/Individual Document Type",
    "GET",
    "http://host/ewallet/api/v1/customerDocumentType/getByCustomerTypeCode/{customerTypeCode}",
-   "master-apis/customer-individual-document-type.md"
+   "master-apis/customer-individual-document-type.md",
+   "The Customer Document Type API is used to fetch the ID proof documents of the customer."
   ],
   [
    "WPT \u2014 Customer Registration",
    "POST",
    "http://host/ewallet/api/v1/customer-registration",
-   "wpt/customer-registration.md"
+   "wpt/customer-registration.md",
+   "The Customer-Registration API is used to register or create the customer in the system."
   ],
   [
    "WPT \u2014 Quotation",
    "POST",
    "http://host/ewallet/api/v1/fxratequotation/api",
-   "wpt/quotation.md"
+   "wpt/quotation.md",
+   "The Quotation API is used to fetch the forex rate between the payin and payout currencies."
   ],
   [
    "WPT \u2014 Payout",
    "POST",
    "http://host/ewallet/api/v1/payoutProcess/api",
-   "wpt/payout.md"
+   "wpt/payout.md",
+   "The Payout API is used to perform all types of transactions (B2B,C2C,C2B,B2C)."
   ],
   [
    "Service Fee",
    "GET",
    "http://host/ewallet/api/v1/senderClientfeeTemplate/getWalletOwner/{senderCode}",
-   "template-management/service-fee.md"
+   "template-management/service-fee.md",
+   "The Service Fee API is used to set the service fee by client."
   ],
   [
    "Update Service Fee",
    "POST",
    "http://host/ewallet/api/v1/senderClientfeeTemplate",
-   "template-management/update-service-fee.md"
+   "template-management/update-service-fee.md",
+   "The API to add client service fees."
   ],
   [
    "Transaction List",
    "GET",
    "http://host/ewallet/api/v1/sendclienttransactionlimittemplate/walletowner/{senderCode}",
-   "template-management/transaction-list.md"
+   "template-management/transaction-list.md",
+   "This API is used to get the transaction limit set by client."
   ],
   [
    "Update Transaction Limit",
    "POST",
    "http://host/ewallet/api/v1/sendclienttransactionlimittemplate",
-   "template-management/update-transaction-limit.md"
+   "template-management/update-transaction-limit.md",
+   "The API to add transaction limit."
   ],
   [
    "Forex Margin",
    "GET",
    "http://host/ewallet/api/v1/sendClientMarginTemplate/getWalletOwner/{senderCode}",
-   "template-management/forex-margin.md"
+   "template-management/forex-margin.md",
+   "This API is used to get the forex margin set by client."
   ],
   [
    "Update Forex Margin",
    "POST",
    "http://host/ewallet/api/v1/sendClientMarginTemplate",
-   "template-management/update-forex-margin.md"
+   "template-management/update-forex-margin.md",
+   "The API to add forex margin."
   ]
  ],
  "manifest": [

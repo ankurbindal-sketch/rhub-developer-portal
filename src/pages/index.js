@@ -212,16 +212,16 @@ function Fidelity() {
         <div className="rhub-note">
           <p>
             Every endpoint, HTTP method, field name, type, length, requirement flag, validation
-            rule, status code, error code and example in this portal comes from the authoritative
-            RHUB documentation source. Nothing has been inferred from general API conventions.
+            rule, status code, error code and example comes from RHUB: the documentation source,
+            current supplemental data such as the error-code reference, and operational guidance
+            confirmed by the RHUB team. Nothing has been inferred from general API conventions.
           </p>
           <p>
-            Where the source does not establish something — a missing example, an unavailable
-            diagram, an internal link with no target, or two source files that disagree — the page
-            says <strong>REVIEW REQUIRED</strong> and the gap is catalogued in the{' '}
-            <Link to="/docs/appendix/source-notes">source coverage notes</Link> rather than filled
-            in. Rate limits, idempotency, retries, webhooks and SDKs are not documented by the
-            source and so are absent here.
+            Where RHUB has not established something, the page says{' '}
+            <strong>REVIEW REQUIRED</strong> rather than filling the gap. Rate limits,
+            idempotency, retries, webhooks and SDKs are not documented by RHUB and so are absent
+            here. See{' '}
+            <Link to="/docs/getting-started/conventions">how to read this reference</Link>.
           </p>
         </div>
       </div>

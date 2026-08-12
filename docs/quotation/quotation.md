@@ -9,6 +9,19 @@ description: "RHUB Quotation API — fetch the forex rate between payin and payo
 
 <span className="rhub-method rhub-method--post">POST</span>
 
+Price a transaction before you initiate it.
+
+Call Quotation after authenticating and before Payout. It returns the forex rate between the
+payin and payout currencies together with the applicable charges, so the sender can see the
+rate, fees and resulting payout amount before the transaction is confirmed. The source
+describes this as an indicative price and transaction limit, not a guaranteed final price.
+
+`payinAmount` and `payoutAmount` are conditional alternatives: supply one or the other, as
+the field table below states. The quotation data returned here is then used by the
+[Payout request](/docs/payout/payout) where the contract establishes that relationship.
+
+## Contract
+
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
     <span className="rhub-method rhub-method--post">POST</span>
@@ -132,7 +145,7 @@ POST http://host/ewallet/api/v1/fxratequotation/api
 
 ## Related APIs
 
+- [Integration flow](/docs/getting-started/integration-flow)
 - [Authentication](/docs/authentication/authentication)
 - [Payout](/docs/payout/payout)
 - [WPT Payout](/docs/payout/wpt-payout)
-- [Final Quotation (unlinked source page)](/docs/legacy/final-quotation)

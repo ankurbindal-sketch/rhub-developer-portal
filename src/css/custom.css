@@ -609,6 +609,18 @@ article h4 {
   margin: var(--rhub-space-5) 0 var(--rhub-space-6);
 }
 
+/* six-stage journey on the overview page */
+.rhub-flow--six {
+  grid-template-columns: repeat(6, 1fr);
+}
+
+@media (max-width: 1200px) and (min-width: 997px) {
+  .rhub-flow--six {
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: var(--rhub-space-3);
+  }
+}
+
 .rhub-flow__step {
   position: relative;
   padding: var(--rhub-space-5) var(--rhub-space-4) var(--rhub-space-4) 0;
@@ -833,6 +845,7 @@ article h4 {
 
 @media (max-width: 996px) {
   .rhub-flow,
+  .rhub-flow--six,
   .rhub-rail__track {
     grid-template-columns: 1fr;
     border-top: none;
