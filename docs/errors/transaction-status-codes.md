@@ -19,10 +19,9 @@ In Production, the following statuses will be available:
 
 :::note[Scope of this list]
 
-These are the statuses RHUB makes available in production. Transitions between them, their
-timing, and which statuses are terminal are not established — that is **REVIEW REQUIRED**.
-RHUB defines further status and validation code tables that it does not publish; they are
-therefore not documented here.
+These are the statuses RHUB makes available in production, with the meanings RHUB gives them.
+Transition rules, timing and terminality are not part of Developer Portal 1.0 and are not
+documented here.
 
 :::
 

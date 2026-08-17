@@ -23,7 +23,7 @@ API must always be supplied. The source's own wording is reproduced below.
 
 :::
 <br />
-:::info[Field requirement clarification (from source)]
+:::info[Field requirement clarification]
 
 - Fields marked as Mandatory in the Payout Api must always be provided, irrespective of whether the correspondent requires them or not. These fields are enforced at the application level and are non-negotiable.
 - Fields marked as Conditional are subject to correspondent-specific requirements. Such fields are mandatory only when explicitly required by the selected correspondent, as described in the corresponding conditions section below.

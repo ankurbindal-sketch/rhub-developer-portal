@@ -129,5 +129,61 @@
     "invoiceReference": "sendClientTrxReference",
     "kycReference": "docReferenceNumber",
     "note": "The Payout request field table renders the invoice reference across two lines because the source cell contains a line break (sendClient<br />TrxReference). The field identifier is sendClientTrxReference, as the Payout request example writes it. The contract table is reproduced unchanged; prose and guidance use the identifier."
+  },
+  "decisions": {
+    "receivedOn": "2026-08-17",
+    "provider": "RHUB team",
+    "tokenTransport": {
+      "id": "D1",
+      "rule": "Subsequent API calls carry the access token in the Authorization header as `Authorization: Bearer <access_token>`.",
+      "resolves": "R1"
+    },
+    "environments": {
+      "id": "D2",
+      "sandboxBaseUrl": "https://sandbox-client.remittanceshub.com:8030",
+      "rule": "Sandbox is the only environment RHUB has confirmed. No UAT or production base URL is established. Endpoint paths written as http://host/... in the contracts use `host` as a placeholder for the environment base URL.",
+      "resolves": "R3"
+    },
+    "scope": {
+      "id": "D3",
+      "rule": "`scope` belongs to the Authentication response. Clients do not need to send it on the token request, even though the historical request example includes scope=read%20write.",
+      "resolves": "R2"
+    },
+    "payoutFieldName": {
+      "id": "D4",
+      "rule": "The Payout request field is `sendClientTrxReference`. This spelling is the contract.",
+      "resolves": "R5"
+    },
+    "errorMessageSpelling": {
+      "id": "D5",
+      "rule": "Some current validation messages refer to the field as `sendClientTxnReference`. That is the wording the system returns today and is reproduced unchanged. A backend correction is planned separately.",
+      "resolves": "R5"
+    },
+    "c2cTrxReference": {
+      "id": "D6",
+      "rule": "For C2C payouts `sendClientTrxReference` is not required: it may be omitted or sent blank. For B2B, B2C and C2B invoice documentation is mandatory and the field carries the invoice reference.",
+      "note": "The recovered contract table marks the field Mandatory at transactionInfo level. The table is reproduced unchanged; this newer RHUB rule governs client behaviour.",
+      "resolves": "R4"
+    },
+    "walletNotFound": {
+      "id": "D7",
+      "rule": "The 'Wallet Not Found' entry has no resultCode. This is known current API behaviour, published as 'Not provided'.",
+      "resolves": "R6"
+    },
+    "codeNamespaces": {
+      "id": "D8",
+      "rule": "HTTP status codes and RHUB resultCode values are separate namespaces. The same numeral may appear in both; that is not a conflict. resultCode is an error category, not a unique key per validation condition; resultDescription carries the specific reason.",
+      "resolves": "R7"
+    },
+    "statusLifecycle": {
+      "id": "D9",
+      "rule": "RHUB is not publishing a formal transaction-status transition lifecycle in Developer Portal 1.0. Status values and meanings are documented; transitions, timing and terminality are deliberately out of scope.",
+      "resolves": "R8"
+    },
+    "diagrams": {
+      "id": "D10",
+      "rule": "The original bank and wallet payout flow images are unavailable and will not be reconstructed. New Developer Portal visuals may be created only for flows established by authoritative material, and must not be presented as the missing originals.",
+      "resolves": "R9"
+    }
   }
 }

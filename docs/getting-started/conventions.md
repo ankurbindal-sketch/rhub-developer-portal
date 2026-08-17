@@ -1,7 +1,7 @@
 ---
 title: "How to read this reference"
 sidebar_label: "How to read this reference"
-description: "Conventions used in the RHUB Developer Portal: requirement flags, field tables, examples and REVIEW REQUIRED markers."
+description: "How to read the RHUB API reference: environments, authorisation, requirement flags, field tables and examples."
 ---
 
 # How to read this reference
@@ -50,11 +50,34 @@ Field names, endpoint strings and example values are reproduced literally, inclu
 spellings that look inconsistent. If a field is written one way in a table and another way
 in an example, both are preserved and the difference is noted rather than corrected.
 
+## Environments and base URLs
+
+RHUB has confirmed one environment for Developer Portal 1.0:
+
+| Environment | Base URL |
+|---|---|
+| Sandbox | `https://sandbox-client.remittanceshub.com:8030` |
+
+No UAT or production base URL is published here. Ask RHUB for the base URL of any other
+environment you are given access to.
+
 ## Method and endpoint blocks
 
-Each API page shows its HTTP method and the request URL exactly as RHUB writes it. Many URLs
-use the literal host placeholder `http://host/...`; that placeholder is reproduced as-is
-because RHUB does not establish environment base URLs on those pages.
+Each API page shows its HTTP method and the request path exactly as the contract writes it.
+Most paths are written as `http://host/ewallet/api/v1/...`, where **`host` stands for the
+base URL of your environment**. Against Sandbox, for example,
+`http://host/ewallet/oauth/token` is
+`https://sandbox-client.remittanceshub.com:8030/ewallet/oauth/token`. The paths themselves are
+reproduced unchanged.
+
+## Authorising requests
+
+[Authentication](/docs/authentication/authentication) returns an `access_token`. Every
+subsequent call carries it in the `Authorization` header:
+
+```http
+Authorization: Bearer <access_token>
+```
 
 ## Examples
 
@@ -63,14 +86,17 @@ blocks. Masked values in the originals (for example `15*****f-54fe-43d9-***7-b7d
 stay masked. Where a contract has no example, the page says so rather than showing an
 invented one.
 
-## REVIEW REQUIRED
+## Notes, limitations and conditional rules
 
-**REVIEW REQUIRED** marks a point where the available RHUB material does not settle
-something an integrator may need — a missing example, a contract and an operational rule
-that do not fully line up, or an unavailable diagram. It is never a placeholder for content
-that exists.
+Where a requirement depends on the transaction, the page states the condition rather than
+generalising it — for example `sendClientTrxReference` is required for B2B, B2C and C2B but
+not for C2C. Where RHUB's current behaviour differs from what an older contract table shows,
+the page says which one your integration should follow.
 
-The following are not established by RHUB and are therefore absent rather than inferred:
-rate limits, idempotency behaviour, retry semantics, webhooks, SDKs, pagination rules,
-environment base URLs beyond those literally documented, token refresh behaviour, and SLA
-commitments.
+Requirement flags, field names, endpoint paths, examples and error text are reproduced from
+RHUB's material rather than tidied, so a table and an example occasionally spell the same
+thing differently. Where that matters for integration, the page says so.
+
+The following are not documented by RHUB and are therefore absent rather than inferred:
+rate limits, idempotency behaviour, retry semantics, webhooks, SDKs, pagination rules, token
+refresh behaviour, and SLA commitments.

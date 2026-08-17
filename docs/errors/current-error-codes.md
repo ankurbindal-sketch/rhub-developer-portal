@@ -109,13 +109,13 @@ All 65 entries as supplied. Rows that share a `resultCode` are listed separately
 
 ### Entry 53 — no result code supplied
 
-:::warning[REVIEW REQUIRED — result code not provided]
+:::note[No result code for this entry]
 
 **Result Code: Not provided**
 
 **Result Description:** Wallet Not Found
 
-The RHUB team supplied no `resultCode` for this entry. No code has been inferred or assigned.
+This is current API behaviour: the entry has no `resultCode`. Handle it on the `resultDescription`. No code has been inferred or assigned.
 
 :::
 
@@ -145,7 +145,7 @@ The 65 entries use **16 distinct result codes**, plus one entry with no code.
 
 ## Relationship to the documentation-export error pages
 
-These result codes also appear in other RHUB code tables. The overlaps are reported, not reconciled.
+For reference, these result codes also appear in other RHUB code tables. Because the families are separate namespaces, an overlap is not a conflict.
 
 | Result code | Observation |
 |---|---|
@@ -154,15 +154,15 @@ These result codes also appear in other RHUB code tables. The overlaps are repor
 | 1364 | Also appears in an RHUB validation code table that RHUB does not publish, with the same description apart from letter case ("Master business type not found"). |
 | 1368 | Also appears in an RHUB validation code table that RHUB does not publish, with the same description ("Some parameters are missing in quotation request"). |
 
-:::warning[REVIEW REQUIRED — precedence between the code families]
+:::info[HTTP status codes and result codes are separate]
 
-Where a numeral appears in more than one family, RHUB has not stated which takes precedence, nor whether the older error tables are superseded by this current list. That has not been resolved by guessing.
+An HTTP status describes the transport-level outcome of a request. A `resultCode` describes the RHUB application or business error category, and `resultDescription` carries the specific reason. The same numeral — `400`, for example — can appear in both families without the two meaning the same thing, so an overlap is not a conflict. Branch on the pair that applies to the layer you are handling.
 
 :::
 
-:::note[Not established]
+:::note[No remediation guidance]
 
-No remediation steps, retry policy, backoff behaviour or HTTP-status mapping were supplied for these codes, so none is documented here.
+RHUB supplies code values and descriptions only, so no remediation steps, retry policy or backoff behaviour is documented here.
 
 :::
 

@@ -162,6 +162,7 @@ HIDDEN_FROM_PUBLIC_NAV = {
     'template-management/update-transaction-limit.md',
     'template-management/forex-margin.md',
     'template-management/update-forex-margin.md',
+    'appendix/review-resolution-register.md',
     'appendix/source-notes.md',
     'appendix/unpublished-master-apis.md',
     'appendix/unpublished-apis.md',
@@ -598,7 +599,12 @@ None of these sit on the critical path of a payout.
         'Sequence list and all cross-references remapped to portal routes. Source diagram '
         '(img/apiseq.png) is commented out in the source and the asset is not in the export.')
 
+    # The original bank/wallet diagrams are unavailable and are recorded in the internal
+    # review resolution register. The prose below stands on its own, so the client-facing
+    # pages carry no documentation-production warning.
+    R.IMAGE_NOTICE_MODE = 'silent'
     flows = R.convert(FILES['transactionflow.md'])
+    R.IMAGE_NOTICE_MODE = 'admonition'
     flows = re.sub(r'^#\s+Transaction Flows\s*$', '', flows, count=1, flags=re.M).strip()
     body = f"""# Transaction flows
 
@@ -608,11 +614,13 @@ beneficiary's wallet. Which one applies determines the payout API you call —
 [WPT Payout](/docs/payout/wpt-payout) for wallet transfers — and, for wallet transfers, the
 [WPT Wallet List](/docs/master-apis/wpt-wallet-list) master API supplies the wallet values.
 
-RHUB illustrates each flow with a diagram. Those image files are not available to this
-portal, and no replacement diagram has been drawn, because doing so would mean inventing
-process steps RHUB has not documented.
-
 {flows}
+
+## Where these flows meet the APIs
+
+Both settlement flows use the same integration sequence — authenticate, prepare the customer
+and documents, quote, pay out, then check status. See the
+[integration flow](/docs/getting-started/integration-flow) for the decision points.
 """
     write('getting-started/transaction-flows.md',
           {'title': 'Transaction flows', 'sidebar_label': 'Transaction flows',
@@ -668,11 +676,34 @@ Field names, endpoint strings and example values are reproduced literally, inclu
 spellings that look inconsistent. If a field is written one way in a table and another way
 in an example, both are preserved and the difference is noted rather than corrected.
 
+## Environments and base URLs
+
+RHUB has confirmed one environment for Developer Portal 1.0:
+
+| Environment | Base URL |
+|---|---|
+| Sandbox | `https://sandbox-client.remittanceshub.com:8030` |
+
+No UAT or production base URL is published here. Ask RHUB for the base URL of any other
+environment you are given access to.
+
 ## Method and endpoint blocks
 
-Each API page shows its HTTP method and the request URL exactly as RHUB writes it. Many URLs
-use the literal host placeholder `http://host/...`; that placeholder is reproduced as-is
-because RHUB does not establish environment base URLs on those pages.
+Each API page shows its HTTP method and the request path exactly as the contract writes it.
+Most paths are written as `http://host/ewallet/api/v1/...`, where **`host` stands for the
+base URL of your environment**. Against Sandbox, for example,
+`http://host/ewallet/oauth/token` is
+`https://sandbox-client.remittanceshub.com:8030/ewallet/oauth/token`. The paths themselves are
+reproduced unchanged.
+
+## Authorising requests
+
+[Authentication](/docs/authentication/authentication) returns an `access_token`. Every
+subsequent call carries it in the `Authorization` header:
+
+```http
+Authorization: Bearer <access_token>
+```
 
 ## Examples
 
@@ -681,21 +712,24 @@ blocks. Masked values in the originals (for example `15*****f-54fe-43d9-***7-b7d
 stay masked. Where a contract has no example, the page says so rather than showing an
 invented one.
 
-## REVIEW REQUIRED
+## Notes, limitations and conditional rules
 
-**REVIEW REQUIRED** marks a point where the available RHUB material does not settle
-something an integrator may need — a missing example, a contract and an operational rule
-that do not fully line up, or an unavailable diagram. It is never a placeholder for content
-that exists.
+Where a requirement depends on the transaction, the page states the condition rather than
+generalising it — for example `sendClientTrxReference` is required for B2B, B2C and C2B but
+not for C2C. Where RHUB's current behaviour differs from what an older contract table shows,
+the page says which one your integration should follow.
 
-The following are not established by RHUB and are therefore absent rather than inferred:
-rate limits, idempotency behaviour, retry semantics, webhooks, SDKs, pagination rules,
-environment base URLs beyond those literally documented, token refresh behaviour, and SLA
-commitments.
+Requirement flags, field names, endpoint paths, examples and error text are reproduced from
+RHUB's material rather than tidied, so a table and an example occasionally spell the same
+thing differently. Where that matters for integration, the page says so.
+
+The following are not documented by RHUB and are therefore absent rather than inferred:
+rate limits, idempotency behaviour, retry semantics, webhooks, SDKs, pagination rules, token
+refresh behaviour, and SLA commitments.
 """
     write('getting-started/conventions.md',
           {'title': 'How to read this reference', 'sidebar_label': 'How to read this reference',
-           'description': 'Conventions used in the RHUB Developer Portal: requirement flags, field tables, examples and REVIEW REQUIRED markers.'},
+           'description': 'How to read the RHUB API reference: environments, authorisation, requirement flags, field tables and examples.'},
           body)
 
 
@@ -707,15 +741,29 @@ def build_authentication():
     secs = split_api_sections(FILES['AUTH.md'])
     s = secs[0]
     conv = R.convert(s['body'], promote_headings=1)
-    extra = """:::note[Authentication scheme]
+    extra = """Authenticate and obtain the access token that every other RHUB API call requires.
 
-The source documents this endpoint, its request parameters, its header parameters and its
-response fields, and the response includes `access_token`, `token_type`, `expires_in` and
-`scope`. The source does **not** describe how the access token is subsequently presented on
-other API calls, token refresh behaviour, scope semantics, or expiry handling — those points
-are **REVIEW REQUIRED** and are not inferred here.
+:::info[Using the access token]
 
-:::"""
+Send the token on subsequent API calls in the `Authorization` header:
+
+```http
+Authorization: Bearer <access_token>
+```
+
+The response also returns `token_type`, `expires_in` and `scope`.
+
+:::
+
+:::note[`scope` is a response field]
+
+Clients do not need to send `scope` on the token request. The historical request example
+below includes `scope=read%20write`; it is reproduced unchanged, but it is not a required
+request parameter. `scope` is returned in the response.
+
+:::
+
+## Contract"""
     api_page('authentication/authentication.md',
              {'title': 'Authentication', 'sidebar_label': 'Authentication',
               'slug': '/authentication/authentication',
@@ -860,31 +908,30 @@ your route and use case require.
 ### Document references in the request
 
 - `docReferenceNumber` — the KYC/KYB document reference.
-- `sendClientTrxReference` — the invoice/transaction reference for B2B, B2C and C2B.
+- `sendClientTrxReference` — the invoice reference for B2B, B2C and C2B.
 
-:::warning[REVIEW REQUIRED — C2C value for `sendClientTrxReference`]
+:::info[Conditional requirement — `sendClientTrxReference`]
 
-%s
+**Required for B2B, B2C and C2B**, where invoice documentation is mandatory.
 
-The Mandatory flag below is reproduced exactly as the contract states it. No C2C value or
-fallback has been assumed here; confirm the expected usage with RHUB.
+**Not required for C2C** — omit the parameter, or send it blank.
 
-:::
-
-:::note[How this field appears below]
-
-In the request field table the invoice reference is split across two lines, because the
-contract cell contains a line break. The field identifier is `sendClientTrxReference`, as the
-request example writes it. The table is reproduced exactly as RHUB has it.
-
-Two entries in the [current API error codes](/docs/errors/current-error-codes) describe this
-field as `sendClientTxnReference` — "Txn" rather than "Trx". Both spellings are reproduced
-exactly as RHUB supplied them; which one the API accepts is **REVIEW REQUIRED**.
+In the `transactionInfo` field table below the field is marked `M` and its name is split
+across two lines, both exactly as the original contract has them. The conditional rule above
+is RHUB's current guidance and is what your integration should follow.
 
 :::
 
-## Contract""" % (payout_prerequisites_list(), transaction_matrix_table(),
-                  open_question('c2c-trx-reference'))
+:::note[Field name in validation messages]
+
+The Payout request field is `sendClientTrxReference`. Some current validation messages refer
+to it as `sendClientTxnReference`; the
+[error code reference](/docs/errors/current-error-codes) reproduces those messages as the API
+returns them today.
+
+:::
+
+## Contract""" % (payout_prerequisites_list(), transaction_matrix_table())
     api_page('payout/payout.md',
              {'title': 'Payout', 'sidebar_label': 'Payout',
               'slug': '/payout/payout',
@@ -1124,11 +1171,14 @@ portal keeps them apart:
 Start with **Current API error codes** for live error handling. The other two pages remain
 available and unchanged; they come from the original documentation export.
 
-:::warning[REVIEW REQUIRED — resolution guidance]
+:::note[How to read these families]
 
-The source supplies code values and descriptions only. It does not supply remediation or
-retry guidance for any code, so none is offered here. Nothing in the supplied source
-establishes retry policy, idempotency behaviour or backoff expectations.
+An HTTP status describes the transport-level outcome; a `resultCode` describes the RHUB
+application or business error category, and `resultDescription` carries the specific reason.
+The same numeral can appear in both families without meaning the same thing.
+
+RHUB supplies code values and descriptions only — no remediation or retry guidance — so none
+is offered here.
 
 :::
 """
@@ -1149,10 +1199,9 @@ establishes retry policy, idempotency behaviour or backoff expectations.
 
 :::note[Scope of this list]
 
-These are the statuses RHUB makes available in production. Transitions between them, their
-timing, and which statuses are terminal are not established — that is **REVIEW REQUIRED**.
-RHUB defines further status and validation code tables that it does not publish; they are
-therefore not documented here.
+These are the statuses RHUB makes available in production, with the meanings RHUB gives them.
+Transition rules, timing and terminality are not part of Developer Portal 1.0 and are not
+documented here.
 
 :::
 
@@ -1301,11 +1350,11 @@ def build_current_error_codes():
         lines.append('| %d | %s | %s |' % (e['sNo'], code, desc))
 
     lines += ['', '### Entry %d — no result code supplied' % uncoded[0]['sNo'], '',
-              ':::warning[REVIEW REQUIRED — result code not provided]', '',
+              ':::note[No result code for this entry]', '',
               '**Result Code: Not provided**', '',
               '**Result Description:** %s' % uncoded[0]['resultDescription'], '',
-              'The RHUB team supplied no `resultCode` for this entry. No code has been inferred '
-              'or assigned.', '', ':::', '',
+              'This is current API behaviour: the entry has no `resultCode`. Handle it on the '
+              '`resultDescription`. No code has been inferred or assigned.', '', ':::', '',
               '## Result codes at a glance', '',
               'The %d entries use **%d distinct result codes**, plus one entry with no code.'
               % (len(entries), len(unique)), '',
@@ -1318,8 +1367,8 @@ def build_current_error_codes():
 
     lines += ['', '## Relationship to the documentation-export error pages', '']
     if conflicts:
-        lines += ['These result codes also appear in other RHUB code tables. The overlaps '
-                  'are reported, not reconciled.', '',
+        lines += ['For reference, these result codes also appear in other RHUB code tables. '
+                  'Because the families are separate namespaces, an overlap is not a conflict.', '',
                   '| Result code | Observation |', '|---|---|']
         seen = set()
         for c, note in conflicts:
@@ -1328,13 +1377,16 @@ def build_current_error_codes():
             seen.add((c, note))
             lines.append('| %s | %s |' % (c, note))
         lines += ['']
-    lines += [':::warning[REVIEW REQUIRED — precedence between the code families]', '',
-              'Where a numeral appears in more than one family, RHUB has not stated which '
-              'takes precedence, nor whether the older error tables are superseded by this '
-              'current list. That has not been resolved by guessing.', '', ':::', '',
-              ':::note[Not established]', '',
-              'No remediation steps, retry policy, backoff behaviour or HTTP-status mapping were '
-              'supplied for these codes, so none is documented here.', '', ':::', '',
+    lines += [':::info[HTTP status codes and result codes are separate]', '',
+              'An HTTP status describes the transport-level outcome of a request. A '
+              '`resultCode` describes the RHUB application or business error category, and '
+              '`resultDescription` carries the specific reason. The same numeral — `400`, for '
+              'example — can appear in both families without the two meaning the same thing, '
+              'so an overlap is not a conflict. Branch on the pair that applies to the layer '
+              'you are handling.', '', ':::', '',
+              ':::note[No remediation guidance]', '',
+              'RHUB supplies code values and descriptions only, so no remediation steps, retry '
+              'policy or backoff behaviour is documented here.', '', ':::', '',
               '## Related', '',
               '- [Errors and response codes overview](/docs/errors)',
               '- [Transaction status codes](/docs/errors/transaction-status-codes)',
@@ -1735,6 +1787,187 @@ def build_source_notes(master_rows, wpt_rows, tpl_rows):
           '\n'.join(lines))
 
 
+
+# --------------------------------------------------------------------------
+# 10b. Review Resolution Register (internal, unlisted)
+# --------------------------------------------------------------------------
+
+REGISTER = [
+    ('R1', 'Access token transport',
+     'docs/authentication/authentication.md',
+     '"The source does not describe how the access token is subsequently presented on other '
+     'API calls... REVIEW REQUIRED."',
+     'RHUB decision D1 (2026-08-17).',
+     'Subsequent calls carry `Authorization: Bearer <access_token>`.',
+     'Authentication page gained a "Using the access token" block; the convention is also '
+     'documented centrally under "Authorising requests" in the conventions page.',
+     'Client-facing INFO note on Authentication + central conventions section.',
+     'RESOLVED'),
+    ('R2', 'scope inconsistency in Authentication',
+     'docs/authentication/authentication.md',
+     'No rendered marker; found during audit. Request table omitted `scope` (row commented out '
+     'in source), request example sent `scope=read%20write`, response table lists `scope` as M.',
+     'RHUB decision D3 (2026-08-17).',
+     '`scope` is a response field. Clients need not send it on the token request.',
+     'Note added stating scope is returned, not required on the request. The source request '
+     'example is reproduced unchanged.',
+     'Client-facing NOTE on Authentication.',
+     'RESOLVED'),
+    ('R3', 'Environment / base URL',
+     'docs/getting-started/conventions.md (prose list)',
+     'No rendered marker; endpoints written `http://host/...` with no base URL established.',
+     'RHUB decision D2 (2026-08-17).',
+     'Sandbox base URL is `https://sandbox-client.remittanceshub.com:8030`. No UAT or '
+     'production URL confirmed.',
+     'Conventions page gained an Environments table and an explanation that `host` stands for '
+     'the environment base URL, with a worked Sandbox example. Endpoint paths unchanged.',
+     'Client-facing documentation section.',
+     'RESOLVED (Sandbox only)'),
+    ('R4', 'C2C requirement for sendClientTrxReference',
+     'docs/payout/payout.md',
+     '"REVIEW REQUIRED — C2C value for `sendClientTrxReference`. The contract marks the field '
+     'Mandatory while the invoice requirement excludes C2C."',
+     'RHUB decision D6 (2026-08-17).',
+     'Required for B2B, B2C and C2B. For C2C it may be omitted or sent blank.',
+     'Warning replaced with a conditional-requirement INFO block. The transactionInfo field '
+     'table still shows the original `M` flag, and the block states which rule to follow.',
+     'Client-facing CONDITIONAL REQUIREMENT on Payout.',
+     'RESOLVED'),
+    ('R5', 'sendClientTrxReference vs sendClientTxnReference',
+     'docs/payout/payout.md, docs/errors/current-error-codes.md',
+     '"Both spellings are reproduced exactly as RHUB supplied them; which one the API accepts '
+     'is REVIEW REQUIRED."',
+     'RHUB decisions D4 and D5 (2026-08-17).',
+     'The request field is `sendClientTrxReference`. Some current validation messages say '
+     '`sendClientTxnReference`; that is what the system returns today, pending a separate '
+     'backend correction.',
+     'Payout note states the field name and warns that validation messages may differ. Error '
+     'code descriptions are reproduced unchanged.',
+     'Client-facing NOTE on Payout.',
+     'RESOLVED WITH CURRENT-BEHAVIOUR NOTE'),
+    ('R6', 'Wallet Not Found has no resultCode',
+     'docs/errors/current-error-codes.md',
+     '"REVIEW REQUIRED — result code not provided."',
+     'RHUB decision D7 (2026-08-17).',
+     'Known current API behaviour; no code is to be invented.',
+     'Warning became a NOTE describing it as current behaviour, advising clients to handle it '
+     'on `resultDescription`. Table still shows "Not provided".',
+     'Client-facing NOTE.',
+     'RESOLVED'),
+    ('R7', 'HTTP status vs resultCode overlap',
+     'docs/errors/current-error-codes.md, docs/errors/index.md',
+     '"REVIEW REQUIRED — precedence between the code families."',
+     'RHUB decision D8 (2026-08-17).',
+     'Separate namespaces; a shared numeral is not a conflict.',
+     'Warning replaced with an INFO block explaining the three concepts. The overlap table is '
+     'now framed as reference, not a conflict register.',
+     'Client-facing INFO on the error pages.',
+     'RESOLVED'),
+    ('R8', 'Transaction status lifecycle',
+     'docs/errors/transaction-status-codes.md',
+     '"Transitions between them, their timing, and which statuses are terminal are not '
+     'established — that is REVIEW REQUIRED."',
+     'RHUB decision D9 (2026-08-17).',
+     'Not published in Developer Portal 1.0. This is a scope decision, not a resolved '
+     'lifecycle. No transitions, ordering, timing or terminality have been inferred.',
+     'Scope note now states values and meanings are documented and lifecycle is out of scope.',
+     'Client-facing NOTE.',
+     'DEFERRED'),
+    ('R9', 'Bank and wallet payout flow diagrams',
+     'docs/getting-started/transaction-flows.md',
+     '"REVIEW REQUIRED — diagram not available" (twice).',
+     'RHUB decision D10 (2026-08-17). Binary assets `img/rhubbpt2.png` and `img/rhubwpt2.png` '
+     'are absent from the repository and are not exposed by the current RHUB site.',
+     'The originals will not be reconstructed. The surviving prose describes both flows in '
+     'RHUB\'s own words and is useful without the images.',
+     'Production warnings removed from the client-facing page; the prose was retained and a '
+     'pointer to the integration flow added. The missing assets remain recorded here and in '
+     'the source coverage notes.',
+     'No client-facing warning. Asset gap recorded internally.',
+     'ORIGINAL ASSET UNAVAILABLE / INTERNALLY RECORDED'),
+    ('R10', 'apiseq.png',
+     'none (never rendered)',
+     'Referenced inside a commented-out block of `apisequence.md`.',
+     'Mechanical inspection of the export: the reference is commented out by RHUB.',
+     'Never published by RHUB.',
+     'No change. Not exposed.',
+     'Not client-facing.',
+     'HIDDEN/LEGACY'),
+    ('R11', 'TABLE_OF_VALIDATIONS.xlsx',
+     'none (never rendered)',
+     'Referenced inside a commented-out block of `CURRENCYVALIDATIONS.md`.',
+     'Mechanical inspection of the export: the reference is commented out by RHUB.',
+     'Never published by RHUB.',
+     'No change. Not exposed.',
+     'Not client-facing.',
+     'HIDDEN/LEGACY'),
+    ('R12', 'Duplicate warning on the errors overview',
+     'docs/errors/index.md',
+     '"REVIEW REQUIRED — resolution guidance."',
+     'The same fact is documented on the current error codes page.',
+     'Duplicate. Consolidated.',
+     'Overview warning became a NOTE that also explains the two code families; the '
+     'no-remediation fact remains on the error code page.',
+     'Client-facing NOTE.',
+     'RESOLVED / CONSOLIDATED'),
+    ('R13', 'Publication-status warnings on unlisted pages',
+     'docs/legacy/*, docs/template-management/*, docs/wpt/*',
+     '"REVIEW REQUIRED — publication status" and similar.',
+     'These pages derive from source files RHUB commented out of its live sidebar.',
+     'They stay out of client navigation. Their warnings are correct in context.',
+     'No change. Pages remain `unlisted: true`: absent from sidebar, API index, search and '
+     'sitemap, and reachable only by direct URL.',
+     'Not client-facing.',
+     'HIDDEN/LEGACY'),
+    ('R14', 'Internal migration and audit warnings',
+     'docs/appendix/*, tools/, COMPLETENESS_REPORT.md',
+     'Audit trail wording: coverage tables, publication status, commented-source accounting.',
+     'Internal traceability for the documentation build.',
+     'Retained internally; no client-facing exposure.',
+     'No change to the evidence. Client-facing pages were scanned for migration language.',
+     'Not client-facing.',
+     'INTERNAL'),
+]
+
+
+def build_review_register():
+    lines = ['# Review resolution register', '',
+             'Internal record of every REVIEW REQUIRED issue raised during the build of RHUB '
+             'Developer Portal 1.0, what resolved it, and how it is now presented. Nothing was '
+             'removed without a disposition recorded here.', '',
+             'Baseline audit: 175 occurrences, 14 unique issues, 12 on client-facing pages.', '',
+             '| ID | Issue | Status |', '|---|---|---|']
+    for r in REGISTER:
+        lines.append('| %s | %s | **%s** |' % (r[0], r[1], r[8]))
+    lines += ['']
+    for (rid, issue, pages, wording, evidence, resolution, change, treatment, status) in REGISTER:
+        lines += ['## %s — %s' % (rid, issue), '',
+                  '**Status:** %s' % status, '',
+                  '| | |', '|---|---|',
+                  '| Original page(s) | %s |' % pages,
+                  '| Original wording | %s |' % wording.replace('|', '\\|'),
+                  '| Evidence / decision | %s |' % evidence,
+                  '| Resolution | %s |' % resolution,
+                  '| Documentation change | %s |' % change,
+                  '| Final public treatment | %s |' % treatment,
+                  '']
+    lines += ['## RHUB decisions applied', '']
+    if GUIDANCE and 'decisions' in GUIDANCE:
+        d = GUIDANCE['decisions']
+        lines += ['Supplied by %s on %s and stored in `source/RHUB_INTEGRATION_GUIDANCE.json` '
+                  'so they stay separable from the original documentation export.'
+                  % (d.get('provider', 'RHUB'), d.get('receivedOn', '')), '',
+                  '| ID | Decision | Resolves |', '|---|---|---|']
+        for key, val in d.items():
+            if isinstance(val, dict) and 'rule' in val:
+                lines.append('| %s | %s | %s |' % (val.get('id', ''), val['rule'],
+                                                   val.get('resolves', '')))
+    write('appendix/review-resolution-register.md',
+          {'title': 'Review resolution register', 'sidebar_label': 'Review resolution register',
+           'description': 'Internal record of REVIEW REQUIRED issues and their dispositions.'},
+          '\n'.join(lines))
+
+
 # --------------------------------------------------------------------------
 # API index page
 # --------------------------------------------------------------------------
@@ -1826,6 +2059,7 @@ def main():
     build_legacy()
     build_unpublished_apis()
     build_licence()
+    build_review_register()
     build_api_index()
     build_source_notes(master_rows, wpt_rows, tpl_rows)
 

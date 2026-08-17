@@ -369,7 +369,7 @@ def convert_anchors(text):
 
 LEGEND = '*Requirement legend: M = Mandatory · O = Optional · C = Conditional*'
 
-FIELD_CLARIFICATION_TITLE = 'Field requirement clarification (from source)'
+FIELD_CLARIFICATION_TITLE = 'Field requirement clarification'
 
 
 def convert_notes(text):
@@ -552,10 +552,19 @@ IMAGE_NOTES = {
 }
 
 
+# How an unavailable source image is handled:
+#   'admonition' -> a REVIEW REQUIRED callout at the point of the image
+#   'silent'     -> the reference is dropped. Used where the page text stands on its own and
+#                   the missing asset is recorded in the internal review resolution register.
+IMAGE_NOTICE_MODE = 'admonition'
+
+
 def convert_images(text):
     text = re.sub(r'!\[[^\]]*\]\(\./img/rhub\.png\)\s*', '', text)
 
     def img_note(src):
+        if IMAGE_NOTICE_MODE == 'silent':
+            return ''
         label = IMAGE_NOTES.get(src, src)
         return (':::caution[REVIEW REQUIRED — diagram not available]\n\n'
                 'RHUB documents this step with a diagram (%s). The image is not available to '

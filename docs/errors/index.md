@@ -20,10 +20,13 @@ portal keeps them apart:
 Start with **Current API error codes** for live error handling. The other two pages remain
 available and unchanged; they come from the original documentation export.
 
-:::warning[REVIEW REQUIRED — resolution guidance]
+:::note[How to read these families]
 
-The source supplies code values and descriptions only. It does not supply remediation or
-retry guidance for any code, so none is offered here. Nothing in the supplied source
-establishes retry policy, idempotency behaviour or backoff expectations.
+An HTTP status describes the transport-level outcome; a `resultCode` describes the RHUB
+application or business error category, and `resultDescription` carries the specific reason.
+The same numeral can appear in both families without meaning the same thing.
+
+RHUB supplies code values and descriptions only — no remediation or retry guidance — so none
+is offered here.
 
 :::

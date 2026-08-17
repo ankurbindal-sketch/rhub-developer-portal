@@ -40,26 +40,26 @@ your route and use case require.
 ### Document references in the request
 
 - `docReferenceNumber` — the KYC/KYB document reference.
-- `sendClientTrxReference` — the invoice/transaction reference for B2B, B2C and C2B.
+- `sendClientTrxReference` — the invoice reference for B2B, B2C and C2B.
 
-:::warning[REVIEW REQUIRED — C2C value for `sendClientTrxReference`]
+:::info[Conditional requirement — `sendClientTrxReference`]
 
-The Payout contract marks `sendClientTrxReference` as Mandatory at transactionInfo level, while the confirmed invoice-document requirement applies only to B2B, B2C and C2B. The expected value or usage for C2C payouts is not established.
+**Required for B2B, B2C and C2B**, where invoice documentation is mandatory.
 
-The Mandatory flag below is reproduced exactly as the contract states it. No C2C value or
-fallback has been assumed here; confirm the expected usage with RHUB.
+**Not required for C2C** — omit the parameter, or send it blank.
+
+In the `transactionInfo` field table below the field is marked `M` and its name is split
+across two lines, both exactly as the original contract has them. The conditional rule above
+is RHUB's current guidance and is what your integration should follow.
 
 :::
 
-:::note[How this field appears below]
+:::note[Field name in validation messages]
 
-In the request field table the invoice reference is split across two lines, because the
-contract cell contains a line break. The field identifier is `sendClientTrxReference`, as the
-request example writes it. The table is reproduced exactly as RHUB has it.
-
-Two entries in the [current API error codes](/docs/errors/current-error-codes) describe this
-field as `sendClientTxnReference` — "Txn" rather than "Trx". Both spellings are reproduced
-exactly as RHUB supplied them; which one the API accepts is **REVIEW REQUIRED**.
+The Payout request field is `sendClientTrxReference`. Some current validation messages refer
+to it as `sendClientTxnReference`; the
+[error code reference](/docs/errors/current-error-codes) reproduces those messages as the API
+returns them today.
 
 :::
 

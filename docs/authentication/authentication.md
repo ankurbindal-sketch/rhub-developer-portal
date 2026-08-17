@@ -9,15 +9,29 @@ description: "RHUB Login (Authentication) API — obtain an access token."
 
 <span className="rhub-method rhub-method--post">POST</span>
 
-:::note[Authentication scheme]
+Authenticate and obtain the access token that every other RHUB API call requires.
 
-The source documents this endpoint, its request parameters, its header parameters and its
-response fields, and the response includes `access_token`, `token_type`, `expires_in` and
-`scope`. The source does **not** describe how the access token is subsequently presented on
-other API calls, token refresh behaviour, scope semantics, or expiry handling — those points
-are **REVIEW REQUIRED** and are not inferred here.
+:::info[Using the access token]
+
+Send the token on subsequent API calls in the `Authorization` header:
+
+```http
+Authorization: Bearer <access_token>
+```
+
+The response also returns `token_type`, `expires_in` and `scope`.
 
 :::
+
+:::note[`scope` is a response field]
+
+Clients do not need to send `scope` on the token request. The historical request example
+below includes `scope=read%20write`; it is reproduced unchanged, but it is not a required
+request parameter. `scope` is returned in the response.
+
+:::
+
+## Contract
 
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
