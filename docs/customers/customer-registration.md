@@ -96,7 +96,7 @@ The Customer-Registration API is used to register or create the customer in the 
 | **ownerDetailList** |  |  |  |  |
 | **//for individual owner** |  |  |  |  |
 | customerTypeCode | Numeric | 06 | M | for Individual owner : 100001 |
-| firstName | Alpha | 01 - 75 | M | First name of owner. eg: Rahul |
+| firstName | Alpha | 01 - 75 | M | First name of owner. eg: John |
 | lastName | Alpha | 02 - 75 | M | Last name of owner. eg: Sharma |
 | dateOfBirth | Date | 10 - 19 | M | Date of birth of owner in yyyy-mm-dd format. eg: 1999-09-12 |
 | gender | Alpha | 01 - 10 | M | Gender of owner (male, female, other) |
@@ -129,19 +129,19 @@ POST http://host/ewallet/api/v1/customer-registration
   "customerTypeCode": "100002",
   "customerSubTypeCode": "100001",
   "serviceTypeCode": "REGULAR",
-  "docReferenceNumber": "CUSYONEIUK",
+  "docReferenceNumber": "CUS1234571",
   "walletOwnerCode": "1000008398",.
-  "tradeName": "Estel technology",
+  "tradeName": "Example Trading Ltd",
   "natureOfBusinessCode": "RHT010",
   "mobileNumber": "9099998987",
-  "email": "pankaj.singh@esteltelecom.com",
+  "email": "john.doe@example.com",
   "addressLine1": "malawi",
   "countryCode": "MWI",
   "state": "malawi",
   "city": "malawi",
   "pincode": "676567",
   "businessRelationshipCode": "100003",
-  "businessAuthorizedPerson": "Estel",
+  "businessAuthorizedPerson": "Example",
   "legalStatusCode": "RHB002",
   "idNumber": "ID321412123123",
   "idCountry": "CAN",
@@ -150,8 +150,8 @@ POST http://host/ewallet/api/v1/customer-registration
   "ownerDetailList": [
   {
     "customerTypeCode": "100001",
-    "firstName": "Rajesh",
-    "lastName": "Mishra",
+    "firstName": "John",
+    "lastName": "Doe",
     "dateOfBirth": "2006-08-22",
     "gender": "male",
     "companyName": "",
@@ -166,7 +166,7 @@ POST http://host/ewallet/api/v1/customer-registration
  },
   {
     "customerTypeCode": "100002",
-    "companyName": "Estel technology",
+    "companyName": "Example Trading Ltd",
     "addressLine1": "malawi",
     "countryCode": "MWI",
     "state": "malawi",
@@ -190,9 +190,9 @@ POST http://host/ewallet/api/v1/customer-registration
     "customerTypeCode": "100002",
     "customerSubTypeCode": "100001",
     "walletOwnerCode": "1000008398",
-    "customerId": "100000839810647B",
-    "fullName": "Estel technology",
-    "tradeName": "Estel technology",
+    "customerId": "100000000000002B",
+    "fullName": "Example Trading Ltd",
+    "tradeName": "Example Trading Ltd",
     "natureOfBusinessCode": "RHT010",
     "mobileNumber": "9099998987",
     "addressLine1": "malawi",
@@ -214,25 +214,25 @@ POST http://host/ewallet/api/v1/customer-registration
     "customerTypeName": "Juridical Owner",
     "creationDate": "2025-02-03T11:51:46.907+0530",
     "createdBy": "105513",
-    "sendClientName": "Estel Technologies",
-    "docReferenceNumber": "1234563GFM",
-    "walletOwnerName": "Estel Technologies",
-    "logoUrl": "/fileUpload/download/1000008398/Estel_logo.jpeg",
-    "sendClientAddress": "Street No 5, Park Avenue , Blantyre, Blantyre, Malawi",
+    "sendClientName": "Example Trading Ltd",
+    "docReferenceNumber": "DOC1234567",
+    "walletOwnerName": "Example Trading Ltd",
+    "logoUrl": "/fileUpload/download/1000008398/Example_logo.jpeg",
+    "sendClientAddress": "123 Example Street, Blantyre, Blantyre, Malawi",
     "sendClientMobileNo": "265768568432",
-    "registrationApprovedBy": "Wirease",
+    "registrationApprovedBy": "EXAMPLE",
     "registrationNumber": "ID321412123103",
     "ownerDetailList": [
         {
             "code": "1000000458",
             "customerTypeCode": "100001",
-            "ownerId": "100000839810647B00",
+            "ownerId": "100000000000002B00",
             "customerCode": "1000000645",
-            "firstName": "Rajesh",
+            "firstName": "John",
             "middleName": "",
-            "lastName": "Mishra",
+            "lastName": "Doe",
             "companyName": "",
-            "fullName": "Rajesh Mishra",
+            "fullName": "John Doe",
             "gender": "male",
             "nationality": "",
             "dateOfBirth": "2006-08-22 00:00:00",
@@ -265,12 +265,12 @@ POST http://host/ewallet/api/v1/customer-registration
         {
             "code": "1000000459",
             "customerTypeCode": "100002",
-            "ownerId": "100000839810647B00",
+            "ownerId": "100000000000002B00",
             "customerCode": "1000000645",
             "firstName": "",
             "middleName": "",
             "lastName": "",
-            "companyName": "Estel technology",
+            "companyName": "Example Trading Ltd",
             "fullName": "",
             "gender": "",
             "nationality": "",
@@ -315,7 +315,7 @@ POST http://host/ewallet/api/v1/customer-registration
 | serviceTypeCode | Alpha | 07 | M | REGULAR |
 | docReferenceNumber | Alphanumeric | 10 - 30 | M | 10 digit unique doc reference number, used while uploading document. eg: GHJ7K87GJGG6 (should contains 10 to 30 digits alpha numeric only) |
 | walletOwnerCode | Numeric | 10 | M | Send Client Code for which the customer is being registered eg:1000009999 |
-| firstName | Alpha | 01 - 75 | M | First name of customer eg: Rahul |
+| firstName | Alpha | 01 - 75 | M | First name of customer eg: John |
 | lastName | Alpha | 02 - 75 | M | Last name of customer eg: Sharma |
 | dateOfBirth | Date | 10 - 19 | M | Customer's date of birth in yyyy-mm-dd format. eg: 1999-09-12 |
 | gender | Alpha | 01 - 10 | M | Customer's gender. (male, female, other) |
@@ -349,11 +349,11 @@ POST http://host/ewallet/api/v1/customer-registration
  {
 "customerTypeCode": "100001",
 "customerSubTypeCode": "100001",
-"docReferenceNumber": "CUSG39VHE7",
+"docReferenceNumber": "CUS1234569",
 "serviceTypeCode": "REGULAR",
 "walletOwnerCode": "1000008438",
-"firstName": "Rajesh",
-"lastName": "Singh",
+"firstName": "John",
+"lastName": "Doe",
 "dateOfBirth": "2006-08-22",
 "occupationCode": "RHO016",
 "jobTitle": "Job Title",
@@ -361,8 +361,8 @@ POST http://host/ewallet/api/v1/customer-registration
 "gender": "female",
 "nationality": "IND",
 "mobileNumber": "9099998987",
-"email": "pankaj.singh@esteltelecom.com",
-"addressLine1": "new delhi new",
+"email": "john.doe@example.com",
+"addressLine1": "123 Example Street",
 "countryCode": "TZA",
 "state": "tanzania",
 "city": "tanzania",
@@ -388,12 +388,12 @@ POST http://host/ewallet/api/v1/customer-registration
     "customerTypeCode": "100001",
     "customerSubTypeCode": "100001",
     "walletOwnerCode": "1000008929",
-    "customerId": "100000892912221I",
-    "firstName": "ASEWE",
-    "lastName": "singh",
-    "fullName": "ASEWE singh",
-    "nickName": "ASEWE",
-    "tradeName": "ASEWE singh",
+    "customerId": "100000000000004I",
+    "firstName": "John",
+    "lastName": "Doe",
+    "fullName": "John Doe",
+    "nickName": "John",
+    "tradeName": "John Doe",
     "gender": "male",
     "nationality": "IND",
     "dateOfBirth": "1989-08-28",
@@ -414,17 +414,17 @@ POST http://host/ewallet/api/v1/customer-registration
     "customerTypeName": "Individual",
     "creationDate": "2025-02-03T11:49:51.259+0530",
     "createdBy": "105732",
-    "sendClientName": "ESTEL",
-    "docReferenceNumber": "CUSP6RDAA6",
-    "walletOwnerName": "ESTEL",
+    "sendClientName": "EXAMPLE",
+    "docReferenceNumber": "CUS1234570",
+    "walletOwnerName": "EXAMPLE",
     "logoUrl": "/fileUpload/download/1000008929/logo 1DADANADA.jpg",
     "sendClientAddress": "Malawi, Malawi, Blantyre, Blantyre, Malawi",
     "sendClientMobileNo": "26533545636654",
     "idTypeName": "Passport ",
-    "registrationApprovedBy": "ESTEL",
+    "registrationApprovedBy": "EXAMPLE",
     "registrationNumber": "ID31232444444",
     "createdByCode": "1000008929",
-    "createdByName": "ESTEL",
+    "createdByName": "EXAMPLE",
     "autoRegistered": false
     }
   }

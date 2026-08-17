@@ -1,0 +1,207 @@
+{
+  "documentTitle": "RHUB Developer Portal — example data convention",
+  "purpose": "Public request/response examples must use obviously synthetic identities while still satisfying every documented field contract (type, length, format, and any country/currency semantics the example illustrates). This file is the single place the substitutions live: add to it and re-run tools/generate.py.",
+  "appliesTo": "Client-facing pages: code blocks and the 'eg:' sample values inside field-table descriptions. Unlisted audit pages keep the original values as historical evidence.",
+  "neverSanitize": [
+    "resultDescription text and any other verbatim API error message",
+    "enum and master data values (bank names, occupation names, ID type names, country and currency names, location IDs, RHUB codes such as RHT011)",
+    "field names, endpoint paths, JSON structure, requirement flags",
+    "bank names paired with their SWIFT/BIC codes, because the pairing illustrates a valid combination"
+  ],
+  "convention": {
+    "individualSender": "John Doe",
+    "individualReceiver": "Jane Doe",
+    "business": "Example Trading Ltd / Sample Exports Ltd",
+    "shortClientName": "EXAMPLE",
+    "email": "john.doe@example.com, jane.doe@example.com",
+    "addressLine": "123 Example Street / 45 Sample Avenue",
+    "references": "REF…, INV…, TXN…, DOC…, CUS… keeping the original length and character class",
+    "customerId": "15 digits plus the original type suffix"
+  },
+  "replacements": [
+    [
+      "RamKrishna S S Kumar",
+      "John A Doe"
+    ],
+    [
+      "Estel Technologies",
+      "Example Trading Ltd"
+    ],
+    [
+      "Estel technology",
+      "Example Trading Ltd"
+    ],
+    [
+      "esteltelecom.com",
+      "example.com"
+    ],
+    [
+      "pankaj.singh@example.com",
+      "john.doe@example.com"
+    ],
+    [
+      "HCL Technologies",
+      "Example Trading Ltd"
+    ],
+    [
+      "HCL Software",
+      "Sample Exports Ltd"
+    ],
+    [
+      "Delhi Daredevils",
+      "Example Trading Ltd"
+    ],
+    [
+      "Gujarat titans",
+      "Sample Exports Ltd"
+    ],
+    [
+      "Yashpal Singh",
+      "Jane Doe"
+    ],
+    [
+      "ASEWE singh",
+      "John Doe"
+    ],
+    [
+      "kuldeep singh",
+      "Jane Doe"
+    ],
+    [
+      "Rajesh Mishra",
+      "John Doe"
+    ],
+    [
+      "Wirease",
+      "EXAMPLE"
+    ],
+    [
+      "ESTEL",
+      "EXAMPLE"
+    ],
+    [
+      "ASEWE",
+      "John"
+    ],
+    [
+      "Rajesh",
+      "John"
+    ],
+    [
+      "Rahul",
+      "John"
+    ],
+    [
+      "Mishra",
+      "Doe"
+    ],
+    [
+      "kuldeep",
+      "Jane"
+    ],
+    [
+      "SOLANGE",
+      "JANE"
+    ],
+    [
+      "NDAYIZEYE",
+      "DOE"
+    ],
+    [
+      "Yashpal",
+      "Jane"
+    ],
+    [
+      "singh",
+      "Doe"
+    ],
+    [
+      "Singh",
+      "Doe"
+    ],
+    [
+      "100000839810647B00",
+      "100000000000002B00"
+    ],
+    [
+      "100000892911850B",
+      "100000000000001B"
+    ],
+    [
+      "100000839810647B",
+      "100000000000002B"
+    ],
+    [
+      "100000844410791I",
+      "100000000000003I"
+    ],
+    [
+      "100000892912221I",
+      "100000000000004I"
+    ],
+    [
+      "AE110260000959024298101",
+      "AE070331234567890123456"
+    ],
+    [
+      "+85223112745",
+      "+85212345678"
+    ],
+    [
+      "CUS2VAMEHI",
+      "CUS1234567"
+    ],
+    [
+      "CUS5NBRGUQ",
+      "CUS1234568"
+    ],
+    [
+      "CUSG39VHE7",
+      "CUS1234569"
+    ],
+    [
+      "CUSP6RDAA6",
+      "CUS1234570"
+    ],
+    [
+      "CUSYONEIUK",
+      "CUS1234571"
+    ],
+    [
+      "1234563GFM",
+      "DOC1234567"
+    ],
+    [
+      "ASDEWEDE66",
+      "INV1234567890"
+    ],
+    [
+      "RSGPOD0DS7",
+      "INV1234567891"
+    ],
+    [
+      "PAYAFMRF61",
+      "REF1234567890"
+    ],
+    [
+      "PAYXPY29FF",
+      "REF1234567891"
+    ],
+    [
+      "new delhi new",
+      "123 Example Street"
+    ],
+    [
+      "Street No 5, Park Avenue ",
+      "123 Example Street"
+    ],
+    [
+      "Tuen mun",
+      "45 Sample Avenue"
+    ],
+    [
+      "Estel",
+      "Example"
+    ]
+  ]
+}

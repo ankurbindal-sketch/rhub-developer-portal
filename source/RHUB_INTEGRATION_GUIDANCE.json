@@ -80,14 +80,7 @@
     "Obtain the master, reference, bank or validation data your route and use case require — only the ones you actually need, not every master API.",
     "Submit the Payout request."
   ],
-  "openQuestions": [
-    {
-      "id": "c2c-trx-reference",
-      "topic": "C2C value for the Mandatory invoice reference field",
-      "question": "The Payout contract marks `sendClientTrxReference` as Mandatory at transactionInfo level, while the confirmed invoice-document requirement applies only to B2B, B2C and C2B. The expected value or usage for C2C payouts is not established.",
-      "placement": "payout"
-    }
-  ],
+  "openQuestions": [],
   "masterCrossLinks": [
     {
       "field": "businessType",
@@ -185,5 +178,13 @@
       "rule": "The original bank and wallet payout flow images are unavailable and will not be reconstructed. New Developer Portal visuals may be created only for flows established by authoritative material, and must not be presented as the missing originals.",
       "resolves": "R9"
     }
-  }
+  },
+  "resolvedQuestions": [
+    {
+      "id": "c2c-trx-reference",
+      "question": "Expected C2C value/usage for the Mandatory sendClientTrxReference field.",
+      "resolvedBy": "RHUB decision D6 (2026-08-17)",
+      "resolution": "Not required for C2C: omit the parameter or send it blank. Required for B2B, B2C and C2B."
+    }
+  ]
 }

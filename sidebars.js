@@ -96,13 +96,13 @@ const sidebars = {
       items: [
         'errors/current-error-codes',
         'errors/transaction-status-codes',
-        'errors/error-codes',
       ],
     },
     // Recovery / audit material is intentionally NOT exposed here.
     //
     // The following categories were removed from the public developer navigation and must
-    // not be re-added: "WPT integration set" (docs/wpt/*), "Template management"
+    // not be re-added: "WPT integration set" (docs/wpt/*), the legacy HTTP/application error page
+    // (docs/errors/error-codes), "Template management"
     // (docs/template-management/*),
     // "Unlinked source pages" (docs/legacy/*), "Project reference"
     // (docs/appendix/source-notes, unpublished-master-apis, unpublished-apis, licence).

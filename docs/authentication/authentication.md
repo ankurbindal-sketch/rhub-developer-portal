@@ -25,9 +25,8 @@ The response also returns `token_type`, `expires_in` and `scope`.
 
 :::note[`scope` is a response field]
 
-Clients do not need to send `scope` on the token request. The historical request example
-below includes `scope=read%20write`; it is reproduced unchanged, but it is not a required
-request parameter. `scope` is returned in the response.
+Send `grant_type`, `username` and `password` on the token request. `scope` is returned in the
+response and does not need to be sent.
 
 :::
 
@@ -69,7 +68,7 @@ POST /services HTTP/1.0
 HOST: XXX.XXX.XXX.XXX:Port
 Content-Type: application/json; charset=utf-8
 POST http://host/ewallet/oauth/token
-FormData : grant_type=password&scope=read%20write&username=1000008340
+FormData : grant_type=password&username=1000008340
 password : 21ED0D51*****FB437*****8ED2123B6
 ```
 

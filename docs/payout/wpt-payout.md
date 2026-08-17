@@ -69,7 +69,7 @@ This ensures that the transaction adheres to legal and jurisdictional requiremen
 | isAutoRegistered | Boolean | 04 - 05 | M | true: in case of on the fly customer registration, false: in case of manual customer registration. eg: true |
 | declaration | Boolean | 04 - 05 | M | true: in case of on the fly customer registration, false: in case of manual customer registration. eg: true |
 | docReferenceNumber | Alphanumeric | 01 - 30 | M | Should contains 10 to 30 digits alpha numeric only. eg:GJGJ877HNGG |
-| senderFirstName | Alpha | 01 - 75 | M | The first name of the end customer sending money. eg: Rahul |
+| senderFirstName | Alpha | 01 - 75 | M | The first name of the end customer sending money. eg: John |
 | senderLastName | Alpha | 02 - 75 | M | The last name of the end customer sending money. eg: Sharma |
 | senderGender | Alpha | 01 - 10 | M | male, female or others. eg: male, female |
 | senderNationality | Alpha | 03 | M | Nationality of sender in 3-dight country code format. eg: MWI, CHN |
@@ -96,7 +96,7 @@ This ensures that the transaction adheres to legal and jurisdictional requiremen
 
 | Parameters | Input Type | Length | Requirement | Description |
 |---|---|---|---|---|
-| receiverFirstName | Alpha | 01 - 75 | M | The first name of the end customer sending money. eg: Rahul |
+| receiverFirstName | Alpha | 01 - 75 | M | The first name of the end customer sending money. eg: John |
 | receiverLastName | Alpha | 02 - 75 | M | The last name of the end customer sending money. eg: Sharma |
 | receiverDOB | Date | 10 - 19 | O | Date of birth of receiver in yyyy-mm-dd format. eg: 2002-09-08 |
 | receiverGender | Alpha | 01 - 10 | M | male, female or others. eg: male, female |
@@ -160,9 +160,9 @@ POST http://host/ewallet/api/v1/payoutProcess/api
         "customer": {
             "isAutoRegistered": true,
             "declaration": true,
-            "docReferenceNumber": "CUS2VAMEHI",
-            "senderFirstName": "Rajesh",
-            "senderLastName": "singh",
+            "docReferenceNumber": "CUS1234567",
+            "senderFirstName": "John",
+            "senderLastName": "Doe",
             "senderGender": "male",
             "senderNationality": "MWI",
             "senderDOB":"2012-09-08",
@@ -184,8 +184,8 @@ POST http://host/ewallet/api/v1/payoutProcess/api
         "customer": {
             "receiverMsisdn": "71238165",
             "dialCode": "+257",
-            "receiverFirstName": "SOLANGE",
-            "receiverLastName": "NDAYIZEYE",
+            "receiverFirstName": "JANE",
+            "receiverLastName": "DOE",
             "receiverGender": "male",
             "receiverIdType": "RHD005",
             "receiverIdNumber": "ID76558766",
@@ -264,8 +264,8 @@ POST http://host/ewallet/api/v1/payoutProcess/api
         "customer": {
             "receiverMsisdn": "71238165",
             "dialCode": "+257",
-            "receiverFirstName": "SOLANGE",
-            "receiverLastName": "NDAYIZEYE",
+            "receiverFirstName": "JANE",
+            "receiverLastName": "DOE",
             "receiverGender": "male",
             "receiverIdType": "RHD005",
             "receiverIdNumber": "ID76558766",
@@ -340,11 +340,11 @@ POST http://host/ewallet/api/v1/payoutProcess/api
 "payoutResponseBean": {
 "transReference": "197930",
 "payinDate": "2023-08-03T12:22:10.904+0530",
-"clientReferenceNumber": "PAYAFMRF61",
+"clientReferenceNumber": "REF1234567890",
 "sendClientCode": "1000008340",
-"senderName": "HCL Technologies",
+"senderName": "Example Trading Ltd",
 "senderNumber": "5123456789",
-"beneficiaryName": "HCL Software",
+"beneficiaryName": "Sample Exports Ltd",
 "beneficiaryNumber": "123456789",
 "beneficiaryBank": "Mizuho Bank,Ltd.-0001",
 "accountNumber": "1234567",
@@ -356,13 +356,13 @@ POST http://host/ewallet/api/v1/payoutProcess/api
 "status": "In Process",
 "senderMargin": 0.9899999999,
 "sendClientMarginValue": 0.0,
-"beneficiaryAccountHolderName": "Gujarat titans ",
-"sendClientName": "ESTEL",
+"beneficiaryAccountHolderName": "Sample Exports Ltd ",
+"sendClientName": "EXAMPLE",
 "senderCountry": "Malawi",
 "descriptionText": "invoice67676767",
 "sendClientPhoneNumber": "533545636654",
 "sendClientAddress1": "Malawi, Malawi",
-"customerId": "100000892911850B",
+"customerId": "100000000000001B",
 "customerCode": "1000000850",
 "paymentMode": "Cash",
   }

@@ -37,6 +37,52 @@ GUIDANCE_JSON = os.environ.get(
 GUIDANCE = (json.load(open(GUIDANCE_JSON))
             if os.path.exists(GUIDANCE_JSON) else None)
 
+# Example-data convention: synthetic identities for client-facing examples. Applied to code
+# blocks on listed pages only; unlisted audit pages keep the original values as evidence.
+EXAMPLE_POLICY_JSON = os.environ.get(
+    'RHUB_EXAMPLE_POLICY_JSON',
+    os.path.join(os.path.dirname(HERE), 'source', 'RHUB_EXAMPLE_DATA_POLICY.json'))
+EXAMPLE_POLICY = (json.load(open(EXAMPLE_POLICY_JSON))
+                  if os.path.exists(EXAMPLE_POLICY_JSON) else None)
+SANITISED = {'blocks': 0, 'values': 0}
+
+
+def sanitise_examples(text):
+    """Replace personal/company sample values inside fenced code blocks.
+
+    Only example VALUES change. Field names, structure, enums, master data, endpoint paths
+    and verbatim API error messages are untouched, and every replacement keeps the character
+    class and a length the documented contract still allows.
+    """
+    if not EXAMPLE_POLICY:
+        return text
+    pairs = EXAMPLE_POLICY['replacements']
+
+    def fix(m):
+        block = m.group(0)
+        before = block
+        for old, new in pairs:
+            if old in block:
+                SANITISED['values'] += block.count(old)
+                block = block.replace(old, new)
+        if block != before:
+            SANITISED['blocks'] += 1
+        return block
+
+    out = re.sub(r'```[a-z]*\n.*?```', fix, text, flags=re.S)
+
+    # field-table descriptions carry sample values too ("eg: Rahul"); the same policy applies
+    def fix_line(line):
+        if not line.lstrip().startswith('|'):
+            return line
+        for old, new in pairs:
+            if old in line:
+                SANITISED['values'] += line.count(old)
+                line = line.replace(old, new)
+        return line
+
+    return '\n'.join(fix_line(l) for l in out.split('\n'))
+
 
 def customer_paths_block(heading_level=2):
     """The three customer paths as headed sections."""
@@ -162,6 +208,7 @@ HIDDEN_FROM_PUBLIC_NAV = {
     'template-management/update-transaction-limit.md',
     'template-management/forex-margin.md',
     'template-management/update-forex-margin.md',
+    'errors/error-codes.md',
     'appendix/review-resolution-register.md',
     'appendix/source-notes.md',
     'appendix/unpublished-master-apis.md',
@@ -183,6 +230,8 @@ def write(relpath, front, body):
     if relpath in HIDDEN_FROM_PUBLIC_NAV:
         front = dict(front)
         front['unlisted'] = True
+    else:
+        body = sanitise_examples(body)
     fm = ['---']
     for k, v in front.items():
         if v is None:
@@ -425,7 +474,6 @@ fits and where the decisions are.
 
 - [Current API error codes](/docs/errors/current-error-codes)
 - [Transaction status codes](/docs/errors/transaction-status-codes)
-- [HTTP and application error codes](/docs/errors/error-codes)
 
 </div>
 
@@ -741,6 +789,11 @@ def build_authentication():
     secs = split_api_sections(FILES['AUTH.md'])
     s = secs[0]
     conv = R.convert(s['body'], promote_headings=1)
+    # Public example correction (RHUB decision D3): `scope` is a response field, so the
+    # client-facing request example no longer sends it. The original example is preserved in
+    # source/RHUB_FULL_SOURCE_EXPORT.json and recorded in the review resolution register.
+    conv = conv.replace('grant_type=password&scope=read%20write&username=',
+                        'grant_type=password&username=')
     extra = """Authenticate and obtain the access token that every other RHUB API call requires.
 
 :::info[Using the access token]
@@ -757,9 +810,8 @@ The response also returns `token_type`, `expires_in` and `scope`.
 
 :::note[`scope` is a response field]
 
-Clients do not need to send `scope` on the token request. The historical request example
-below includes `scope=read%20write`; it is reproduced unchanged, but it is not a required
-request parameter. `scope` is returned in the response.
+Send `grant_type`, `username` and `password` on the token request. `scope` is returned in the
+response and does not need to be sent.
 
 :::
 
@@ -1159,30 +1211,28 @@ API must always be supplied. The source's own wording is reproduced below.
 def build_errors():
     body = """# Errors and response codes
 
-RHUB documents three distinct code families. They are **not** interchangeable and this
-portal keeps them apart:
+Two things tell you what happened to a request:
 
-| Family | What it describes | Supplied by | Page |
-|---|---|---|---|
-| Current API error codes | The current API error-handling reference: `resultCode` classes and their `resultDescription` values | RHUB team, %s | [Current API error codes](/docs/errors/current-error-codes) |
-| Transaction status codes | The lifecycle status of a transaction in production | Documentation export (`responseCodes.md`) | [Transaction status codes](/docs/errors/transaction-status-codes) |
-| HTTP and application error codes | Protocol-level status codes and RHUB application error codes | Documentation export (`ErrorCodes.md`) | [Error codes](/docs/errors/error-codes) |
+| What it tells you | Where |
+|---|---|
+| Why a request failed — the `resultCode` category and the `resultDescription` reason | [Current API error codes](/docs/errors/current-error-codes) |
+| Where a transaction has reached in processing | [Transaction status codes](/docs/errors/transaction-status-codes) |
 
-Start with **Current API error codes** for live error handling. The other two pages remain
-available and unchanged; they come from the original documentation export.
+Handle failures on the `resultCode` / `resultDescription` pair returned in the response body.
+Track a transaction's progress with its status value.
 
-:::note[How to read these families]
+:::note[HTTP status and `resultCode` are separate]
 
-An HTTP status describes the transport-level outcome; a `resultCode` describes the RHUB
-application or business error category, and `resultDescription` carries the specific reason.
-The same numeral can appear in both families without meaning the same thing.
+The HTTP status describes the transport-level outcome of the call. `resultCode` is RHUB's
+application error category and `resultDescription` is the specific reason, both returned in
+the response body. Use `resultCode` for coarse classification and `resultDescription` for the
+precise condition.
 
 RHUB supplies code values and descriptions only — no remediation or retry guidance — so none
 is offered here.
 
 :::
 """
-    body = body % (CURRENT_ERRORS['receivedOn'] if CURRENT_ERRORS else 'REVIEW REQUIRED')
     write('errors/index.md',
           {'id': 'errors-index', 'title': 'Errors and response codes',
            'sidebar_label': 'Overview', 'slug': '/errors',
@@ -1209,7 +1259,6 @@ documented here.
 
 - [Current API error codes](/docs/errors/current-error-codes)
 - [Transaction Enquiry](/docs/transactions/transaction-enquiry)
-- [Error codes](/docs/errors/error-codes)
 """
     write('errors/transaction-status-codes.md',
           {'title': 'Transaction status codes', 'sidebar_label': 'Transaction status codes',
@@ -1320,12 +1369,11 @@ def build_current_error_codes():
     sem = d['semantics']
     lines = ['# Current API error codes', '',
              ':::info[Authoritative and current]', '',
-             'This reference was supplied directly by the **%s** on **%s** as the current API '
-             'error-handling behaviour. It is maintained separately from the documentation '
-             'export that the rest of this portal is built from, and it does not replace the '
-             '[transaction status codes](/docs/errors/transaction-status-codes) or the '
-             '[HTTP and application error codes](/docs/errors/error-codes), which remain '
-             'available unchanged.' % (d['provider'], d['receivedOn']), '', ':::', '',
+             'These are the error codes the RHUB API returns today, supplied by the **%s** on '
+             '**%s**. Handle failures on the `resultCode` and `resultDescription` pair below; '
+             'use [transaction status codes](/docs/errors/transaction-status-codes) to follow '
+             'a transaction through processing.' % (d['provider'], d['receivedOn']), '',
+             ':::', '',
              '## %s' % sem['heading'], '']
     for para in sem['paragraphs'][:2]:
         lines += [para, '']
@@ -1365,32 +1413,17 @@ def build_current_error_codes():
                                            else 'one condition in this list'))
     lines.append('| *Not provided* | 1 | one condition in this list |')
 
-    lines += ['', '## Relationship to the documentation-export error pages', '']
-    if conflicts:
-        lines += ['For reference, these result codes also appear in other RHUB code tables. '
-                  'Because the families are separate namespaces, an overlap is not a conflict.', '',
-                  '| Result code | Observation |', '|---|---|']
-        seen = set()
-        for c, note in conflicts:
-            if (c, note) in seen:
-                continue
-            seen.add((c, note))
-            lines.append('| %s | %s |' % (c, note))
-        lines += ['']
-    lines += [':::info[HTTP status codes and result codes are separate]', '',
+    lines += ['', ':::info[HTTP status codes and result codes are separate]', '',
               'An HTTP status describes the transport-level outcome of a request. A '
               '`resultCode` describes the RHUB application or business error category, and '
-              '`resultDescription` carries the specific reason. The same numeral — `400`, for '
-              'example — can appear in both families without the two meaning the same thing, '
-              'so an overlap is not a conflict. Branch on the pair that applies to the layer '
-              'you are handling.', '', ':::', '',
+              '`resultDescription` carries the specific reason. The same numeral can appear '
+              'in both without the two meaning the same thing.', '', ':::', '',
               ':::note[No remediation guidance]', '',
               'RHUB supplies code values and descriptions only, so no remediation steps, retry '
               'policy or backoff behaviour is documented here.', '', ':::', '',
               '## Related', '',
               '- [Errors and response codes overview](/docs/errors)',
               '- [Transaction status codes](/docs/errors/transaction-status-codes)',
-              '- [HTTP and application error codes](/docs/errors/error-codes)',
               '- [Payout](/docs/payout/payout)',
               '- [Transaction Enquiry](/docs/transactions/transaction-enquiry)']
 
@@ -1919,6 +1952,40 @@ REGISTER = [
      'sitemap, and reachable only by direct URL.',
      'Not client-facing.',
      'HIDDEN/LEGACY'),
+    ('R15', 'Authentication request example sent `scope`',
+     'docs/authentication/authentication.md',
+     'No marker. The public request example carried `scope=read%20write` although D3 states '
+     'scope is a response field.',
+     'RHUB decision D3.',
+     'The client-facing request example now sends `grant_type`, `username` and `password` '
+     'only. `scope` remains in the response example and response table.',
+     'Public example corrected at generation time. The original example is preserved '
+     'unchanged in source/RHUB_FULL_SOURCE_EXPORT.json.',
+     'Client-facing example, corrected.',
+     'RESOLVED'),
+    ('R16', 'Legacy HTTP/application error page in the client journey',
+     'docs/errors/error-codes.md',
+     'No marker. The page derives from the older documentation export and competed with the '
+     'current resultCode reference.',
+     'Client-readiness decision: the public error model is resultCode + resultDescription, '
+     'plus transaction status values.',
+     'The page is now unlisted: out of the sidebar, errors overview, related links, search '
+     'and sitemap. Its content is unchanged and reachable by direct URL.',
+     'Errors overview rewritten around two families; the migration-era comparison section was '
+     'removed from the current error codes page.',
+     'Not client-facing.',
+     'HIDDEN/LEGACY'),
+    ('R17', 'Example payload data',
+     'all client-facing pages with examples',
+     'No marker. Examples carried real-looking names, companies, emails and account numbers.',
+     'Client-readiness decision; convention recorded in '
+     'source/RHUB_EXAMPLE_DATA_POLICY.json.',
+     'Synthetic identities (John/Jane Doe, Example Trading Ltd, example.com, REF/INV/CUS '
+     'references) applied to code blocks and field-table sample values on listed pages, '
+     'preserving type, length and format.',
+     'Sanitisation runs at generation time; unlisted audit pages keep the original values.',
+     'Client-facing examples, sanitised.',
+     'RESOLVED'),
     ('R14', 'Internal migration and audit warnings',
      'docs/appendix/*, tools/, COMPLETENESS_REPORT.md',
      'Audit trail wording: coverage tables, publication status, commented-source accounting.',

@@ -8,7 +8,7 @@ description: "Current RHUB API error-handling reference: resultCode classes and 
 
 :::info[Authoritative and current]
 
-This reference was supplied directly by the **RHUB team** on **2026-08-12** as the current API error-handling behaviour. It is maintained separately from the documentation export that the rest of this portal is built from, and it does not replace the [transaction status codes](/docs/errors/transaction-status-codes) or the [HTTP and application error codes](/docs/errors/error-codes), which remain available unchanged.
+These are the error codes the RHUB API returns today, supplied by the **RHUB team** on **2026-08-12**. Handle failures on the `resultCode` and `resultDescription` pair below; use [transaction status codes](/docs/errors/transaction-status-codes) to follow a transaction through processing.
 
 :::
 
@@ -143,20 +143,9 @@ The 65 entries use **16 distinct result codes**, plus one entry with no code.
 | 5003 | 2 | multiple distinct conditions |
 | *Not provided* | 1 | one condition in this list |
 
-## Relationship to the documentation-export error pages
-
-For reference, these result codes also appear in other RHUB code tables. Because the families are separate namespaces, an overlap is not a conflict.
-
-| Result code | Observation |
-|---|---|
-| 400 | Also appears in the **HTTP status code** table as "Bad Request – Invalid request format.". Whether the HTTP status and the `resultCode` of the same numeral mean the same thing is not established. |
-| 1000 | Also in the **application error code** table with the same description ("technical.failure"). Consistent — no conflict. |
-| 1364 | Also appears in an RHUB validation code table that RHUB does not publish, with the same description apart from letter case ("Master business type not found"). |
-| 1368 | Also appears in an RHUB validation code table that RHUB does not publish, with the same description ("Some parameters are missing in quotation request"). |
-
 :::info[HTTP status codes and result codes are separate]
 
-An HTTP status describes the transport-level outcome of a request. A `resultCode` describes the RHUB application or business error category, and `resultDescription` carries the specific reason. The same numeral — `400`, for example — can appear in both families without the two meaning the same thing, so an overlap is not a conflict. Branch on the pair that applies to the layer you are handling.
+An HTTP status describes the transport-level outcome of a request. A `resultCode` describes the RHUB application or business error category, and `resultDescription` carries the specific reason. The same numeral can appear in both without the two meaning the same thing.
 
 :::
 
@@ -170,6 +159,5 @@ RHUB supplies code values and descriptions only, so no remediation steps, retry 
 
 - [Errors and response codes overview](/docs/errors)
 - [Transaction status codes](/docs/errors/transaction-status-codes)
-- [HTTP and application error codes](/docs/errors/error-codes)
 - [Payout](/docs/payout/payout)
 - [Transaction Enquiry](/docs/transactions/transaction-enquiry)

@@ -26,6 +26,9 @@ Baseline audit: 175 occurrences, 14 unique issues, 12 on client-facing pages.
 | R11 | TABLE_OF_VALIDATIONS.xlsx | **HIDDEN/LEGACY** |
 | R12 | Duplicate warning on the errors overview | **RESOLVED / CONSOLIDATED** |
 | R13 | Publication-status warnings on unlisted pages | **HIDDEN/LEGACY** |
+| R15 | Authentication request example sent `scope` | **RESOLVED** |
+| R16 | Legacy HTTP/application error page in the client journey | **HIDDEN/LEGACY** |
+| R17 | Example payload data | **RESOLVED** |
 | R14 | Internal migration and audit warnings | **INTERNAL** |
 
 ## R1 — Access token transport
@@ -196,6 +199,45 @@ Baseline audit: 175 occurrences, 14 unique issues, 12 on client-facing pages.
 | Resolution | They stay out of client navigation. Their warnings are correct in context. |
 | Documentation change | No change. Pages remain `unlisted: true`: absent from sidebar, API index, search and sitemap, and reachable only by direct URL. |
 | Final public treatment | Not client-facing. |
+
+## R15 — Authentication request example sent `scope`
+
+**Status:** RESOLVED
+
+| | |
+|---|---|
+| Original page(s) | docs/authentication/authentication.md |
+| Original wording | No marker. The public request example carried `scope=read%20write` although D3 states scope is a response field. |
+| Evidence / decision | RHUB decision D3. |
+| Resolution | The client-facing request example now sends `grant_type`, `username` and `password` only. `scope` remains in the response example and response table. |
+| Documentation change | Public example corrected at generation time. The original example is preserved unchanged in source/RHUB_FULL_SOURCE_EXPORT.json. |
+| Final public treatment | Client-facing example, corrected. |
+
+## R16 — Legacy HTTP/application error page in the client journey
+
+**Status:** HIDDEN/LEGACY
+
+| | |
+|---|---|
+| Original page(s) | docs/errors/error-codes.md |
+| Original wording | No marker. The page derives from the older documentation export and competed with the current resultCode reference. |
+| Evidence / decision | Client-readiness decision: the public error model is resultCode + resultDescription, plus transaction status values. |
+| Resolution | The page is now unlisted: out of the sidebar, errors overview, related links, search and sitemap. Its content is unchanged and reachable by direct URL. |
+| Documentation change | Errors overview rewritten around two families; the migration-era comparison section was removed from the current error codes page. |
+| Final public treatment | Not client-facing. |
+
+## R17 — Example payload data
+
+**Status:** RESOLVED
+
+| | |
+|---|---|
+| Original page(s) | all client-facing pages with examples |
+| Original wording | No marker. Examples carried real-looking names, companies, emails and account numbers. |
+| Evidence / decision | Client-readiness decision; convention recorded in source/RHUB_EXAMPLE_DATA_POLICY.json. |
+| Resolution | Synthetic identities (John/Jane Doe, Example Trading Ltd, example.com, REF/INV/CUS references) applied to code blocks and field-table sample values on listed pages, preserving type, length and format. |
+| Documentation change | Sanitisation runs at generation time; unlisted audit pages keep the original values. |
+| Final public treatment | Client-facing examples, sanitised. |
 
 ## R14 — Internal migration and audit warnings
 

@@ -29,4 +29,3 @@ documented here.
 
 - [Current API error codes](/docs/errors/current-error-codes)
 - [Transaction Enquiry](/docs/transactions/transaction-enquiry)
-- [Error codes](/docs/errors/error-codes)

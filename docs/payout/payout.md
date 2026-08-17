@@ -146,7 +146,7 @@ This helps ensure all transactions adhere to legal and jurisdictional requiremen
 | isAutoRegistered | Boolean | 04 - 05 | M | true: in case of on the fly customer registration, false: in case of manual customer registration. eg: true |
 | declaration | Boolean | 04 - 05 | M | true: in case of on the fly customer registration, false: in case of manual customer registration. eg: true |
 | docReferenceNumber | Alphanumeric | 01 - 30 | M | Should contains 10 to 30 digits alpha numeric only. eg:GJGJ877HNGG |
-| senderFirstName | Alpha | 01 - 75 | M | The first name of the end customer sending money. eg: Rahul |
+| senderFirstName | Alpha | 01 - 75 | M | The first name of the end customer sending money. eg: John |
 | senderLastName | Alpha | 02 - 75 | M | The last name of the end customer sending money. eg: Sharma |
 | senderGender | Alpha | 01 - 10 | M | male, female or others. eg: male, female |
 | senderNationality | Alpha | 03 | M | Nationality of sender in 3-dight country code format. eg: MWI, CHN |
@@ -190,7 +190,7 @@ This helps ensure all transactions adhere to legal and jurisdictional requiremen
 | dialCode | Alphanumeric with '+' symbol | 02 - 04 | C | Receiver country dial code. eg: +1, +91 note: Required when the contact number dial code does not match the selected country code. |
 | businessPrimary ContactNumber | Numeric | 07 - 20 | C | Company Primary Mobile number/Phone number. eg: 9899898980 (In SWIFT RAIL required for given payout countries Brazil-BRA, Philippines-PHL, China-CHN, Uganda-UGA, Uruguay-URY, Colombia-COL, Mexico-MEX, Hong Kong-HKG, Malaysia-MYS ) for LOCAL RAIL follow Local RAIL Validations |
 | businessCountry Code | Alpha | 03 | M | The three-letter country code that represents the country of origin or registration for a company. eg: USA, MWI . |
-| businessAccount Number | Alphanumeric | 01 - 50 | M | Company Account number/IBAN. eg: AE110260000959024298101 |
+| businessAccount Number | Alphanumeric | 01 - 50 | M | Company Account number/IBAN. eg: AE070331234567890123456 |
 | businessAccount HolderName | Alphanumeric | 01 - 70 | M | The account name of the end customer/receiver company to where the amount is sent. (value should be same as businessName field value) |
 | businessAccount Type | Alpha | 01 - 50 | C | The specific category or classification of a bank account based on current or saving. Required in case of BRA,PHL,DOM,URY Transactions. AccountTypeApi |
 | businessBankName | Alpha | 01 - 100 | M | The name of the end customer/Company bank to which end client/company receive the money. The value received from the Bank List API response in the **name** tag. eg: Emirates NBD (Please enter valid receiver bank details for a successful transaction) |
@@ -198,7 +198,7 @@ This helps ensure all transactions adhere to legal and jurisdictional requiremen
 | businessBankCode | Alphanumeric | 01 - 20 | C | Bank Identification Number (BIN). This field becomes mandatory when the Bank List API response includes the **code** tag, otherwise it's not mandate. eg: EQBLKENA (This information may be requested by certain correspondents.) Local RAIL Validations SWIFT RAIL Validations |
 | businessSwiftCode | Alphanumeric | 01 - 20 | C | It's a unique alphanumeric code used to identify a specific bank or financial institution in international financial transactions. eg: BOJPJPJTXXX (This information may be requested by certain correspondents.) Local RAIL Validations SWIFT RAIL Validations |
 | **receiver: customer (for B2C/C2C transactions)** |  |  |  |  |
-| receiverFirstName | Alpha | 01 - 75 | M | The first name of the end customer sending money. eg: Rahul |
+| receiverFirstName | Alpha | 01 - 75 | M | The first name of the end customer sending money. eg: John |
 | receiverLastName | Alpha | 02 - 75 | M | The last name of the end customer sending money. eg: Sharma |
 | receiverDOB | Date | 10 - 19 | O | Date of birth of receiver in yyyy-mm-dd format. eg: 2002-09-08 |
 | receiverGender | Alpha | 01 - 10 | M | male, female or others. eg: male, female |
@@ -216,7 +216,7 @@ This helps ensure all transactions adhere to legal and jurisdictional requiremen
 | receiverAddress State | Alpha | 01 - 50 | M | receiver Registered State. eg: Haryana |
 | receiverAddresss City | Alpha | 01 - 50 | M | receiver Registered City. eg: Delhi |
 | receiverPinCode | Alphanumeric | 01 - 10 | M | Receiver's address pincode. eg: SDFC2345 (space not allowed) |
-| receiverAccount Number | Alphanumeric | 01 - 50 | M | Receiver bank account number. eg: AE110260000959024298101 |
+| receiverAccount Number | Alphanumeric | 01 - 50 | M | Receiver bank account number. eg: AE070331234567890123456 |
 | receiverAccount HolderName | Alpha | 01 - 150 | M | The account name of the receiver (beneficiary) to whom the payment is being made. (First name + Last name) |
 | receiverAccount Type | Alpha | 01 - 50 | C | The specific category or classification of a bank account based on current or saving. Required in case of BRA,PHL,DOM,URY Transactions. AccountTypeApi |
 | receiverBankName | Alpha | 01 - 100 | M | The name of the end customer/Company bank from which send client/company received the money. The value received from the Bank List API response in the **name** tag. eg: Emirates NBD (Please enter valid receiver bank details for a successful transaction) |
@@ -255,7 +255,7 @@ POST http://host/ewallet/api/v1/payoutProcess/api
         "payinCurrency": "USD-USA",
         "type": "B2B",
         "requestDate": "10-01-2025",
-        "sendClientTrxReference": "RSGPOD0DS7",
+        "sendClientTrxReference": "INV1234567891",
         "descriptionText": "324532423423",
         "paymentMode": "Cash",
         "sendClientCode": "1000008929",
@@ -272,15 +272,15 @@ POST http://host/ewallet/api/v1/payoutProcess/api
         "business": {
             "isAutoRegistered": true,
             "declaration": true,
-            "docReferenceNumber": "CUS5NBRGUQ",
-            "businessName": "Delhi Daredevils",
+            "docReferenceNumber": "CUS1234568",
+            "businessName": "Example Trading Ltd",
             "businessType": "RHT011",
             "businessPinCode": "323434",
             "businessRegistrationNumber": "9099998988",
             "businessPrimaryContactNumber": "9899998988",
             "businessRegistrationType": "RHB002",
             "businessRegistrationIssuedAt": "MWI",
-            "businessAddress1": "new delhi new",
+            "businessAddress1": "123 Example Street",
             "businessAddressState": "new delhi",
             "businessAddresssCity": "new delhi",
             "businessCountryCode": "MWI",
@@ -290,9 +290,9 @@ POST http://host/ewallet/api/v1/payoutProcess/api
         "customer": {
             "isAutoRegistered": true,
             "declaration": true,
-            "docReferenceNumber": "CUS2VAMEHI",
-            "senderFirstName": "Rajesh",
-            "senderLastName": "singh",
+            "docReferenceNumber": "CUS1234567",
+            "senderFirstName": "John",
+            "senderLastName": "Doe",
             "senderGender": "male",
             "senderNationality": "MWI",
             "senderDOB":"2012-09-08",
@@ -312,25 +312,25 @@ POST http://host/ewallet/api/v1/payoutProcess/api
     "receiver": {
         //for B2B/C2B
         "business": {
-            "businessName": "Gujarat titans",
+            "businessName": "Sample Exports Ltd",
             "businessType": "RHT011",
             "businessRegistrationType": "RHB002",
             "businessRegistrationIssuedAt": "ARE",
-            "businessAddress1": "new delhi new",
+            "businessAddress1": "123 Example Street",
             "businessAddressState": "new delhi",
             "businessAddresssCity": "new delhi",
             "businessPrimaryContactNumber": "9899998988",
             "businessCountryCode": "ARE",
-            "businessAccountNumber": "AE110260000959024298101",
-            "businessAccountHolderName": "Gujarat titans ",
+            "businessAccountNumber": "AE070331234567890123456",
+            "businessAccountHolderName": "Sample Exports Ltd ",
             "businessBankName": "Emirates NBD",
             "businessBankCode": "",
             "businessSwiftCode": "EBILAEAD"
         }
         //for B2C/C2C
         "customer": {
-            "receiverFirstName": "kuldeep",
-            "receiverLastName": "singh",
+            "receiverFirstName": "Jane",
+            "receiverLastName": "Doe",
             "receiverGender": "male",
             "receiverNationality": "ARE",
             "receiverAddressLineOne": "dubai",
@@ -340,8 +340,8 @@ POST http://host/ewallet/api/v1/payoutProcess/api
             "receiverAddresssCity": "dubai",
             "receiverBankName": "Emirates NBD",
             "receiverBankCode": "",
-            "receiverAccountNumber": "AE110260000959024298101",
-            "receiverAccountHolderName": "kuldeep singh",
+            "receiverAccountNumber": "AE070331234567890123456",
+            "receiverAccountHolderName": "Jane Doe",
             "receiverSwiftCode": "EBILAEAD"
         }
         },
@@ -383,7 +383,7 @@ Rest request details remain same as mentioned above.
       "payinCurrency": "USD-USA",
       "type": "B2B",
       "requestDate": "17-01-2025",
-      "sendClientTrxReference": "ASDEWEDE66",
+      "sendClientTrxReference": "INV1234567890",
       "descriptionText": "324532423423",
       "paymentMode": "Cash",
       "paymentOption": "Account",
@@ -413,25 +413,25 @@ Rest request details remain same as mentioned above.
   "receiver": {
       //for B2B/C2B
       "business": {
-          "businessName": "Gujarat titans",
+          "businessName": "Sample Exports Ltd",
           "businessType": "RHT011",
           "businessRegistrationType": "RHB002",
           "businessRegistrationIssuedAt": "ARE",
-          "businessAddress1": "new delhi new",
+          "businessAddress1": "123 Example Street",
           "businessAddressState": "new delhi",
           "businessAddresssCity": "new delhi",
           "businessPrimaryContactNumber": "9899998988",
           "businessCountryCode": "ARE",
-          "businessAccountNumber": "AE110260000959024298101",
-          "businessAccountHolderName": "Gujarat titans ",
+          "businessAccountNumber": "AE070331234567890123456",
+          "businessAccountHolderName": "Sample Exports Ltd ",
           "businessBankName": "Emirates NBD",
           "businessBankCode": "",
           "businessSwiftCode": "EBILAEAD"
       }
       //for B2C/C2C
       "customer": {
-          "receiverFirstName": "kuldeep",
-          "receiverLastName": "singh",
+          "receiverFirstName": "Jane",
+          "receiverLastName": "Doe",
           "receiverGender": "male",
           "receiverNationality": "ARE",
           "receiverAddressLineOne": "dubai",
@@ -441,8 +441,8 @@ Rest request details remain same as mentioned above.
           "receiverAddresssCity": "dubai",
           "receiverBankName": "Emirates NBD",
           "receiverBankCode": "",
-          "receiverAccountNumber": "AE110260000959024298101",
-          "receiverAccountHolderName": "kuldeep singh",
+          "receiverAccountNumber": "AE070331234567890123456",
+          "receiverAccountHolderName": "Jane Doe",
           "receiverSwiftCode": "EBILAEAD"
       }
       },
@@ -506,11 +506,11 @@ Rest request details remain same as mentioned above.
 "payoutResponseBean": {
 "transReference": "197930",
 "payinDate": "2023-08-03T12:22:10.904+0530",
-"clientReferenceNumber": "PAYAFMRF61",
+"clientReferenceNumber": "REF1234567890",
 "sendClientCode": "1000008340",
-"senderName": "HCL Technologies",
+"senderName": "Example Trading Ltd",
 "senderNumber": "5123456789",
-"beneficiaryName": "HCL Software",
+"beneficiaryName": "Sample Exports Ltd",
 "beneficiaryNumber": "123456789",
 "beneficiaryBank": "Mizuho Bank,Ltd.-0001",
 "accountNumber": "1234567",
@@ -523,12 +523,12 @@ Rest request details remain same as mentioned above.
 "senderMargin": 0.9899999999,
 "descriptionText": "invoiceno789777",
 "sendClientMarginValue": 0.0,
-"beneficiaryAccountHolderName": "Gujarat titans ",
-"sendClientName": "ESTEL",
+"beneficiaryAccountHolderName": "Sample Exports Ltd ",
+"sendClientName": "EXAMPLE",
 "senderCountry": "Malawi",
 "sendClientPhoneNumber": "533545636654",
 "sendClientAddress1": "Malawi, Malawi",
-"customerId": "100000892911850B",
+"customerId": "100000000000001B",
 "customerCode": "1000000850",
 "paymentMode": "Cash",
   }

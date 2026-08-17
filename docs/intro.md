@@ -52,7 +52,6 @@ fits and where the decisions are.
 
 - [Current API error codes](/docs/errors/current-error-codes)
 - [Transaction status codes](/docs/errors/transaction-status-codes)
-- [HTTP and application error codes](/docs/errors/error-codes)
 
 </div>
 

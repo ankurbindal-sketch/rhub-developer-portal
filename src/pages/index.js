@@ -245,32 +245,6 @@ function Capabilities() {
   );
 }
 
-function Fidelity() {
-  return (
-    <section className="rhub-section">
-      <div className="container">
-        <span className="rhub-eyebrow">Documentation fidelity</span>
-        <h2>What this portal does and does not claim</h2>
-        <div className="rhub-note">
-          <p>
-            Every endpoint, HTTP method, field name, type, length, requirement flag, validation
-            rule, status code, error code and example comes from RHUB: the documentation source,
-            current supplemental data such as the error-code reference, and operational guidance
-            confirmed by the RHUB team. Nothing has been inferred from general API conventions.
-          </p>
-          <p>
-            Where RHUB has not established something, the page says{' '}
-            <strong>REVIEW REQUIRED</strong> rather than filling the gap. Rate limits,
-            idempotency, retries, webhooks and SDKs are not part of the RHUB API documentation, so
-            they are absent here. See{' '}
-            <Link to="/docs/getting-started/conventions">how to read this reference</Link>.
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 export default function Home() {
   return (
     <Layout
@@ -280,7 +254,6 @@ export default function Home() {
       <EntryPoints />
       <Journey />
       <Capabilities />
-      <Fidelity />
     </Layout>
   );
 }

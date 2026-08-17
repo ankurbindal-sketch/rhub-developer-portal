@@ -2,6 +2,7 @@
 title: "Error codes"
 sidebar_label: "HTTP and application error codes"
 description: "RHUB HTTP status codes and application error codes."
+unlisted: true
 ---
 
 # Error codes
