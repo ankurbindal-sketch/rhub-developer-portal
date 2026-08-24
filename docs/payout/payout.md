@@ -16,11 +16,11 @@ Initiate a fund transfer for a completed quotation.
 <div className="rhub-checklist">
 
 1. Authenticate and obtain an access token.
-2. Determine customer status: use the existing customer code, or pre-register the customer, or use the supported on-the-fly registration path in the Payout request.
-3. Ensure the required KYC/KYB documentation has been uploaded and the applicable `docReferenceNumber` is available.
-4. For B2B, B2C and C2B, ensure the required invoice documentation is available and the applicable `sendClientTrxReference` value is used.
-5. Obtain a valid quotation.
-6. Obtain the master, reference, bank or validation data your route and use case require — only the ones you actually need, not every master API.
+2. Obtain a quotation. The customer does not need to be registered first: pass an existing `customerCode`, or send it blank.
+3. Upload the required KYC/KYB documentation and keep the `docReferenceNumber`. For B2B, B2C and C2B, upload the required invoice documentation and use the applicable `sendClientTrxReference`.
+4. Resolve customer registration: use the customer code you already hold, register through the Customer Registration API, or use on-the-fly registration in this request.
+5. Obtain the beneficiary bank information from the Bank List API where the route requires it.
+6. Fetch the master and reference values required by the selected transaction type, route and payout payload — only the ones you need.
 7. Submit the Payout request.
 
 </div>

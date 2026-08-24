@@ -27,6 +27,6 @@ The following flow describes the remit to the wallet flow.
 
 ## Where these flows meet the APIs
 
-Both settlement flows use the same integration sequence — authenticate, prepare the customer
-and documents, quote, pay out, then check status. See the
+Both settlement flows use the same integration sequence — authenticate, quote, prepare
+documents and the customer, then pay out and check the transaction. See the
 [integration flow](/docs/getting-started/integration-flow) for the decision points.

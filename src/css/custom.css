@@ -1084,6 +1084,17 @@ article h4 {
   border: 2px solid var(--rhub-orange);
 }
 
+.rhub-journey__kind {
+  display: inline-block;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.63rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--rhub-orange-ink);
+  margin-left: var(--rhub-space-3);
+}
+
 .rhub-journey__index {
   display: block;
   font-family: var(--ifm-font-family-monospace);

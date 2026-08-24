@@ -8,20 +8,20 @@
     {
       "id": "existing",
       "label": "Existing customer",
-      "summary": "The customer has already been registered with RHUB.",
-      "action": "Use the existing customer code for the transaction. Do not register the customer again."
+      "summary": "RHUB already holds the customer.",
+      "action": "Continue with the customer code you hold — at quotation and at payout. No further registration is needed."
     },
     {
       "id": "pre-register",
       "label": "New customer, registered before payout",
       "summary": "The customer is not yet known to RHUB and you want to register them as a separate step.",
-      "action": "Register the customer with the Customer Registration API, then use the resulting customer code for the payout."
+      "action": "After the quotation, register the customer with the Customer Registration API and use the resulting customer code for the payout."
     },
     {
       "id": "on-the-fly",
       "label": "New customer, registered on the fly",
       "summary": "The customer is not yet known to RHUB and you want to register them as part of the payout.",
-      "action": "RHUB supports customer registration as part of the Payout flow. A separate Customer Registration call is not required on this path; the Payout fields governing it (for example isAutoRegistered, declaration and the sender details) remain exactly as the Payout contract defines them."
+      "action": "RHUB supports registration inside the Payout flow, governed by `isAutoRegistered` and the sender details the Payout contract defines. No separate Customer Registration call is needed."
     }
   ],
   "customerNote": "Customer Registration is not a mandatory standalone call before every payout. Which of the three paths applies depends on whether the customer is already registered and how you choose to register new customers.",
@@ -73,11 +73,11 @@
   ],
   "payoutPrerequisites": [
     "Authenticate and obtain an access token.",
-    "Determine customer status: use the existing customer code, or pre-register the customer, or use the supported on-the-fly registration path in the Payout request.",
-    "Ensure the required KYC/KYB documentation has been uploaded and the applicable `docReferenceNumber` is available.",
-    "For B2B, B2C and C2B, ensure the required invoice documentation is available and the applicable `sendClientTrxReference` value is used.",
-    "Obtain a valid quotation.",
-    "Obtain the master, reference, bank or validation data your route and use case require — only the ones you actually need, not every master API.",
+    "Obtain a quotation. The customer does not need to be registered first: pass an existing `customerCode`, or send it blank.",
+    "Upload the required KYC/KYB documentation and keep the `docReferenceNumber`. For B2B, B2C and C2B, upload the required invoice documentation and use the applicable `sendClientTrxReference`.",
+    "Resolve customer registration: use the customer code you already hold, register through the Customer Registration API, or use on-the-fly registration in this request.",
+    "Obtain the beneficiary bank information from the Bank List API where the route requires it.",
+    "Fetch the master and reference values required by the selected transaction type, route and payout payload — only the ones you need.",
     "Submit the Payout request."
   ],
   "openQuestions": [],
@@ -186,5 +186,83 @@
       "resolvedBy": "RHUB decision D6 (2026-08-17)",
       "resolution": "Not required for C2C: omit the parameter or send it blank. Required for B2B, B2C and C2B."
     }
-  ]
+  ],
+  "integrationSequence": {
+    "id": "D11",
+    "receivedOn": "2026-08-17",
+    "note": "Authoritative RHUB integration sequence. Supersedes the earlier ordering, which placed customer status and KYC/KYB before Quotation.",
+    "steps": [
+      {
+        "n": 1,
+        "name": "Authentication",
+        "kind": "Core transaction API",
+        "summary": "Obtain the access token; send it as `Authorization: Bearer <access_token>` on every later call."
+      },
+      {
+        "n": 2,
+        "name": "Quotation",
+        "kind": "Core transaction API",
+        "summary": "Price the transaction. The customer does not need to be registered first: pass an existing `customerCode`, or send it blank."
+      },
+      {
+        "n": 3,
+        "name": "Document Upload",
+        "kind": "Preparation",
+        "summary": "Upload the KYC/KYB documentation payout requires, and invoice documentation for B2B, B2C and C2B."
+      },
+      {
+        "n": 4,
+        "name": "Customer registration decision",
+        "kind": "Conditional / decision",
+        "summary": "Existing customer: continue with the customer code you hold. New customer: register through the Customer Registration API, or register on the fly during Payout."
+      },
+      {
+        "n": 5,
+        "name": "Bank List",
+        "kind": "Preparation / reference",
+        "summary": "Fetch the beneficiary bank information the payout route requires."
+      },
+      {
+        "n": 6,
+        "name": "Master / reference data",
+        "kind": "Preparation / reference",
+        "summary": "Fetch the master and reference values required by the selected transaction type, route and payout payload."
+      },
+      {
+        "n": 7,
+        "name": "Payout",
+        "kind": "Core transaction API",
+        "summary": "Submit the payout request."
+      },
+      {
+        "n": 8,
+        "name": "Transaction Enquiry",
+        "kind": "Core transaction API",
+        "summary": "Retrieve the state of the transaction."
+      },
+      {
+        "n": 9,
+        "name": "Balance",
+        "kind": "Final / supporting",
+        "summary": "The final API in the documented sequence; may be used to retrieve the current balance."
+      }
+    ]
+  },
+  "quotationCustomerBehaviour": {
+    "id": "D12",
+    "receivedOn": "2026-08-17",
+    "rule": "A quotation can be requested before the customer is registered.",
+    "registeredCustomer": {
+      "field": "customerCode",
+      "value": "existing RHUB customer code",
+      "example": "1000008989"
+    },
+    "unregisteredCustomer": {
+      "field": "customerCode",
+      "value": "empty string",
+      "example": ""
+    },
+    "registrationTiming": "Customer registration may be completed after Quotation and before or during Payout — either through the Customer Registration API or through on-the-fly registration in the Payout request.",
+    "contractNote": "The Quotation contract already marks `customerCode` Optional. That flag is unchanged."
+  }
 }

@@ -84,6 +84,21 @@ def sanitise_examples(text):
     return '\n'.join(fix_line(l) for l in out.split('\n'))
 
 
+def sequence_steps():
+    """The RHUB-confirmed integration sequence, from the guidance source."""
+    if not GUIDANCE or 'integrationSequence' not in GUIDANCE:
+        return []
+    return GUIDANCE['integrationSequence']['steps']
+
+
+def quotation_behaviour(key, sub=None):
+    if not GUIDANCE or 'quotationCustomerBehaviour' not in GUIDANCE:
+        return ''
+    q = GUIDANCE['quotationCustomerBehaviour']
+    v = q.get(key, '')
+    return v.get(sub, '') if (sub and isinstance(v, dict)) else v
+
+
 def customer_paths_block(heading_level=2):
     """The three customer paths as headed sections."""
     if not GUIDANCE:
@@ -493,156 +508,88 @@ fits and where the decisions are.
 # --------------------------------------------------------------------------
 
 def build_getting_started():
-    body = f"""# Integration flow
+    steps = sequence_steps()
+    journey = ['<div className="rhub-journey">', '']
+    for st in steps:
+        journey += ['<div className="rhub-journey__step">',
+                    '<span className="rhub-journey__index">%02d</span>' % st['n'],
+                    '<span className="rhub-journey__kind">%s</span>' % st['kind'], '']
+        if st['name'] == 'Quotation':
+            journey += ['**[Quotation](/docs/quotation/quotation)**', '',
+                        st['summary'], '',
+                        '<div className="rhub-branches">', '',
+                        '<div className="rhub-branch">',
+                        '<span className="rhub-branch__label">Registered customer</span>', '',
+                        'Send the existing RHUB customer code in `customerCode`.', '',
+                        '</div>', '',
+                        '<div className="rhub-branch">',
+                        '<span className="rhub-branch__label">Unregistered customer</span>', '',
+                        'Send `customerCode` as an empty value. Registration happens later.', '',
+                        '</div>', '', '</div>', '']
+        elif st['name'] == 'Customer registration decision':
+            journey += ['**Customer registration decision**', '',
+                        'Resolve the customer before payout — not before the quotation.', '',
+                        '<div className="rhub-branches">', '',
+                        '<div className="rhub-branch">',
+                        '<span className="rhub-branch__label">Already registered</span>', '',
+                        'Continue with the customer code you hold.', '',
+                        '</div>', '',
+                        '<div className="rhub-branch">',
+                        '<span className="rhub-branch__label">Not registered</span>', '',
+                        'Register with the '
+                        '[Customer Registration API](/docs/customers/customer-registration), or '
+                        'use on-the-fly registration in the '
+                        '[Payout](/docs/payout/payout) request.', '',
+                        '</div>', '', '</div>', '']
+        else:
+            links = {
+                'Authentication': '/docs/authentication/authentication',
+                'Document Upload': '/docs/documents/document-upload',
+                'Bank List': '/docs/master-apis/bank-list',
+                'Master / reference data': '/docs/master-apis',
+                'Payout': '/docs/payout/payout',
+                'Transaction Enquiry': '/docs/transactions/transaction-enquiry',
+                'Balance': '/docs/balance/balance-enquiry',
+            }
+            target = links.get(st['name'])
+            title = '**[%s](%s)**' % (st['name'], target) if target else '**%s**' % st['name']
+            journey += [title, '', st['summary'], '']
+        journey += ['</div>', '']
+    journey.append('</div>')
+
+    body = """# Integration flow
 
 Authentication, Quotation, Payout and Transaction Enquiry are the constant core of every
-integration. What happens around them depends on two questions: is the customer already
-registered, and what transaction type are you sending?
+integration. What happens between them depends on the customer and the transaction type.
 
-## The payout journey
+One point is worth stating up front: **a quotation does not require a registered customer**.
+You can price a transaction first and resolve registration afterwards.
 
-<div className="rhub-journey">
+## The integration sequence
 
-<div className="rhub-journey__step">
-<span className="rhub-journey__index">01</span>
-
-**[Authenticate](/docs/authentication/authentication)**
-
-Obtain the access token every other call depends on.
-
-</div>
-
-<div className="rhub-journey__step rhub-journey__step--branch">
-<span className="rhub-journey__index">02</span>
-
-**Customer status**
-
-<div className="rhub-branches">
-
-<div className="rhub-branch">
-<span className="rhub-branch__label">Existing customer</span>
-
-Use the customer code you already hold. Do not register the customer again.
-
-</div>
-
-<div className="rhub-branch">
-<span className="rhub-branch__label">New customer</span>
-
-Either register first with [Customer Registration](/docs/customers/customer-registration),
-or register on the fly as part of the Payout request.
-
-</div>
-
-</div>
-
-</div>
-
-<div className="rhub-journey__step">
-<span className="rhub-journey__index">03</span>
-
-**[KYC / KYB document](/docs/documents/document-upload)**
-
-Upload the customer verification documentation required for payout — KYC for individual
-customers, KYB for business customers. The Payout request carries the resulting reference in
-`docReferenceNumber`.
-
-</div>
-
-<div className="rhub-journey__step">
-<span className="rhub-journey__index">04</span>
-
-**[Quotation](/docs/quotation/quotation)**
-
-Obtain the rate, charges and quote identifier for the transaction.
-
-</div>
-
-<div className="rhub-journey__step rhub-journey__step--branch">
-<span className="rhub-journey__index">05</span>
-
-**Transaction type**
-
-<div className="rhub-branches">
-
-<div className="rhub-branch">
-<span className="rhub-branch__label">C2C</span>
-
-No invoice-document requirement applies.
-
-</div>
-
-<div className="rhub-branch">
-<span className="rhub-branch__label">B2B · B2C · C2B</span>
-
-Invoice documentation is required. The invoice reference is carried by
-`sendClientTrxReference` in the Payout request.
-
-</div>
-
-</div>
-
-</div>
-
-<div className="rhub-journey__step">
-<span className="rhub-journey__index">06</span>
-
-**Reference and beneficiary preparation**
-
-Fetch only the reference data your route needs — the
-[Bank List](/docs/master-apis/bank-list) for the beneficiary bank, other
-[master APIs](/docs/master-apis) for coded fields, and the
-[currency](/docs/validation/currency-validations) or
-[country](/docs/validation/country-validations) tables for correspondent-specific
-conditional fields.
-
-</div>
-
-<div className="rhub-journey__step">
-<span className="rhub-journey__index">07</span>
-
-**[Payout](/docs/payout/payout)**
-
-Submit the payout request, or [WPT Payout](/docs/payout/wpt-payout) for wallet payouts.
-
-</div>
-
-<div className="rhub-journey__step">
-<span className="rhub-journey__index">08</span>
-
-**[Transaction Enquiry](/docs/transactions/transaction-enquiry)**
-
-Check the status of the payout. Statuses are listed under
-[transaction status codes](/docs/errors/transaction-status-codes).
-
-</div>
-
-</div>
+%s
 
 ## What is core, what is conditional, what is supporting
 
 | Category | APIs | When |
 |---|---|---|
 | Core transaction APIs | Authentication, Quotation, Payout, Transaction Enquiry | Every payout |
-| Conditional preparation | Customer Registration, Document Upload | Depends on customer status and transaction type |
-| Supporting / reference | Master APIs, Bank List, Balance Enquiry, currency and country validations | As your route or use case requires |
+| Conditional preparation | Document Upload, Customer Registration | Depends on the customer and the transaction type |
+| Preparation / reference | Bank List, other master APIs, currency and country validations | As the route and payload require |
+| Final / supporting | Balance | The final API in the documented sequence |
 
 ## Supporting capabilities
 
-None of these sit on the critical path of a payout.
-
-- [Master / reference APIs](/docs/master-apis) — configuration data such as remittance
-  purpose, source of funds, relationship, occupation, bank list and wallet list. Call the
-  ones your request needs; there is no requirement to call them all.
+- [Master / reference APIs](/docs/master-apis) — fetch the coded values your transaction type,
+  route and payload require. There is no requirement to call them all.
 - [Balance Enquiry](/docs/balance/balance-enquiry) — the current wallet or account balance.
-  A supporting call, not a step that closes out a payout.
 - [Currency validations](/docs/validation/currency-validations) and
   [country validations](/docs/validation/country-validations) — which conditional fields a
   given correspondent, currency or country requires.
-"""
+""" % '\n'.join(journey)
     write('getting-started/integration-flow.md',
           {'title': 'Integration flow', 'sidebar_label': 'Integration flow',
-           'description': 'How the RHUB APIs fit together: the core payout flow, conditional preparation steps and supporting reference APIs.'}, body)
+           'description': 'The RHUB integration sequence: authenticate, quote, prepare documents and customer, then pay out.'}, body)
     rec('apisequence.md', 'docs/getting-started/integration-flow.md', 'COMPLETE',
         'Sequence list and all cross-references remapped to portal routes. Source diagram '
         '(img/apiseq.png) is commented out in the source and the asset is not in the export.')
@@ -666,8 +613,8 @@ beneficiary's wallet. Which one applies determines the payout API you call —
 
 ## Where these flows meet the APIs
 
-Both settlement flows use the same integration sequence — authenticate, prepare the customer
-and documents, quote, pay out, then check status. See the
+Both settlement flows use the same integration sequence — authenticate, quote, prepare
+documents and the customer, then pay out and check the transaction. See the
 [integration flow](/docs/getting-started/integration-flow) for the decision points.
 """
     write('getting-started/transaction-flows.md',
@@ -835,14 +782,64 @@ def build_quotation():
     conv = R.convert(s['body'], promote_headings=1)
     extra = """Price a transaction before you initiate it.
 
-Call Quotation after authenticating and before Payout. It returns the forex rate between the
-payin and payout currencies together with the applicable charges, so the sender can see the
-rate, fees and resulting payout amount before the transaction is confirmed. The source
-describes this as an indicative price and transaction limit, not a guaranteed final price.
+Call Quotation immediately after authenticating. It returns the forex rate between the payin
+and payout currencies together with the applicable charges, so the sender can see the rate,
+fees and resulting payout amount before the transaction is confirmed. RHUB describes this as
+an indicative price and transaction limit, not a guaranteed final price.
 
 `payinAmount` and `payoutAmount` are conditional alternatives: supply one or the other, as
 the field table below states. The quotation data returned here is then used by the
-[Payout request](/docs/payout/payout) where the contract establishes that relationship.
+[Payout request](/docs/payout/payout).
+
+## Customer registration and quotation
+
+**You can request a quotation before the customer is registered.** Registration is resolved
+later, between the quotation and the payout.
+
+- **Existing customer** — send the RHUB `customerCode` you already hold.
+- **New or unregistered customer** — send `customerCode` as an empty value.
+
+`customerCode` is Optional in the contract below; that flag is unchanged.
+
+Unregistered customer:
+
+```json
+{
+  "payinAmount": "",
+  "payoutAmount": "200",
+  "sendCurrencyCode": "USD-USA",
+  "customerCode": "",
+  "destinationCountryCode": "IND",
+  "receiveCurrencyCode": "USD-GLOBAL",
+  "settlementCurrencyCode": "USD-USA",
+  "paymentMode": "Cash",
+  "sourceCountry": "MWI",
+  "senderCode": "1000008960",
+  "serviceTypeCode": "C2C"
+}
+```
+
+Already registered customer:
+
+```json
+{
+  "payinAmount": "",
+  "payoutAmount": "200",
+  "sendCurrencyCode": "USD-USA",
+  "customerCode": "1000008989",
+  "destinationCountryCode": "IND",
+  "receiveCurrencyCode": "USD-GLOBAL",
+  "settlementCurrencyCode": "USD-USA",
+  "paymentMode": "Cash",
+  "sourceCountry": "MWI",
+  "senderCode": "1000008960",
+  "serviceTypeCode": "C2C"
+}
+```
+
+After the quotation, register a new customer either through the
+[Customer Registration API](/docs/customers/customer-registration) or on the fly during
+[Payout](/docs/payout/payout).
 
 ## Contract"""
     api_page('quotation/quotation.md',
@@ -865,7 +862,8 @@ def build_document_upload():
     s = secs[0]
     conv = R.convert(s['body'], promote_headings=1)
     extra = """Upload the documents a payout depends on and obtain the reference the Payout request
-carries.
+carries. Document upload follows the [quotation](/docs/quotation/quotation) and precedes the
+[payout](/docs/payout/payout).
 
 ## Two document purposes
 
@@ -909,8 +907,10 @@ on subsequent transactions.
 
 ## When to use this API
 
-Customer Registration is not a mandatory call before every payout. Which path applies
-depends on whether RHUB already knows the customer.
+Customer Registration is not a mandatory call before every payout, and it is **not** a
+prerequisite for a quotation — you can price a transaction first with a blank `customerCode`
+and resolve registration afterwards. Which path applies depends on whether RHUB already knows
+the customer.
 
 %s
 Coded fields in the request draw their values from the master APIs — for example
@@ -1026,6 +1026,8 @@ def build_enquiry():
              {'title': 'Transaction Enquiry', 'sidebar_label': 'Transaction Enquiry',
               'description': 'RHUB Transaction Enquiry API — check the status of a previously initiated payout.'},
              tx['method'], 'Transaction Enquiry', conv, 'ENQUIRY.md',
+             extra_top='Check the state of a transaction after the '
+                       '[payout](/docs/payout/payout) has been submitted.\n\n## Contract',
              related=[('Payout', '/docs/payout/payout'),
                       ('Transaction status codes', '/docs/errors/transaction-status-codes'),
                       ('Balance Enquiry', '/docs/balance/balance-enquiry'),
@@ -1037,6 +1039,10 @@ def build_enquiry():
              {'title': 'Balance Enquiry', 'sidebar_label': 'Balance Enquiry',
               'description': 'RHUB Balance Enquiry API — retrieve the current wallet or account balance.'},
              bal['method'], 'Balance Enquiry', conv, 'ENQUIRY.md',
+             extra_top='Retrieve the current balance. Balance is the final API in the '
+                       '[documented integration sequence](/docs/getting-started/integration-flow); '
+                       'call it when you need the current balance rather than after every '
+                       'transaction.\n\n## Contract',
              related=[('Transaction Enquiry', '/docs/transactions/transaction-enquiry'),
                       ('Integration flow', '/docs/getting-started/integration-flow')])
 
@@ -1081,11 +1087,14 @@ def build_master():
 
     lines = ['# Master / reference APIs', '',
              provenance('master.md'), '',
-             'The master APIs supply the configuration and reference data required by the '
-             'transactional APIs. The source states that these APIs provide necessary '
-             'configuration data (for example remittance purpose, source of funds, bank lists '
-             'and occupations), and that they are subject to specific requirements and can be '
-             'invoked at any point within the sequence, depending on the use case.', '',
+             'Master APIs supply the coded values the transactional APIs expect — remittance '
+             'purpose, source of funds, relationship, occupation, bank lists and more. Fetch '
+             'the master and reference values required by the selected transaction type, route '
+             'and payout payload; there is no requirement to call them all. In the '
+             '[integration sequence](/docs/getting-started/integration-flow) they sit between '
+             'the customer-registration decision and the payout request, alongside the '
+             '[Bank List](/docs/master-apis/bank-list), which supplies the beneficiary bank '
+             'information a payout route requires.', '',
              '## Published master APIs', '',
              'These %d master APIs are documented and published in the RHUB source.' % len(rows), '',
              '| Master API | Method | Endpoint | Reference |', '|---|---|---|---|']
@@ -1952,6 +1961,21 @@ REGISTER = [
      'sitemap, and reachable only by direct URL.',
      'Not client-facing.',
      'HIDDEN/LEGACY'),
+    ('R18', 'Integration sequence ordering',
+     'homepage, docs overview, integration flow, quotation, customer registration, document '
+     'upload, payout, API index',
+     'No marker. The portal documented the sequence as authenticate, customer status, KYC/KYB, '
+     'quotation, transaction type, reference data, payout, transaction enquiry.',
+     'RHUB operational clarification, decisions D11 and D12 (2026-08-17), recorded in '
+     'source/RHUB_INTEGRATION_GUIDANCE.json.',
+     'Corrected sequence: Authentication, Quotation, Document Upload, customer-registration '
+     'decision, Bank List, master/reference data, Payout, Transaction Enquiry, Balance. A '
+     'quotation does not require a registered customer: pass an existing `customerCode` or '
+     'send it blank; registration is resolved before or during payout.',
+     'All public flow guidance regenerated from the corrected sequence in the guidance source. '
+     'No API contract changed; `customerCode` remains Optional on the Quotation contract.',
+     'Client-facing flow guidance, corrected.',
+     'RESOLVED'),
     ('R15', 'Authentication request example sent `scope`',
      'docs/authentication/authentication.md',
      'No marker. The public request example carried `scope=read%20write` although D3 states '
@@ -2041,13 +2065,13 @@ def build_review_register():
 
 INDEX_STAGES = {
     'authentication/authentication.md': 'Start',
-    'customers/customer-registration.md': 'Customer setup',
+    'quotation/quotation.md': 'Pricing / pre-registration',
     'documents/document-upload.md': 'Payout preparation',
-    'quotation/quotation.md': 'Pre-payout',
+    'customers/customer-registration.md': 'Conditional customer setup',
     'payout/payout.md': 'Transaction',
     'payout/wpt-payout.md': 'Transaction',
     'transactions/transaction-enquiry.md': 'Post-payout',
-    'balance/balance-enquiry.md': 'Supporting / reference',
+    'balance/balance-enquiry.md': 'Final / supporting',
 }
 
 # Sections excluded from the public index: they are not part of public navigation.
@@ -2059,12 +2083,16 @@ def build_api_index():
     for name, method, ep, page, purpose in API_INDEX:
         if page.startswith(INDEX_EXCLUDE_PREFIXES):
             continue
-        stage = INDEX_STAGES.get(page, 'Supporting / reference')
+        stage = INDEX_STAGES.get(page,
+                                 'Payout preparation / reference'
+                                 if page.startswith('master-apis/')
+                                 else 'Supporting / reference')
         row = (name, method, purpose, stage, ep, page)
         (masters if page.startswith('master-apis/') else core).append(row)
 
-    order = ['Start', 'Customer setup', 'Payout preparation', 'Pre-payout', 'Transaction',
-             'Post-payout', 'Supporting / reference']
+    order = ['Start', 'Pricing / pre-registration', 'Payout preparation',
+             'Conditional customer setup', 'Payout preparation / reference', 'Transaction',
+             'Post-payout', 'Final / supporting', 'Supporting / reference']
     core.sort(key=lambda r: order.index(r[3]) if r[3] in order else len(order))
 
     def render(rows):

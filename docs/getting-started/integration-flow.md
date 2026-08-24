@@ -1,47 +1,52 @@
 ---
 title: "Integration flow"
 sidebar_label: "Integration flow"
-description: "How the RHUB APIs fit together: the core payout flow, conditional preparation steps and supporting reference APIs."
+description: "The RHUB integration sequence: authenticate, quote, prepare documents and customer, then pay out."
 ---
 
 # Integration flow
 
 Authentication, Quotation, Payout and Transaction Enquiry are the constant core of every
-integration. What happens around them depends on two questions: is the customer already
-registered, and what transaction type are you sending?
+integration. What happens between them depends on the customer and the transaction type.
 
-## The payout journey
+One point is worth stating up front: **a quotation does not require a registered customer**.
+You can price a transaction first and resolve registration afterwards.
+
+## The integration sequence
 
 <div className="rhub-journey">
 
 <div className="rhub-journey__step">
 <span className="rhub-journey__index">01</span>
+<span className="rhub-journey__kind">Core transaction API</span>
 
-**[Authenticate](/docs/authentication/authentication)**
+**[Authentication](/docs/authentication/authentication)**
 
-Obtain the access token every other call depends on.
+Obtain the access token; send it as `Authorization: Bearer <access_token>` on every later call.
 
 </div>
 
-<div className="rhub-journey__step rhub-journey__step--branch">
+<div className="rhub-journey__step">
 <span className="rhub-journey__index">02</span>
+<span className="rhub-journey__kind">Core transaction API</span>
 
-**Customer status**
+**[Quotation](/docs/quotation/quotation)**
+
+Price the transaction. The customer does not need to be registered first: pass an existing `customerCode`, or send it blank.
 
 <div className="rhub-branches">
 
 <div className="rhub-branch">
-<span className="rhub-branch__label">Existing customer</span>
+<span className="rhub-branch__label">Registered customer</span>
 
-Use the customer code you already hold. Do not register the customer again.
+Send the existing RHUB customer code in `customerCode`.
 
 </div>
 
 <div className="rhub-branch">
-<span className="rhub-branch__label">New customer</span>
+<span className="rhub-branch__label">Unregistered customer</span>
 
-Either register first with [Customer Registration](/docs/customers/customer-registration),
-or register on the fly as part of the Payout request.
+Send `customerCode` as an empty value. Registration happens later.
 
 </div>
 
@@ -51,80 +56,89 @@ or register on the fly as part of the Payout request.
 
 <div className="rhub-journey__step">
 <span className="rhub-journey__index">03</span>
+<span className="rhub-journey__kind">Preparation</span>
 
-**[KYC / KYB document](/docs/documents/document-upload)**
+**[Document Upload](/docs/documents/document-upload)**
 
-Upload the customer verification documentation required for payout — KYC for individual
-customers, KYB for business customers. The Payout request carries the resulting reference in
-`docReferenceNumber`.
+Upload the KYC/KYB documentation payout requires, and invoice documentation for B2B, B2C and C2B.
 
 </div>
 
 <div className="rhub-journey__step">
 <span className="rhub-journey__index">04</span>
+<span className="rhub-journey__kind">Conditional / decision</span>
 
-**[Quotation](/docs/quotation/quotation)**
+**Customer registration decision**
 
-Obtain the rate, charges and quote identifier for the transaction.
-
-</div>
-
-<div className="rhub-journey__step rhub-journey__step--branch">
-<span className="rhub-journey__index">05</span>
-
-**Transaction type**
+Resolve the customer before payout — not before the quotation.
 
 <div className="rhub-branches">
 
 <div className="rhub-branch">
-<span className="rhub-branch__label">C2C</span>
+<span className="rhub-branch__label">Already registered</span>
 
-No invoice-document requirement applies.
+Continue with the customer code you hold.
 
 </div>
 
 <div className="rhub-branch">
-<span className="rhub-branch__label">B2B · B2C · C2B</span>
+<span className="rhub-branch__label">Not registered</span>
 
-Invoice documentation is required. The invoice reference is carried by
-`sendClientTrxReference` in the Payout request.
+Register with the [Customer Registration API](/docs/customers/customer-registration), or use on-the-fly registration in the [Payout](/docs/payout/payout) request.
+
+</div>
 
 </div>
 
 </div>
+
+<div className="rhub-journey__step">
+<span className="rhub-journey__index">05</span>
+<span className="rhub-journey__kind">Preparation / reference</span>
+
+**[Bank List](/docs/master-apis/bank-list)**
+
+Fetch the beneficiary bank information the payout route requires.
 
 </div>
 
 <div className="rhub-journey__step">
 <span className="rhub-journey__index">06</span>
+<span className="rhub-journey__kind">Preparation / reference</span>
 
-**Reference and beneficiary preparation**
+**[Master / reference data](/docs/master-apis)**
 
-Fetch only the reference data your route needs — the
-[Bank List](/docs/master-apis/bank-list) for the beneficiary bank, other
-[master APIs](/docs/master-apis) for coded fields, and the
-[currency](/docs/validation/currency-validations) or
-[country](/docs/validation/country-validations) tables for correspondent-specific
-conditional fields.
+Fetch the master and reference values required by the selected transaction type, route and payout payload.
 
 </div>
 
 <div className="rhub-journey__step">
 <span className="rhub-journey__index">07</span>
+<span className="rhub-journey__kind">Core transaction API</span>
 
 **[Payout](/docs/payout/payout)**
 
-Submit the payout request, or [WPT Payout](/docs/payout/wpt-payout) for wallet payouts.
+Submit the payout request.
 
 </div>
 
 <div className="rhub-journey__step">
 <span className="rhub-journey__index">08</span>
+<span className="rhub-journey__kind">Core transaction API</span>
 
 **[Transaction Enquiry](/docs/transactions/transaction-enquiry)**
 
-Check the status of the payout. Statuses are listed under
-[transaction status codes](/docs/errors/transaction-status-codes).
+Retrieve the state of the transaction.
+
+</div>
+
+<div className="rhub-journey__step">
+<span className="rhub-journey__index">09</span>
+<span className="rhub-journey__kind">Final / supporting</span>
+
+**[Balance](/docs/balance/balance-enquiry)**
+
+The final API in the documented sequence; may be used to retrieve the current balance.
 
 </div>
 
@@ -135,18 +149,15 @@ Check the status of the payout. Statuses are listed under
 | Category | APIs | When |
 |---|---|---|
 | Core transaction APIs | Authentication, Quotation, Payout, Transaction Enquiry | Every payout |
-| Conditional preparation | Customer Registration, Document Upload | Depends on customer status and transaction type |
-| Supporting / reference | Master APIs, Bank List, Balance Enquiry, currency and country validations | As your route or use case requires |
+| Conditional preparation | Document Upload, Customer Registration | Depends on the customer and the transaction type |
+| Preparation / reference | Bank List, other master APIs, currency and country validations | As the route and payload require |
+| Final / supporting | Balance | The final API in the documented sequence |
 
 ## Supporting capabilities
 
-None of these sit on the critical path of a payout.
-
-- [Master / reference APIs](/docs/master-apis) — configuration data such as remittance
-  purpose, source of funds, relationship, occupation, bank list and wallet list. Call the
-  ones your request needs; there is no requirement to call them all.
+- [Master / reference APIs](/docs/master-apis) — fetch the coded values your transaction type,
+  route and payload require. There is no requirement to call them all.
 - [Balance Enquiry](/docs/balance/balance-enquiry) — the current wallet or account balance.
-  A supporting call, not a step that closes out a payout.
 - [Currency validations](/docs/validation/currency-validations) and
   [country validations](/docs/validation/country-validations) — which conditional fields a
   given correspondent, currency or country requires.

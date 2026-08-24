@@ -8,7 +8,7 @@ description: "Inventory of the RHUB master / reference APIs."
 
 # Master / reference APIs
 
-The master APIs supply the configuration and reference data required by the transactional APIs. The source states that these APIs provide necessary configuration data (for example remittance purpose, source of funds, bank lists and occupations), and that they are subject to specific requirements and can be invoked at any point within the sequence, depending on the use case.
+Master APIs supply the coded values the transactional APIs expect — remittance purpose, source of funds, relationship, occupation, bank lists and more. Fetch the master and reference values required by the selected transaction type, route and payout payload; there is no requirement to call them all. In the [integration sequence](/docs/getting-started/integration-flow) they sit between the customer-registration decision and the payout request, alongside the [Bank List](/docs/master-apis/bank-list), which supplies the beneficiary bank information a payout route requires.
 
 ## Published master APIs
 

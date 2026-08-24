@@ -9,7 +9,8 @@ description: "RHUB Document Upload API — KYC/KYB and invoice documentation for
 <span className="rhub-method rhub-method--post">POST</span>
 
 Upload the documents a payout depends on and obtain the reference the Payout request
-carries.
+carries. Document upload follows the [quotation](/docs/quotation/quotation) and precedes the
+[payout](/docs/payout/payout).
 
 ## Two document purposes
 

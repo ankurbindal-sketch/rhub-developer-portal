@@ -13,29 +13,31 @@ on subsequent transactions.
 
 ## When to use this API
 
-Customer Registration is not a mandatory call before every payout. Which path applies
-depends on whether RHUB already knows the customer.
+Customer Registration is not a mandatory call before every payout, and it is **not** a
+prerequisite for a quotation — you can price a transaction first with a blank `customerCode`
+and resolve registration afterwards. Which path applies depends on whether RHUB already knows
+the customer.
 
 <div className="rhub-cards rhub-cards--three">
 
 <div className="rhub-card">
 <span className="rhub-card__kicker">Existing customer</span>
 
-The customer has already been registered with RHUB. Use the existing customer code for the transaction. Do not register the customer again.
+RHUB already holds the customer. Continue with the customer code you hold — at quotation and at payout. No further registration is needed.
 
 </div>
 
 <div className="rhub-card">
 <span className="rhub-card__kicker">New customer, registered before payout</span>
 
-The customer is not yet known to RHUB and you want to register them as a separate step. Register the customer with the Customer Registration API, then use the resulting customer code for the payout.
+The customer is not yet known to RHUB and you want to register them as a separate step. After the quotation, register the customer with the Customer Registration API and use the resulting customer code for the payout.
 
 </div>
 
 <div className="rhub-card">
 <span className="rhub-card__kicker">New customer, registered on the fly</span>
 
-The customer is not yet known to RHUB and you want to register them as part of the payout. RHUB supports customer registration as part of the Payout flow. A separate Customer Registration call is not required on this path; the Payout fields governing it (for example isAutoRegistered, declaration and the sender details) remain exactly as the Payout contract defines them.
+The customer is not yet known to RHUB and you want to register them as part of the payout. RHUB supports registration inside the Payout flow, governed by `isAutoRegistered` and the sender details the Payout contract defines. No separate Customer Registration call is needed.
 
 </div>
 

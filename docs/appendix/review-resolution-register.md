@@ -26,6 +26,7 @@ Baseline audit: 175 occurrences, 14 unique issues, 12 on client-facing pages.
 | R11 | TABLE_OF_VALIDATIONS.xlsx | **HIDDEN/LEGACY** |
 | R12 | Duplicate warning on the errors overview | **RESOLVED / CONSOLIDATED** |
 | R13 | Publication-status warnings on unlisted pages | **HIDDEN/LEGACY** |
+| R18 | Integration sequence ordering | **RESOLVED** |
 | R15 | Authentication request example sent `scope` | **RESOLVED** |
 | R16 | Legacy HTTP/application error page in the client journey | **HIDDEN/LEGACY** |
 | R17 | Example payload data | **RESOLVED** |
@@ -199,6 +200,19 @@ Baseline audit: 175 occurrences, 14 unique issues, 12 on client-facing pages.
 | Resolution | They stay out of client navigation. Their warnings are correct in context. |
 | Documentation change | No change. Pages remain `unlisted: true`: absent from sidebar, API index, search and sitemap, and reachable only by direct URL. |
 | Final public treatment | Not client-facing. |
+
+## R18 — Integration sequence ordering
+
+**Status:** RESOLVED
+
+| | |
+|---|---|
+| Original page(s) | homepage, docs overview, integration flow, quotation, customer registration, document upload, payout, API index |
+| Original wording | No marker. The portal documented the sequence as authenticate, customer status, KYC/KYB, quotation, transaction type, reference data, payout, transaction enquiry. |
+| Evidence / decision | RHUB operational clarification, decisions D11 and D12 (2026-08-17), recorded in source/RHUB_INTEGRATION_GUIDANCE.json. |
+| Resolution | Corrected sequence: Authentication, Quotation, Document Upload, customer-registration decision, Bank List, master/reference data, Payout, Transaction Enquiry, Balance. A quotation does not require a registered customer: pass an existing `customerCode` or send it blank; registration is resolved before or during payout. |
+| Documentation change | All public flow guidance regenerated from the corrected sequence in the guidance source. No API contract changed; `customerCode` remains Optional on the Quotation contract. |
+| Final public treatment | Client-facing flow guidance, corrected. |
 
 ## R15 — Authentication request example sent `scope`
 

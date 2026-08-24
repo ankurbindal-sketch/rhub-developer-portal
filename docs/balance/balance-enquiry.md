@@ -8,6 +8,10 @@ description: "RHUB Balance Enquiry API — retrieve the current wallet or accoun
 
 <span className="rhub-method rhub-method--get">GET</span>
 
+Retrieve the current balance. Balance is the final API in the [documented integration sequence](/docs/getting-started/integration-flow); call it when you need the current balance rather than after every transaction.
+
+## Contract
+
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
     <span className="rhub-method rhub-method--get">GET</span>

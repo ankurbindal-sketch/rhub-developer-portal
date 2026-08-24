@@ -8,6 +8,10 @@ description: "RHUB Transaction Enquiry API — check the status of a previously 
 
 <span className="rhub-method rhub-method--get">GET</span>
 
+Check the state of a transaction after the [payout](/docs/payout/payout) has been submitted.
+
+## Contract
+
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
     <span className="rhub-method rhub-method--get">GET</span>

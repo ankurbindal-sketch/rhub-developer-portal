@@ -11,14 +11,64 @@ description: "RHUB Quotation API — fetch the forex rate between payin and payo
 
 Price a transaction before you initiate it.
 
-Call Quotation after authenticating and before Payout. It returns the forex rate between the
-payin and payout currencies together with the applicable charges, so the sender can see the
-rate, fees and resulting payout amount before the transaction is confirmed. The source
-describes this as an indicative price and transaction limit, not a guaranteed final price.
+Call Quotation immediately after authenticating. It returns the forex rate between the payin
+and payout currencies together with the applicable charges, so the sender can see the rate,
+fees and resulting payout amount before the transaction is confirmed. RHUB describes this as
+an indicative price and transaction limit, not a guaranteed final price.
 
 `payinAmount` and `payoutAmount` are conditional alternatives: supply one or the other, as
 the field table below states. The quotation data returned here is then used by the
-[Payout request](/docs/payout/payout) where the contract establishes that relationship.
+[Payout request](/docs/payout/payout).
+
+## Customer registration and quotation
+
+**You can request a quotation before the customer is registered.** Registration is resolved
+later, between the quotation and the payout.
+
+- **Existing customer** — send the RHUB `customerCode` you already hold.
+- **New or unregistered customer** — send `customerCode` as an empty value.
+
+`customerCode` is Optional in the contract below; that flag is unchanged.
+
+Unregistered customer:
+
+```json
+{
+  "payinAmount": "",
+  "payoutAmount": "200",
+  "sendCurrencyCode": "USD-USA",
+  "customerCode": "",
+  "destinationCountryCode": "IND",
+  "receiveCurrencyCode": "USD-GLOBAL",
+  "settlementCurrencyCode": "USD-USA",
+  "paymentMode": "Cash",
+  "sourceCountry": "MWI",
+  "senderCode": "1000008960",
+  "serviceTypeCode": "C2C"
+}
+```
+
+Already registered customer:
+
+```json
+{
+  "payinAmount": "",
+  "payoutAmount": "200",
+  "sendCurrencyCode": "USD-USA",
+  "customerCode": "1000008989",
+  "destinationCountryCode": "IND",
+  "receiveCurrencyCode": "USD-GLOBAL",
+  "settlementCurrencyCode": "USD-USA",
+  "paymentMode": "Cash",
+  "sourceCountry": "MWI",
+  "senderCode": "1000008960",
+  "serviceTypeCode": "C2C"
+}
+```
+
+After the quotation, register a new customer either through the
+[Customer Registration API](/docs/customers/customer-registration) or on the fly during
+[Payout](/docs/payout/payout).
 
 ## Contract
 

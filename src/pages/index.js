@@ -16,57 +16,57 @@ const JOURNEY = [
     index: '01',
     kind: 'Core transaction API',
     name: 'Authenticate',
-    note: 'Obtain the access token every other call depends on.',
+    note: 'Obtain the access token every other call carries.',
     to: '/docs/authentication/authentication',
   },
   {
     index: '02',
-    kind: 'Preparation / decision',
-    name: 'Customer',
-    note: 'Existing customer: use the customer code you hold. New customer: register beforehand, or on the fly during Payout.',
-    to: '/docs/customers/customer-registration',
+    kind: 'Core transaction API',
+    name: 'Quotation',
+    note: 'Price the transaction. No registered customer needed: send an existing customerCode, or send it blank.',
+    to: '/docs/quotation/quotation',
   },
   {
     index: '03',
     kind: 'Preparation',
-    name: 'KYC / KYB',
-    note: 'Required for payout — KYC for individual customers, KYB for business customers. Payout carries the reference in docReferenceNumber.',
+    name: 'Documents',
+    note: 'KYC/KYB for payout, plus invoice documentation for B2B, B2C and C2B.',
     to: '/docs/documents/document-upload',
   },
   {
     index: '04',
-    kind: 'Core transaction API',
-    name: 'Quotation',
-    note: 'Obtain the rate, charges and quote identifier for the transaction.',
-    to: '/docs/quotation/quotation',
+    kind: 'Conditional / decision',
+    name: 'Customer registration',
+    note: 'Already registered: continue with the customer code you hold. New customer: register now, or on the fly during Payout.',
+    to: '/docs/customers/customer-registration',
   },
   {
     index: '05',
-    kind: 'Conditional / decision',
-    name: 'Transaction documents',
-    note: 'C2C: no invoice-document requirement. B2B, B2C and C2B: invoice required, referenced by sendClientTrxReference.',
-    to: '/docs/documents/document-upload',
-  },
-  {
-    index: '06',
-    kind: 'Conditional / reference',
-    name: 'Reference data',
-    note: 'As required by route or correspondent — Bank List, other master APIs, currency and country validations.',
+    kind: 'Preparation / reference',
+    name: 'Bank and reference data',
+    note: 'Bank List for the beneficiary bank, plus the master values your transaction type and route require.',
     to: '/docs/master-apis',
   },
   {
-    index: '07',
+    index: '06',
     kind: 'Core transaction API',
     name: 'Payout',
     note: 'Submit the payout request.',
     to: '/docs/payout/payout',
   },
   {
-    index: '08',
+    index: '07',
     kind: 'Core transaction API',
     name: 'Transaction Enquiry',
-    note: 'Check the status of the payout.',
+    note: 'Retrieve the state of the transaction.',
     to: '/docs/transactions/transaction-enquiry',
+  },
+  {
+    index: '08',
+    kind: 'Final / supporting',
+    name: 'Balance',
+    note: 'The final API in the documented sequence; retrieves the current balance.',
+    to: '/docs/balance/balance-enquiry',
   },
 ];
 
@@ -178,9 +178,10 @@ function Journey() {
         <span className="rhub-eyebrow">Payout journey</span>
         <h2>What it takes to complete a payout</h2>
         <p className="rhub-journey__lede">
-          Not every stage is an API call. Four stages are the core transaction APIs; the
+          Not every stage is an API call. The core transaction APIs are labelled as such; the
           others are preparation, decisions or reference data that depend on the customer and
-          the transaction type. Each stage is labelled accordingly.
+          the transaction type. A quotation does not need a registered customer — send an
+          existing customer code, or send it blank and register later.
         </p>
         <ol className="rhub-stages">
           {JOURNEY.map((stage) => (
