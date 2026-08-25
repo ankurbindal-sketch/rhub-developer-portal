@@ -157,14 +157,12 @@ const config = {
         {
           title: 'About',
           items: [
-            {label: 'Licence and source version', to: '/docs/appendix/licence'},
+            {label: 'Licence', to: '/docs/appendix/licence'},
             {label: 'RemittancesHub', href: 'https://www.remittanceshub.com/'},
           ],
         },
       ],
-      copyright:
-        'RemittancesHub holds the entire intellectual property rights of the source documentation. ' +
-        'RHUB Developer Portal 1.0 — content migrated from the authoritative RHUB documentation source (Version 2.3.0).',
+      copyright: `© ${new Date().getFullYear()} RemittancesHub. All rights reserved.`,
     },
     prism: {
       theme: themes.github,

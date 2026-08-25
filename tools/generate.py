@@ -1638,15 +1638,16 @@ def build_unpublished_apis():
 def build_licence():
     lic = R.convert(FILES['footer.md'])
     lic = re.sub(r'^#\s+All Rights Reserved\.\s*$', '', lic, count=1, flags=re.M).strip()
-    body = f"""# Licence and source version
-
-{provenance('footer.md')}
+    # The source version marker is documentation provenance, not client-facing licence
+    # text. It stays in the internal source notes and register instead.
+    lic = re.sub(r'^\*Version [0-9.]+\*\s*$', '', lic, flags=re.M).strip()
+    body = f"""# Licence
 
 {lic}
 """
     write('appendix/licence.md',
-          {'title': 'Licence and source version', 'sidebar_label': 'Licence',
-           'description': 'RHUB documentation licence statement and source version.'}, body)
+          {'title': 'Licence', 'sidebar_label': 'Licence',
+           'description': 'RemittancesHub licence statement.'}, body)
     rec('footer.md', 'docs/appendix/licence.md', 'COMPLETE',
         'Intellectual-property statement and source version marker (Version 2.3.0) carried over.')
 

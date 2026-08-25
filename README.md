@@ -117,6 +117,6 @@ on the next run, and hand edits bypass the source-fidelity rules above.
 
 ## Licence
 
-RemittancesHub holds the entire intellectual property rights of the source documentation
-(source version 2.3.0). See `docs/appendix/licence.md`. This repository contains the presentation
-layer for that documentation.
+RemittancesHub holds the entire intellectual property rights of this documentation. See
+`docs/appendix/licence.md` for the published statement, and `docs/appendix/source-notes.md`
+for the internal provenance record.
