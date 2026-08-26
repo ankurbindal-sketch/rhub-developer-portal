@@ -471,6 +471,16 @@ article h4 {
   }
 }
 
+/* A doc page that suppresses its TOC (front matter `hide_table_of_contents`)
+ * renders a single column in the row. Detecting that shape with :has() gives
+ * those pages the full width without naming any page in CSS. Browsers without
+ * :has() simply keep the standard width. */
+@media (min-width: 997px) {
+  .docs-wrapper .container:has(.row > .col:only-child) {
+    max-width: min(98vw, 2100px);
+  }
+}
+
 @media (min-width: 997px) {
   .docs-wrapper .row > .col--3 {
     --ifm-col-width: 20%;
@@ -1053,7 +1063,7 @@ article {
 .rhub-datagrid {
   max-width: 100%;
   overflow: auto;
-  max-height: min(75vh, 40rem);
+  max-height: min(78vh, 46rem);
   border: 1px solid var(--rhub-hairline);
   border-radius: var(--rhub-radius);
   margin-bottom: var(--rhub-space-5);
@@ -1102,26 +1112,65 @@ article {
   min-width: 5rem;
 }
 
-.rhub-datagrid th:first-child,
-.rhub-datagrid td:first-child {
-  position: sticky;
-  left: 0;
-  z-index: 1;
-  min-width: 6rem;
-  background: var(--ifm-background-color);
-  border-right: 1px solid var(--rhub-hairline-strong);
+/* Sticky context columns.
+ *
+ * Both matrices open with two short identifier columns — Country/Currency and
+ * RAIL — so both are pinned while panning across the field columns. Their
+ * widths are fixed rather than content-derived, because the second column's
+ * `left` offset has to equal the first column's rendered width; a content-sized
+ * first column would drift out of alignment. 6.5rem comfortably clears the
+ * longest values (a three-letter code and "SWIFT"/"LOCAL") and the header
+ * labels wrap at word boundaries if needed.
+ *
+ * z-index layering, low to high: ordinary body cells, pinned body cells (1),
+ * header row (2), the header cells that are both pinned and stuck (3) — so the
+ * top-left intersection never lets a row or column show through.
+ *
+ * Disabled below 997px: pinning 13rem of a phone screen would leave too little
+ * room for the field columns.
+ */
+@media (min-width: 997px) {
+  .markdown .rhub-datagrid th:nth-child(1),
+  .markdown .rhub-datagrid td:nth-child(1),
+  .markdown .rhub-datagrid th:nth-child(2),
+  .markdown .rhub-datagrid td:nth-child(2) {
+    position: sticky;
+    z-index: 1;
+    width: 6.5rem;
+    min-width: 6.5rem;
+    max-width: 6.5rem;
+    background: var(--ifm-background-color);
+  }
+
+  .markdown .rhub-datagrid th:nth-child(1),
+  .markdown .rhub-datagrid td:nth-child(1) {
+    left: 0;
+  }
+
+  .markdown .rhub-datagrid th:nth-child(2),
+  .markdown .rhub-datagrid td:nth-child(2) {
+    left: 6.5rem;
+    border-right: 1px solid var(--rhub-hairline-strong);
+  }
+
+  .markdown .rhub-datagrid th:nth-child(1),
+  .markdown .rhub-datagrid th:nth-child(2) {
+    z-index: 3;
+    background: var(--rhub-surface);
+  }
+
+  .markdown .rhub-datagrid tr:hover td:nth-child(1),
+  .markdown .rhub-datagrid tr:hover td:nth-child(2) {
+    background: var(--rhub-surface-2);
+  }
 }
 
-.rhub-datagrid th:first-child {
-  z-index: 3;
-  background: var(--rhub-surface);
+/* below the sticky breakpoint the identifier columns still lead the row */
+.rhub-datagrid td:first-child {
+  min-width: 6rem;
 }
 
 .rhub-datagrid tr:hover td {
-  background: var(--rhub-surface-2);
-}
-
-.rhub-datagrid tr:hover td:first-child {
   background: var(--rhub-surface-2);
 }
 
@@ -1337,8 +1386,9 @@ article {
 }
 
 @media (max-width: 700px) {
+  /* a fixed-height grid inside a phone viewport fights the page scroll */
   .rhub-datagrid {
-    max-height: 60vh;
+    max-height: none;
   }
 
   .rhub-journey {
