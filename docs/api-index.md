@@ -1,6 +1,7 @@
 ---
 title: "API index"
 sidebar_label: "API index"
+hide_table_of_contents: true
 description: "Index of the public RHUB APIs, with purpose, integration stage and endpoint."
 ---
 
