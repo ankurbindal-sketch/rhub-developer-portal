@@ -12,8 +12,8 @@ const config = {
   // none has been fabricated.
   favicon: undefined,
 
-  url: 'https://ankurbindal-sketch.github.io',
-  baseUrl: '/rhub-developer-portal/',
+  url: 'https://apidocs.remittanceshub.com',
+  baseUrl: '/',
   trailingSlash: false,
 
   organizationName: 'ankurbindal-sketch',
