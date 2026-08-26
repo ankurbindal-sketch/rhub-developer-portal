@@ -1054,124 +1054,175 @@ article {
 /* 11. Data grids, API index, journey, checklist                              */
 /* ========================================================================== */
 
-/* --- wide validation matrices: scroll inside the container, sticky edges --- */
+/* --- validation requirement lists ---------------------------------------
+ *
+ * Country and Currency validations used to render as 15–18 column matrices in
+ * a horizontally scrolling grid. That grid CSS (.rhub-datagrid, sticky first
+ * and second columns, fixed 6.5rem identifier widths, viewport-height
+ * container, edge shadows) has been removed: the generator now emits one
+ * expandable entry per row, so there is nothing wide left to scroll.
+ *
+ * Each entry is a native <details>, which brings keyboard support, focus
+ * handling and open/closed state announcement for free.
+ */
 
-/* A capped height keeps the horizontal scrollbar inside the viewport on these
- * long matrices, so a reader never has to scroll to the bottom of the page to
- * pan sideways. Sticky header and first column stay pinned while panning. No
- * JavaScript is involved. */
-.rhub-datagrid {
-  max-width: 100%;
-  overflow: auto;
-  max-height: min(78vh, 46rem);
+.rhub-reqs {
   border: 1px solid var(--rhub-hairline);
   border-radius: var(--rhub-radius);
+  overflow: hidden;
   margin-bottom: var(--rhub-space-5);
-  scrollbar-width: thin;
 }
 
-/* the matrix wrapper carries the same right-edge scroll cue */
-.rhub-datagrid {
-  background-image:
-    linear-gradient(to right, var(--ifm-background-color) 30%, rgba(0, 0, 0, 0)),
-    linear-gradient(to left, var(--ifm-background-color) 30%, rgba(0, 0, 0, 0)),
-    linear-gradient(to right, rgba(16, 21, 28, 0.13), rgba(0, 0, 0, 0) 18px),
-    linear-gradient(to left, rgba(16, 21, 28, 0.13), rgba(0, 0, 0, 0) 18px);
-  background-position: 0 0, 100% 0, 0 0, 100% 0;
-  background-repeat: no-repeat;
-  background-size: 32px 100%, 32px 100%, 18px 100%, 18px 100%;
-  background-attachment: local, local, scroll, scroll;
-}
-
-.rhub-datagrid th,
-.rhub-datagrid td {
-  background-clip: padding-box;
-}
-
-.rhub-datagrid table {
-  display: table;
-  width: auto;
-  min-width: 100%;
+.rhub-reqs__group {
   margin: 0;
-  border: none;
-  font-size: 0.82rem;
-}
-
-.rhub-datagrid th {
-  position: sticky;
-  top: 0;
-  z-index: 2;
+  padding: var(--rhub-space-2) var(--rhub-space-4);
   background: var(--rhub-surface);
-  white-space: normal;
-  min-width: 7rem;
-  border-top: none;
+  border-bottom: 1px solid var(--rhub-hairline);
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--rhub-ink-3);
 }
 
-.rhub-datagrid td {
-  white-space: nowrap;
+.rhub-req {
+  border-bottom: 1px solid var(--rhub-hairline);
+  background: var(--ifm-background-color);
+}
+
+.rhub-req:last-child {
+  border-bottom: none;
+}
+
+.rhub-req > summary {
+  display: flex;
+  align-items: center;
+  gap: var(--rhub-space-3);
+  padding: 0.6rem var(--rhub-space-4);
+  cursor: pointer;
+  list-style: none;
+  transition: background 0.12s ease;
+}
+
+.rhub-req > summary::-webkit-details-marker {
+  display: none;
+}
+
+.rhub-req > summary:hover {
+  background: var(--rhub-surface-2);
+}
+
+.rhub-req > summary:focus-visible {
+  outline: 2px solid var(--rhub-orange);
+  outline-offset: -2px;
+}
+
+.rhub-req__code {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--rhub-ink);
   min-width: 5rem;
 }
 
-/* Sticky context columns.
- *
- * Both matrices open with two short identifier columns — Country/Currency and
- * RAIL — so both are pinned while panning across the field columns. Their
- * widths are fixed rather than content-derived, because the second column's
- * `left` offset has to equal the first column's rendered width; a content-sized
- * first column would drift out of alignment. 6.5rem comfortably clears the
- * longest values (a three-letter code and "SWIFT"/"LOCAL") and the header
- * labels wrap at word boundaries if needed.
- *
- * z-index layering, low to high: ordinary body cells, pinned body cells (1),
- * header row (2), the header cells that are both pinned and stuck (3) — so the
- * top-left intersection never lets a row or column show through.
- *
- * Disabled below 997px: pinning 13rem of a phone screen would leave too little
- * room for the field columns.
- */
-@media (min-width: 997px) {
-  .markdown .rhub-datagrid th:nth-child(1),
-  .markdown .rhub-datagrid td:nth-child(1),
-  .markdown .rhub-datagrid th:nth-child(2),
-  .markdown .rhub-datagrid td:nth-child(2) {
-    position: sticky;
-    z-index: 1;
-    width: 6.5rem;
-    min-width: 6.5rem;
-    max-width: 6.5rem;
-    background: var(--ifm-background-color);
-  }
-
-  .markdown .rhub-datagrid th:nth-child(1),
-  .markdown .rhub-datagrid td:nth-child(1) {
-    left: 0;
-  }
-
-  .markdown .rhub-datagrid th:nth-child(2),
-  .markdown .rhub-datagrid td:nth-child(2) {
-    left: 6.5rem;
-    border-right: 1px solid var(--rhub-hairline-strong);
-  }
-
-  .markdown .rhub-datagrid th:nth-child(1),
-  .markdown .rhub-datagrid th:nth-child(2) {
-    z-index: 3;
-    background: var(--rhub-surface);
-  }
-
-  .markdown .rhub-datagrid tr:hover td:nth-child(1),
-  .markdown .rhub-datagrid tr:hover td:nth-child(2) {
-    background: var(--rhub-surface-2);
-  }
+.rhub-req__rail {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--rhub-ink-3);
+  border: 1px solid var(--rhub-hairline-strong);
+  border-radius: 3px;
+  padding: 0.1rem 0.4rem;
 }
 
-/* below the sticky breakpoint the identifier columns still lead the row */
-.rhub-datagrid td:first-child {
-  min-width: 6rem;
+/* the caret is drawn from the open/closed state, not from colour alone */
+.rhub-req__cta {
+  margin-left: auto;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--rhub-orange-ink);
+  white-space: nowrap;
 }
 
-.rhub-datagrid tr:hover td {
-  background: var(--rhub-surface-2);
+.rhub-req__cta::after {
+  content: ' \25BE';
+  display: inline-block;
+  transition: transform 0.12s ease;
+}
+
+.rhub-req[open] > summary .rhub-req__cta::after {
+  transform: rotate(180deg);
+}
+
+.rhub-req[open] > summary {
+  background: var(--rhub-orange-wash);
+  border-bottom: 1px solid var(--rhub-hairline);
+}
+
+.rhub-req > *:not(summary) {
+  padding: 0 var(--rhub-space-4);
+}
+
+.rhub-req table {
+  margin: var(--rhub-space-3) 0;
+  width: 100%;
+  max-width: 46rem;
+}
+
+.rhub-req table td:first-child {
+  min-width: 14rem;
+  max-width: 22rem;
+  position: static;      /* no sticky column needed at two columns */
+  border-right: none;
+}
+
+.rhub-req table td:last-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+@media (max-width: 700px) {
+  .rhub-req > summary {
+    flex-wrap: wrap;
+    gap: var(--rhub-space-2);
+  }
+
+  .rhub-req__cta {
+    margin-left: 0;
+    flex-basis: 100%;
+  }
+
+  /* two columns become label-above-value on a phone */
+  .rhub-req table,
+  .rhub-req table tbody,
+  .rhub-req table tr,
+  .rhub-req table td {
+    display: block;
+    width: auto;
+  }
+
+  .rhub-req table thead {
+    display: none;
+  }
+
+  .rhub-req table tr {
+    padding: var(--rhub-space-2) 0;
+    border-bottom: 1px solid var(--rhub-hairline);
+  }
+
+  .rhub-req table td {
+    border: none;
+    padding: 0.1rem 0;
+  }
+
+  .rhub-req table td:first-child {
+    min-width: 0;
+    max-width: none;
+    color: var(--rhub-ink-3);
+  }
 }
 
 /* --- API index --- */
@@ -1386,11 +1437,6 @@ article {
 }
 
 @media (max-width: 700px) {
-  /* a fixed-height grid inside a phone viewport fights the page scroll */
-  .rhub-datagrid {
-    max-height: none;
-  }
-
   .rhub-journey {
     padding-left: var(--rhub-space-4);
   }
