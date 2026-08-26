@@ -194,10 +194,11 @@ article h4 {
   overflow-wrap: break-word;
 }
 
-/* a long inline path or URL wraps rather than stretching the column */
+/* A long inline path or URL wraps rather than stretching the column. Scoped to
+ * prose: applying `anywhere` to table cells let short tokens such as a POST
+ * badge break mid-word when a column was narrow. */
 .markdown p code,
-.markdown li code,
-.markdown td code {
+.markdown li code {
   overflow-wrap: anywhere;
 }
 
@@ -1236,68 +1237,75 @@ article {
   scrollbar-width: thin;
 }
 
-.rhub-apitable table {
+.markdown .rhub-apitable table {
   display: table;
-  table-layout: fixed;
+  table-layout: auto;          /* auto, so the min-widths below are honoured */
   width: 100%;
-  min-width: 48rem;
+  min-width: 70rem;            /* sum of the column minimums; the container scrolls below this */
   margin: 0;
   border: none;
 }
 
-.rhub-apitable th,
-.rhub-apitable td {
-  min-width: 0;
+.markdown .rhub-apitable th,
+.markdown .rhub-apitable td {
   vertical-align: top;
+  /* nothing in this table breaks inside a word unless a column opts in */
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
 }
 
-/* Column budget for the six-column catalogue. Purpose takes the largest share,
- * Method and Page the smallest. Integration stage wraps rather than running
- * into the endpoint beside it, and the endpoint has real width instead of a
- * nested scroll strip. */
-.rhub-apitable th:nth-child(1),
-.rhub-apitable td:nth-child(1) {
-  width: 14%;
+/* API — normal word wrapping only: "Customer Registration" may wrap between the
+   two words, "Authentication" is never split inside the word. */
+.markdown .rhub-apitable th:nth-child(1),
+.markdown .rhub-apitable td:nth-child(1) {
+  min-width: 9.5rem;
   font-family: var(--ifm-font-family-base);
   font-size: 0.86rem;
   font-weight: 500;
   color: var(--rhub-ink);
-  word-break: normal;
-  overflow-wrap: break-word;
+  max-width: none;
+  position: static;   /* the generic sticky first column is not wanted here */
+  border-right: none;
 }
 
-.rhub-apitable th:nth-child(2),
-.rhub-apitable td:nth-child(2) {
-  width: 6%;
+/* Method — shrink-to-fit, always one line */
+.markdown .rhub-apitable th:nth-child(2),
+.markdown .rhub-apitable td:nth-child(2) {
+  width: 1%;
+  min-width: 4.5rem;
+  white-space: nowrap;
 }
 
-.rhub-apitable th:nth-child(3),
-.rhub-apitable td:nth-child(3) {
-  width: 33%;
+.markdown .rhub-apitable td:nth-child(2) code {
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: keep-all;
 }
 
-/* integration stage: wraps at word boundaries, never clipped */
-.rhub-apitable th:nth-child(4),
-.rhub-apitable td:nth-child(4) {
-  width: 14%;
+/* Purpose — the flexible descriptive column */
+.markdown .rhub-apitable th:nth-child(3),
+.markdown .rhub-apitable td:nth-child(3) {
+  min-width: 17rem;
+}
+
+/* Integration stage — phrase wrapping, with room for "Pricing / pre-registration" */
+.markdown .rhub-apitable th:nth-child(4),
+.markdown .rhub-apitable td:nth-child(4) {
+  min-width: 9.5rem;
   white-space: normal;
-  overflow-wrap: break-word;
-  hyphens: none;
 }
 
-.rhub-apitable th:nth-child(5),
-.rhub-apitable td:nth-child(5) {
-  width: 26%;
+/* Endpoint — flexible and the only column allowed to break inside a token */
+.markdown .rhub-apitable th:nth-child(5),
+.markdown .rhub-apitable td:nth-child(5) {
+  min-width: 17rem;
 }
 
-/* Endpoints stay monospace and complete. `overflow-wrap: break-word` lets the
- * browser break at the natural opportunities in a route — after `/` and `-` —
- * and only splits a segment when one is longer than the column. Nothing is
- * truncated, and the whole string stays selectable. */
-.rhub-apitable td:nth-child(5) code {
+.markdown .rhub-apitable td:nth-child(5) code {
   display: block;
   white-space: normal;
-  overflow-wrap: break-word;
+  overflow-wrap: break-word;   /* breaks after / and - first; no per-cell scrollbar */
   word-break: normal;
   background: transparent;
   border: none;
@@ -1306,9 +1314,11 @@ article {
   line-height: 1.45;
 }
 
-.rhub-apitable th:nth-child(6),
-.rhub-apitable td:nth-child(6) {
-  width: 7%;
+/* Page — shrink-to-fit */
+.markdown .rhub-apitable th:nth-child(6),
+.markdown .rhub-apitable td:nth-child(6) {
+  width: 1%;
+  min-width: 4.5rem;
   white-space: nowrap;
 }
 
