@@ -353,6 +353,71 @@ def commented_api_sections(src_text):
     return out
 
 
+MATRIX_STATS = {'tables': 0, 'entries': 0, 'groups': 0, 'values': 0, 'void_columns': 0}
+
+def matrix_to_details(md, entity):
+    """Re-present a wide validation matrix as one expandable entry per row.
+
+    Presentation only. Every source cell is carried across: the identifier and
+    rail become the summary, and each remaining column becomes a Field /
+    Requirement row inside the expanded panel, using the source header as the
+    field name and the source cell as the requirement, both verbatim.
+
+    Columns whose header is empty *and* whose every cell is empty carry no
+    information; they are dropped and counted in MATRIX_STATS so the drop is
+    reported rather than silent. A column with a header is always kept, and a
+    blank cell inside a kept column is rendered as an em dash so the blank is
+    still visible.
+    """
+    lines = md.split('\n')
+    out, i = [], 0
+    while i < len(lines):
+        if not lines[i].strip().startswith('|'):
+            out.append(lines[i])
+            i += 1
+            continue
+        block = []
+        while i < len(lines) and lines[i].strip().startswith('|'):
+            block.append(lines[i])
+            i += 1
+        cells = lambda r: [c.strip() for c in r.strip().strip('|').split('|')]
+        header = cells(block[0])
+        rows = [cells(r) for r in block[2:]]
+        if len(header) < 3 or header[0] != entity:
+            out.extend(block)          # not a matrix; leave untouched
+            continue
+        keep = [c for c in range(len(header))
+                if c < 2 or header[c] or any(c < len(r) and r[c] for r in rows)]
+        MATRIX_STATS['void_columns'] += len(header) - len(keep)
+        MATRIX_STATS['tables'] += 1
+        out.append('<div className="rhub-reqs">')
+        out.append('')
+        for r in rows:
+            r = r + [''] * (len(header) - len(r))
+            filled = [c for c in r if c]
+            if len(filled) == 1 and r[0]:
+                MATRIX_STATS['groups'] += 1
+                out += ['<p className="rhub-reqs__group">%s</p>' % r[0], '']
+                continue
+            MATRIX_STATS['entries'] += 1
+            out += ['<details className="rhub-req">',
+                    '<summary>'
+                    '<span className="rhub-req__code">%s</span>'
+                    '<span className="rhub-req__rail">%s</span>'
+                    '<span className="rhub-req__cta">View requirements</span>'
+                    '</summary>' % (r[0], r[1]),
+                    '',
+                    '| Field | Requirement |',
+                    '|---|---|']
+            for c in keep[2:]:
+                value = r[c] if r[c] else '—'
+                MATRIX_STATS['values'] += 1
+                out.append('| %s | %s |' % (header[c], value))
+            out += ['', '</details>', '']
+        out += ['</div>', '']
+    return '\n'.join(out)
+
+
 def wrap_tables(md, cls):
     """Wrap every Markdown table in a scroll container with the given class."""
     lines = md.split('\n')
@@ -1150,7 +1215,7 @@ def build_master():
 # --------------------------------------------------------------------------
 
 def build_validation():
-    cur = wrap_tables(R.convert(FILES['CURRENCYVALIDATIONS.md']), 'rhub-datagrid')
+    cur = matrix_to_details(R.convert(FILES['CURRENCYVALIDATIONS.md']), 'Currency')
     cur = re.sub(r'^##\s*\*\*Currency Validations\*\*\s*$', '', cur, count=1, flags=re.M)
     body = f"""# Currency validations (LOCAL rail)
 
@@ -1175,9 +1240,8 @@ correspondent. The source's own wording is reproduced below.
 """
     write('validation/currency-validations.md',
           {'title': 'Currency validations (LOCAL rail)', 'sidebar_label': 'Currency validations',
-           # Matrix reference page: the 18-column grids need the full column width more
-           # than the page needs a right-hand TOC.
-           'hide_table_of_contents': True,
+           # TOC restored: the page is no longer a wide matrix, and its four section
+           # headings (sender/receiver, individual/business) are worth navigating.
            'description': 'Currency- and correspondent-specific conditional field requirements for RHUB payouts.'},
           body)
     rec('CURRENCYVALIDATIONS.md', 'docs/validation/currency-validations.md', 'COMPLETE',
@@ -1185,18 +1249,24 @@ correspondent. The source's own wording is reproduced below.
         'requirement clarification carried over. The source also links a downloadable Excel '
         'file (assets/TABLE_OF_VALIDATIONS.xlsx) that is not part of the export — flagged.')
 
-    ctry = wrap_tables(R.convert(FILES['COUNTRYVALIDATIONS.md']), 'rhub-datagrid')
+    ctry = matrix_to_details(R.convert(FILES['COUNTRYVALIDATIONS.md']), 'Country')
     ctry = re.sub(r'^##\s*\*\*Country Validations\*\*\s*$', '', ctry, count=1, flags=re.M)
     body = f"""# Country validations (SWIFT rail)
 
 {provenance('COUNTRYVALIDATIONS.md')}
 
-:::info[How to use these tables]
+## How to use this page
 
-These tables state, per country group, which bank-related [Payout](/docs/payout/payout)
-fields are mandatory when a transaction is processed through the SWIFT network. As with the
-currency tables, they qualify **Conditional** fields; fields marked Mandatory in the Payout
-API must always be supplied. The source's own wording is reproduced below.
+Country requirements vary with the destination country and the transaction rail. You do not
+need to know the field names in advance: find the destination country below and expand it to
+see the requirements that apply when the transaction is processed through the SWIFT network.
+
+As with the currency rules, these qualify **Conditional** fields only — fields marked
+Mandatory in the [Payout API](/docs/payout/payout) must always be supplied.
+
+:::info[Note]
+
+RHUB's own wording for these rules is reproduced below, unchanged.
 
 :::
 
@@ -2175,6 +2245,10 @@ def main():
         print('supplemental authoritative sources: %s' % ', '.join(supplemental))
     if missing:
         print('MISSING:', missing)
+    print('validation matrices -> %d tables, %d expandable entries, %d field values, '
+          '%d group rows, %d void columns dropped'
+          % (MATRIX_STATS['tables'], MATRIX_STATS['entries'], MATRIX_STATS['values'],
+             MATRIX_STATS['groups'], MATRIX_STATS['void_columns']))
     json.dump({'pages': PAGES, 'apis': API_INDEX, 'manifest': MANIFEST,
                'master_rows': master_rows, 'wpt_rows': wpt_rows, 'tpl_rows': tpl_rows,
                'unresolved_links': R.UNRESOLVED_LINKS},
