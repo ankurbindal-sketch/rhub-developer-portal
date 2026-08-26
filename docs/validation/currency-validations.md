@@ -1,7 +1,6 @@
 ---
 title: "Currency validations (LOCAL rail)"
 sidebar_label: "Currency validations"
-hide_table_of_contents: true
 description: "Currency- and correspondent-specific conditional field requirements for RHUB payouts."
 ---
 
@@ -44,37 +43,331 @@ Note: “YES” indicates that the field is mandatory, while “NO” indicates 
 
 *Source column groups: Kyc detail fields (4 columns)*
 
-<div className="rhub-datagrid">
+<div className="rhub-reqs">
 
-| Currency | RAIL | senderIdType | senderIssueDate | senderIdExpiration | senderIdCountry |  |  |  |  |  |  |  |  |  |  |  |  |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| AED | LOCAL | YES | YES | YES | YES |  |  |  |  |  |  |  |  |  |  |  |  |
-| MYR | LOCAL | YES | YES | YES | YES |  |  |  |  |  |  |  |  |  |  |  |  |
-| LKR | LOCAL | YES | YES | YES | YES |  |  |  |  |  |  |  |  |  |  |  |  |
-| NGN | LOCAL | YES | YES | YES | YES |  |  |  |  |  |  |  |  |  |  |  |  |
-| ARS | LOCAL | YES with value RHD003(Passport) | YES | YES | YES |  |  |  |  |  |  |  |  |  |  |  |  |
-| KES | LOCAL | YES | YES | YES | YES |  |  |  |  |  |  |  |  |  |  |  |  |
-| NPR | LOCAL | YES | YES | YES | YES |  |  |  |  |  |  |  |  |  |  |  |  |
-| KRW | LOCAL | YES | YES | YES | YES |  |  |  |  |  |  |  |  |  |  |  |  |
-| INR | LOCAL | YES | YES | YES | YES |  |  |  |  |  |  |  |  |  |  |  |  |
-| VND | LOCAL | YES | YES | YES | YES |  |  |  |  |  |  |  |  |  |  |  |  |
-| MXN | LOCAL | YES | YES | YES | YES |  |  |  |  |  |  |  |  |  |  |  |  |
-| COP | LOCAL | YES | YES | YES | YES |  |  |  |  |  |  |  |  |  |  |  |  |
-| PHP | LOCAL | YES | YES | YES | YES |  |  |  |  |  |  |  |  |  |  |  |  |
-| TRY | LOCAL | YES | YES | YES | YES |  |  |  |  |  |  |  |  |  |  |  |  |
-| BRL | LOCAL | YES | YES | YES | YES |  |  |  |  |  |  |  |  |  |  |  |  |
-| PKR | LOCAL | YES | YES | YES | YES |  |  |  |  |  |  |  |  |  |  |  |  |
-| IDR | LOCAL | YES | YES | YES | YES |  |  |  |  |  |  |  |  |  |  |  |  |
-| ZAR | LOCAL | YES | YES | YES | YES |  |  |  |  |  |  |  |  |  |  |  |  |
-| HKD | LOCAL | YES | NO | NO | NO |  |  |  |  |  |  |  |  |  |  |  |  |
-| SGD | LOCAL | YES | NO | NO | NO |  |  |  |  |  |  |  |  |  |  |  |  |
-| EUR, EUR-INSTANT | LOCAL | YES | NO | NO | NO |  |  |  |  |  |  |  |  |  |  |  |  |
-| JPY | LOCAL | YES | NO | NO | NO |  |  |  |  |  |  |  |  |  |  |  |  |
-| GBP, GBP-INSTANT, GBP-STANDARD | LOCAL | YES | NO | NO | NO |  |  |  |  |  |  |  |  |  |  |  |  |
-| CAD | LOCAL | YES | NO | NO | NO |  |  |  |  |  |  |  |  |  |  |  |  |
-| AUD | LOCAL | YES | NO | NO | NO |  |  |  |  |  |  |  |  |  |  |  |  |
-| USD-USA | LOCAL | YES | NO | NO | NO |  |  |  |  |  |  |  |  |  |  |  |  |
-| THB | LOCAL | YES | NO | NO | NO |  |  |  |  |  |  |  |  |  |  |  |  |
+<details className="rhub-req">
+<summary><span className="rhub-req__code">AED</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| senderIdType | YES |
+| senderIssueDate | YES |
+| senderIdExpiration | YES |
+| senderIdCountry | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">MYR</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| senderIdType | YES |
+| senderIssueDate | YES |
+| senderIdExpiration | YES |
+| senderIdCountry | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">LKR</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| senderIdType | YES |
+| senderIssueDate | YES |
+| senderIdExpiration | YES |
+| senderIdCountry | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">NGN</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| senderIdType | YES |
+| senderIssueDate | YES |
+| senderIdExpiration | YES |
+| senderIdCountry | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">ARS</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| senderIdType | YES with value RHD003(Passport) |
+| senderIssueDate | YES |
+| senderIdExpiration | YES |
+| senderIdCountry | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">KES</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| senderIdType | YES |
+| senderIssueDate | YES |
+| senderIdExpiration | YES |
+| senderIdCountry | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">NPR</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| senderIdType | YES |
+| senderIssueDate | YES |
+| senderIdExpiration | YES |
+| senderIdCountry | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">KRW</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| senderIdType | YES |
+| senderIssueDate | YES |
+| senderIdExpiration | YES |
+| senderIdCountry | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">INR</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| senderIdType | YES |
+| senderIssueDate | YES |
+| senderIdExpiration | YES |
+| senderIdCountry | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">VND</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| senderIdType | YES |
+| senderIssueDate | YES |
+| senderIdExpiration | YES |
+| senderIdCountry | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">MXN</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| senderIdType | YES |
+| senderIssueDate | YES |
+| senderIdExpiration | YES |
+| senderIdCountry | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">COP</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| senderIdType | YES |
+| senderIssueDate | YES |
+| senderIdExpiration | YES |
+| senderIdCountry | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">PHP</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| senderIdType | YES |
+| senderIssueDate | YES |
+| senderIdExpiration | YES |
+| senderIdCountry | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">TRY</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| senderIdType | YES |
+| senderIssueDate | YES |
+| senderIdExpiration | YES |
+| senderIdCountry | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">BRL</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| senderIdType | YES |
+| senderIssueDate | YES |
+| senderIdExpiration | YES |
+| senderIdCountry | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">PKR</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| senderIdType | YES |
+| senderIssueDate | YES |
+| senderIdExpiration | YES |
+| senderIdCountry | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">IDR</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| senderIdType | YES |
+| senderIssueDate | YES |
+| senderIdExpiration | YES |
+| senderIdCountry | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">ZAR</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| senderIdType | YES |
+| senderIssueDate | YES |
+| senderIdExpiration | YES |
+| senderIdCountry | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">HKD</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| senderIdType | YES |
+| senderIssueDate | NO |
+| senderIdExpiration | NO |
+| senderIdCountry | NO |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">SGD</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| senderIdType | YES |
+| senderIssueDate | NO |
+| senderIdExpiration | NO |
+| senderIdCountry | NO |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">EUR, EUR-INSTANT</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| senderIdType | YES |
+| senderIssueDate | NO |
+| senderIdExpiration | NO |
+| senderIdCountry | NO |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">JPY</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| senderIdType | YES |
+| senderIssueDate | NO |
+| senderIdExpiration | NO |
+| senderIdCountry | NO |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">GBP, GBP-INSTANT, GBP-STANDARD</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| senderIdType | YES |
+| senderIssueDate | NO |
+| senderIdExpiration | NO |
+| senderIdCountry | NO |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">CAD</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| senderIdType | YES |
+| senderIssueDate | NO |
+| senderIdExpiration | NO |
+| senderIdCountry | NO |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">AUD</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| senderIdType | YES |
+| senderIssueDate | NO |
+| senderIdExpiration | NO |
+| senderIdCountry | NO |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">USD-USA</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| senderIdType | YES |
+| senderIssueDate | NO |
+| senderIdExpiration | NO |
+| senderIdCountry | NO |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">THB</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| senderIdType | YES |
+| senderIssueDate | NO |
+| senderIdExpiration | NO |
+| senderIdCountry | NO |
+
+</details>
 
 </div>
 
@@ -86,37 +379,601 @@ Note: “YES” indicates that the field is mandatory, while “NO” indicates 
 
 *Source column groups: Bank detail fields (8 columns); Additional Kyc detail fields (7 columns)*
 
-<div className="rhub-datagrid">
+<div className="rhub-reqs">
 
-| Currency | RAIL | receiverBankName | receiverBankCode | receiverAccountNumber | receiverSwiftCode | receiverAccountHolderName | receiverAccountType | receiverBankCountry | receiverBankAddress | receiverMsisdn | receiverIdType | receiverIdNumber | receiverDOB | receiverPinCode | receiverIdExpiration |  |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| AED | LOCAL | YES | YES | YES | YES it represents the Swift Code | YES | NO | NO | NO | YES | YES | YES | NO | YES | YES |  |
-| MYR | LOCAL | YES | YES | YES | NO | YES | NO | NO | NO | YES | YES | YES | NO | YES | YES |  |
-| LKR | LOCAL | YES | YES | YES | NO | YES | NO | NO | NO | YES | YES | YES | NO | YES | YES |  |
-| NGN | LOCAL | YES | YES | YES | NO | YES | NO | NO | NO | YES | YES | YES | NO | YES | YES |  |
-| ARS | LOCAL | YES | YES | YES | NO | YES | NO | NO | NO | YES | YES with value RHD010(Tax ID No) | YES (for UAT use: 27386132859) | NO | YES | YES |  |
-| KES | LOCAL | YES | YES | YES | NO | YES | NO | NO | NO | YES | YES | YES | NO | YES | YES |  |
-| NPR | LOCAL | YES | YES | YES | NO | YES | NO | NO | NO | YES | YES | YES | NO | YES | YES |  |
-| KRW* | LOCAL | YES | YES | YES | NO | YES | NO | NO | NO | YES | YES | YES | NO | YES | YES |  |
-| INR | LOCAL | YES | YES | YES | YES it represents the IFSC Code | YES | NO | NO | NO | YES | YES | YES | NO | YES | YES |  |
-| VND* | LOCAL | YES | YES | YES | NO | YES | NO | NO | NO | YES | YES | YES | NO | YES | YES |  |
-| MXN | LOCAL | YES | YES | YES | NO | YES | NO | NO | NO | YES | YES | YES | NO | YES | YES |  |
-| COP | LOCAL | YES | YES | YES | NO | YES | NO | NO | NO | YES | YES | YES | NO | YES | YES |  |
-| PHP | LOCAL | YES | YES | YES | NO | YES | NO | NO | NO | YES | YES | YES | NO | YES | YES |  |
-| TRY | LOCAL | YES | NO | YES | NO | YES | NO | NO | NO | YES | YES | YES | NO | YES | YES |  |
-| BRL | LOCAL | YES | YES | YES | NO | YES | YES | YES it represents the Bank Sub Code | NO | YES | YES with value RHD010(CPF/Tax ID No) | YES with min-max length 11 | NO | YES | YES |  |
-| PKR | LOCAL | YES | YES | YES | NO | YES | NO | NO | NO | YES | YES | YES | NO | YES | YES |  |
-| IDR* | LOCAL | YES | YES | YES | NO | YES | NO | NO | NO | YES | YES | YES | NO | YES | YES |  |
-| ZAR | LOCAL | YES | YES | YES | NO | YES | NO | NO | NO | YES | YES | YES | NO | YES | YES |  |
-| HKD | LOCAL | YES | NO | YES | NO | YES | NO | YES | NO | YES | YES | YES | NO | YES | NO |  |
-| SGD | LOCAL | YES | YES | YES | NO | YES | NO | NO | NO | YES | YES | YES | NO | YES | NO |  |
-| EUR, EUR-INSTANT | LOCAL | YES | NO | YES | NO | YES | NO | YES | NO | YES | NO | NO | NO | YES | NO |  |
-| JPY* | LOCAL | YES | YES | YES | NO | YES | NO | YES | NO | YES | YES | YES | NO | YES | YES |  |
-| GBP, GBP-INSTANT, GBP-STANDARD | LOCAL | YES | NO | YES | NO | YES | NO | YES | NO | YES | NO | NO | NO | YES | NO |  |
-| CAD | LOCAL | YES | NO | YES | NO | YES | NO | YES | NO | YES | YES | YES | NO | YES | YES |  |
-| AUD | LOCAL | YES | YES | YES | YES it represents the BSB Code | YES | NO | NO | NO | YES | YES | YES | NO | YES | YES |  |
-| USD-USA | LOCAL | YES | NO | YES | YES it represents the Routing No | YES | NO | YES | NO | YES | NO | NO | NO | YES | NO |  |
-| THB | LOCAL | YES | NO | YES | NO | YES | NO | YES | NO | YES | NO | NO | NO | YES | NO |  |
+<details className="rhub-req">
+<summary><span className="rhub-req__code">AED</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| receiverBankName | YES |
+| receiverBankCode | YES |
+| receiverAccountNumber | YES |
+| receiverSwiftCode | YES it represents the Swift Code |
+| receiverAccountHolderName | YES |
+| receiverAccountType | NO |
+| receiverBankCountry | NO |
+| receiverBankAddress | NO |
+| receiverMsisdn | YES |
+| receiverIdType | YES |
+| receiverIdNumber | YES |
+| receiverDOB | NO |
+| receiverPinCode | YES |
+| receiverIdExpiration | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">MYR</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| receiverBankName | YES |
+| receiverBankCode | YES |
+| receiverAccountNumber | YES |
+| receiverSwiftCode | NO |
+| receiverAccountHolderName | YES |
+| receiverAccountType | NO |
+| receiverBankCountry | NO |
+| receiverBankAddress | NO |
+| receiverMsisdn | YES |
+| receiverIdType | YES |
+| receiverIdNumber | YES |
+| receiverDOB | NO |
+| receiverPinCode | YES |
+| receiverIdExpiration | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">LKR</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| receiverBankName | YES |
+| receiverBankCode | YES |
+| receiverAccountNumber | YES |
+| receiverSwiftCode | NO |
+| receiverAccountHolderName | YES |
+| receiverAccountType | NO |
+| receiverBankCountry | NO |
+| receiverBankAddress | NO |
+| receiverMsisdn | YES |
+| receiverIdType | YES |
+| receiverIdNumber | YES |
+| receiverDOB | NO |
+| receiverPinCode | YES |
+| receiverIdExpiration | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">NGN</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| receiverBankName | YES |
+| receiverBankCode | YES |
+| receiverAccountNumber | YES |
+| receiverSwiftCode | NO |
+| receiverAccountHolderName | YES |
+| receiverAccountType | NO |
+| receiverBankCountry | NO |
+| receiverBankAddress | NO |
+| receiverMsisdn | YES |
+| receiverIdType | YES |
+| receiverIdNumber | YES |
+| receiverDOB | NO |
+| receiverPinCode | YES |
+| receiverIdExpiration | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">ARS</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| receiverBankName | YES |
+| receiverBankCode | YES |
+| receiverAccountNumber | YES |
+| receiverSwiftCode | NO |
+| receiverAccountHolderName | YES |
+| receiverAccountType | NO |
+| receiverBankCountry | NO |
+| receiverBankAddress | NO |
+| receiverMsisdn | YES |
+| receiverIdType | YES with value RHD010(Tax ID No) |
+| receiverIdNumber | YES (for UAT use: 27386132859) |
+| receiverDOB | NO |
+| receiverPinCode | YES |
+| receiverIdExpiration | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">KES</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| receiverBankName | YES |
+| receiverBankCode | YES |
+| receiverAccountNumber | YES |
+| receiverSwiftCode | NO |
+| receiverAccountHolderName | YES |
+| receiverAccountType | NO |
+| receiverBankCountry | NO |
+| receiverBankAddress | NO |
+| receiverMsisdn | YES |
+| receiverIdType | YES |
+| receiverIdNumber | YES |
+| receiverDOB | NO |
+| receiverPinCode | YES |
+| receiverIdExpiration | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">NPR</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| receiverBankName | YES |
+| receiverBankCode | YES |
+| receiverAccountNumber | YES |
+| receiverSwiftCode | NO |
+| receiverAccountHolderName | YES |
+| receiverAccountType | NO |
+| receiverBankCountry | NO |
+| receiverBankAddress | NO |
+| receiverMsisdn | YES |
+| receiverIdType | YES |
+| receiverIdNumber | YES |
+| receiverDOB | NO |
+| receiverPinCode | YES |
+| receiverIdExpiration | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">KRW*</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| receiverBankName | YES |
+| receiverBankCode | YES |
+| receiverAccountNumber | YES |
+| receiverSwiftCode | NO |
+| receiverAccountHolderName | YES |
+| receiverAccountType | NO |
+| receiverBankCountry | NO |
+| receiverBankAddress | NO |
+| receiverMsisdn | YES |
+| receiverIdType | YES |
+| receiverIdNumber | YES |
+| receiverDOB | NO |
+| receiverPinCode | YES |
+| receiverIdExpiration | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">INR</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| receiverBankName | YES |
+| receiverBankCode | YES |
+| receiverAccountNumber | YES |
+| receiverSwiftCode | YES it represents the IFSC Code |
+| receiverAccountHolderName | YES |
+| receiverAccountType | NO |
+| receiverBankCountry | NO |
+| receiverBankAddress | NO |
+| receiverMsisdn | YES |
+| receiverIdType | YES |
+| receiverIdNumber | YES |
+| receiverDOB | NO |
+| receiverPinCode | YES |
+| receiverIdExpiration | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">VND*</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| receiverBankName | YES |
+| receiverBankCode | YES |
+| receiverAccountNumber | YES |
+| receiverSwiftCode | NO |
+| receiverAccountHolderName | YES |
+| receiverAccountType | NO |
+| receiverBankCountry | NO |
+| receiverBankAddress | NO |
+| receiverMsisdn | YES |
+| receiverIdType | YES |
+| receiverIdNumber | YES |
+| receiverDOB | NO |
+| receiverPinCode | YES |
+| receiverIdExpiration | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">MXN</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| receiverBankName | YES |
+| receiverBankCode | YES |
+| receiverAccountNumber | YES |
+| receiverSwiftCode | NO |
+| receiverAccountHolderName | YES |
+| receiverAccountType | NO |
+| receiverBankCountry | NO |
+| receiverBankAddress | NO |
+| receiverMsisdn | YES |
+| receiverIdType | YES |
+| receiverIdNumber | YES |
+| receiverDOB | NO |
+| receiverPinCode | YES |
+| receiverIdExpiration | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">COP</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| receiverBankName | YES |
+| receiverBankCode | YES |
+| receiverAccountNumber | YES |
+| receiverSwiftCode | NO |
+| receiverAccountHolderName | YES |
+| receiverAccountType | NO |
+| receiverBankCountry | NO |
+| receiverBankAddress | NO |
+| receiverMsisdn | YES |
+| receiverIdType | YES |
+| receiverIdNumber | YES |
+| receiverDOB | NO |
+| receiverPinCode | YES |
+| receiverIdExpiration | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">PHP</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| receiverBankName | YES |
+| receiverBankCode | YES |
+| receiverAccountNumber | YES |
+| receiverSwiftCode | NO |
+| receiverAccountHolderName | YES |
+| receiverAccountType | NO |
+| receiverBankCountry | NO |
+| receiverBankAddress | NO |
+| receiverMsisdn | YES |
+| receiverIdType | YES |
+| receiverIdNumber | YES |
+| receiverDOB | NO |
+| receiverPinCode | YES |
+| receiverIdExpiration | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">TRY</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| receiverBankName | YES |
+| receiverBankCode | NO |
+| receiverAccountNumber | YES |
+| receiverSwiftCode | NO |
+| receiverAccountHolderName | YES |
+| receiverAccountType | NO |
+| receiverBankCountry | NO |
+| receiverBankAddress | NO |
+| receiverMsisdn | YES |
+| receiverIdType | YES |
+| receiverIdNumber | YES |
+| receiverDOB | NO |
+| receiverPinCode | YES |
+| receiverIdExpiration | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">BRL</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| receiverBankName | YES |
+| receiverBankCode | YES |
+| receiverAccountNumber | YES |
+| receiverSwiftCode | NO |
+| receiverAccountHolderName | YES |
+| receiverAccountType | YES |
+| receiverBankCountry | YES it represents the Bank Sub Code |
+| receiverBankAddress | NO |
+| receiverMsisdn | YES |
+| receiverIdType | YES with value RHD010(CPF/Tax ID No) |
+| receiverIdNumber | YES with min-max length 11 |
+| receiverDOB | NO |
+| receiverPinCode | YES |
+| receiverIdExpiration | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">PKR</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| receiverBankName | YES |
+| receiverBankCode | YES |
+| receiverAccountNumber | YES |
+| receiverSwiftCode | NO |
+| receiverAccountHolderName | YES |
+| receiverAccountType | NO |
+| receiverBankCountry | NO |
+| receiverBankAddress | NO |
+| receiverMsisdn | YES |
+| receiverIdType | YES |
+| receiverIdNumber | YES |
+| receiverDOB | NO |
+| receiverPinCode | YES |
+| receiverIdExpiration | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">IDR*</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| receiverBankName | YES |
+| receiverBankCode | YES |
+| receiverAccountNumber | YES |
+| receiverSwiftCode | NO |
+| receiverAccountHolderName | YES |
+| receiverAccountType | NO |
+| receiverBankCountry | NO |
+| receiverBankAddress | NO |
+| receiverMsisdn | YES |
+| receiverIdType | YES |
+| receiverIdNumber | YES |
+| receiverDOB | NO |
+| receiverPinCode | YES |
+| receiverIdExpiration | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">ZAR</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| receiverBankName | YES |
+| receiverBankCode | YES |
+| receiverAccountNumber | YES |
+| receiverSwiftCode | NO |
+| receiverAccountHolderName | YES |
+| receiverAccountType | NO |
+| receiverBankCountry | NO |
+| receiverBankAddress | NO |
+| receiverMsisdn | YES |
+| receiverIdType | YES |
+| receiverIdNumber | YES |
+| receiverDOB | NO |
+| receiverPinCode | YES |
+| receiverIdExpiration | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">HKD</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| receiverBankName | YES |
+| receiverBankCode | NO |
+| receiverAccountNumber | YES |
+| receiverSwiftCode | NO |
+| receiverAccountHolderName | YES |
+| receiverAccountType | NO |
+| receiverBankCountry | YES |
+| receiverBankAddress | NO |
+| receiverMsisdn | YES |
+| receiverIdType | YES |
+| receiverIdNumber | YES |
+| receiverDOB | NO |
+| receiverPinCode | YES |
+| receiverIdExpiration | NO |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">SGD</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| receiverBankName | YES |
+| receiverBankCode | YES |
+| receiverAccountNumber | YES |
+| receiverSwiftCode | NO |
+| receiverAccountHolderName | YES |
+| receiverAccountType | NO |
+| receiverBankCountry | NO |
+| receiverBankAddress | NO |
+| receiverMsisdn | YES |
+| receiverIdType | YES |
+| receiverIdNumber | YES |
+| receiverDOB | NO |
+| receiverPinCode | YES |
+| receiverIdExpiration | NO |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">EUR, EUR-INSTANT</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| receiverBankName | YES |
+| receiverBankCode | NO |
+| receiverAccountNumber | YES |
+| receiverSwiftCode | NO |
+| receiverAccountHolderName | YES |
+| receiverAccountType | NO |
+| receiverBankCountry | YES |
+| receiverBankAddress | NO |
+| receiverMsisdn | YES |
+| receiverIdType | NO |
+| receiverIdNumber | NO |
+| receiverDOB | NO |
+| receiverPinCode | YES |
+| receiverIdExpiration | NO |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">JPY*</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| receiverBankName | YES |
+| receiverBankCode | YES |
+| receiverAccountNumber | YES |
+| receiverSwiftCode | NO |
+| receiverAccountHolderName | YES |
+| receiverAccountType | NO |
+| receiverBankCountry | YES |
+| receiverBankAddress | NO |
+| receiverMsisdn | YES |
+| receiverIdType | YES |
+| receiverIdNumber | YES |
+| receiverDOB | NO |
+| receiverPinCode | YES |
+| receiverIdExpiration | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">GBP, GBP-INSTANT, GBP-STANDARD</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| receiverBankName | YES |
+| receiverBankCode | NO |
+| receiverAccountNumber | YES |
+| receiverSwiftCode | NO |
+| receiverAccountHolderName | YES |
+| receiverAccountType | NO |
+| receiverBankCountry | YES |
+| receiverBankAddress | NO |
+| receiverMsisdn | YES |
+| receiverIdType | NO |
+| receiverIdNumber | NO |
+| receiverDOB | NO |
+| receiverPinCode | YES |
+| receiverIdExpiration | NO |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">CAD</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| receiverBankName | YES |
+| receiverBankCode | NO |
+| receiverAccountNumber | YES |
+| receiverSwiftCode | NO |
+| receiverAccountHolderName | YES |
+| receiverAccountType | NO |
+| receiverBankCountry | YES |
+| receiverBankAddress | NO |
+| receiverMsisdn | YES |
+| receiverIdType | YES |
+| receiverIdNumber | YES |
+| receiverDOB | NO |
+| receiverPinCode | YES |
+| receiverIdExpiration | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">AUD</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| receiverBankName | YES |
+| receiverBankCode | YES |
+| receiverAccountNumber | YES |
+| receiverSwiftCode | YES it represents the BSB Code |
+| receiverAccountHolderName | YES |
+| receiverAccountType | NO |
+| receiverBankCountry | NO |
+| receiverBankAddress | NO |
+| receiverMsisdn | YES |
+| receiverIdType | YES |
+| receiverIdNumber | YES |
+| receiverDOB | NO |
+| receiverPinCode | YES |
+| receiverIdExpiration | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">USD-USA</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| receiverBankName | YES |
+| receiverBankCode | NO |
+| receiverAccountNumber | YES |
+| receiverSwiftCode | YES it represents the Routing No |
+| receiverAccountHolderName | YES |
+| receiverAccountType | NO |
+| receiverBankCountry | YES |
+| receiverBankAddress | NO |
+| receiverMsisdn | YES |
+| receiverIdType | NO |
+| receiverIdNumber | NO |
+| receiverDOB | NO |
+| receiverPinCode | YES |
+| receiverIdExpiration | NO |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">THB</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| receiverBankName | YES |
+| receiverBankCode | NO |
+| receiverAccountNumber | YES |
+| receiverSwiftCode | NO |
+| receiverAccountHolderName | YES |
+| receiverAccountType | NO |
+| receiverBankCountry | YES |
+| receiverBankAddress | NO |
+| receiverMsisdn | YES |
+| receiverIdType | NO |
+| receiverIdNumber | NO |
+| receiverDOB | NO |
+| receiverPinCode | YES |
+| receiverIdExpiration | NO |
+
+</details>
 
 </div>
 
@@ -130,37 +987,304 @@ Note: “YES” indicates that the field is mandatory, while “NO” indicates 
 
 *Source column groups: Kyc detail fields (3 columns)*
 
-<div className="rhub-datagrid">
+<div className="rhub-reqs">
 
-| Currency | RAIL | businessRegistrationIssueDate | businessIdValidThru | businessPinCode |
-|---|---|---|---|---|
-| AED | LOCAL | YES | YES | YES |
-| MYR | LOCAL | YES | YES | YES |
-| LKR | LOCAL | YES | YES | YES |
-| NGN | LOCAL | YES | YES | YES |
-| ARS | LOCAL | YES | YES | YES |
-| KES | LOCAL | YES | YES | YES |
-| NPR | LOCAL | YES | YES | YES |
-| KRW | LOCAL | YES | YES | YES |
-| INR | LOCAL | YES | YES | YES |
-| VND | LOCAL | YES | YES | YES |
-| MXN | LOCAL | YES | YES | YES |
-| COP | LOCAL | YES | YES | YES |
-| PHP | LOCAL | YES | YES | YES |
-| TRY | LOCAL | YES | YES | YES |
-| BRL | LOCAL | YES | YES | YES |
-| PKR | LOCAL | YES | YES | YES |
-| IDR | LOCAL | YES | YES | YES |
-| ZAR | LOCAL | YES | YES | YES |
-| HKD | LOCAL | NO | NO | YES |
-| SGD | LOCAL | NO | NO | YES |
-| EUR, EUR-INSTANT | LOCAL | NO | NO | YES |
-| JPY | LOCAL | NO | NO | YES |
-| GBP, GBP-INSTANT, GBP-STANDARD | LOCAL | NO | NO | YES |
-| CAD | LOCAL | NO | NO | YES |
-| AUD | LOCAL | NO | NO | YES |
-| USD-USA | LOCAL | NO | NO | YES |
-| THB | LOCAL | NO | NO | YES |
+<details className="rhub-req">
+<summary><span className="rhub-req__code">AED</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessRegistrationIssueDate | YES |
+| businessIdValidThru | YES |
+| businessPinCode | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">MYR</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessRegistrationIssueDate | YES |
+| businessIdValidThru | YES |
+| businessPinCode | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">LKR</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessRegistrationIssueDate | YES |
+| businessIdValidThru | YES |
+| businessPinCode | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">NGN</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessRegistrationIssueDate | YES |
+| businessIdValidThru | YES |
+| businessPinCode | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">ARS</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessRegistrationIssueDate | YES |
+| businessIdValidThru | YES |
+| businessPinCode | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">KES</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessRegistrationIssueDate | YES |
+| businessIdValidThru | YES |
+| businessPinCode | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">NPR</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessRegistrationIssueDate | YES |
+| businessIdValidThru | YES |
+| businessPinCode | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">KRW</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessRegistrationIssueDate | YES |
+| businessIdValidThru | YES |
+| businessPinCode | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">INR</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessRegistrationIssueDate | YES |
+| businessIdValidThru | YES |
+| businessPinCode | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">VND</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessRegistrationIssueDate | YES |
+| businessIdValidThru | YES |
+| businessPinCode | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">MXN</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessRegistrationIssueDate | YES |
+| businessIdValidThru | YES |
+| businessPinCode | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">COP</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessRegistrationIssueDate | YES |
+| businessIdValidThru | YES |
+| businessPinCode | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">PHP</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessRegistrationIssueDate | YES |
+| businessIdValidThru | YES |
+| businessPinCode | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">TRY</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessRegistrationIssueDate | YES |
+| businessIdValidThru | YES |
+| businessPinCode | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">BRL</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessRegistrationIssueDate | YES |
+| businessIdValidThru | YES |
+| businessPinCode | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">PKR</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessRegistrationIssueDate | YES |
+| businessIdValidThru | YES |
+| businessPinCode | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">IDR</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessRegistrationIssueDate | YES |
+| businessIdValidThru | YES |
+| businessPinCode | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">ZAR</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessRegistrationIssueDate | YES |
+| businessIdValidThru | YES |
+| businessPinCode | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">HKD</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessRegistrationIssueDate | NO |
+| businessIdValidThru | NO |
+| businessPinCode | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">SGD</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessRegistrationIssueDate | NO |
+| businessIdValidThru | NO |
+| businessPinCode | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">EUR, EUR-INSTANT</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessRegistrationIssueDate | NO |
+| businessIdValidThru | NO |
+| businessPinCode | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">JPY</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessRegistrationIssueDate | NO |
+| businessIdValidThru | NO |
+| businessPinCode | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">GBP, GBP-INSTANT, GBP-STANDARD</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessRegistrationIssueDate | NO |
+| businessIdValidThru | NO |
+| businessPinCode | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">CAD</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessRegistrationIssueDate | NO |
+| businessIdValidThru | NO |
+| businessPinCode | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">AUD</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessRegistrationIssueDate | NO |
+| businessIdValidThru | NO |
+| businessPinCode | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">USD-USA</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessRegistrationIssueDate | NO |
+| businessIdValidThru | NO |
+| businessPinCode | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">THB</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessRegistrationIssueDate | NO |
+| businessIdValidThru | NO |
+| businessPinCode | YES |
+
+</details>
 
 </div>
 
@@ -172,37 +1296,466 @@ Note: “YES” indicates that the field is mandatory, while “NO” indicates 
 
 *Source column groups: Bank detail fields (4 columns); Additional Kyc detail fields (5 columns)*
 
-<div className="rhub-datagrid">
+<div className="rhub-reqs">
 
-| Currency | RAIL | businessBankCode | businessSwiftCode | businessAccountType | businessBankCountry | businessPrimaryContactNumber | businessRegistrationIssueDate | businessRegistrationNumber | businessPinCode | businessIdValidThru |  |  |  |  |  |  |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| AED | LOCAL | YES | YES it represents the Swift Code | NO | NO | YES | YES | YES | YES | YES |  |  |  |  |  |  |
-| MYR | LOCAL | YES | NO | NO | NO | YES | YES | YES | YES | YES |  |  |  |  |  |  |
-| LKR | LOCAL | YES | NO | NO | NO | YES | YES | YES | YES | YES |  |  |  |  |  |  |
-| NGN | LOCAL | YES | NO | NO | NO | YES | YES | YES | YES | YES |  |  |  |  |  |  |
-| ARS | LOCAL | YES | NO | NO | NO | YES | YES | YES | YES | YES |  |  |  |  |  |  |
-| KES | LOCAL | YES | NO | NO | NO | YES | YES | YES | YES | YES |  |  |  |  |  |  |
-| NPR | LOCAL | YES | NO | NO | NO | YES | YES | YES | YES | YES |  |  |  |  |  |  |
-| KRW* | LOCAL | YES | NO | NO | NO | YES | YES | YES | YES | YES |  |  |  |  |  |  |
-| INR | LOCAL | YES | YES it represents the IFSC Code | NO | NO | YES | YES | YES | YES | YES |  |  |  |  |  |  |
-| VND* | LOCAL | YES | NO | NO | NO | YES | YES | YES | YES | YES |  |  |  |  |  |  |
-| MXN | LOCAL | YES | NO | NO | NO | YES | YES | YES | YES | YES |  |  |  |  |  |  |
-| COP | LOCAL | YES | NO | NO | NO | YES | YES | YES | YES | YES |  |  |  |  |  |  |
-| PHP | LOCAL | YES | NO | NO | NO | YES | YES | YES | YES | YES |  |  |  |  |  |  |
-| TRY | LOCAL | NO | NO | NO | NO | YES | YES | YES | YES | YES |  |  |  |  |  |  |
-| BRL | LOCAL | YES | NO | YES | YES it represents the Bank Sub Code | YES | YES | YES | YES | YES |  |  |  |  |  |  |
-| PKR | LOCAL | YES | NO | NO | NO | YES | YES | YES | YES | YES |  |  |  |  |  |  |
-| IDR* | LOCAL | YES | NO | NO | NO | YES | YES | YES | YES | YES |  |  |  |  |  |  |
-| ZAR | LOCAL | YES | NO | NO | NO | YES | YES | YES | YES | YES |  |  |  |  |  |  |
-| HKD | LOCAL | NO | NO | NO | YES | YES | NO | NO | YES | NO |  |  |  |  |  |  |
-| SGD | LOCAL | YES | NO | NO | NO | YES | NO | NO | YES | NO |  |  |  |  |  |  |
-| EUR, EUR-INSTANT | LOCAL | NO | NO | NO | YES | YES | NO | NO | YES | NO |  |  |  |  |  |  |
-| JPY* | LOCAL | YES | NO | NO | YES | YES | YES | YES | YES | YES |  |  |  |  |  |  |
-| GBP, GBP-INSTANT, GBP-STANDARD | LOCAL | NO | NO | NO | YES | YES | NO | NO | YES | NO |  |  |  |  |  |  |
-| CAD | LOCAL | NO | YES it represents the Transit Code | NO | YES | YES | NO | NO | YES | NO |  |  |  |  |  |  |
-| AUD | LOCAL | NO | YES it represents the BSB Code | NO | YES | YES | NO | NO | YES | NO |  |  |  |  |  |  |
-| USD-USA | LOCAL | NO | YES it represents the Routing No | NO | YES | YES | NO | NO | YES | NO |  |  |  |  |  |  |
-| THB | LOCAL | NO | NO | NO | YES | YES | NO | NO | YES | NO |  |  |  |  |  |  |
+<details className="rhub-req">
+<summary><span className="rhub-req__code">AED</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankCode | YES |
+| businessSwiftCode | YES it represents the Swift Code |
+| businessAccountType | NO |
+| businessBankCountry | NO |
+| businessPrimaryContactNumber | YES |
+| businessRegistrationIssueDate | YES |
+| businessRegistrationNumber | YES |
+| businessPinCode | YES |
+| businessIdValidThru | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">MYR</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankCode | YES |
+| businessSwiftCode | NO |
+| businessAccountType | NO |
+| businessBankCountry | NO |
+| businessPrimaryContactNumber | YES |
+| businessRegistrationIssueDate | YES |
+| businessRegistrationNumber | YES |
+| businessPinCode | YES |
+| businessIdValidThru | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">LKR</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankCode | YES |
+| businessSwiftCode | NO |
+| businessAccountType | NO |
+| businessBankCountry | NO |
+| businessPrimaryContactNumber | YES |
+| businessRegistrationIssueDate | YES |
+| businessRegistrationNumber | YES |
+| businessPinCode | YES |
+| businessIdValidThru | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">NGN</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankCode | YES |
+| businessSwiftCode | NO |
+| businessAccountType | NO |
+| businessBankCountry | NO |
+| businessPrimaryContactNumber | YES |
+| businessRegistrationIssueDate | YES |
+| businessRegistrationNumber | YES |
+| businessPinCode | YES |
+| businessIdValidThru | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">ARS</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankCode | YES |
+| businessSwiftCode | NO |
+| businessAccountType | NO |
+| businessBankCountry | NO |
+| businessPrimaryContactNumber | YES |
+| businessRegistrationIssueDate | YES |
+| businessRegistrationNumber | YES |
+| businessPinCode | YES |
+| businessIdValidThru | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">KES</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankCode | YES |
+| businessSwiftCode | NO |
+| businessAccountType | NO |
+| businessBankCountry | NO |
+| businessPrimaryContactNumber | YES |
+| businessRegistrationIssueDate | YES |
+| businessRegistrationNumber | YES |
+| businessPinCode | YES |
+| businessIdValidThru | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">NPR</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankCode | YES |
+| businessSwiftCode | NO |
+| businessAccountType | NO |
+| businessBankCountry | NO |
+| businessPrimaryContactNumber | YES |
+| businessRegistrationIssueDate | YES |
+| businessRegistrationNumber | YES |
+| businessPinCode | YES |
+| businessIdValidThru | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">KRW*</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankCode | YES |
+| businessSwiftCode | NO |
+| businessAccountType | NO |
+| businessBankCountry | NO |
+| businessPrimaryContactNumber | YES |
+| businessRegistrationIssueDate | YES |
+| businessRegistrationNumber | YES |
+| businessPinCode | YES |
+| businessIdValidThru | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">INR</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankCode | YES |
+| businessSwiftCode | YES it represents the IFSC Code |
+| businessAccountType | NO |
+| businessBankCountry | NO |
+| businessPrimaryContactNumber | YES |
+| businessRegistrationIssueDate | YES |
+| businessRegistrationNumber | YES |
+| businessPinCode | YES |
+| businessIdValidThru | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">VND*</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankCode | YES |
+| businessSwiftCode | NO |
+| businessAccountType | NO |
+| businessBankCountry | NO |
+| businessPrimaryContactNumber | YES |
+| businessRegistrationIssueDate | YES |
+| businessRegistrationNumber | YES |
+| businessPinCode | YES |
+| businessIdValidThru | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">MXN</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankCode | YES |
+| businessSwiftCode | NO |
+| businessAccountType | NO |
+| businessBankCountry | NO |
+| businessPrimaryContactNumber | YES |
+| businessRegistrationIssueDate | YES |
+| businessRegistrationNumber | YES |
+| businessPinCode | YES |
+| businessIdValidThru | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">COP</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankCode | YES |
+| businessSwiftCode | NO |
+| businessAccountType | NO |
+| businessBankCountry | NO |
+| businessPrimaryContactNumber | YES |
+| businessRegistrationIssueDate | YES |
+| businessRegistrationNumber | YES |
+| businessPinCode | YES |
+| businessIdValidThru | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">PHP</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankCode | YES |
+| businessSwiftCode | NO |
+| businessAccountType | NO |
+| businessBankCountry | NO |
+| businessPrimaryContactNumber | YES |
+| businessRegistrationIssueDate | YES |
+| businessRegistrationNumber | YES |
+| businessPinCode | YES |
+| businessIdValidThru | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">TRY</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankCode | NO |
+| businessSwiftCode | NO |
+| businessAccountType | NO |
+| businessBankCountry | NO |
+| businessPrimaryContactNumber | YES |
+| businessRegistrationIssueDate | YES |
+| businessRegistrationNumber | YES |
+| businessPinCode | YES |
+| businessIdValidThru | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">BRL</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankCode | YES |
+| businessSwiftCode | NO |
+| businessAccountType | YES |
+| businessBankCountry | YES it represents the Bank Sub Code |
+| businessPrimaryContactNumber | YES |
+| businessRegistrationIssueDate | YES |
+| businessRegistrationNumber | YES |
+| businessPinCode | YES |
+| businessIdValidThru | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">PKR</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankCode | YES |
+| businessSwiftCode | NO |
+| businessAccountType | NO |
+| businessBankCountry | NO |
+| businessPrimaryContactNumber | YES |
+| businessRegistrationIssueDate | YES |
+| businessRegistrationNumber | YES |
+| businessPinCode | YES |
+| businessIdValidThru | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">IDR*</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankCode | YES |
+| businessSwiftCode | NO |
+| businessAccountType | NO |
+| businessBankCountry | NO |
+| businessPrimaryContactNumber | YES |
+| businessRegistrationIssueDate | YES |
+| businessRegistrationNumber | YES |
+| businessPinCode | YES |
+| businessIdValidThru | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">ZAR</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankCode | YES |
+| businessSwiftCode | NO |
+| businessAccountType | NO |
+| businessBankCountry | NO |
+| businessPrimaryContactNumber | YES |
+| businessRegistrationIssueDate | YES |
+| businessRegistrationNumber | YES |
+| businessPinCode | YES |
+| businessIdValidThru | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">HKD</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankCode | NO |
+| businessSwiftCode | NO |
+| businessAccountType | NO |
+| businessBankCountry | YES |
+| businessPrimaryContactNumber | YES |
+| businessRegistrationIssueDate | NO |
+| businessRegistrationNumber | NO |
+| businessPinCode | YES |
+| businessIdValidThru | NO |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">SGD</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankCode | YES |
+| businessSwiftCode | NO |
+| businessAccountType | NO |
+| businessBankCountry | NO |
+| businessPrimaryContactNumber | YES |
+| businessRegistrationIssueDate | NO |
+| businessRegistrationNumber | NO |
+| businessPinCode | YES |
+| businessIdValidThru | NO |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">EUR, EUR-INSTANT</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankCode | NO |
+| businessSwiftCode | NO |
+| businessAccountType | NO |
+| businessBankCountry | YES |
+| businessPrimaryContactNumber | YES |
+| businessRegistrationIssueDate | NO |
+| businessRegistrationNumber | NO |
+| businessPinCode | YES |
+| businessIdValidThru | NO |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">JPY*</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankCode | YES |
+| businessSwiftCode | NO |
+| businessAccountType | NO |
+| businessBankCountry | YES |
+| businessPrimaryContactNumber | YES |
+| businessRegistrationIssueDate | YES |
+| businessRegistrationNumber | YES |
+| businessPinCode | YES |
+| businessIdValidThru | YES |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">GBP, GBP-INSTANT, GBP-STANDARD</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankCode | NO |
+| businessSwiftCode | NO |
+| businessAccountType | NO |
+| businessBankCountry | YES |
+| businessPrimaryContactNumber | YES |
+| businessRegistrationIssueDate | NO |
+| businessRegistrationNumber | NO |
+| businessPinCode | YES |
+| businessIdValidThru | NO |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">CAD</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankCode | NO |
+| businessSwiftCode | YES it represents the Transit Code |
+| businessAccountType | NO |
+| businessBankCountry | YES |
+| businessPrimaryContactNumber | YES |
+| businessRegistrationIssueDate | NO |
+| businessRegistrationNumber | NO |
+| businessPinCode | YES |
+| businessIdValidThru | NO |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">AUD</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankCode | NO |
+| businessSwiftCode | YES it represents the BSB Code |
+| businessAccountType | NO |
+| businessBankCountry | YES |
+| businessPrimaryContactNumber | YES |
+| businessRegistrationIssueDate | NO |
+| businessRegistrationNumber | NO |
+| businessPinCode | YES |
+| businessIdValidThru | NO |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">USD-USA</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankCode | NO |
+| businessSwiftCode | YES it represents the Routing No |
+| businessAccountType | NO |
+| businessBankCountry | YES |
+| businessPrimaryContactNumber | YES |
+| businessRegistrationIssueDate | NO |
+| businessRegistrationNumber | NO |
+| businessPinCode | YES |
+| businessIdValidThru | NO |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">THB</span><span className="rhub-req__rail">LOCAL</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankCode | NO |
+| businessSwiftCode | NO |
+| businessAccountType | NO |
+| businessBankCountry | YES |
+| businessPrimaryContactNumber | YES |
+| businessRegistrationIssueDate | NO |
+| businessRegistrationNumber | NO |
+| businessPinCode | YES |
+| businessIdValidThru | NO |
+
+</details>
 
 </div>
 

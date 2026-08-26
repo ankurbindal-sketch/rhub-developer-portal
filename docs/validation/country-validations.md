@@ -7,12 +7,18 @@ description: "Country-specific SWIFT field requirements for RHUB payouts."
 
 # Country validations (SWIFT rail)
 
-:::info[How to use these tables]
+## How to use this page
 
-These tables state, per country group, which bank-related [Payout](/docs/payout/payout)
-fields are mandatory when a transaction is processed through the SWIFT network. As with the
-currency tables, they qualify **Conditional** fields; fields marked Mandatory in the Payout
-API must always be supplied. The source's own wording is reproduced below.
+Country requirements vary with the destination country and the transaction rail. You do not
+need to know the field names in advance: find the destination country below and expand it to
+see the requirements that apply when the transaction is processed through the SWIFT network.
+
+As with the currency rules, these qualify **Conditional** fields only — fields marked
+Mandatory in the [Payout API](/docs/payout/payout) must always be supplied.
+
+:::info[Note]
+
+RHUB's own wording for these rules is reproduced below, unchanged.
 
 :::
 
@@ -53,36 +59,319 @@ Note: “YES” indicates that the field is mandatory and accepts the value/info
 
 :::
 
-<div className="rhub-datagrid">
+<div className="rhub-reqs">
 
-| Country | RAIL | businessBankName, receiverBankName | businessAccountNumber, receiverAccountNumber | businessSwiftCode, receiverSwiftCode | businessAccountHolderName, receiverAccountHolderName |
-|---|---|---|---|---|---|
-| AR | SWIFT | Yes | Yes | Yes | Yes |
-| BB | SWIFT | Yes | Yes | Yes | Yes |
-| BM | SWIFT | Yes | Yes | Yes | Yes |
-| BN | SWIFT | Yes | Yes | Yes | Yes |
-| BS | SWIFT | Yes | Yes | Yes | Yes |
-| CO | SWIFT | Yes | Yes | Yes | Yes |
-| DZ | SWIFT | Yes | Yes | Yes | Yes |
-| EC | SWIFT | Yes | Yes | Yes | Yes |
-| FJ | SWIFT | Yes | Yes | Yes | Yes |
-| HN | SWIFT | Yes | Yes | Yes | Yes |
-| JM | SWIFT | Yes | Yes | Yes | Yes |
-| JP | SWIFT | Yes | Yes | Yes | Yes |
-| KE | SWIFT | Yes | Yes | Yes | Yes |
-| KR | SWIFT | Yes | Yes | Yes | Yes |
-| KY | SWIFT | Yes | Yes | Yes | Yes |
-| MO | SWIFT | Yes | Yes | Yes | Yes |
-| MW | SWIFT | Yes | Yes | Yes | Yes |
-| NG | SWIFT | Yes | Yes | Yes | Yes |
-| NI | SWIFT | Yes | Yes | Yes | Yes |
-| NP | SWIFT | Yes | Yes | Yes | Yes |
-| NZ | SWIFT | Yes | Yes | Yes | Yes |
-| PE | SWIFT | Yes | Yes | Yes | Yes |
-| SZ | SWIFT | Yes | Yes | Yes | Yes |
-| TH | SWIFT | Yes | Yes | Yes | Yes |
-| UG | SWIFT | Yes | Yes | Yes | Yes |
-| ZA | SWIFT | Yes | Yes | Yes | Yes |
+<details className="rhub-req">
+<summary><span className="rhub-req__code">AR</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">BB</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">BM</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">BN</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">BS</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">CO</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">DZ</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">EC</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">FJ</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">HN</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">JM</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">JP</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">KE</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">KR</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">KY</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">MO</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">MW</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">NG</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">NI</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">NP</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">NZ</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">PE</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">SZ</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">TH</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">UG</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">ZA</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
 
 </div>
 
@@ -112,61 +401,619 @@ Note: “YES” indicates that the field is mandatory and accepts the value/info
 
 :::
 
-<div className="rhub-datagrid">
+<div className="rhub-reqs">
 
-| Country | RAIL | businessBankName, receiverBankName | businessAccountNumber, receiverAccountNumber | businessSwiftCode, receiverSwiftCode | businessAccountHolderName, receiverAccountHolderName |
-|---|---|---|---|---|---|
-| AE | SWIFT | Yes | Yes | Yes | Yes |
-| AL | SWIFT | Yes | Yes | Yes | Yes |
-| AT | SWIFT | Yes | Yes | Yes | Yes |
-| BE | SWIFT | Yes | Yes | Yes | Yes |
-| BG | SWIFT | Yes | Yes | Yes | Yes |
-| BH | SWIFT | Yes | Yes | Yes | Yes |
-| CH | SWIFT | Yes | Yes | Yes | Yes |
-| CR | SWIFT | Yes | Yes | Yes | Yes |
-| CY | SWIFT | Yes | Yes | Yes | Yes |
-| CZ | SWIFT | Yes | Yes | Yes | Yes |
-| DE | SWIFT | Yes | Yes | Yes | Yes |
-| DK | SWIFT | Yes | Yes | Yes | Yes |
-| EE | SWIFT | Yes | Yes | Yes | Yes |
-| ES | SWIFT | Yes | Yes | Yes | Yes |
-| FI | SWIFT | Yes | Yes | Yes | Yes |
-| FR | SWIFT | Yes | Yes | Yes | Yes |
-| GR | SWIFT | Yes | Yes | Yes | Yes |
-| GT | SWIFT | Yes | Yes | Yes | Yes |
-| HR | SWIFT | Yes | Yes | Yes | Yes |
-| HU | SWIFT | Yes | Yes | Yes | Yes |
-| IE | SWIFT | Yes | Yes | Yes | Yes |
-| IL | SWIFT | Yes | Yes | Yes | Yes |
-| IT | SWIFT | Yes | Yes | Yes | Yes |
-| JO | SWIFT | Yes | Yes | Yes | Yes |
-| KW | SWIFT | Yes | Yes | Yes | Yes |
-| KZ | SWIFT | Yes | Yes | Yes | Yes |
-| LB | SWIFT | Yes | Yes | Yes | Yes |
-| LI | SWIFT | Yes | Yes | Yes | Yes |
-| LT | SWIFT | Yes | Yes | Yes | Yes |
-| LU | SWIFT | Yes | Yes | Yes | Yes |
-| LV | SWIFT | Yes | Yes | Yes | Yes |
-| MC | SWIFT | Yes | Yes | Yes | Yes |
-| MT | SWIFT | Yes | Yes | Yes | Yes |
-| MU | SWIFT | Yes | Yes | Yes | Yes |
-| MZ | SWIFT | Yes | Yes | Yes | Yes |
-| NL | SWIFT | Yes | Yes | Yes | Yes |
-| NO | SWIFT | Yes | Yes | Yes | Yes |
-| OM | SWIFT | Yes | Yes | Yes | Yes |
-| PK | SWIFT | Yes | Yes | Yes | Yes |
-| PL | SWIFT | Yes | Yes | Yes | Yes |
-| PT | SWIFT | Yes | Yes | Yes | Yes |
-| QA | SWIFT | Yes | Yes | Yes | Yes |
-| RO | SWIFT | Yes | Yes | Yes | Yes |
-| RS | SWIFT | Yes | Yes | Yes | Yes |
-| SA | SWIFT | Yes | Yes | Yes | Yes |
-| SE | SWIFT | Yes | Yes | Yes | Yes |
-| SI | SWIFT | Yes | Yes | Yes | Yes |
-| SK | SWIFT | Yes | Yes | Yes | Yes |
-| TN | SWIFT | Yes | Yes | Yes | Yes |
-| TR | SWIFT | Yes | Yes | Yes | Yes |
-| UA | SWIFT | Yes | Yes | Yes | Yes |
+<details className="rhub-req">
+<summary><span className="rhub-req__code">AE</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">AL</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">AT</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">BE</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">BG</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">BH</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">CH</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">CR</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">CY</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">CZ</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">DE</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">DK</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">EE</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">ES</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">FI</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">FR</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">GR</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">GT</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">HR</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">HU</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">IE</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">IL</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">IT</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">JO</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">KW</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">KZ</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">LB</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">LI</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">LT</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">LU</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">LV</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">MC</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">MT</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">MU</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">MZ</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">NL</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">NO</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">OM</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">PK</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">PL</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">PT</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">QA</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">RO</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">RS</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">SA</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">SE</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">SI</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">SK</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">TN</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">TR</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">UA</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
 
 </div>
 
@@ -191,13 +1038,46 @@ Note: “YES” indicates that the field is mandatory and accepts the value/info
 
 :::
 
-<div className="rhub-datagrid">
+<div className="rhub-reqs">
 
-| Country | RAIL | businessBankName, receiverBankName | businessAccountNumber, receiverAccountNumber | businessSwiftCode, receiverSwiftCode | businessBankCode, receiverBankCode | businessAccountHolderName, receiverAccountHolderName |
-|---|---|---|---|---|---|---|
-| GB | SWIFT | Yes | Yes | Yes | Yes | Yes |
-| MY | SWIFT | Yes | Yes | Yes | Yes | Yes |
-| ZM | SWIFT | Yes | Yes | Yes | Yes | Yes |
+<details className="rhub-req">
+<summary><span className="rhub-req__code">GB</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessBankCode, receiverBankCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">MY</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessBankCode, receiverBankCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">ZM</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessBankCode, receiverBankCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
 
 </div>
 
@@ -223,13 +1103,49 @@ Note: “YES” indicates that the field is mandatory and accepts the value/info
 
 :::
 
-<div className="rhub-datagrid">
+<div className="rhub-reqs">
 
-| Country | RAIL | businessBankName, receiverBankName | businessAccountNumber, receiverAccountNumber | businessSwiftCode, receiverSwiftCode | businessBankCode, receiverBankCode | businessBankCountry, receiverBankCountry | businessAccountHolderName, receiverAccountHolderName |
-|---|---|---|---|---|---|---|---|
-| LK | SWIFT | Yes | Yes | Yes | Yes | Yes | Yes |
-| MA | SWIFT | Yes | Yes | Yes | Yes | Yes | Yes |
-| TT | SWIFT | Yes | Yes | Yes | Yes | Yes | Yes |
+<details className="rhub-req">
+<summary><span className="rhub-req__code">LK</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessBankCode, receiverBankCode | Yes |
+| businessBankCountry, receiverBankCountry | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">MA</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessBankCode, receiverBankCode | Yes |
+| businessBankCountry, receiverBankCountry | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">TT</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessBankCode, receiverBankCode | Yes |
+| businessBankCountry, receiverBankCountry | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
 
 </div>
 
@@ -253,13 +1169,43 @@ Note: “YES” indicates that the field is mandatory and accepts the value/info
 
 :::
 
-<div className="rhub-datagrid">
+<div className="rhub-reqs">
 
-| Country | RAIL | businessAccountHolderName, receiverAccountHolderName | businessBankName, receiverBankName | businessAccountNumber, receiverAccountNumber | businessSwiftCode, receiverSwiftCode |
-|---|---|---|---|---|---|
-| CN | SWIFT | Yes | Yes | Yes | Yes |
-| HK | SWIFT | Yes | Yes | Yes | Yes |
-| TW | SWIFT | Yes | Yes | Yes | Yes |
+<details className="rhub-req">
+<summary><span className="rhub-req__code">CN</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">HK</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">TW</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+
+</details>
 
 </div>
 
@@ -284,12 +1230,33 @@ Note: “YES” indicates that the field is mandatory and accepts the value/info
 
 :::
 
-<div className="rhub-datagrid">
+<div className="rhub-reqs">
 
-| Country | RAIL | businessBankName, receiverBankName | businessAccountNumber, receiverAccountNumber | businessSwiftCode, receiverSwiftCode | businessBankCode, receiverBankCode | businessAccountHolderName, receiverAccountHolderName |
-|---|---|---|---|---|---|---|
-| AM | SWIFT | Yes | Yes | Yes | Yes | Yes |
-| BD | SWIFT | Yes | Yes | Yes | Yes | Yes |
+<details className="rhub-req">
+<summary><span className="rhub-req__code">AM</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessBankCode, receiverBankCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">BD</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessBankCode, receiverBankCode | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
 
 </div>
 
@@ -314,12 +1281,33 @@ Note: “YES” indicates that the field is mandatory and accepts the value/info
 
 :::
 
-<div className="rhub-datagrid">
+<div className="rhub-reqs">
 
-| Country | RAIL | businessBankName, receiverBankName | businessAccountNumber, receiverAccountNumber | businessSwiftCode, receiverSwiftCode | businessAccountType, receiverAccountType | businessAccountHolderName, receiverAccountHolderName |
-|---|---|---|---|---|---|---|
-| DO | SWIFT | Yes | Yes | Yes | Yes | Yes |
-| UY | SWIFT | Yes | Yes | Yes | Yes | Yes |
+<details className="rhub-req">
+<summary><span className="rhub-req__code">DO</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountType, receiverAccountType | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">UY</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessAccountType, receiverAccountType | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
 
 </div>
 
@@ -347,22 +1335,187 @@ Note: “YES” indicates that the field is mandatory and accepts the value/info
 
 :::
 
-<div className="rhub-datagrid">
+<div className="rhub-reqs">
 
-| Country | RAIL | businessBankName, receiverBankName | businessAccountNumber, receiverAccountNumber | businessSwiftCode, receiverSwiftCode | businessBankCountry, receiverBankCountry | businessBankCode, receiverBankCode | businessAccountType, receiverAccountType | businessAccountHolderName, receiverAccountHolderName |
-|---|---|---|---|---|---|---|---|---|
-| AU | SWIFT | Yes | Yes | Yes | No | Yes used for bsb no | No | Yes |
-| BR | SWIFT | Yes | Yes | Yes | Yes | Yes | Yes | Yes |
-| CA | SWIFT | Yes | Yes | Yes | No | Yes used for transitCode | No | Yes |
-| CL | SWIFT | Yes | Yes | Yes | No | No | No | Yes |
-| EG | SWIFT | Yes | Yes | Yes | No | No | No | Yes |
-| ID | SWIFT | Yes | Yes | Yes | Yes | Yes | No | Yes |
-| IN | SWIFT | Yes | Yes | Yes | No | Yes used for IFSC code | No | Yes |
-| IS | SWIFT | Yes | Yes | Yes | No | No | No | Yes |
-| MX | SWIFT | Yes | Yes (used for CLABE / Mexican bank account number) | Yes | No | No | No | Yes |
-| PH | SWIFT | Yes | Yes | Yes | No | Yes used for routing no | Yes | Yes |
-| SG | SWIFT | Yes | Yes | Yes | Yes | Yes | No | Yes |
-| US | SWIFT | Yes | Yes | Yes | No | Yes used for routing no | No | Yes |
+<details className="rhub-req">
+<summary><span className="rhub-req__code">AU</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessBankCountry, receiverBankCountry | No |
+| businessBankCode, receiverBankCode | Yes used for bsb no |
+| businessAccountType, receiverAccountType | No |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">BR</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessBankCountry, receiverBankCountry | Yes |
+| businessBankCode, receiverBankCode | Yes |
+| businessAccountType, receiverAccountType | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">CA</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessBankCountry, receiverBankCountry | No |
+| businessBankCode, receiverBankCode | Yes used for transitCode |
+| businessAccountType, receiverAccountType | No |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">CL</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessBankCountry, receiverBankCountry | No |
+| businessBankCode, receiverBankCode | No |
+| businessAccountType, receiverAccountType | No |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">EG</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessBankCountry, receiverBankCountry | No |
+| businessBankCode, receiverBankCode | No |
+| businessAccountType, receiverAccountType | No |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">ID</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessBankCountry, receiverBankCountry | Yes |
+| businessBankCode, receiverBankCode | Yes |
+| businessAccountType, receiverAccountType | No |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">IN</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessBankCountry, receiverBankCountry | No |
+| businessBankCode, receiverBankCode | Yes used for IFSC code |
+| businessAccountType, receiverAccountType | No |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">IS</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessBankCountry, receiverBankCountry | No |
+| businessBankCode, receiverBankCode | No |
+| businessAccountType, receiverAccountType | No |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">MX</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes (used for CLABE / Mexican bank account number) |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessBankCountry, receiverBankCountry | No |
+| businessBankCode, receiverBankCode | No |
+| businessAccountType, receiverAccountType | No |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">PH</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessBankCountry, receiverBankCountry | No |
+| businessBankCode, receiverBankCode | Yes used for routing no |
+| businessAccountType, receiverAccountType | Yes |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">SG</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessBankCountry, receiverBankCountry | Yes |
+| businessBankCode, receiverBankCode | Yes |
+| businessAccountType, receiverAccountType | No |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
+
+<details className="rhub-req">
+<summary><span className="rhub-req__code">US</span><span className="rhub-req__rail">SWIFT</span><span className="rhub-req__cta">View requirements</span></summary>
+
+| Field | Requirement |
+|---|---|
+| businessBankName, receiverBankName | Yes |
+| businessAccountNumber, receiverAccountNumber | Yes |
+| businessSwiftCode, receiverSwiftCode | Yes |
+| businessBankCountry, receiverBankCountry | No |
+| businessBankCode, receiverBankCode | Yes used for routing no |
+| businessAccountType, receiverAccountType | No |
+| businessAccountHolderName, receiverAccountHolderName | Yes |
+
+</details>
 
 </div>
 
