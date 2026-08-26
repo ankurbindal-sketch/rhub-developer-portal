@@ -1240,7 +1240,7 @@ article {
   display: table;
   table-layout: fixed;
   width: 100%;
-  min-width: 60rem;
+  min-width: 48rem;
   margin: 0;
   border: none;
 }
@@ -1251,9 +1251,13 @@ article {
   vertical-align: top;
 }
 
+/* Column budget for the six-column catalogue. Purpose takes the largest share,
+ * Method and Page the smallest. Integration stage wraps rather than running
+ * into the endpoint beside it, and the endpoint has real width instead of a
+ * nested scroll strip. */
 .rhub-apitable th:nth-child(1),
 .rhub-apitable td:nth-child(1) {
-  width: 15%;
+  width: 14%;
   font-family: var(--ifm-font-family-base);
   font-size: 0.86rem;
   font-weight: 500;
@@ -1264,18 +1268,21 @@ article {
 
 .rhub-apitable th:nth-child(2),
 .rhub-apitable td:nth-child(2) {
-  width: 7%;
+  width: 6%;
 }
 
 .rhub-apitable th:nth-child(3),
 .rhub-apitable td:nth-child(3) {
-  width: 32%;
+  width: 33%;
 }
 
+/* integration stage: wraps at word boundaries, never clipped */
 .rhub-apitable th:nth-child(4),
 .rhub-apitable td:nth-child(4) {
-  width: 12%;
-  white-space: nowrap;
+  width: 14%;
+  white-space: normal;
+  overflow-wrap: break-word;
+  hyphens: none;
 }
 
 .rhub-apitable th:nth-child(5),
@@ -1283,20 +1290,25 @@ article {
   width: 26%;
 }
 
+/* Endpoints stay monospace and complete. `overflow-wrap: break-word` lets the
+ * browser break at the natural opportunities in a route — after `/` and `-` —
+ * and only splits a segment when one is longer than the column. Nothing is
+ * truncated, and the whole string stays selectable. */
 .rhub-apitable td:nth-child(5) code {
   display: block;
-  overflow-x: auto;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: normal;
   background: transparent;
   border: none;
   padding: 0;
-  font-size: 0.76rem;
-  scrollbar-width: thin;
+  font-size: 0.78rem;
+  line-height: 1.45;
 }
 
 .rhub-apitable th:nth-child(6),
 .rhub-apitable td:nth-child(6) {
-  width: 8%;
+  width: 7%;
   white-space: nowrap;
 }
 
