@@ -2208,6 +2208,9 @@ def build_api_index():
               '- [Errors and response codes](/docs/errors)']
     write('api-index.md',
           {'title': 'API index', 'sidebar_label': 'API index',
+           # Catalogue page: the six-column directory needs the full content width more
+           # than the page needs a right-hand TOC (which lists only its two sections).
+           'hide_table_of_contents': True,
            'description': 'Index of the public RHUB APIs, with purpose, integration stage and endpoint.'},
           '\n'.join(lines))
 
