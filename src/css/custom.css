@@ -515,6 +515,26 @@ article {
   font-size: 0.86rem;
   margin-bottom: var(--rhub-space-5);
   scrollbar-width: thin;
+
+  /* Scroll cue: a soft shadow appears at whichever edge has more content off
+   * screen and disappears when that end is reached. Pure CSS — two fixed
+   * "cover" layers pinned to the scroll box and two scrolling "shadow" layers
+   * behind them, so it cannot desynchronise from the scroll position. */
+  background-image:
+    linear-gradient(to right, var(--ifm-background-color) 30%, rgba(0, 0, 0, 0)),
+    linear-gradient(to left, var(--ifm-background-color) 30%, rgba(0, 0, 0, 0)),
+    linear-gradient(to right, rgba(16, 21, 28, 0.13), rgba(0, 0, 0, 0) 18px),
+    linear-gradient(to left, rgba(16, 21, 28, 0.13), rgba(0, 0, 0, 0) 18px);
+  background-position: 0 0, 100% 0, 0 0, 100% 0;
+  background-repeat: no-repeat;
+  background-size: 32px 100%, 32px 100%, 18px 100%, 18px 100%;
+  background-attachment: local, local, scroll, scroll;
+}
+
+/* cells paint over the scroll-cue gradients */
+.markdown table th,
+.markdown table td {
+  background-clip: padding-box;
 }
 
 .markdown table thead tr {
@@ -547,23 +567,67 @@ article {
   overflow-wrap: break-word;
   hyphens: none;
   min-width: 9rem;
+  max-width: 16rem;
 }
 
-/* parameter tables: stable widths for the scannable columns, room for description */
+/* Sticky parameter column.
+ *
+ * Keeps the field name in view while panning a wide contract table. Enabled
+ * from 997px up only: on a phone a pinned 9rem column would leave too little
+ * room for the description. Backgrounds are opaque and the hover state is
+ * repeated on the pinned cell, so no row shows through it, and an explicit
+ * right border replaces the collapsed border that sticky positioning drops. */
+@media (min-width: 997px) {
+  .markdown table th:first-child,
+  .markdown table td:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    background: var(--ifm-background-color);
+    border-right: 1px solid var(--rhub-hairline);
+  }
+
+  .markdown table th:first-child {
+    z-index: 2;
+    background: var(--rhub-surface);
+  }
+
+  .markdown table tr:hover td:first-child {
+    background: var(--rhub-surface-2);
+  }
+}
+
+/* Parameter tables: the scannable columns are capped so they cannot take more
+ * than they need, which leaves the surplus to the description. Caps sit above
+ * the longest real values ("Alphanumeric (Encrypted)", "01 - 128"), so nothing
+ * is clipped — the text wraps inside the cell instead. */
 .markdown table th:nth-child(2),
-.markdown table td:nth-child(2),
+.markdown table td:nth-child(2) {
+  min-width: 6rem;
+  max-width: 10rem;
+}
+
 .markdown table th:nth-child(3),
 .markdown table td:nth-child(3) {
-  min-width: 5.5rem;
+  min-width: 5rem;
+  max-width: 7rem;
 }
 
 .markdown table th:nth-child(4),
 .markdown table td:nth-child(4) {
-  min-width: 4.5rem;
+  min-width: 5rem;
+  max-width: 7rem;
 }
 
 .markdown table td:last-child {
-  min-width: 16rem;
+  min-width: 18rem;
+  max-width: none;
+  overflow-wrap: break-word;
+}
+
+/* a two-letter M / O / C reads better centred under its header */
+.markdown table td:nth-child(4) {
+  white-space: nowrap;
 }
 
 .markdown table tr:hover td {
@@ -994,6 +1058,24 @@ article {
   border-radius: var(--rhub-radius);
   margin-bottom: var(--rhub-space-5);
   scrollbar-width: thin;
+}
+
+/* the matrix wrapper carries the same right-edge scroll cue */
+.rhub-datagrid {
+  background-image:
+    linear-gradient(to right, var(--ifm-background-color) 30%, rgba(0, 0, 0, 0)),
+    linear-gradient(to left, var(--ifm-background-color) 30%, rgba(0, 0, 0, 0)),
+    linear-gradient(to right, rgba(16, 21, 28, 0.13), rgba(0, 0, 0, 0) 18px),
+    linear-gradient(to left, rgba(16, 21, 28, 0.13), rgba(0, 0, 0, 0) 18px);
+  background-position: 0 0, 100% 0, 0 0, 100% 0;
+  background-repeat: no-repeat;
+  background-size: 32px 100%, 32px 100%, 18px 100%, 18px 100%;
+  background-attachment: local, local, scroll, scroll;
+}
+
+.rhub-datagrid th,
+.rhub-datagrid td {
+  background-clip: padding-box;
 }
 
 .rhub-datagrid table {
