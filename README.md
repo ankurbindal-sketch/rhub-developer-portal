@@ -42,6 +42,21 @@ npm install
 npm start          # dev server on http://localhost:3000/rhub-developer-portal/
 ```
 
+## Spell check
+
+Editorial text is checked with [codespell](https://github.com/codespell-project/codespell).
+`.codespellrc` holds the configuration, including an allow-list for RHUB's own vocabulary —
+field names and response values such as `recieverCode` and `Comission Wallet` are reproduced
+exactly as the API has them and must not be "corrected".
+
+```bash
+pip install codespell
+codespell            # reads .codespellrc; exits non-zero on a hit
+```
+
+`.github/workflows/spellcheck.yml` runs the same command on every push and pull request. It
+is independent of the Pages deployment workflow, so a spelling hit never blocks a deploy.
+
 ## Production build
 
 ```bash

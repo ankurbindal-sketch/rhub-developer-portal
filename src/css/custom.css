@@ -191,6 +191,14 @@ article h4 {
 .markdown > ul,
 .markdown > ol {
   max-width: 78ch;
+  overflow-wrap: break-word;
+}
+
+/* a long inline path or URL wraps rather than stretching the column */
+.markdown p code,
+.markdown li code,
+.markdown td code {
+  overflow-wrap: anywhere;
 }
 
 .markdown li + li {
@@ -404,6 +412,7 @@ article h4 {
 /* --- endpoint block --- */
 
 .rhub-endpoint {
+  max-width: 100%;
   margin: var(--rhub-space-5) 0;
   padding: var(--rhub-space-4);
   background: var(--rhub-surface);
@@ -446,23 +455,43 @@ article h4 {
   scrollbar-width: thin;
 }
 
-/* --- parameter tables --- */
+/* --- content containment ------------------------------------------------
+ *
+ * Docusaurus lays the doc column and the right-hand TOC out as flex items in
+ * one row. A flex item defaults to `min-width: auto`, so it refuses to shrink
+ * below its content's minimum width: a wide table then pushes the doc column
+ * past its share of the row and renders underneath the TOC. `min-width: 0`
+ * lets the column shrink to its allotted width; anything wider than that has
+ * to scroll inside its own box (below).
+ */
+
+main .row > .col,
+.theme-doc-markdown,
+.theme-doc-markdown > .markdown,
+article {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* --- parameter tables ---
+ *
+ * Tables stay `display: block` at every width. As a block box the table can
+ * carry `overflow-x: auto`, so a table wider than the column scrolls inside
+ * itself instead of overflowing the column. (`overflow` has no effect on a
+ * `display: table` box, which is why the previous desktop override let wide
+ * tables slide under the TOC.) The per-column minimums below now drive that
+ * internal scroll rather than the width of the page.
+ */
 
 .markdown table {
   display: block;
   width: 100%;
+  max-width: 100%;
   overflow-x: auto;
   border-collapse: collapse;
   font-size: 0.86rem;
   margin-bottom: var(--rhub-space-5);
   scrollbar-width: thin;
-}
-
-@media (min-width: 997px) {
-  .markdown table {
-    display: table;
-    table-layout: auto;
-  }
 }
 
 .markdown table thead tr {
@@ -521,6 +550,7 @@ article h4 {
 /* --- code blocks --- */
 
 .theme-code-block {
+  max-width: 100%;
   border: 1px solid var(--rhub-hairline);
   border-radius: var(--rhub-radius);
   box-shadow: none !important;
@@ -930,6 +960,7 @@ article h4 {
 /* --- wide validation matrices: scroll inside the container, sticky edges --- */
 
 .rhub-datagrid {
+  max-width: 100%;
   overflow: auto;
   max-height: 32rem;
   border: 1px solid var(--rhub-hairline);
@@ -988,6 +1019,7 @@ article h4 {
 /* --- API index --- */
 
 .rhub-apitable {
+  max-width: 100%;
   overflow-x: auto;
   border: 1px solid var(--rhub-hairline);
   border-radius: var(--rhub-radius);
