@@ -177,7 +177,7 @@ http://host/ewallet/api/v1/transactionInfo/api?types=all&status=all&transId=1***
         "sendClientPhoneNumber": "+85212345678",
         "initiatedUserName": "EXAMPLE",
         "sendClientAddress1": "Hongkong, Hongkong",
-        "sendClientAddress2": "45 Sample Avenue, Yau Tsim Mong, Hong Kong",
+        "sendClientAddress2": "45 Sample Avenue, Kowloon, Hong Kong",
         "txnProcessedBy": "1000008444",
         "sourceCountry": "Hong Kong",
         "sourceCountryCode": "HKG",

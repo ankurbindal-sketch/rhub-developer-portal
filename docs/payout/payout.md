@@ -95,6 +95,12 @@ It includes recipient information like bank account or wallet details, country, 
 Contains compliance and regulatory information, including purpose codes, source of funds, and AML/KYC verification details.
 This helps ensure all transactions adhere to legal and jurisdictional requirements, reducing the risk of fraud or financial misuse.
 
+:::note[Two different references]
+
+`docReferenceNumber` carries the uploaded **KYC/KYB document** reference for the payout. `sendClientTrxReference` carries the **invoice** reference for business transactions (B2B, B2C, C2B); for C2C it is not required and may be omitted or sent blank. They are not interchangeable.
+
+:::
+
 ## transactionInfo Req Param
 
 | Parameters | Input Type | Length | Requirement | Description |
@@ -140,7 +146,7 @@ This helps ensure all transactions adhere to legal and jurisdictional requiremen
 | businessAddress2 | Alphanumeric | 01 - 35 | O | Company Register Address. eg: sector 10 (Special characters not allowed) |
 | businessAddress State | Alpha | 01 - 50 | M | Company Register State. eg: Haryana |
 | businessAddresss City | Alpha | 01 - 50 | M | Company Register City. eg: New Delhi |
-| businessEmail | Alphanumeric + special characters (Email format) | 01 - 50 | M | Company mail ID. eg: hcl123@gmail.com |
+| businessEmail | Alphanumeric + special characters (Email format) | 01 - 50 | M | Company mail ID. eg: accounts@example.com |
 | businessCountry Code | Alpha | 03 | M | The three-letter country code that represents the country of origin or registration for a company. eg: USA, MWI . |
 | **sender : customer (for C2C,C2B transactions)** |  |  |  |  |
 | isAutoRegistered | Boolean | 04 - 05 | M | true: in case of on the fly customer registration, false: in case of manual customer registration. eg: true |
@@ -277,12 +283,12 @@ POST http://host/ewallet/api/v1/payoutProcess/api
             "businessType": "RHT011",
             "businessPinCode": "323434",
             "businessRegistrationNumber": "9099998988",
-            "businessPrimaryContactNumber": "9899998988",
+            "businessPrimaryContactNumber": "9876543210",
             "businessRegistrationType": "RHB002",
             "businessRegistrationIssuedAt": "MWI",
             "businessAddress1": "123 Example Street",
-            "businessAddressState": "new delhi",
-            "businessAddresssCity": "new delhi",
+            "businessAddressState": "Central Region",
+            "businessAddresssCity": "Lilongwe",
             "businessCountryCode": "MWI",
 
         }
@@ -299,11 +305,11 @@ POST http://host/ewallet/api/v1/payoutProcess/api
             "senderIdType": "RHD006",
             "senderIdNumber": "ID321322332",
             "senderMsisdn": "9098987877",
-            "senderAddressLineOne": "malawi",
-            "senderAddressLineTwo": "malawi",
+            "senderAddressLineOne": "12 Example Road",
+            "senderAddressLineTwo": "Area 3",
             "senderCountry": "MWI",
-            "senderAddressState": "malawi",
-            "senderAddresssCity": "malawi",
+            "senderAddressState": "Central Region",
+            "senderAddresssCity": "Lilongwe",
             "senderPinCode": "123456",
             "isSenderPEP": false,
             "thirdPartyDetermination": false
@@ -317,9 +323,9 @@ POST http://host/ewallet/api/v1/payoutProcess/api
             "businessRegistrationType": "RHB002",
             "businessRegistrationIssuedAt": "ARE",
             "businessAddress1": "123 Example Street",
-            "businessAddressState": "new delhi",
-            "businessAddresssCity": "new delhi",
-            "businessPrimaryContactNumber": "9899998988",
+            "businessAddressState": "Dubai",
+            "businessAddresssCity": "Dubai",
+            "businessPrimaryContactNumber": "9876543210",
             "businessCountryCode": "ARE",
             "businessAccountNumber": "AE070331234567890123456",
             "businessAccountHolderName": "Sample Exports Ltd ",
@@ -333,11 +339,11 @@ POST http://host/ewallet/api/v1/payoutProcess/api
             "receiverLastName": "Doe",
             "receiverGender": "male",
             "receiverNationality": "ARE",
-            "receiverAddressLineOne": "dubai",
-            "receiverAddressLineTwo": "dubai",
+            "receiverAddressLineOne": "45 Sample Avenue",
+            "receiverAddressLineTwo": "Business Bay",
             "receiverCountry": "ARE",
-            "receiverAddressState": "dubai",
-            "receiverAddresssCity": "dubai",
+            "receiverAddressState": "Dubai",
+            "receiverAddresssCity": "Dubai",
             "receiverBankName": "Emirates NBD",
             "receiverBankCode": "",
             "receiverAccountNumber": "AE070331234567890123456",
@@ -418,9 +424,9 @@ Rest request details remain same as mentioned above.
           "businessRegistrationType": "RHB002",
           "businessRegistrationIssuedAt": "ARE",
           "businessAddress1": "123 Example Street",
-          "businessAddressState": "new delhi",
-          "businessAddresssCity": "new delhi",
-          "businessPrimaryContactNumber": "9899998988",
+          "businessAddressState": "Dubai",
+          "businessAddresssCity": "Dubai",
+          "businessPrimaryContactNumber": "9876543210",
           "businessCountryCode": "ARE",
           "businessAccountNumber": "AE070331234567890123456",
           "businessAccountHolderName": "Sample Exports Ltd ",
@@ -434,11 +440,11 @@ Rest request details remain same as mentioned above.
           "receiverLastName": "Doe",
           "receiverGender": "male",
           "receiverNationality": "ARE",
-          "receiverAddressLineOne": "dubai",
-          "receiverAddressLineTwo": "dubai",
+          "receiverAddressLineOne": "45 Sample Avenue",
+          "receiverAddressLineTwo": "Business Bay",
           "receiverCountry": "ARE",
-          "receiverAddressState": "dubai",
-          "receiverAddresssCity": "dubai",
+          "receiverAddressState": "Dubai",
+          "receiverAddresssCity": "Dubai",
           "receiverBankName": "Emirates NBD",
           "receiverBankCode": "",
           "receiverAccountNumber": "AE070331234567890123456",
@@ -526,8 +532,8 @@ Rest request details remain same as mentioned above.
 "beneficiaryAccountHolderName": "Sample Exports Ltd ",
 "sendClientName": "EXAMPLE",
 "senderCountry": "Malawi",
-"sendClientPhoneNumber": "533545636654",
-"sendClientAddress1": "Malawi, Malawi",
+"sendClientPhoneNumber": "265991234567",
+"sendClientAddress1": "12 Example Road, Lilongwe",
 "customerId": "100000000000001B",
 "customerCode": "1000000850",
 "paymentMode": "Cash",

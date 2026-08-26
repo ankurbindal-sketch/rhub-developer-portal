@@ -82,7 +82,7 @@ The Customer-Registration API is used to register or create the customer in the 
 | natureOfBusinessCode | Alphanumeric | 06 - 10 | M | Select the suited data received from nature of business Api. (eg: RHT011 , refer NatureOfBusinessApi ) |
 | dialCode | Alphanumeric with '+' symbol | 02 - 04 | C | Country dial code. eg: +1, +91 note: Required when the contact number dial code does not match the selected country code. |
 | mobileNumber | Alphanumeric | 07 - 20 | M | Contact number. eg: 9090909090 |
-| email | Alphanumeric + special characters (Email format) | 01 - 50 | M | Email id of customer. eg: hcl@gmail.com |
+| email | Alphanumeric + special characters (Email format) | 01 - 50 | M | Email id of customer. eg: john.doe@example.com |
 | addressLine1 | Alphanumeric | 01 - 35 | M | Address detail of business. eg: A455 Wall street |
 | countryCode | Alpha | 03 | M | 3-digit Country code of business's address. eg:MWI,DZA etc |
 | state | Alpha | 01 - 50 | M | State eg: Delhi |
@@ -112,8 +112,8 @@ The Customer-Registration API is used to register or create the customer in the 
 | idCountry | Alpha | 03 | M | 3-digit Country code of country where id issued. eg: USA, IND |
 | **//for business owner** |  |  |  |  |
 | customerTypeCode | Numeric | 06 | M | for Business owner : 100002 |
-| companyName | Alphanumeric | 01 - 70 | M | Business company/Trade name eg: hcl tech |
-| addressLine1 | Alphanumeric | 01 - 35 | M | Address detail of company eg: HG68 WASHINGTON ROAD |
+| companyName | Alphanumeric | 01 - 70 | M | Business company/Trade name eg: Example Trading Ltd |
+| addressLine1 | Alphanumeric | 01 - 35 | M | Address detail of company eg: HG68 Example Road |
 | countryCode | Alpha | 03 | M | 3-digit Country code of company. eg: USA, CHN |
 | state | Alpha | 01 - 50 | M | State eg: Delhi |
 | city | Alpha | 01 - 50 | M | City eg: New york |
@@ -135,12 +135,12 @@ POST http://host/ewallet/api/v1/customer-registration
   "walletOwnerCode": "1000008398",.
   "tradeName": "Example Trading Ltd",
   "natureOfBusinessCode": "RHT010",
-  "mobileNumber": "9099998987",
+  "mobileNumber": "9876543211",
   "email": "john.doe@example.com",
-  "addressLine1": "malawi",
+  "addressLine1": "12 Example Road",
   "countryCode": "MWI",
-  "state": "malawi",
-  "city": "malawi",
+  "state": "Central Region",
+  "city": "Lilongwe",
   "pincode": "676567",
   "businessRelationshipCode": "100003",
   "businessAuthorizedPerson": "Example",
@@ -157,10 +157,10 @@ POST http://host/ewallet/api/v1/customer-registration
     "dateOfBirth": "2006-08-22",
     "gender": "male",
     "companyName": "",
-    "addressLine1": "malawi",
+    "addressLine1": "12 Example Road",
     "countryCode": "MWI",
     "state": "Malawi",
-    "city": "malawi",
+    "city": "Lilongwe",
     "pincode": "121122",
     "idTypeCode": "RHD002",
     "idNumber": "ID1212121212",
@@ -169,10 +169,10 @@ POST http://host/ewallet/api/v1/customer-registration
   {
     "customerTypeCode": "100002",
     "companyName": "Example Trading Ltd",
-    "addressLine1": "malawi",
+    "addressLine1": "12 Example Road",
     "countryCode": "MWI",
-    "state": "malawi",
-    "city": "malawi",
+    "state": "Central Region",
+    "city": "Lilongwe",
   }
   ]
   }
@@ -196,10 +196,10 @@ POST http://host/ewallet/api/v1/customer-registration
     "fullName": "Example Trading Ltd",
     "tradeName": "Example Trading Ltd",
     "natureOfBusinessCode": "RHT010",
-    "mobileNumber": "9099998987",
-    "addressLine1": "malawi",
-    "city": "malawi",
-    "state": "malawi",
+    "mobileNumber": "9876543211",
+    "addressLine1": "12 Example Road",
+    "city": "Lilongwe",
+    "state": "Central Region",
     "pincode": "676567",
     "countryCode": "MWI",
     "idNumber": "ID321412123103",
@@ -240,9 +240,9 @@ POST http://host/ewallet/api/v1/customer-registration
             "dateOfBirth": "2006-08-22 00:00:00",
             "email": "",
             "mobileNumber": "",
-            "addressLine1": "malawi",
+            "addressLine1": "12 Example Road",
             "addressLine2": "",
-            "city": "malawi",
+            "city": "Lilongwe",
             "state": "Malawi",
             "pincode": "121122",
             "countryCode": "MWI",
@@ -278,10 +278,10 @@ POST http://host/ewallet/api/v1/customer-registration
             "nationality": "",
             "email": "",
             "mobileNumber": "",
-            "addressLine1": "malawi",
+            "addressLine1": "12 Example Road",
             "addressLine2": "",
-            "city": "malawi",
-            "state": "malawi",
+            "city": "Lilongwe",
+            "state": "Central Region",
             "pincode": "121212",
             "countryCode": "MWI",
             "residenceStatusCode": "",
@@ -324,7 +324,7 @@ POST http://host/ewallet/api/v1/customer-registration
 | nationality | Alpha | 03 | M | Nationality of customer in 3-digit Country code format. eg:DZA,USA etc |
 | dialCode | Alphanumeric with '+' symbol | 02 - 04 | C | Country dial code. eg: +1, +91 note: Required when the contact number dial code does not match the selected country code. |
 | mobileNumber | Alphanumeric | 07 - 20 | M | Contact number. eg: 9090909090 |
-| email | Alphanumeric + special characters (Email format) | 01 - 50 | M | Email id of customer. eg: hcl@gmail.com |
+| email | Alphanumeric + special characters (Email format) | 01 - 50 | M | Email id of customer. eg: john.doe@example.com |
 | addressLine1 | Alphanumeric | 01 - 35 | M | Address details of customer eg: A455 Wall street |
 | countryCode | Alpha | 03 | M | 3-digit Country code of customer's residence. eg:MWI,DZA etc |
 | state | Alpha | 01 - 50 | M | State of customer's residence eg: Delhi |
@@ -362,12 +362,12 @@ POST http://host/ewallet/api/v1/customer-registration
 "jobIndustry": "Job Industry",
 "gender": "female",
 "nationality": "IND",
-"mobileNumber": "9099998987",
+"mobileNumber": "9876543211",
 "email": "john.doe@example.com",
 "addressLine1": "123 Example Street",
 "countryCode": "TZA",
-"state": "tanzania",
-"city": "tanzania",
+"state": "Dar es Salaam",
+"city": "Dar es Salaam",
 "pincode": "232222",
 "idTypeCode": "RHD002",
 "idNumber": "ID2121121212",
@@ -399,10 +399,10 @@ POST http://host/ewallet/api/v1/customer-registration
     "gender": "male",
     "nationality": "IND",
     "dateOfBirth": "1989-08-28",
-    "mobileNumber": "9800000087",
-    "addressLine1": "india",
-    "city": "delhi",
-    "state": "delhi",
+    "mobileNumber": "9876543212",
+    "addressLine1": "12 Example Road",
+    "city": "New Delhi",
+    "state": "New Delhi",
     "pincode": "544444",
     "countryCode": "MWI",
     "idTypeCode": "RHD002",
@@ -420,8 +420,8 @@ POST http://host/ewallet/api/v1/customer-registration
     "docReferenceNumber": "CUS1234570",
     "walletOwnerName": "EXAMPLE",
     "logoUrl": "/fileUpload/download/1000008929/logo 1DADANADA.jpg",
-    "sendClientAddress": "Malawi, Malawi, Blantyre, Blantyre, Malawi",
-    "sendClientMobileNo": "26533545636654",
+    "sendClientAddress": "12 Example Road, Area 3, Blantyre, Southern Region, Malawi",
+    "sendClientMobileNo": "26599123456789",
     "idTypeName": "Passport ",
     "registrationApprovedBy": "EXAMPLE",
     "registrationNumber": "ID31232444444",

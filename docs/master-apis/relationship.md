@@ -8,8 +8,8 @@ description: "RHUB Relationship master API."
 
 <span className="rhub-method rhub-method--get">GET</span>
 
-[Go To Payout](/docs/payout/payout#transactioninfo-req-param)
-[Go To WPT](/docs/payout/wpt-payout#transactioninfo-req-param)
+[Payout API](/docs/payout/payout#transactioninfo-req-param)
+[WPT Payout API](/docs/payout/wpt-payout#transactioninfo-req-param)
 
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">

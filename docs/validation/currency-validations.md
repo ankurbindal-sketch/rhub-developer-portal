@@ -37,7 +37,7 @@ Note: “YES” indicates that the field is mandatory, while “NO” indicates 
 
 ### Sender Customer
 
-[Go To Payout(Sender details)](/docs/payout/payout#sender-req-param)
+[Sender fields in the Payout API](/docs/payout/payout#sender-req-param)
 
 **Sender (Individual)**
 
@@ -373,7 +373,7 @@ Note: “YES” indicates that the field is mandatory, while “NO” indicates 
 
 ### Receiver Customer
 
-[Go To Payout(Receiver details)](/docs/payout/payout#receiver-req-param)
+[Receiver fields in the Payout API](/docs/payout/payout#receiver-req-param)
 
 **Beneficary (Individual)**
 
@@ -981,7 +981,7 @@ Note: “YES” indicates that the field is mandatory, while “NO” indicates 
 
 ### Sender Business
 
-[Go To Payout(Sender details)](/docs/payout/payout#sender-req-param)
+[Sender fields in the Payout API](/docs/payout/payout#sender-req-param)
 
 **Sender (Business)**
 
@@ -1290,7 +1290,7 @@ Note: “YES” indicates that the field is mandatory, while “NO” indicates 
 
 ### Receiver Business
 
-[Go To Payout(Receiver details)](/docs/payout/payout#receiver-req-param)
+[Receiver fields in the Payout API](/docs/payout/payout#receiver-req-param)
 
 **Beneficary (Business)**
 

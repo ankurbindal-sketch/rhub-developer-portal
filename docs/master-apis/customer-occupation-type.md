@@ -8,7 +8,7 @@ description: "RHUB Customer Occupation Type master API."
 
 <span className="rhub-method rhub-method--get">GET</span>
 
-[Go To Customer Registration(Individual)](/docs/customers/customer-registration#request-parameter-of-individual-customer)
+[Individual fields in the Customer Registration API](/docs/customers/customer-registration#request-parameter-of-individual-customer)
 
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">

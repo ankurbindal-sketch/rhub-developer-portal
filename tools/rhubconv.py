@@ -349,11 +349,25 @@ def map_docsify_href(href):
     return base
 
 
+# Descriptive link text for the source's "Go To …" cross-references. The destination is
+# untouched; only the wording a reader sees changes.
+LINK_LABELS = {
+    'Go To Payout(Sender details)': 'Sender fields in the Payout API',
+    'Go To Payout(Receiver details)': 'Receiver fields in the Payout API',
+    'Go To Payout': 'Payout API',
+    'Go To WPT': 'WPT Payout API',
+    'Go To Customer Registration(Business)': 'Business fields in the Customer Registration API',
+    'Go To Customer Registration(Individual)': 'Individual fields in the Customer Registration API',
+    'Go To Customer Registration': 'Customer Registration API',
+}
+
+
 def convert_anchors(text):
     def repl(m):
         href, label = m.group(1), m.group(2)
         label = re.sub(r'<[^>]+>', '', label)
         label = re.sub(r'\s+', ' ', _html.unescape(label)).strip()
+        label = LINK_LABELS.get(label, label)
         if href.startswith('http'):
             return '[%s](%s)' % (label or href, href)
         target = map_docsify_href(href)

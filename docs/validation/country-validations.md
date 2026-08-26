@@ -22,7 +22,7 @@ RHUB's own wording for these rules is reproduced below, unchanged.
 
 :::
 
-[Go To Payout(Receiver details)](/docs/payout/payout#receiver-req-param)
+[Receiver fields in the Payout API](/docs/payout/payout#receiver-req-param)
 
 :::note
 

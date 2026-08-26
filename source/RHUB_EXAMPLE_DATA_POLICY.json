@@ -13,12 +13,145 @@
     "individualReceiver": "Jane Doe",
     "business": "Example Trading Ltd / Sample Exports Ltd",
     "shortClientName": "EXAMPLE",
-    "email": "john.doe@example.com, jane.doe@example.com",
+    "email": "john.doe@example.com, jane.doe@example.com, accounts@example.com",
     "addressLine": "123 Example Street / 45 Sample Avenue",
     "references": "REF…, INV…, TXN…, DOC…, CUS… keeping the original length and character class",
-    "customerId": "15 digits plus the original type suffix"
+    "customerId": "15 digits plus the original type suffix",
+    "coherence": "Each payload stays internally coherent: addresses match the country the example represents, and one fictional identity is used per role."
   },
   "replacements": [
+    [
+      "Yau Tsim Mong",
+      "Kowloon"
+    ],
+    [
+      "\"state\": \"malawi\"",
+      "\"state\": \"Central Region\""
+    ],
+    [
+      "\"state\": \"tanzania\"",
+      "\"state\": \"Dar es Salaam\""
+    ],
+    [
+      "\"state\": \"delhi\"",
+      "\"state\": \"New Delhi\""
+    ],
+    [
+      "\"sendClientAddress\": \"Malawi, Malawi, Blantyre, Blantyre, Malawi\"",
+      "\"sendClientAddress\": \"12 Example Road, Area 3, Blantyre, Southern Region, Malawi\""
+    ],
+    [
+      "\"sendClientMobileNo\": \"26533545636654\"",
+      "\"sendClientMobileNo\": \"26599123456789\""
+    ],
+    [
+      "hcl123@gmail.com",
+      "accounts@example.com"
+    ],
+    [
+      "hcl@gmail.com",
+      "john.doe@example.com"
+    ],
+    [
+      "hcl tech",
+      "Example Trading Ltd"
+    ],
+    [
+      "HG68 WASHINGTON ROAD",
+      "HG68 Example Road"
+    ],
+    [
+      "\"sendClientAddress1\": \"Malawi, Malawi\"",
+      "\"sendClientAddress1\": \"12 Example Road, Lilongwe\""
+    ],
+    [
+      "\"senderAddressLineOne\": \"malawi\"",
+      "\"senderAddressLineOne\": \"12 Example Road\""
+    ],
+    [
+      "\"senderAddressLineTwo\": \"malawi\"",
+      "\"senderAddressLineTwo\": \"Area 3\""
+    ],
+    [
+      "\"senderAddressState\": \"malawi\"",
+      "\"senderAddressState\": \"Central Region\""
+    ],
+    [
+      "\"senderAddresssCity\": \"malawi\"",
+      "\"senderAddresssCity\": \"Lilongwe\""
+    ],
+    [
+      "\"addressLine1\": \"malawi\"",
+      "\"addressLine1\": \"12 Example Road\""
+    ],
+    [
+      "\"city\": \"malawi\"",
+      "\"city\": \"Lilongwe\""
+    ],
+    [
+      "\"receiverAddressLineOne\": \"dubai\"",
+      "\"receiverAddressLineOne\": \"45 Sample Avenue\""
+    ],
+    [
+      "\"receiverAddressLineTwo\": \"dubai\"",
+      "\"receiverAddressLineTwo\": \"Business Bay\""
+    ],
+    [
+      "\"receiverAddressState\": \"dubai\"",
+      "\"receiverAddressState\": \"Dubai\""
+    ],
+    [
+      "\"receiverAddresssCity\": \"dubai\"",
+      "\"receiverAddresssCity\": \"Dubai\""
+    ],
+    [
+      "\"businessAddressState\": \"new delhi\"",
+      "\"businessAddressState\": \"New Delhi\""
+    ],
+    [
+      "\"businessAddresssCity\": \"new delhi\"",
+      "\"businessAddresssCity\": \"New Delhi\""
+    ],
+    [
+      "\"receiverAddressLineOne\": \"burundi\"",
+      "\"receiverAddressLineOne\": \"45 Sample Avenue\""
+    ],
+    [
+      "\"receiverAddressState\": \"burundi\"",
+      "\"receiverAddressState\": \"Bujumbura Mairie\""
+    ],
+    [
+      "\"receiverAddresssCity\": \"burundi\"",
+      "\"receiverAddresssCity\": \"Bujumbura\""
+    ],
+    [
+      "\"addressLine1\": \"india\"",
+      "\"addressLine1\": \"12 Example Road\""
+    ],
+    [
+      "\"city\": \"delhi\"",
+      "\"city\": \"New Delhi\""
+    ],
+    [
+      "\"city\": \"tanzania\"",
+      "\"city\": \"Dar es Salaam\""
+    ],
+    [
+      "\"businessPrimaryContactNumber\": \"9899998988\"",
+      "\"businessPrimaryContactNumber\": \"9876543210\""
+    ],
+    [
+      "\"mobileNumber\": \"9099998987\"",
+      "\"mobileNumber\": \"9876543211\""
+    ],
+    [
+      "\"mobileNumber\": \"9800000087\"",
+      "\"mobileNumber\": \"9876543212\""
+    ],
+    [
+      "\"sendClientPhoneNumber\": \"533545636654\"",
+      "\"sendClientPhoneNumber\": \"265991234567\""
+    ],
     [
       "RamKrishna S S Kumar",
       "John A Doe"
@@ -202,6 +335,18 @@
     [
       "Estel",
       "Example"
+    ],
+    [
+      "\"businessRegistrationIssuedAt\": \"ARE\",\n            \"businessAddress1\": \"123 Example Street\",\n            \"businessAddressState\": \"New Delhi\",\n            \"businessAddresssCity\": \"New Delhi\",",
+      "\"businessRegistrationIssuedAt\": \"ARE\",\n            \"businessAddress1\": \"123 Example Street\",\n            \"businessAddressState\": \"Dubai\",\n            \"businessAddresssCity\": \"Dubai\","
+    ],
+    [
+      "\"businessRegistrationIssuedAt\": \"ARE\",\n          \"businessAddress1\": \"123 Example Street\",\n          \"businessAddressState\": \"New Delhi\",\n          \"businessAddresssCity\": \"New Delhi\",",
+      "\"businessRegistrationIssuedAt\": \"ARE\",\n          \"businessAddress1\": \"123 Example Street\",\n          \"businessAddressState\": \"Dubai\",\n          \"businessAddresssCity\": \"Dubai\","
+    ],
+    [
+      "\"businessRegistrationIssuedAt\": \"MWI\",\n            \"businessAddress1\": \"123 Example Street\",\n            \"businessAddressState\": \"New Delhi\",\n            \"businessAddresssCity\": \"New Delhi\",",
+      "\"businessRegistrationIssuedAt\": \"MWI\",\n            \"businessAddress1\": \"123 Example Street\",\n            \"businessAddressState\": \"Central Region\",\n            \"businessAddresssCity\": \"Lilongwe\","
     ]
   ]
 }

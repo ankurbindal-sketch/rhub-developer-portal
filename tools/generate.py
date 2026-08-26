@@ -1049,6 +1049,13 @@ returns them today.
 :::
 
 ## Contract""" % (payout_prerequisites_list(), transaction_matrix_table())
+    doc_note = (':::note[Two different references]\n\n'
+                '`docReferenceNumber` carries the uploaded **KYC/KYB document** reference for '
+                'the payout. `sendClientTrxReference` carries the **invoice** reference for '
+                'business transactions (B2B, B2C, C2B); for C2C it is not required and may be '
+                'omitted or sent blank. They are not interchangeable.\n\n:::\n\n')
+    conv = conv.replace('## transactionInfo Req Param',
+                        doc_note + '## transactionInfo Req Param', 1)
     api_page('payout/payout.md',
              {'title': 'Payout', 'sidebar_label': 'Payout',
               'slug': '/payout/payout',

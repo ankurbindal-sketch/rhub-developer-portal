@@ -8,7 +8,7 @@ description: "RHUB Customer/Individual Document Type master API."
 
 <span className="rhub-method rhub-method--get">GET</span>
 
-[Go To Customer Registration](/docs/customers/customer-registration)
+[Customer Registration API](/docs/customers/customer-registration)
 
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
