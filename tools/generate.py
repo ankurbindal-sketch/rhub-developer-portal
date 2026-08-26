@@ -1175,6 +1175,9 @@ correspondent. The source's own wording is reproduced below.
 """
     write('validation/currency-validations.md',
           {'title': 'Currency validations (LOCAL rail)', 'sidebar_label': 'Currency validations',
+           # Matrix reference page: the 18-column grids need the full column width more
+           # than the page needs a right-hand TOC.
+           'hide_table_of_contents': True,
            'description': 'Currency- and correspondent-specific conditional field requirements for RHUB payouts.'},
           body)
     rec('CURRENCYVALIDATIONS.md', 'docs/validation/currency-validations.md', 'COMPLETE',
@@ -1206,6 +1209,9 @@ API must always be supplied. The source's own wording is reproduced below.
 """
     write('validation/country-validations.md',
           {'title': 'Country validations (SWIFT rail)', 'sidebar_label': 'Country validations',
+           # Matrix reference page. Its TOC held a single "Related" entry, so the column
+           # was costing table width for no navigation value.
+           'hide_table_of_contents': True,
            'description': 'Country-specific SWIFT field requirements for RHUB payouts.'},
           body)
     rec('COUNTRYVALIDATIONS.md', 'docs/validation/country-validations.md', 'COMPLETE',

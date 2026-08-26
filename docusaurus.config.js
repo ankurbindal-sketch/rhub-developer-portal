@@ -12,6 +12,8 @@ const config = {
   // none has been fabricated.
   favicon: undefined,
 
+  // Production custom domain. Do not change these two values; the CNAME in
+  // static/CNAME must match.
   url: 'https://apidocs.remittanceshub.com',
   baseUrl: '/',
   trailingSlash: false,

@@ -455,6 +455,29 @@ article h4 {
   scrollbar-width: thin;
 }
 
+/* --- documentation column width ------------------------------------------
+ *
+ * Infima caps `.container` at 1140px (1320px on xl), so on a 1600px+ display a
+ * doc page showed ~940px of table between two wide empty gutters while the
+ * table itself was compressed. These rules widen the container on large
+ * viewports only, and trim the TOC column from Infima's 25% to 20% with a
+ * floor so it stays readable. Scoped to `.docs-wrapper` so the landing page
+ * and its prose keep their existing measure.
+ */
+
+@media (min-width: 1416px) {
+  .docs-wrapper .container {
+    max-width: min(94vw, 1680px);
+  }
+}
+
+@media (min-width: 997px) {
+  .docs-wrapper .row > .col--3 {
+    --ifm-col-width: 20%;
+    min-width: 200px;
+  }
+}
+
 /* --- content containment ------------------------------------------------
  *
  * Docusaurus lays the doc column and the right-hand TOC out as flex items in
@@ -959,10 +982,14 @@ article {
 
 /* --- wide validation matrices: scroll inside the container, sticky edges --- */
 
+/* A capped height keeps the horizontal scrollbar inside the viewport on these
+ * long matrices, so a reader never has to scroll to the bottom of the page to
+ * pan sideways. Sticky header and first column stay pinned while panning. No
+ * JavaScript is involved. */
 .rhub-datagrid {
   max-width: 100%;
   overflow: auto;
-  max-height: 32rem;
+  max-height: min(75vh, 40rem);
   border: 1px solid var(--rhub-hairline);
   border-radius: var(--rhub-radius);
   margin-bottom: var(--rhub-space-5);
@@ -1229,7 +1256,7 @@ article {
 
 @media (max-width: 700px) {
   .rhub-datagrid {
-    max-height: 24rem;
+    max-height: 60vh;
   }
 
   .rhub-journey {

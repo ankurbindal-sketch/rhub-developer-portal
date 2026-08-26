@@ -1,6 +1,7 @@
 ---
 title: "Currency validations (LOCAL rail)"
 sidebar_label: "Currency validations"
+hide_table_of_contents: true
 description: "Currency- and correspondent-specific conditional field requirements for RHUB payouts."
 ---
 
