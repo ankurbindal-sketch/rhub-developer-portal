@@ -54,21 +54,16 @@ in an example, both are preserved and the difference is noted rather than correc
 
 RHUB has confirmed one environment for Developer Portal 1.0:
 
-| Environment | Base URL |
-|---|---|
-| Sandbox | `https://sandbox-client.remittanceshub.com:8030` |
-
-No UAT or production base URL is published here. Ask RHUB for the base URL of any other
-environment you are given access to.
+Base URLs for Sandbox and Production are listed under
+[API environments](/docs/getting-started/environments).
 
 ## Method and endpoint blocks
 
 Each API page shows its HTTP method and the request path exactly as the contract writes it.
 Most paths are written as `http://host/ewallet/api/v1/...`, where **`host` stands for the
-base URL of your environment**. Against Sandbox, for example,
-`http://host/ewallet/oauth/token` is
-`https://sandbox-client.remittanceshub.com:8030/ewallet/oauth/token`. The paths themselves are
-reproduced unchanged.
+base URL of your environment**. Substitute the base URL of your
+environment — see [API environments](/docs/getting-started/environments). The paths
+themselves are reproduced unchanged.
 
 ## Authorising requests
 

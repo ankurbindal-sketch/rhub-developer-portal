@@ -13,6 +13,7 @@ const sidebars = {
       collapsed: false,
       items: [
         'getting-started/integration-flow',
+        'getting-started/environments',
         'getting-started/transaction-flows',
         'getting-started/conventions',
       ],
@@ -80,6 +81,41 @@ const sidebars = {
         'master-apis/nature-of-business',
         'master-apis/customer-occupation-type',
         'master-apis/customer-individual-document-type',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Virtual Accounts',
+      collapsed: true,
+      link: {type: 'doc', id: 'virtual-accounts/va-index'},
+      items: [
+        'virtual-accounts/integration-flow',
+        'virtual-accounts/va-currencies',
+        'virtual-accounts/document-requirements',
+        'virtual-accounts/upload-documents',
+        'virtual-accounts/get-documents',
+        {
+          type: 'category',
+          label: 'Individual customer',
+          items: [
+            'virtual-accounts/individual/create',
+            'virtual-accounts/individual/retrieve',
+            'virtual-accounts/individual/edit',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Business customer',
+          items: [
+            'virtual-accounts/business/create',
+            'virtual-accounts/business/retrieve',
+            'virtual-accounts/business/edit',
+          ],
+        },
+        'virtual-accounts/va-request-status',
+        'virtual-accounts/va-approval-process',
+        'virtual-accounts/va-reference-data',
+        'virtual-accounts/responses-and-errors',
       ],
     },
     {

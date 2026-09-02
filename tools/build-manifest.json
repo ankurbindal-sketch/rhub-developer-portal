@@ -4,6 +4,7 @@
   "getting-started/integration-flow.md",
   "getting-started/transaction-flows.md",
   "getting-started/conventions.md",
+  "getting-started/environments.md",
   "authentication/authentication.md",
   "customers/customer-registration.md",
   "quotation/quotation.md",
@@ -59,6 +60,22 @@
   "legacy/index.md",
   "appendix/unpublished-apis.md",
   "appendix/licence.md",
+  "virtual-accounts/index.md",
+  "virtual-accounts/integration-flow.md",
+  "virtual-accounts/va-currencies.md",
+  "virtual-accounts/document-requirements.md",
+  "virtual-accounts/upload-documents.md",
+  "virtual-accounts/get-documents.md",
+  "virtual-accounts/individual/create.md",
+  "virtual-accounts/individual/retrieve.md",
+  "virtual-accounts/individual/edit.md",
+  "virtual-accounts/business/create.md",
+  "virtual-accounts/business/retrieve.md",
+  "virtual-accounts/business/edit.md",
+  "virtual-accounts/va-request-status.md",
+  "virtual-accounts/va-reference-data.md",
+  "virtual-accounts/va-approval-process.md",
+  "virtual-accounts/responses-and-errors.md",
   "appendix/review-resolution-register.md",
   "api-index.md",
   "appendix/source-notes.md"
@@ -462,6 +479,12 @@
    "docs/appendix/licence.md",
    "COMPLETE",
    "Intellectual-property statement and source version marker (Version 2.3.0) carried over."
+  ],
+  [
+   "RHUB_VA_API_Documentation.html",
+   "docs/virtual-accounts/ (16 pages)",
+   "COMPLETE",
+   "Virtual Account documentation converted from the RHUB VA source HTML. Requiredness classifications, field names, endpoints and samples carried over verbatim; the source's placeholder API-key auth wording replaced with the platform access-token model, and its pre-publication placeholder notice dropped."
   ]
  ],
  "master_rows": [

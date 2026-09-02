@@ -11,6 +11,7 @@ import json, os, re, sys, shutil, collections
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import rhubconv as R
+import vaconv as VA
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC_JSON = os.environ.get('RHUB_SOURCE_JSON',
@@ -19,6 +20,15 @@ PORTAL = os.path.dirname(HERE)
 DOCS = os.path.join(PORTAL, 'docs')
 
 EXPORT = json.load(open(SRC_JSON))
+
+# Virtual Account source: a standalone HTML document supplied by RHUB, kept as an
+# internal artifact and converted into portal pages by tools/vaconv.py. It is never
+# served as a page in its own right.
+VA_HTML = os.environ.get(
+    'RHUB_VA_HTML',
+    os.path.join(os.path.dirname(HERE), 'source', 'va', 'RHUB_VA_API_Documentation.html'))
+VA_SECTIONS = (VA.sections(open(VA_HTML, encoding='utf-8', errors='replace').read())
+               if os.path.exists(VA_HTML) else [])
 
 # Supplemental authoritative data supplied directly by the RHUB team, kept in its own
 # file so it can be updated independently of the documentation export. Optional: if the
@@ -740,21 +750,16 @@ in an example, both are preserved and the difference is noted rather than correc
 
 RHUB has confirmed one environment for Developer Portal 1.0:
 
-| Environment | Base URL |
-|---|---|
-| Sandbox | `https://sandbox-client.remittanceshub.com:8030` |
-
-No UAT or production base URL is published here. Ask RHUB for the base URL of any other
-environment you are given access to.
+Base URLs for Sandbox and Production are listed under
+[API environments](/docs/getting-started/environments).
 
 ## Method and endpoint blocks
 
 Each API page shows its HTTP method and the request path exactly as the contract writes it.
 Most paths are written as `http://host/ewallet/api/v1/...`, where **`host` stands for the
-base URL of your environment**. Against Sandbox, for example,
-`http://host/ewallet/oauth/token` is
-`https://sandbox-client.remittanceshub.com:8030/ewallet/oauth/token`. The paths themselves are
-reproduced unchanged.
+base URL of your environment**. Substitute the base URL of your
+environment — see [API environments](/docs/getting-started/environments). The paths
+themselves are reproduced unchanged.
 
 ## Authorising requests
 
@@ -796,6 +801,58 @@ refresh behaviour, and SLA commitments.
 # --------------------------------------------------------------------------
 # 3. single-API published pages
 # --------------------------------------------------------------------------
+
+
+def build_environments():
+    body = """# API environments
+
+RHUB exposes two API environments. Both use the same request and response contracts; only
+the base URL and your credentials differ.
+
+| Environment | Base URL |
+|---|---|
+| Sandbox | `https://sandbox-api.remittanceshub.com` |
+| Production | `https://api.remittanceshub.com` |
+
+Prefix the documented paths with the base URL of the environment you are integrating
+against. For example, `POST /ewallet/oauth/token` against Sandbox is
+`https://sandbox-api.remittanceshub.com/ewallet/oauth/token`.
+
+## Authentication
+
+Both environments use the same mechanism: obtain an access token from the
+[Authentication API](/docs/authentication/authentication) and send it on every subsequent
+call.
+
+```http
+Authorization: Bearer <access_token>
+```
+
+## Credentials and client configuration
+
+Environment-specific credentials and client configuration — including your client code —
+are supplied through RHUB onboarding. Sandbox credentials are not valid in Production.
+
+:::note[Endpoint paths in this reference]
+
+Some contract pages write their path as `http://host/ewallet/api/v1/...`, where `host`
+stands for the base URL of your environment. Substitute the Sandbox or Production base URL
+above. The paths themselves are reproduced exactly as RHUB documents them.
+
+:::
+
+## Related
+
+- [Authentication](/docs/authentication/authentication)
+- [How to read this reference](/docs/getting-started/conventions)
+- [Integration flow](/docs/getting-started/integration-flow)
+"""
+    write('getting-started/environments.md',
+          {'title': 'API environments', 'sidebar_label': 'API environments',
+           'description': 'RHUB Sandbox and Production API base URLs and how authentication '
+                          'applies to both.'},
+          body)
+
 
 def build_authentication():
     secs = split_api_sections(FILES['AUTH.md'])
@@ -1309,6 +1366,7 @@ Two things tell you what happened to a request:
 |---|---|
 | Why a request failed — the `resultCode` category and the `resultDescription` reason | [Current API error codes](/docs/errors/current-error-codes) |
 | Where a transaction has reached in processing | [Transaction status codes](/docs/errors/transaction-status-codes) |
+| Virtual Account response envelope and its result codes | [VA responses and errors](/docs/virtual-accounts/responses-and-errors) |
 
 Handle failures on the `resultCode` / `resultDescription` pair returned in the response body.
 Track a transaction's progress with its status value.
@@ -2105,6 +2163,326 @@ REGISTER = [
 ]
 
 
+
+# --------------------------------------------------------------------------
+# 12. Virtual Accounts (from the RHUB VA source HTML)
+# --------------------------------------------------------------------------
+
+# section number in the source -> (portal path, page title, sidebar label)
+VA_PAGES = [
+    ('04', 'virtual-accounts/va-currencies.md', 'VA currencies', 'VA currencies'),
+    ('05', 'virtual-accounts/document-requirements.md', 'VA document requirements',
+     'Document requirements'),
+    ('06', 'virtual-accounts/upload-documents.md', 'Upload VA documents', 'Upload documents'),
+    ('07', 'virtual-accounts/get-documents.md', 'Get uploaded VA documents',
+     'Get uploaded documents'),
+    ('08', 'virtual-accounts/individual/create.md', 'Create individual VA customer',
+     'Create / register'),
+    ('09', 'virtual-accounts/individual/retrieve.md', 'Retrieve individual VA customer',
+     'Retrieve'),
+    ('10', 'virtual-accounts/individual/edit.md', 'Edit individual VA customer', 'Edit'),
+    ('11', 'virtual-accounts/business/create.md', 'Create business VA customer',
+     'Create / register'),
+    ('12', 'virtual-accounts/business/retrieve.md', 'Retrieve business VA customer',
+     'Retrieve'),
+    ('13', 'virtual-accounts/business/edit.md', 'Edit business VA customer', 'Edit'),
+    ('14', 'virtual-accounts/va-request-status.md', 'VA request status', 'VA request status'),
+    ('16', 'virtual-accounts/va-reference-data.md', 'VA reference data', 'VA reference data'),
+]
+
+VA_AUTH_NOTE = """:::info[Authentication]
+
+Virtual Account APIs use the same access token as the rest of the platform. Obtain it from
+the [Authentication API](/docs/authentication/authentication) and send it on every VA call:
+
+```http
+Authorization: Bearer <access_token>
+```
+
+Base URLs for each environment are listed under
+[API environments](/docs/getting-started/environments).
+
+:::"""
+
+
+def va_section(num):
+    for s in VA_SECTIONS:
+        if s['num'] == num:
+            return s
+    return None
+
+
+def build_virtual_accounts():
+    if not VA_SECTIONS:
+        return []
+    written = []
+
+    # ---- Overview -----------------------------------------------------------
+    overview = VA.section_markdown(va_section('01'))
+    body = """# Virtual Accounts
+
+A Virtual Account (VA) is a dedicated collection account used for receiving inbound funds.
+Onboarding a customer onto a VA follows one shape for both customer types: check the
+supported currencies, upload the required documents, register the customer, and RHUB
+Admin/Operations then approves the request and links it to a collection bank account.
+
+%s
+
+%s
+
+## Where to start
+
+| Step | Page |
+|---|---|
+| Understand the sequence | [VA integration flow](/docs/virtual-accounts/integration-flow) |
+| Check supported currencies | [VA currencies](/docs/virtual-accounts/va-currencies) |
+| Find the document checklist | [VA document requirements](/docs/virtual-accounts/document-requirements) |
+| Register a customer | [Individual](/docs/virtual-accounts/individual/create) · [Business](/docs/virtual-accounts/business/create) |
+| Track the request | [VA request status](/docs/virtual-accounts/va-request-status) |
+| Understand approval | [VA approval process](/docs/virtual-accounts/va-approval-process) |
+
+## Related
+
+- [Authentication](/docs/authentication/authentication)
+- [API environments](/docs/getting-started/environments)
+- [VA responses and errors](/docs/virtual-accounts/responses-and-errors)
+""" % (VA_AUTH_NOTE, overview)
+    written.append(write('virtual-accounts/index.md',
+                         {'id': 'va-index', 'title': 'Virtual Accounts',
+                          'sidebar_label': 'Overview', 'slug': '/virtual-accounts',
+                          'description': 'Virtual Account onboarding: currencies, documents, '
+                                         'customer registration, request status and approval.'},
+                         body))
+
+    # ---- Integration flow ---------------------------------------------------
+    flow = VA.section_markdown(va_section('02'))
+    body = """# VA integration flow
+
+The sequence below is the order RHUB supports for Virtual Account onboarding. Steps 1 to 6
+are client actions; the final step is carried out by RHUB Admin/Operations.
+
+<div className="rhub-journey">
+
+<div className="rhub-journey__step">
+<span className="rhub-journey__index">01</span>
+<span className="rhub-journey__kind">Client · shared API</span>
+
+**[Authentication](/docs/authentication/authentication)**
+
+Obtain the access token used on every VA call.
+
+</div>
+
+<div className="rhub-journey__step">
+<span className="rhub-journey__index">02</span>
+<span className="rhub-journey__kind">Client</span>
+
+**[Check VA-supported currencies](/docs/virtual-accounts/va-currencies)**
+
+Confirm the settlement currency you need is enabled for Virtual Accounts.
+
+</div>
+
+<div className="rhub-journey__step">
+<span className="rhub-journey__index">03</span>
+<span className="rhub-journey__kind">Client</span>
+
+**[Fetch VA document requirements](/docs/virtual-accounts/document-requirements)**
+
+Retrieve the document checklist for the customer type you are onboarding.
+
+</div>
+
+<div className="rhub-journey__step">
+<span className="rhub-journey__index">04</span>
+<span className="rhub-journey__kind">Client</span>
+
+**[Upload the required VA documents](/docs/virtual-accounts/upload-documents)**
+
+Upload each document with its document type. One client-generated
+`docReferenceNumber` groups the set.
+
+</div>
+
+<div className="rhub-journey__step">
+<span className="rhub-journey__index">05</span>
+<span className="rhub-journey__kind">Client</span>
+
+**Register the VA customer**
+
+[Individual](/docs/virtual-accounts/individual/create) or
+[Business](/docs/virtual-accounts/business/create).
+
+</div>
+
+<div className="rhub-journey__step">
+<span className="rhub-journey__index">06</span>
+<span className="rhub-journey__kind">Client · optional</span>
+
+**Retrieve or edit the customer, and the uploaded documents**
+
+[Retrieve individual](/docs/virtual-accounts/individual/retrieve) ·
+[Edit individual](/docs/virtual-accounts/individual/edit) ·
+[Retrieve business](/docs/virtual-accounts/business/retrieve) ·
+[Edit business](/docs/virtual-accounts/business/edit) ·
+[Get uploaded documents](/docs/virtual-accounts/get-documents)
+
+</div>
+
+<div className="rhub-journey__step">
+<span className="rhub-journey__index">07</span>
+<span className="rhub-journey__kind">Client</span>
+
+**[Check the VA request status](/docs/virtual-accounts/va-request-status)**
+
+Follow the request through to its resulting state.
+
+</div>
+
+<div className="rhub-journey__step">
+<span className="rhub-journey__index">08</span>
+<span className="rhub-journey__kind">RHUB Admin / Operations</span>
+
+**[Approval and collection-bank setup](/docs/virtual-accounts/va-approval-process)**
+
+RHUB reviews the request and establishes the collection bank relationship. Clients do not
+call this operation.
+
+</div>
+
+</div>
+
+%s
+""" % flow
+    written.append(write('virtual-accounts/integration-flow.md',
+                         {'title': 'VA integration flow', 'sidebar_label': 'Integration flow',
+                          'description': 'The Virtual Account onboarding sequence, from '
+                                         'authentication to approval.'},
+                         body))
+
+    # ---- one page per API section ------------------------------------------
+    for num, path, title, label in VA_PAGES:
+        sec = va_section(num)
+        if not sec:
+            continue
+        badge = sec['badge'] if sec['badge'] in ('GET', 'POST', 'PUT', 'DELETE') else ''
+        head = ['# %s' % title, '']
+        if badge:
+            head += ['<span className="rhub-method rhub-method--%s">%s</span>'
+                     % (badge.lower(), badge), '']
+        head += [VA_AUTH_NOTE, '']
+        body = '\n'.join(head) + VA.section_markdown(sec)
+        if path == 'virtual-accounts/va-reference-data.md':
+            body += ("\n\n## Shared master APIs\n\n"
+                     "Several of the lookups above are the platform's own master APIs, used "
+                     "here in a VA context rather than duplicated: "
+                     "[Occupation](/docs/master-apis/occupation), "
+                     "[Document ID Type](/docs/master-apis/document-id-type), "
+                     "[Customer Legal Status](/docs/master-apis/customer-legal-status), "
+                     "[Nature of Business](/docs/master-apis/nature-of-business) and the rest "
+                     "of the [master / reference APIs](/docs/master-apis). Where the VA source "
+                     "lists an endpoint not documented there, use the path shown above.\n")
+        if path.startswith('virtual-accounts/individual') or \
+           path.startswith('virtual-accounts/business'):
+            body += ("\n\n## Related\n\n"
+                     "- [VA integration flow](/docs/virtual-accounts/integration-flow)\n"
+                     "- [VA document requirements](/docs/virtual-accounts/document-requirements)\n"
+                     "- [VA request status](/docs/virtual-accounts/va-request-status)\n")
+        written.append(write(path, {'title': title, 'sidebar_label': label,
+                                    'description': 'RHUB Virtual Account — %s.' % title},
+                             body))
+
+    # ---- approval process (admin-only, client-facing lifecycle only) --------
+    # Deliberately NOT the converted source section: the request-field table, the sample
+    # payload and the source's internal ops/engineering notes are withheld so the page
+    # explains what happens rather than teaching a client to invoke an internal operation.
+    # The endpoint and method are shown for transparency only. The client-visible states
+    # come from the VA request status section of the source.
+    state_rows = [l for l in VA.section_markdown(va_section('14')).split('\n')
+                  if re.match(r'^\| `[A-Z]` \|', l)] if va_section('14') else []
+    body = """# VA approval process
+
+:::warning[RHUB Admin / Operations]
+
+VA approval is carried out by RHUB Admin/Operations. This page explains what happens to a
+request after you submit it. Client integrations do not call this operation, and it is not
+listed in the [API index](/docs/api-index).
+
+:::
+
+## What happens after you register a VA customer
+
+1. Your registration request is submitted through
+   [Individual](/docs/virtual-accounts/individual/create) or
+   [Business](/docs/virtual-accounts/business/create) VA customer registration.
+2. RHUB Admin/Operations reviews and processes the request.
+3. The collection bank relationship is established, as applicable to the customer and
+   settlement currency.
+4. The request progresses to its resulting status, which you can follow with
+   [VA request status](/docs/virtual-accounts/va-request-status).
+
+On completion the request is linked to a collection bank account and activated. Re-query
+[VA request status](/docs/virtual-accounts/va-request-status) to see the updated state and
+the resulting account details.
+%s
+## The operation RHUB performs
+
+Recorded for transparency. This is an internal RHUB Admin/Operations call, performed by RHUB
+rather than by your integration.
+
+<div className="rhub-endpoint">
+  <div className="rhub-endpoint__row">
+    <span className="rhub-method rhub-method--put">PUT</span>
+    <code className="rhub-endpoint__url">{'/ewallet/api/v1/collectionBank/virtualAccountCustomer/approve'}</code>
+  </div>
+</div>
+
+## Related
+
+- [VA request status](/docs/virtual-accounts/va-request-status)
+- [VA integration flow](/docs/virtual-accounts/integration-flow)
+- [Virtual Accounts overview](/docs/virtual-accounts)
+""" % (('\n## Request states you will see\n\n'
+        '| state | stateName | Meaning |\n|---|---|---|\n' + '\n'.join(state_rows) + '\n')
+       if state_rows else '')
+    written.append(write('virtual-accounts/va-approval-process.md',
+                         {'title': 'VA approval process', 'sidebar_label': 'VA approval process',
+                          'description': 'What happens after a VA registration request is '
+                                         'submitted, and the RHUB Admin/Operations step.'},
+                         body))
+
+    # ---- response envelope + VA error codes --------------------------------
+    envelope = VA.section_markdown(va_section('17'))
+    body = """# VA responses and errors
+
+VA follows the platform error model: `resultCode` is the error category and
+`resultDescription` is the specific reason. See
+[errors and response codes](/docs/errors) for the wider model and the
+[current API error codes](/docs/errors/current-error-codes).
+
+%s
+
+## Related
+
+- [Errors and response codes](/docs/errors)
+- [Current API error codes](/docs/errors/current-error-codes)
+- [VA integration flow](/docs/virtual-accounts/integration-flow)
+""" % envelope
+    written.append(write('virtual-accounts/responses-and-errors.md',
+                         {'title': 'VA responses and errors',
+                          'sidebar_label': 'Responses and errors',
+                          'description': 'The VA response envelope and its documented '
+                                         'result codes.'},
+                         body))
+    rec('RHUB_VA_API_Documentation.html', 'docs/virtual-accounts/ (%d pages)' % len(written),
+        'COMPLETE',
+        'Virtual Account documentation converted from the RHUB VA source HTML. Requiredness '
+        'classifications, field names, endpoints and samples carried over verbatim; the '
+        'source\'s placeholder API-key auth wording replaced with the platform access-token '
+        'model, and its pre-publication placeholder notice dropped.')
+    return written
+
+
 def build_review_register():
     lines = ['# Review resolution register', '',
              'Internal record of every REVIEW REQUIRED issue raised during the build of RHUB '
@@ -2146,6 +2524,90 @@ def build_review_register():
 # --------------------------------------------------------------------------
 # API index page
 # --------------------------------------------------------------------------
+
+
+# Virtual Account entries for the central API Index. Sourced from the VA documentation;
+# stages use the same taxonomy as the transaction APIs.
+
+# Explicit RHUB publication decision (VA pass): these five lookup APIs are verified VA
+# source information and are required for VA onboarding, so they appear in the central API
+# Index under Master / Reference APIs. The decision covers THESE FIVE ONLY — it does not
+# publish any other previously-unpublished master API.
+VA_MASTER_INDEX = [
+    ('Business Transaction Volume', 'GET',
+     'Returns the business transaction-volume bands for a customer type. Used for VA onboarding.',
+     'Payout preparation / reference',
+     'http://host/ewallet/api/v1/businessTxnVolume/getByCustomerTypeCode/{customerTypeCode}',
+     'virtual-accounts/va-reference-data.md'),
+    ('Purpose of Opening Business', 'GET',
+     'Returns the business-relationship purposes for business customers. Used for VA onboarding.',
+     'Payout preparation / reference',
+     'http://host/ewallet/api/v1/purposeOfOpeningBusiness/getByCustomerTypeCode/100002',
+     'virtual-accounts/va-reference-data.md'),
+    ('Residence Status', 'GET',
+     'Returns the residence-status values for individual customers. Used for VA onboarding.',
+     'Payout preparation / reference',
+     'http://host/ewallet/api/v1/residenceStatus/customerTypeCode/100001',
+     'virtual-accounts/va-reference-data.md'),
+    ('ID Type', 'GET',
+     'Returns the identity-document types for business customers. Used for VA onboarding.',
+     'Payout preparation / reference',
+     'http://host/ewallet/api/v1/idType/getByCustomerTypeCode/100002',
+     'virtual-accounts/va-reference-data.md'),
+    ('Customer Type', 'GET',
+     'Returns the customer types, for example individual and business. Used for VA onboarding.',
+     'Payout preparation / reference',
+     'http://host/ewallet/api/v1/customerType/all',
+     'virtual-accounts/va-reference-data.md'),
+]
+
+VA_INDEX = [
+    ('VA Currencies', 'GET',
+     'Returns the settlement currencies enabled for Virtual Accounts under a send client.',
+     'VA onboarding',
+     'http://host/ewallet/api/v1/currency/virtualAccountCurrency/{sendClientCode}',
+     'virtual-accounts/va-currencies.md'),
+    ('VA Document Type List', 'GET',
+     'Returns the document checklist for a VA customer type.',
+     'VA onboarding',
+     'http://host/ewallet/api/v1/virtualAccount/customerDocumentType/getByCustomerTypeCode/{customerTypeCode}',
+     'virtual-accounts/document-requirements.md'),
+    ('Upload VA Document', 'POST',
+     'Uploads a single VA document against its document type.',
+     'VA onboarding',
+     'http://host/ewallet/api/v1/documentUpload/upload/virtualCustomer',
+     'virtual-accounts/upload-documents.md'),
+    ('Get Uploaded VA Documents', 'GET',
+     'Returns the VA documents already uploaded for a wallet owner.',
+     'VA onboarding',
+     'http://host/ewallet/api/v1/documentUpload/virtualDocument/{walletOwnerCode}',
+     'virtual-accounts/get-documents.md'),
+    ('VA Customer Registration (individual)', 'POST',
+     'Registers an individual VA customer. Shared endpoint, VA-specific request.',
+     'VA onboarding',
+     'http://host/ewallet/api/v1/customer-registration',
+     'virtual-accounts/individual/create.md'),
+    ('VA Customer Registration (business)', 'POST',
+     'Registers a business VA customer. Shared endpoint, VA-specific request.',
+     'VA onboarding',
+     'http://host/ewallet/api/v1/customer-registration',
+     'virtual-accounts/business/create.md'),
+    ('Retrieve VA Customer', 'GET',
+     'Returns a registered VA customer record.',
+     'VA onboarding',
+     'http://host/ewallet/api/v1/customer-registration/{code}',
+     'virtual-accounts/individual/retrieve.md'),
+    ('Edit VA Customer', 'PUT',
+     'Updates the editable fields of a registered VA customer.',
+     'VA onboarding',
+     'http://host/ewallet/api/v1/customer-registration/{code}',
+     'virtual-accounts/individual/edit.md'),
+    ('VA Request Status', 'GET',
+     'Returns the state of submitted VA account requests.',
+     'VA post-registration',
+     'http://host/ewallet/api/v1/collectionBank/individual/virtualAccount/customer/all',
+     'virtual-accounts/va-request-status.md'),
+]
 
 INDEX_STAGES = {
     'authentication/authentication.md': 'Start',
@@ -2194,11 +2656,24 @@ def build_api_index():
              'is typically used. Purposes are RHUB\'s own descriptions.', '',
              '## Transaction APIs', '']
     lines += ['<div className="rhub-apitable">', ''] + render(core) + ['', '</div>', '']
+    if VA_INDEX:
+        lines += ['', '## Virtual Account APIs', '',
+                  'Virtual Account onboarding endpoints. Customer registration uses the same '
+                  'endpoint as the rest of the platform, in a VA onboarding context with a '
+                  'VA-specific request; see the linked page for that variant.', '']
+        lines += ['<div className="rhub-apitable">', ''] + render(VA_INDEX) + ['', '</div>', '']
     lines += ['', '## Master / reference APIs', '',
               'Master APIs supply the coded values other requests expect. They are need-based: '
               'call the ones your route and use case require, in whatever order suits your '
               'implementation. They are not a sequence.', '']
     lines += ['<div className="rhub-apitable">', ''] + render(masters) + ['', '</div>', '']
+    if VA_MASTER_INDEX:
+        lines += ['', '### Lookups used for Virtual Account onboarding', '',
+                  'These lookups supply the coded values the '
+                  '[Virtual Account](/docs/virtual-accounts) registration payloads expect. '
+                  'Full response shapes and list keys are on '
+                  '[VA reference data](/docs/virtual-accounts/va-reference-data).', '']
+        lines += ['<div className="rhub-apitable">', ''] + render(VA_MASTER_INDEX) + ['', '</div>', '']
     lines += ['', ':::note', '',
               'Endpoint strings are reproduced exactly as RHUB writes them, including the literal '
               '`http://host` placeholder where RHUB uses it.', '', ':::', '',
@@ -2226,6 +2701,7 @@ def main():
 
     build_intro()
     build_getting_started()
+    build_environments()
     build_authentication()
     build_customer_registration()
     build_quotation()
@@ -2241,6 +2717,7 @@ def main():
     build_legacy()
     build_unpublished_apis()
     build_licence()
+    build_virtual_accounts()
     build_review_register()
     build_api_index()
     build_source_notes(master_rows, wpt_rows, tpl_rows)

@@ -14,6 +14,7 @@ Two things tell you what happened to a request:
 |---|---|
 | Why a request failed — the `resultCode` category and the `resultDescription` reason | [Current API error codes](/docs/errors/current-error-codes) |
 | Where a transaction has reached in processing | [Transaction status codes](/docs/errors/transaction-status-codes) |
+| Virtual Account response envelope and its result codes | [VA responses and errors](/docs/virtual-accounts/responses-and-errors) |
 
 Handle failures on the `resultCode` / `resultDescription` pair returned in the response body.
 Track a transaction's progress with its status value.
