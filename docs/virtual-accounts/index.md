@@ -33,22 +33,6 @@ This API onboards a customer onto a **Virtual Account (VA)** — a dedicated col
 
 :::
 
-💱
-1. Currencies
-Check which settlement currencies support Virtual Accounts.
-📋
-2. Doc Checklist
-Fetch the mandatory/optional document list for Individual or Business.
-📄
-3. Upload Docs
-Upload each required document; get a docReferenceNumber back.
-👤
-4. Register
-Create the Individual or Business customer record.
-✅
-5. Approve VA
-Ops/admin links the customer to a collection bank account.
-
 ### Individual Customer
 
 A natural person. Registration collects personal identity (name, DOB, gender, nationality), a single government ID, and a home address. 3 mandatory KYC documents.
@@ -60,6 +44,59 @@ Ultimate Beneficial Owners (UBOs)
 in
 ownerDetailList
 . 8 of 9 corporate documents are mandatory.
+
+## How VA onboarding works
+
+<div className="rhub-journey">
+
+<div className="rhub-journey__step">
+<span className="rhub-journey__index">01</span>
+
+**[Currencies](/docs/virtual-accounts/va-currencies)**
+
+Check which settlement currencies support Virtual Accounts.
+
+</div>
+
+<div className="rhub-journey__step">
+<span className="rhub-journey__index">02</span>
+
+**[Document checklist](/docs/virtual-accounts/document-requirements)**
+
+Fetch the mandatory/optional document list for Individual or Business.
+
+</div>
+
+<div className="rhub-journey__step">
+<span className="rhub-journey__index">03</span>
+
+**[Upload documents](/docs/virtual-accounts/upload-documents)**
+
+Upload the required VA documents.
+
+</div>
+
+<div className="rhub-journey__step">
+<span className="rhub-journey__index">04</span>
+
+**Register customer**
+
+Create the [Individual](/docs/virtual-accounts/individual/create) or
+[Business](/docs/virtual-accounts/business/create) customer record.
+
+</div>
+
+<div className="rhub-journey__step">
+<span className="rhub-journey__index">05</span>
+<span className="rhub-journey__kind">RHUB Admin / Operations</span>
+
+**[VA approval](/docs/virtual-accounts/va-approval-process)**
+
+RHUB Admin/Operations links the customer to the applicable collection bank account.
+
+</div>
+
+</div>
 
 ## Where to start
 

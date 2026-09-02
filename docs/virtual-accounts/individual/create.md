@@ -78,8 +78,6 @@ Base URLs for each environment are listed under
 ### Complete Request Example
 
 Individual customer
-Show
-▼
 
 ```json
 {

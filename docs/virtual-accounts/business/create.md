@@ -116,8 +116,6 @@ Each owner's required fields depend on its own `customerTypeCode` — `100001` (
 ### Complete Request Example
 
 Business customer with 2 owners (1 individual, 1 business)
-Show
-▼
 
 ```json
 {

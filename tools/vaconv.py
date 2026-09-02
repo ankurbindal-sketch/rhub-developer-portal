@@ -78,6 +78,15 @@ def _section_link(m):
     return '[%s](%s)' % (label, route)
 
 
+ICON_RE = re.compile('[\u2500-\u257f\u2600-\u27bf\ufe0f\U0001F000-\U0001FAFF]')
+
+
+def _strip_icons(text):
+    """Remove the source's decorative icons. Arrows and other meaningful punctuation in
+    prose are left alone."""
+    return re.sub(r'\s{2,}', ' ', ICON_RE.sub('', text)).strip()
+
+
 def _text(node):
     t = node.get_text(' ', strip=True) if hasattr(node, 'get_text') else str(node)
     t = _html.unescape(t)
@@ -190,7 +199,7 @@ def _walk(node, out, level):
     """Emit markdown for the children of a section or card body, in document order."""
     for child in node.children:
         if isinstance(child, NavigableString):
-            t = _html.unescape(str(child)).strip()
+            t = _strip_icons(_html.unescape(str(child)))
             if t:
                 out.append(t)
             continue
@@ -200,6 +209,9 @@ def _walk(node, out, level):
         if name == 'span' and 'sec-anchor' in classes:
             continue
         if 'sec-hdr' in classes or 'card-hdr' in classes:
+            continue
+        # source-only interactive chrome and decorative step cards
+        if 'ex-toggle' in classes or 'flow' in classes or 'flow-step' in classes:
             continue
         if name in ('h1', 'h2'):
             continue

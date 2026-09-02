@@ -2230,6 +2230,59 @@ Admin/Operations then approves the request and links it to a collection bank acc
 
 %s
 
+## How VA onboarding works
+
+<div className="rhub-journey">
+
+<div className="rhub-journey__step">
+<span className="rhub-journey__index">01</span>
+
+**[Currencies](/docs/virtual-accounts/va-currencies)**
+
+Check which settlement currencies support Virtual Accounts.
+
+</div>
+
+<div className="rhub-journey__step">
+<span className="rhub-journey__index">02</span>
+
+**[Document checklist](/docs/virtual-accounts/document-requirements)**
+
+Fetch the mandatory/optional document list for Individual or Business.
+
+</div>
+
+<div className="rhub-journey__step">
+<span className="rhub-journey__index">03</span>
+
+**[Upload documents](/docs/virtual-accounts/upload-documents)**
+
+Upload the required VA documents.
+
+</div>
+
+<div className="rhub-journey__step">
+<span className="rhub-journey__index">04</span>
+
+**Register customer**
+
+Create the [Individual](/docs/virtual-accounts/individual/create) or
+[Business](/docs/virtual-accounts/business/create) customer record.
+
+</div>
+
+<div className="rhub-journey__step">
+<span className="rhub-journey__index">05</span>
+<span className="rhub-journey__kind">RHUB Admin / Operations</span>
+
+**[VA approval](/docs/virtual-accounts/va-approval-process)**
+
+RHUB Admin/Operations links the customer to the applicable collection bank account.
+
+</div>
+
+</div>
+
 ## Where to start
 
 | Step | Page |
