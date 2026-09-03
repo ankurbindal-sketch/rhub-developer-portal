@@ -519,7 +519,13 @@ article {
 
 .markdown table {
   display: block;
-  width: 100%;
+  /* Sized to its content, not to the column: `width: 100%` forced the inner
+   * table box to the available width, so once the columns' minimums exceeded it
+   * the cells were squeezed below their content and long identifiers spilled
+   * over the next column. `max-content` lets the table take the width it needs
+   * and `max-width` hands the excess to this box's own horizontal scroll. */
+  width: max-content;
+  min-width: 100%;
   max-width: 100%;
   overflow-x: auto;
   border-collapse: collapse;
@@ -575,74 +581,81 @@ article {
   font-size: 0.82rem;
   color: var(--rhub-ink);
   word-break: normal;
-  overflow-wrap: break-word;
   hyphens: none;
+}
+
+/* The parameter column was previously sticky while panning. It has been removed:
+ * with collapsed borders a sticky cell can fail to paint over the scrolling
+ * columns behind it, which is what made adjacent cell text appear to collide.
+ * Plain scrolling is predictable and needs no stacking context. */
+
+/* Contract field tables. Column widths are driven by minimums and by wrapping
+ * behaviour per column purpose — never by `max-width`, which table cells ignore.
+ * The identifier and type columns stay on one line so a name such as
+ * `sendClientTrxReference` or a type such as `Alphanumeric with hyphens` is
+ * never split or squeezed; when that makes the table wider than the content
+ * column, the table scrolls as a whole. */
+
+/* Parameter / Parameters */
+.markdown table td:nth-child(1) {
   min-width: 9rem;
-  max-width: 16rem;
+  white-space: nowrap;
 }
 
-/* Sticky parameter column.
- *
- * Keeps the field name in view while panning a wide contract table. Enabled
- * from 997px up only: on a phone a pinned 9rem column would leave too little
- * room for the description. Backgrounds are opaque and the hover state is
- * repeated on the pinned cell, so no row shows through it, and an explicit
- * right border replaces the collapsed border that sticky positioning drops. */
-@media (min-width: 997px) {
-  .markdown table th:first-child,
-  .markdown table td:first-child {
-    position: sticky;
-    left: 0;
-    z-index: 1;
-    background: var(--ifm-background-color);
-    border-right: 1px solid var(--rhub-hairline);
-  }
-
-  .markdown table th:first-child {
-    z-index: 2;
-    background: var(--rhub-surface);
-  }
-
-  .markdown table tr:hover td:first-child {
-    background: var(--rhub-surface-2);
-  }
-}
-
-/* Parameter tables: the scannable columns are capped so they cannot take more
- * than they need, which leaves the surplus to the description. Caps sit above
- * the longest real values ("Alphanumeric (Encrypted)", "01 - 128"), so nothing
- * is clipped — the text wraps inside the cell instead. */
+/* Input Type / Data Type — wraps between words but never inside one, so a value
+ * such as "Alphanumeric + special characters (Email format)" uses two lines
+ * instead of forcing a 26rem column. Its longest single word ("Alphanumeric")
+ * is 6.6rem, inside the 7.5rem minimum, so it can never overflow the cell. */
 .markdown table th:nth-child(2),
 .markdown table td:nth-child(2) {
-  min-width: 6rem;
-  max-width: 10rem;
+  min-width: 7.5rem;
+  white-space: normal;
+  overflow-wrap: normal;
+  word-break: normal;
 }
 
+/* Length */
 .markdown table th:nth-child(3),
 .markdown table td:nth-child(3) {
   min-width: 5rem;
-  max-width: 7rem;
+  white-space: nowrap;
 }
 
+/* Requirement */
 .markdown table th:nth-child(4),
 .markdown table td:nth-child(4) {
   min-width: 5rem;
-  max-width: 7rem;
+  white-space: nowrap;
 }
 
+/* Description — flexible, wraps naturally, takes whatever is left */
 .markdown table td:last-child {
   min-width: 18rem;
-  max-width: none;
+  white-space: normal;
   overflow-wrap: break-word;
+  word-break: normal;
 }
 
-/* a two-letter M / O / C reads better centred under its header */
-.markdown table td:nth-child(4) {
-  white-space: nowrap;
+/* Search highlighting must not change column geometry */
+.markdown mark {
+  padding: 0;
+  border-radius: 2px;
+  background: var(--rhub-orange-wash);
+  color: inherit;
+  box-decoration-break: clone;
 }
 
 .markdown table tr:hover td {
   background: var(--rhub-surface-2);
+}
+
+/* The API Index and the VA/validation requirement lists are separate table
+ * systems with their own tuned rules; the nowrap above must not reach them. */
+.markdown .rhub-apitable td:nth-child(1),
+.markdown .rhub-apitable td:nth-child(3),
+.markdown .rhub-apitable td:nth-child(4),
+.markdown .rhub-req table td {
+  white-space: normal;
 }
 
 /* --- code blocks --- */
