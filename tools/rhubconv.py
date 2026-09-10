@@ -250,10 +250,23 @@ def _dedent(body):
     return '\n'.join(l[cut:] if len(l) >= cut else l for l in lines)
 
 
+SANDBOX_BASE = 'https://sandbox-client.remittanceshub.com:8130'
+SANDBOX_HOST = 'sandbox-client.remittanceshub.com:8130'
+
+
+def resolve_sample_host(code):
+    """Replace the source's generic host placeholders in a request sample with the
+    Sandbox base URL. Nothing else in the sample changes."""
+    code = re.sub(r'HOST:\s*XXX\.XXX\.XXX\.XXX:Port', 'HOST: ' + SANDBOX_HOST, code)
+    code = re.sub(r'https?://host(?=/)', SANDBOX_BASE, code)
+    return code
+
+
 def _code_token(body, store):
     code = _dedent(body)
     code = code.replace('\\[', '[').replace('\\]', ']')
     code = _html.unescape(code)
+    code = resolve_sample_host(code)
     stripped = code.lstrip()
     lang = 'json' if stripped[:1] in '{[' else 'http'
     if lang == 'http' and '{' in code and code.lstrip().startswith('{'):
@@ -381,6 +394,32 @@ def convert_anchors(text):
 # inline / block cleanup
 # --------------------------------------------------------------------------
 
+# Confirmed RHUB API environment base URLs. Stored without a trailing slash; endpoint
+# paths are appended to them. These are API hosts, not the documentation site.
+API_ENVIRONMENTS = [
+    ('Sandbox', 'https://sandbox-client.remittanceshub.com:8130'),
+    ('Production', 'https://prod-api.remittanceshub.com:9091'),
+]
+
+HOST_PLACEHOLDER_RE = re.compile(r'^https?://host(?=/)')
+
+
+def endpoint_path(url):
+    """The endpoint path, with the source's generic host placeholder removed."""
+    return HOST_PLACEHOLDER_RE.sub('', url.strip())
+
+
+def environment_lines(path):
+    """Environment-resolved URLs for an endpoint path."""
+    if not path.startswith('/'):
+        return []
+    return ['  <div className="rhub-endpoint__envs">'] + [
+        '    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">%s</span>'
+        '<code>%s</code></span>' % (name, base + path)
+        for name, base in API_ENVIRONMENTS
+    ] + ['  </div>']
+
+
 LEGEND = '*Requirement legend: M = Mandatory · O = Optional · C = Conditional*'
 
 FIELD_CLARIFICATION_TITLE = 'Field requirement clarification'
@@ -505,6 +544,7 @@ def render_endpoint(header, data_rows, ep_store):
         for label, url in urls:
             clean = url.replace('<br />', '').replace('\\|', '|').strip()
             clean = re.sub(r'\s+', '', clean)
+            path = endpoint_path(clean)
             if label:
                 lines.append('  <div className="rhub-endpoint__label">%s</div>'
                              % label.strip().capitalize())
@@ -513,8 +553,9 @@ def render_endpoint(header, data_rows, ep_store):
                 lines.append('    <span className="rhub-method rhub-method--%s">%s</span>'
                              % (method.lower(), method))
             lines.append("    <code className=\"rhub-endpoint__url\">{%s}</code>"
-                         % repr(clean))
+                         % repr(path))
             lines.append('  </div>')
+            lines += environment_lines(path)
         lines.append('</div>')
         token = '@@RHUBEP%d@@' % len(ep_store)
         ep_store.append('\n'.join(lines[1:]))

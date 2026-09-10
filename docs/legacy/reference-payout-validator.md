@@ -21,7 +21,11 @@ withdrawn. Treat it as reference material and confirm with RHUB before integrati
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
     <span className="rhub-method rhub-method--get">GET</span>
-    <code className="rhub-endpoint__url">{'http://host/api/v1/payoutValidator/{partnerCode}/{serviceTypeCode}/{currency}/{userTypeCode}/{modeOfPayment}'}</code>
+    <code className="rhub-endpoint__url">{'/api/v1/payoutValidator/{partnerCode}/{serviceTypeCode}/{currency}/{userTypeCode}/{modeOfPayment}'}</code>
+  </div>
+  <div className="rhub-endpoint__envs">
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Sandbox</span><code>https://sandbox-client.remittanceshub.com:8130/api/v1/payoutValidator/{partnerCode}/{serviceTypeCode}/{currency}/{userTypeCode}/{modeOfPayment}</code></span>
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Production</span><code>https://prod-api.remittanceshub.com:9091/api/v1/payoutValidator/{partnerCode}/{serviceTypeCode}/{currency}/{userTypeCode}/{modeOfPayment}</code></span>
   </div>
 </div>
 
@@ -43,9 +47,9 @@ The Reference API is used to fetch the validator for the receiver.
 
 ```http
 GET /services HTTP/1.0
-HOST: XXX.XXX.XXX.XXX:Port
+HOST: sandbox-client.remittanceshub.com:8130
 Content-Type: application/json; charset=utf-8
-GET http://host/ewallet/api/v1/payoutValidator/1000008855/B2B/INR/100001
+GET https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/payoutValidator/1000008855/B2B/INR/100001
 ```
 
 ## Response Parameter

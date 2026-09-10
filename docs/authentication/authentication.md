@@ -35,7 +35,11 @@ response and does not need to be sent.
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
     <span className="rhub-method rhub-method--post">POST</span>
-    <code className="rhub-endpoint__url">{'http://host/ewallet/oauth/token'}</code>
+    <code className="rhub-endpoint__url">{'/ewallet/oauth/token'}</code>
+  </div>
+  <div className="rhub-endpoint__envs">
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Sandbox</span><code>https://sandbox-client.remittanceshub.com:8130/ewallet/oauth/token</code></span>
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Production</span><code>https://prod-api.remittanceshub.com:9091/ewallet/oauth/token</code></span>
   </div>
 </div>
 
@@ -65,9 +69,9 @@ The Login API is used to authenticate and authorize the user.
 
 ```http
 POST /services HTTP/1.0
-HOST: XXX.XXX.XXX.XXX:Port
+HOST: sandbox-client.remittanceshub.com:8130
 Content-Type: application/json; charset=utf-8
-POST http://host/ewallet/oauth/token
+POST https://sandbox-client.remittanceshub.com:8130/ewallet/oauth/token
 FormData : grant_type=password&username=1000008340
 password : 21ED0D51*****FB437*****8ED2123B6
 ```

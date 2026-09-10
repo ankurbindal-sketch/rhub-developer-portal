@@ -13,7 +13,11 @@ description: "RHUB Customer/Individual Document Type master API."
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
     <span className="rhub-method rhub-method--get">GET</span>
-    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/customerDocumentType/getByCustomerTypeCode/{customerTypeCode}'}</code>
+    <code className="rhub-endpoint__url">{'/ewallet/api/v1/customerDocumentType/getByCustomerTypeCode/{customerTypeCode}'}</code>
+  </div>
+  <div className="rhub-endpoint__envs">
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Sandbox</span><code>https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/customerDocumentType/getByCustomerTypeCode/{customerTypeCode}</code></span>
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Production</span><code>https://prod-api.remittanceshub.com:9091/ewallet/api/v1/customerDocumentType/getByCustomerTypeCode/{customerTypeCode}</code></span>
   </div>
 </div>
 
@@ -31,10 +35,10 @@ The Customer Document Type API is used to fetch the ID proof documents of the cu
 
 ```http
 GET /services HTTP/1.0
-HOST: XXX.XXX.XXX.XXX:Port
+HOST: sandbox-client.remittanceshub.com:8130
 Content-Type: application/json; charset=utf-8
 GET -
-http://host/api/v1/customerDocumentType/getByCustomerTypeCode/100001
+https://sandbox-client.remittanceshub.com:8130/api/v1/customerDocumentType/getByCustomerTypeCode/100001
 ```
 
 ## Response Parameter

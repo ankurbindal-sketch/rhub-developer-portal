@@ -21,7 +21,11 @@ withdrawn. Treat it as reference material and confirm with RHUB before integrati
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
     <span className="rhub-method rhub-method--post">POST</span>
-    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/fxratequotation/api'}</code>
+    <code className="rhub-endpoint__url">{'/ewallet/api/v1/fxratequotation/api'}</code>
+  </div>
+  <div className="rhub-endpoint__envs">
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Sandbox</span><code>https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/fxratequotation/api</code></span>
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Production</span><code>https://prod-api.remittanceshub.com:9091/ewallet/api/v1/fxratequotation/api</code></span>
   </div>
 </div>
 
@@ -50,9 +54,9 @@ The Quotation API is used to fetch the forex rate between the payin and payout c
 
 ```http
 POST /services HTTP/1.0
-HOST: XXX.XXX.XXX.XXX:Port
+HOST: sandbox-client.remittanceshub.com:8130
 Content-Type: application/json; charset=utf-8
-POST http://host/ewallet/api/v1/fxratequotation/api
+POST https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/fxratequotation/api
 {
       "payinAmount": "80",
       "payoutAmount": "",

@@ -14,7 +14,11 @@ description: "RHUB Remittance Purpose master API."
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
     <span className="rhub-method rhub-method--get">GET</span>
-    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/purposeOfRemittance/RHUB/{transactionType}/{countryCode}'}</code>
+    <code className="rhub-endpoint__url">{'/ewallet/api/v1/purposeOfRemittance/RHUB/{transactionType}/{countryCode}'}</code>
+  </div>
+  <div className="rhub-endpoint__envs">
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Sandbox</span><code>https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/purposeOfRemittance/RHUB/{transactionType}/{countryCode}</code></span>
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Production</span><code>https://prod-api.remittanceshub.com:9091/ewallet/api/v1/purposeOfRemittance/RHUB/{transactionType}/{countryCode}</code></span>
   </div>
 </div>
 
@@ -35,7 +39,7 @@ The Remittance Purpose API is used to fetch the purpose to send the remittance.
 GET /services HTTP/1.0
 HOST: XXX.XXX.X.XXX:Port
 Content-Type: application/json; charset=utf-8
-GET http://host/ewallet/api/v1/purposeOfRemittance/RHUB/B2B/ARE
+GET https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/purposeOfRemittance/RHUB/B2B/ARE
 ```
 
 ## Response Parameter

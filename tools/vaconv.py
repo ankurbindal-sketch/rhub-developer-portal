@@ -179,13 +179,15 @@ def _endpoint_block(tbl):
             extra.append((label, _inline(cells[1])))
     if not url:
         return _table(tbl)
+    import rhubconv as R
+    path = R.endpoint_path(url)
     lines = ['<div className="rhub-endpoint">',
              '  <div className="rhub-endpoint__row">']
     if method:
         lines.append('    <span className="rhub-method rhub-method--%s">%s</span>'
                      % (method.lower(), method))
-    lines.append("    <code className=\"rhub-endpoint__url\">{%s}</code>" % repr(url))
-    lines += ['  </div>', '</div>', '']
+    lines.append("    <code className=\"rhub-endpoint__url\">{%s}</code>" % repr(path))
+    lines += ['  </div>'] + R.environment_lines(path) + ['</div>', '']
     for label, value in extra:
         lines.append('- **%s** — %s' % (label, value))
     return '\n'.join(lines)

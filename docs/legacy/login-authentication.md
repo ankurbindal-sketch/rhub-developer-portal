@@ -49,7 +49,7 @@ The Login API is used to authenticate and authorize the user.
 
 ```http
 POST /services HTTP/1.0
-HOST: XXX.XXX.XXX.XXX:Port
+HOST: sandbox-client.remittanceshub.com:8130
 Content-Type: application/json; charset=utf-8
 POST https://sandbox-client.remittanceshub.com:8030/ewallet/oauth/token
 FormData : grant_type=password&scope=read%20write&username=1000008340

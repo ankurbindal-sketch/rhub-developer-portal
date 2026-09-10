@@ -128,7 +128,7 @@ The Payout API is used to perform the business-to-business (B2B) transaction.
 
 ```http
 POST /services HTTP/1.0
-HOST: XXX.XXX.XXX.XXX:Port
+HOST: sandbox-client.remittanceshub.com:8130
 Content-Type: application/json; charset=utf-8
 POST https://sandbox-client.remittanceshub.com:8030/ewallet/api/v1/payoutProcess
 

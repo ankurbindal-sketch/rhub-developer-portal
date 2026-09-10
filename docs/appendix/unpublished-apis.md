@@ -28,7 +28,11 @@ Every section on this page exists in the RHUB source **inside an HTML comment**,
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
     <span className="rhub-method rhub-method--post">POST</span>
-    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/fxratequotation/api'}</code>
+    <code className="rhub-endpoint__url">{'/ewallet/api/v1/fxratequotation/api'}</code>
+  </div>
+  <div className="rhub-endpoint__envs">
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Sandbox</span><code>https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/fxratequotation/api</code></span>
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Production</span><code>https://prod-api.remittanceshub.com:9091/ewallet/api/v1/fxratequotation/api</code></span>
   </div>
 </div>
 
@@ -65,9 +69,9 @@ The Quotation API is used to fetch the forex rate between the payin and payout c
 
 ```http
 POST /services HTTP/1.0
-HOST: XXX.XXX.XXX.XXX:Port
+HOST: sandbox-client.remittanceshub.com:8130
 Content-Type: application/json; charset=utf-8
-POST http://host/ewallet/api/v1/fxratequotation/api
+POST https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/fxratequotation/api
 {
     "requestDate: "2017-05-03 11:00:00"
     "payinAmount": "",
@@ -190,7 +194,11 @@ POST http://host/ewallet/api/v1/fxratequotation/api
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
     <span className="rhub-method rhub-method--post">POST</span>
-    <code className="rhub-endpoint__url">{'http://host/ewallet/oauth/token'}</code>
+    <code className="rhub-endpoint__url">{'/ewallet/oauth/token'}</code>
+  </div>
+  <div className="rhub-endpoint__envs">
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Sandbox</span><code>https://sandbox-client.remittanceshub.com:8130/ewallet/oauth/token</code></span>
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Production</span><code>https://prod-api.remittanceshub.com:9091/ewallet/oauth/token</code></span>
   </div>
 </div>
 
@@ -218,9 +226,9 @@ The Login API is used to authenticate and authorize the user.
 
 ```http
 POST /services HTTP/1.0
-HOST: XXX.XXX.XXX.XXX:Port
+HOST: sandbox-client.remittanceshub.com:8130
 Content-Type: application/json; charset=utf-8
-POST http://host/ewallet/oauth/token
+POST https://sandbox-client.remittanceshub.com:8130/ewallet/oauth/token
 FormData : grant_type=password&scope=read%20write&username=1000008340
 password : 21ED0D51*****FB437*****8ED2123B6
 ```
@@ -258,7 +266,11 @@ password : 21ED0D51*****FB437*****8ED2123B6
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
     <span className="rhub-method rhub-method--put">PUT</span>
-    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/customer-registration/{customerCode}'}</code>
+    <code className="rhub-endpoint__url">{'/ewallet/api/v1/customer-registration/{customerCode}'}</code>
+  </div>
+  <div className="rhub-endpoint__envs">
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Sandbox</span><code>https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/customer-registration/{customerCode}</code></span>
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Production</span><code>https://prod-api.remittanceshub.com:9091/ewallet/api/v1/customer-registration/{customerCode}</code></span>
   </div>
 </div>
 
@@ -310,9 +322,9 @@ The Update Customer API is used to update the details of the registered customer
 
 ```http
 PUT /services HTTP/1.0
-HOST: XXX.XXX.XXX.XXX:Port
+HOST: sandbox-client.remittanceshub.com:8130
 Content-Type: application/json; charset=utf-8
-PUT http://host/ewallet/api/v1/customer-registration/10000***71
+PUT https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/customer-registration/10000***71
 {
 "customerTypeCode": "100001",
 "customerSubTypeCode": "100001",
@@ -516,7 +528,11 @@ PUT http://host/ewallet/api/v1/customer-registration/10000***71
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
     <span className="rhub-method rhub-method--post">POST</span>
-    <code className="rhub-endpoint__url">{'http://host/api/v1/owner-details'}</code>
+    <code className="rhub-endpoint__url">{'/api/v1/owner-details'}</code>
+  </div>
+  <div className="rhub-endpoint__envs">
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Sandbox</span><code>https://sandbox-client.remittanceshub.com:8130/api/v1/owner-details</code></span>
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Production</span><code>https://prod-api.remittanceshub.com:9091/api/v1/owner-details</code></span>
   </div>
 </div>
 
@@ -558,9 +574,9 @@ The Owner Details API is used to create / update the owner in the system.
 
 ```http
 POST /services HTTP/1.0
-HOST: XXX.XXX.XXX.XXX:Port
+HOST: sandbox-client.remittanceshub.com:8130
 Content-Type: application/json; charset=utf-8
-POST http://host/api/v1/customer-registration
+POST https://sandbox-client.remittanceshub.com:8130/api/v1/customer-registration
 {
  "customerTypeCode": "100002",
  "customerSubTypeCode": "100001",
@@ -660,7 +676,11 @@ POST http://host/api/v1/customer-registration
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
     <span className="rhub-method rhub-method--get">GET</span>
-    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/customer-registration/all?{customerId}&{fullName}&{walletOwnerCode}&{customerTypeCode}&{offset}&{limit}'}</code>
+    <code className="rhub-endpoint__url">{'/ewallet/api/v1/customer-registration/all?{customerId}&{fullName}&{walletOwnerCode}&{customerTypeCode}&{offset}&{limit}'}</code>
+  </div>
+  <div className="rhub-endpoint__envs">
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Sandbox</span><code>https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/customer-registration/all?{customerId}&{fullName}&{walletOwnerCode}&{customerTypeCode}&{offset}&{limit}</code></span>
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Production</span><code>https://prod-api.remittanceshub.com:9091/ewallet/api/v1/customer-registration/all?{customerId}&{fullName}&{walletOwnerCode}&{customerTypeCode}&{offset}&{limit}</code></span>
   </div>
 </div>
 
@@ -683,10 +703,10 @@ The customer search api is used to search for the registered customer based on t
 
 ```http
 GET /services HTTP/1.0
-HOST: XXX.XXX.XXX.XXX:Port
+HOST: sandbox-client.remittanceshub.com:8130
 Content-Type: application/json; charset=utf-8
 GET -
-http://host/ewallet/api/v1/customer-registration/all?customerId=100000892912003I&fullName=rajesh
+https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/customer-registration/all?customerId=100000892912003I&fullName=rajesh
 &walletOwnerCode=1000008929&customerTypeCode=100001&offset=0&limit=5
 ```
 
@@ -905,7 +925,11 @@ http://host/ewallet/api/v1/customer-registration/all?customerId=100000892912003I
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
     <span className="rhub-method rhub-method--get">GET</span>
-    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/customer-registration/beneficiary?{customerTypeCode=value}&{walletOwnerCode=value}&{customerCode=value}&{offset}&{limit}'}</code>
+    <code className="rhub-endpoint__url">{'/ewallet/api/v1/customer-registration/beneficiary?{customerTypeCode=value}&{walletOwnerCode=value}&{customerCode=value}&{offset}&{limit}'}</code>
+  </div>
+  <div className="rhub-endpoint__envs">
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Sandbox</span><code>https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/customer-registration/beneficiary?{customerTypeCode=value}&{walletOwnerCode=value}&{customerCode=value}&{offset}&{limit}</code></span>
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Production</span><code>https://prod-api.remittanceshub.com:9091/ewallet/api/v1/customer-registration/beneficiary?{customerTypeCode=value}&{walletOwnerCode=value}&{customerCode=value}&{offset}&{limit}</code></span>
   </div>
 </div>
 
@@ -927,10 +951,10 @@ The beneficiary search api is used to search for the beneficiary of registered c
 
 ```http
 GET /services HTTP/1.0
-HOST: XXX.XXX.XXX.XXX:Port
+HOST: sandbox-client.remittanceshub.com:8130
 Content-Type: application/json; charset=utf-8
 GET -
-http://host/ewallet/api/v1/customer-registration/beneficiary?customerTypeCode=100002&walletOwnerCode=1000*****9&customerCode=1000***921&offset=0&limit=5
+https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/customer-registration/beneficiary?customerTypeCode=100002&walletOwnerCode=1000*****9&customerCode=1000***921&offset=0&limit=5
 ```
 
 ##### Response Parameter
@@ -1027,7 +1051,11 @@ http://host/ewallet/api/v1/customer-registration/beneficiary?customerTypeCode=10
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
     <span className="rhub-method rhub-method--post">POST</span>
-    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/documentUpload/upload/customer'}</code>
+    <code className="rhub-endpoint__url">{'/ewallet/api/v1/documentUpload/upload/customer'}</code>
+  </div>
+  <div className="rhub-endpoint__envs">
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Sandbox</span><code>https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/documentUpload/upload/customer</code></span>
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Production</span><code>https://prod-api.remittanceshub.com:9091/ewallet/api/v1/documentUpload/upload/customer</code></span>
   </div>
 </div>
 
@@ -1047,10 +1075,10 @@ The Document Upload API is used to upload the ID proof documents of the specific
 
 ```http
 POST /services HTTP/1.0
-HOST: XXX.XXX.XXX.XXX:Port
+HOST: sandbox-client.remittanceshub.com:8130
 Content-Type: application/json; charset=utf-8
 POST -
-http://host/ewallet/api/v1/documentUpload/upload/customer
+https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/documentUpload/upload/customer
 ```
 
 ##### Response Parameter

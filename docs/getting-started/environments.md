@@ -11,12 +11,27 @@ the base URL and your credentials differ.
 
 | Environment | Base URL |
 |---|---|
-| Sandbox | `https://sandbox-api.remittanceshub.com` |
-| Production | `https://api.remittanceshub.com` |
+| Sandbox | `https://sandbox-client.remittanceshub.com:8130` |
+| Production | `https://prod-api.remittanceshub.com:9091` |
 
-Prefix the documented paths with the base URL of the environment you are integrating
-against. For example, `POST /ewallet/oauth/token` against Sandbox is
-`https://sandbox-api.remittanceshub.com/ewallet/oauth/token`.
+## Resolving an endpoint
+
+Every endpoint in this reference is documented as a path. Append the path to the base URL of
+the environment you are integrating against. For
+[Authentication](/docs/authentication/authentication), `POST /ewallet/oauth/token` resolves
+to:
+
+```http
+POST https://sandbox-client.remittanceshub.com:8130/ewallet/oauth/token
+```
+
+```http
+POST https://prod-api.remittanceshub.com:9091/ewallet/oauth/token
+```
+
+Each contract page shows both resolved URLs beneath its endpoint path, so you can copy the
+one you need. Request samples on those pages use the Sandbox base URL; substitute the
+Production base URL when you move over.
 
 ## Authentication
 
@@ -33,16 +48,9 @@ Authorization: Bearer <access_token>
 Environment-specific credentials and client configuration — including your client code —
 are supplied through RHUB onboarding. Sandbox credentials are not valid in Production.
 
-:::note[Endpoint paths in this reference]
-
-Some contract pages write their path as `http://host/ewallet/api/v1/...`, where `host`
-stands for the base URL of your environment. Substitute the Sandbox or Production base URL
-above. The paths themselves are reproduced exactly as RHUB documents them.
-
-:::
-
 ## Related
 
 - [Authentication](/docs/authentication/authentication)
 - [How to read this reference](/docs/getting-started/conventions)
 - [Integration flow](/docs/getting-started/integration-flow)
+- [API index](/docs/api-index)

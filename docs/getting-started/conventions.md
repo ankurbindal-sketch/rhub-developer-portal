@@ -59,11 +59,16 @@ Base URLs for Sandbox and Production are listed under
 
 ## Method and endpoint blocks
 
-Each API page shows its HTTP method and the request path exactly as the contract writes it.
-Most paths are written as `http://host/ewallet/api/v1/...`, where **`host` stands for the
-base URL of your environment**. Substitute the base URL of your
-environment — see [API environments](/docs/getting-started/environments). The paths
-themselves are reproduced unchanged.
+Each API page shows its HTTP method and the endpoint path, followed by the URL resolved
+against each environment:
+
+| Environment | Base URL |
+|---|---|
+| Sandbox | `https://sandbox-client.remittanceshub.com:8130` |
+| Production | `https://prod-api.remittanceshub.com:9091` |
+
+Paths are reproduced exactly as RHUB documents them; see
+[API environments](/docs/getting-started/environments).
 
 ## Authorising requests
 

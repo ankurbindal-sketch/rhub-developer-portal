@@ -42,7 +42,7 @@ The Transaction Inquiry API is used to fetch the statement for the specified per
 
 ```http
 GET /services HTTP/1.0
-HOST: XXX.XXX.XXX.XXX:Port
+HOST: sandbox-client.remittanceshub.com:8130
 Content-Type: application/json; charset=utf-8
 GET
 https://sandbox-client.remittanceshub.com:8030/ewallet/api/v1/transactionInfo/all?

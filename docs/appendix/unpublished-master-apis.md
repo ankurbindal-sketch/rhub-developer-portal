@@ -20,7 +20,11 @@ Each section below is present in `master.md` **inside an HTML comment**, which m
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
     <span className="rhub-method rhub-method--get">GET</span>
-    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/customerLegalStatus/getByCustomerTypeCode/{code}'}</code>
+    <code className="rhub-endpoint__url">{'/ewallet/api/v1/customerLegalStatus/getByCustomerTypeCode/{code}'}</code>
+  </div>
+  <div className="rhub-endpoint__envs">
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Sandbox</span><code>https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/customerLegalStatus/getByCustomerTypeCode/{code}</code></span>
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Production</span><code>https://prod-api.remittanceshub.com:9091/ewallet/api/v1/customerLegalStatus/getByCustomerTypeCode/{code}</code></span>
   </div>
 </div>
 
@@ -38,9 +42,9 @@ The Legal Status code Api of Business.
 
 ```http
 GET /services HTTP/1.0
-HOST: XXX.XXX.XXX.XXX:Port
+HOST: sandbox-client.remittanceshub.com:8130
 Content-Type: application/json; charset=utf-8
-GET http://host/ewallet/api/v1/customerLegalStatus/getByCustomerTypeCode/100002
+GET https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/customerLegalStatus/getByCustomerTypeCode/100002
 ```
 
 #### Response Parameter of Nature of Business
@@ -139,7 +143,11 @@ GET http://host/ewallet/api/v1/customerLegalStatus/getByCustomerTypeCode/100002
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
     <span className="rhub-method rhub-method--get">GET</span>
-    <code className="rhub-endpoint__url">{'http://host/api/v1/getPaymentMode/paymentmode'}</code>
+    <code className="rhub-endpoint__url">{'/api/v1/getPaymentMode/paymentmode'}</code>
+  </div>
+  <div className="rhub-endpoint__envs">
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Sandbox</span><code>https://sandbox-client.remittanceshub.com:8130/api/v1/getPaymentMode/paymentmode</code></span>
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Production</span><code>https://prod-api.remittanceshub.com:9091/api/v1/getPaymentMode/paymentmode</code></span>
   </div>
 </div>
 
@@ -149,9 +157,9 @@ The Payment Mode API is used to fetch the mode of payment.
 
 ```http
 GET /services HTTP/1.0
-HOST: XXX.XXX.XXX.XXX:Port
+HOST: sandbox-client.remittanceshub.com:8130
 Content-Type: application/json; charset=utf-8
-GET http://host/api/v1/getPaymentMode/paymentmode
+GET https://sandbox-client.remittanceshub.com:8130/api/v1/getPaymentMode/paymentmode
 ```
 
 #### Response Parameter
@@ -204,7 +212,11 @@ GET http://host/api/v1/getPaymentMode/paymentmode
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
     <span className="rhub-method rhub-method--get">GET</span>
-    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/payoutbranchlist/{countryCode}/{bankCode}/{recieverCode}'}</code>
+    <code className="rhub-endpoint__url">{'/ewallet/api/v1/payoutbranchlist/{countryCode}/{bankCode}/{recieverCode}'}</code>
+  </div>
+  <div className="rhub-endpoint__envs">
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Sandbox</span><code>https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/payoutbranchlist/{countryCode}/{bankCode}/{recieverCode}</code></span>
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Production</span><code>https://prod-api.remittanceshub.com:9091/ewallet/api/v1/payoutbranchlist/{countryCode}/{bankCode}/{recieverCode}</code></span>
   </div>
 </div>
 
@@ -224,9 +236,9 @@ The Branch API is used to fetch the list of the payout banks.
 
 ```http
 GET /services HTTP/1.0
-HOST: XXX.XXX.XXX.XXX:Port
+HOST: sandbox-client.remittanceshub.com:8130
 Content-Type: application/json; charset=utf-8
-GET http://host/ewallet/api/v1/payoutbranchlist/BEL/UTIB/1000008396
+GET https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/payoutbranchlist/BEL/UTIB/1000008396
 ```
 
 #### Response Parameter
@@ -332,7 +344,11 @@ GET http://host/ewallet/api/v1/payoutbranchlist/BEL/UTIB/1000008396
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
     <span className="rhub-method rhub-method--get">GET</span>
-    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/customerType/{parameter}'}</code>
+    <code className="rhub-endpoint__url">{'/ewallet/api/v1/customerType/{parameter}'}</code>
+  </div>
+  <div className="rhub-endpoint__envs">
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Sandbox</span><code>https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/customerType/{parameter}</code></span>
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Production</span><code>https://prod-api.remittanceshub.com:9091/ewallet/api/v1/customerType/{parameter}</code></span>
   </div>
 </div>
 
@@ -350,9 +366,9 @@ The Customer Type API is used to fetch all types of the customer.
 
 ```http
 GET /services HTTP/1.0
-HOST: XXX.XXX.XXX.XXX:Port
+HOST: sandbox-client.remittanceshub.com:8130
 Content-Type: application/json; charset=utf-8
-GET - http://host/api/v1/customerType/all
+GET - https://sandbox-client.remittanceshub.com:8130/api/v1/customerType/all
 ```
 
 #### Response Parameter of all Customers
@@ -411,7 +427,11 @@ GET - http://host/api/v1/customerType/all
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
     <span className="rhub-method rhub-method--get">GET</span>
-    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/residenceStatus/customerTypeCode/{customerTypeCode}'}</code>
+    <code className="rhub-endpoint__url">{'/ewallet/api/v1/residenceStatus/customerTypeCode/{customerTypeCode}'}</code>
+  </div>
+  <div className="rhub-endpoint__envs">
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Sandbox</span><code>https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/residenceStatus/customerTypeCode/{customerTypeCode}</code></span>
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Production</span><code>https://prod-api.remittanceshub.com:9091/ewallet/api/v1/residenceStatus/customerTypeCode/{customerTypeCode}</code></span>
   </div>
 </div>
 
@@ -429,9 +449,9 @@ The Resident Status API is used to fetch all types of the resident status.
 
 ```http
 GET /services HTTP/1.0
-HOST: XXX.XXX.XXX.XXX:Port
+HOST: sandbox-client.remittanceshub.com:8130
 Content-Type: application/json; charset=utf-8
-GET - http://host/ewallet/api/v1/residenceStatus/customerTypeCode/100001
+GET - https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/residenceStatus/customerTypeCode/100001
 ```
 
 #### Response Parameter of all Resident Status
@@ -520,7 +540,11 @@ GET - http://host/ewallet/api/v1/residenceStatus/customerTypeCode/100001
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
     <span className="rhub-method rhub-method--get">GET</span>
-    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/purposeOfOpeningBusiness/getByCustomerTypeCode/{customerTypeCode}'}</code>
+    <code className="rhub-endpoint__url">{'/ewallet/api/v1/purposeOfOpeningBusiness/getByCustomerTypeCode/{customerTypeCode}'}</code>
+  </div>
+  <div className="rhub-endpoint__envs">
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Sandbox</span><code>https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/purposeOfOpeningBusiness/getByCustomerTypeCode/{customerTypeCode}</code></span>
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Production</span><code>https://prod-api.remittanceshub.com:9091/ewallet/api/v1/purposeOfOpeningBusiness/getByCustomerTypeCode/{customerTypeCode}</code></span>
   </div>
 </div>
 
@@ -538,10 +562,10 @@ The Purpose of Opening Business API is used to fetch the purpose of opening the 
 
 ```http
 GET /services HTTP/1.0
-HOST: XXX.XXX.XXX.XXX:Port
+HOST: sandbox-client.remittanceshub.com:8130
 Content-Type: application/json; charset=utf-8
 GET -
-http://host/ewallet/api/v1/purposeOfOpeningBusiness/getByCustomerTypeCode/100002
+https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/purposeOfOpeningBusiness/getByCustomerTypeCode/100002
 ```
 
 #### Response Parameter of the Purpose of Opening Business
@@ -600,7 +624,11 @@ http://host/ewallet/api/v1/purposeOfOpeningBusiness/getByCustomerTypeCode/100002
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
     <span className="rhub-method rhub-method--get">GET</span>
-    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/businessTxnVolume/getByCustomerTypeCode/{customerTypeCode}'}</code>
+    <code className="rhub-endpoint__url">{'/ewallet/api/v1/businessTxnVolume/getByCustomerTypeCode/{customerTypeCode}'}</code>
+  </div>
+  <div className="rhub-endpoint__envs">
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Sandbox</span><code>https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/businessTxnVolume/getByCustomerTypeCode/{customerTypeCode}</code></span>
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Production</span><code>https://prod-api.remittanceshub.com:9091/ewallet/api/v1/businessTxnVolume/getByCustomerTypeCode/{customerTypeCode}</code></span>
   </div>
 </div>
 
@@ -618,9 +646,9 @@ The Customer Sub Type API is used to fetch the transaction volume of the custome
 
 ```http
 GET /services HTTP/1.0
-HOST: XXX.XXX.XXX.XXX:Port
+HOST: sandbox-client.remittanceshub.com:8130
 Content-Type: application/json; charset=utf-8
-GET - http://host/ewallet/api/v1/businessTxnVolume/getByCustomerTypeCode/100001
+GET - https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/businessTxnVolume/getByCustomerTypeCode/100001
 ```
 
 #### Response Parameter of Transaction Volume
@@ -726,12 +754,20 @@ GET - http://host/ewallet/api/v1/businessTxnVolume/getByCustomerTypeCode/100001
   <div className="rhub-endpoint__label">Of all customers</div>
   <div className="rhub-endpoint__row">
     <span className="rhub-method rhub-method--get">GET</span>
-    <code className="rhub-endpoint__url">{'http://host/api/v1/idType/{parameter}'}</code>
+    <code className="rhub-endpoint__url">{'/api/v1/idType/{parameter}'}</code>
+  </div>
+  <div className="rhub-endpoint__envs">
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Sandbox</span><code>https://sandbox-client.remittanceshub.com:8130/api/v1/idType/{parameter}</code></span>
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Production</span><code>https://prod-api.remittanceshub.com:9091/api/v1/idType/{parameter}</code></span>
   </div>
   <div className="rhub-endpoint__label">Of a single customer</div>
   <div className="rhub-endpoint__row">
     <span className="rhub-method rhub-method--get">GET</span>
-    <code className="rhub-endpoint__url">{'http://host/api/v1/idType/getByCustomerTypeCode/{parameter}'}</code>
+    <code className="rhub-endpoint__url">{'/api/v1/idType/getByCustomerTypeCode/{parameter}'}</code>
+  </div>
+  <div className="rhub-endpoint__envs">
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Sandbox</span><code>https://sandbox-client.remittanceshub.com:8130/api/v1/idType/getByCustomerTypeCode/{parameter}</code></span>
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Production</span><code>https://prod-api.remittanceshub.com:9091/api/v1/idType/getByCustomerTypeCode/{parameter}</code></span>
   </div>
 </div>
 
@@ -749,9 +785,9 @@ The ID Type API is used to fetch the ID type of the customer.
 
 ```http
 GET /services HTTP/1.0
-HOST: XXX.XXX.XXX.XXX:Port
+HOST: sandbox-client.remittanceshub.com:8130
 Content-Type: application/json; charset=utf-8
-GET - http://host/api/v1/idType/all
+GET - https://sandbox-client.remittanceshub.com:8130/api/v1/idType/all
 ```
 
 #### Response Parameter of all ID Types
@@ -823,9 +859,9 @@ GET - http://host/api/v1/idType/all
 
 ```http
 GET /services HTTP/1.0
-HOST: XXX.XXX.XXX.XXX:Port
+HOST: sandbox-client.remittanceshub.com:8130
 Content-Type: application/json; charset=utf-8
-GET - http://host/api/v1/idType/getByCustomerTypeCode/{customerTypeCode}
+GET - https://sandbox-client.remittanceshub.com:8130/api/v1/idType/getByCustomerTypeCode/{customerTypeCode}
 ```
 
 #### Response Parameter of the Individual and Business ID Types
@@ -914,7 +950,11 @@ GET - http://host/api/v1/idType/getByCustomerTypeCode/{customerTypeCode}
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
     <span className="rhub-method rhub-method--get">GET</span>
-    <code className="rhub-endpoint__url">{'http://host/ewallet/api/v1/documentUpload/{senderCode}/{docReferenceNumber}'}</code>
+    <code className="rhub-endpoint__url">{'/ewallet/api/v1/documentUpload/{senderCode}/{docReferenceNumber}'}</code>
+  </div>
+  <div className="rhub-endpoint__envs">
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Sandbox</span><code>https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/documentUpload/{senderCode}/{docReferenceNumber}</code></span>
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Production</span><code>https://prod-api.remittanceshub.com:9091/ewallet/api/v1/documentUpload/{senderCode}/{docReferenceNumber}</code></span>
   </div>
 </div>
 
@@ -933,10 +973,10 @@ The Document Fetch API is used to fetch the details ID proof documents of the sp
 
 ```http
 GET /services HTTP/1.0
-HOST: XXX.XXX.XXX.XXX:Port
+HOST: sandbox-client.remittanceshub.com:8130
 Content-Type: application/json; charset=utf-8
 GET -
-http://host/ewallet/api/v1/documentUpload/1000008867?docReferenceNumber=CUS2C83P1A
+https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/documentUpload/1000008867?docReferenceNumber=CUS2C83P1A
 ```
 
 #### Response Parameter
@@ -1003,7 +1043,11 @@ http://host/ewallet/api/v1/documentUpload/1000008867?docReferenceNumber=CUS2C83P
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
     <span className="rhub-method rhub-method--get">GET</span>
-    <code className="rhub-endpoint__url">{'http://host/api/v1/payoutValidator/{recieverCode}/{serviceTypeCode}/{currency}/{userTypeCode}/{modeOfPayment}'}</code>
+    <code className="rhub-endpoint__url">{'/api/v1/payoutValidator/{recieverCode}/{serviceTypeCode}/{currency}/{userTypeCode}/{modeOfPayment}'}</code>
+  </div>
+  <div className="rhub-endpoint__envs">
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Sandbox</span><code>https://sandbox-client.remittanceshub.com:8130/api/v1/payoutValidator/{recieverCode}/{serviceTypeCode}/{currency}/{userTypeCode}/{modeOfPayment}</code></span>
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Production</span><code>https://prod-api.remittanceshub.com:9091/api/v1/payoutValidator/{recieverCode}/{serviceTypeCode}/{currency}/{userTypeCode}/{modeOfPayment}</code></span>
   </div>
 </div>
 
@@ -1025,9 +1069,9 @@ The Pay Validator API is used to fetch the validator for the receiver.
 
 ```http
 GET /services HTTP/1.0
-HOST: XXX.XXX.XXX.XXX:Port
+HOST: sandbox-client.remittanceshub.com:8130
 Content-Type: application/json; charset=utf-8
-GET http://host/ewallet/api/v1/payoutValidator/1000008855/B2B/INR/100001
+GET https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/payoutValidator/1000008855/B2B/INR/100001
 ```
 
 #### Response Parameter

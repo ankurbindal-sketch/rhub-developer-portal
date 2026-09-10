@@ -473,16 +473,17 @@ def purpose_of(body):
 
 
 def endpoint_of(body):
-    """First endpoint URL found in a converted body (for the API index only).
+    """First endpoint path found in a converted body (for the API index only).
 
     Matches the endpoint block emitted by rhubconv.render_endpoint first, then falls
-    back to a plain backticked URL. The value itself is never rewritten.
+    back to a plain backticked URL, from which the generic host placeholder is removed.
+    The path itself is never rewritten.
     """
     m = re.search(r'rhub-endpoint__url">\{\'([^\']+)\'\}', body)
     if m:
-        return m.group(1)
+        return R.endpoint_path(m.group(1))
     m = re.search(r'`(https?://[^`]+)`', body)
-    return m.group(1) if m else 'REVIEW REQUIRED'
+    return R.endpoint_path(m.group(1)) if m else 'REVIEW REQUIRED'
 
 
 def api_page(relpath, front, method, title, converted, source_file, extra_top='',
@@ -755,11 +756,16 @@ Base URLs for Sandbox and Production are listed under
 
 ## Method and endpoint blocks
 
-Each API page shows its HTTP method and the request path exactly as the contract writes it.
-Most paths are written as `http://host/ewallet/api/v1/...`, where **`host` stands for the
-base URL of your environment**. Substitute the base URL of your
-environment — see [API environments](/docs/getting-started/environments). The paths
-themselves are reproduced unchanged.
+Each API page shows its HTTP method and the endpoint path, followed by the URL resolved
+against each environment:
+
+| Environment | Base URL |
+|---|---|
+| Sandbox | `https://sandbox-client.remittanceshub.com:8130` |
+| Production | `https://prod-api.remittanceshub.com:9091` |
+
+Paths are reproduced exactly as RHUB documents them; see
+[API environments](/docs/getting-started/environments).
 
 ## Authorising requests
 
@@ -811,12 +817,27 @@ the base URL and your credentials differ.
 
 | Environment | Base URL |
 |---|---|
-| Sandbox | `https://sandbox-api.remittanceshub.com` |
-| Production | `https://api.remittanceshub.com` |
+| Sandbox | `https://sandbox-client.remittanceshub.com:8130` |
+| Production | `https://prod-api.remittanceshub.com:9091` |
 
-Prefix the documented paths with the base URL of the environment you are integrating
-against. For example, `POST /ewallet/oauth/token` against Sandbox is
-`https://sandbox-api.remittanceshub.com/ewallet/oauth/token`.
+## Resolving an endpoint
+
+Every endpoint in this reference is documented as a path. Append the path to the base URL of
+the environment you are integrating against. For
+[Authentication](/docs/authentication/authentication), `POST /ewallet/oauth/token` resolves
+to:
+
+```http
+POST https://sandbox-client.remittanceshub.com:8130/ewallet/oauth/token
+```
+
+```http
+POST https://prod-api.remittanceshub.com:9091/ewallet/oauth/token
+```
+
+Each contract page shows both resolved URLs beneath its endpoint path, so you can copy the
+one you need. Request samples on those pages use the Sandbox base URL; substitute the
+Production base URL when you move over.
 
 ## Authentication
 
@@ -833,19 +854,12 @@ Authorization: Bearer <access_token>
 Environment-specific credentials and client configuration — including your client code —
 are supplied through RHUB onboarding. Sandbox credentials are not valid in Production.
 
-:::note[Endpoint paths in this reference]
-
-Some contract pages write their path as `http://host/ewallet/api/v1/...`, where `host`
-stands for the base URL of your environment. Substitute the Sandbox or Production base URL
-above. The paths themselves are reproduced exactly as RHUB documents them.
-
-:::
-
 ## Related
 
 - [Authentication](/docs/authentication/authentication)
 - [How to read this reference](/docs/getting-started/conventions)
 - [Integration flow](/docs/getting-started/integration-flow)
+- [API index](/docs/api-index)
 """
     write('getting-started/environments.md',
           {'title': 'API environments', 'sidebar_label': 'API environments',
@@ -2590,27 +2604,27 @@ VA_MASTER_INDEX = [
     ('Business Transaction Volume', 'GET',
      'Returns the business transaction-volume bands for a customer type. Used for VA onboarding.',
      'Payout preparation / reference',
-     'http://host/ewallet/api/v1/businessTxnVolume/getByCustomerTypeCode/{customerTypeCode}',
+     '/ewallet/api/v1/businessTxnVolume/getByCustomerTypeCode/{customerTypeCode}',
      'virtual-accounts/va-reference-data.md'),
     ('Purpose of Opening Business', 'GET',
      'Returns the business-relationship purposes for business customers. Used for VA onboarding.',
      'Payout preparation / reference',
-     'http://host/ewallet/api/v1/purposeOfOpeningBusiness/getByCustomerTypeCode/100002',
+     '/ewallet/api/v1/purposeOfOpeningBusiness/getByCustomerTypeCode/100002',
      'virtual-accounts/va-reference-data.md'),
     ('Residence Status', 'GET',
      'Returns the residence-status values for individual customers. Used for VA onboarding.',
      'Payout preparation / reference',
-     'http://host/ewallet/api/v1/residenceStatus/customerTypeCode/100001',
+     '/ewallet/api/v1/residenceStatus/customerTypeCode/100001',
      'virtual-accounts/va-reference-data.md'),
     ('ID Type', 'GET',
      'Returns the identity-document types for business customers. Used for VA onboarding.',
      'Payout preparation / reference',
-     'http://host/ewallet/api/v1/idType/getByCustomerTypeCode/100002',
+     '/ewallet/api/v1/idType/getByCustomerTypeCode/100002',
      'virtual-accounts/va-reference-data.md'),
     ('Customer Type', 'GET',
      'Returns the customer types, for example individual and business. Used for VA onboarding.',
      'Payout preparation / reference',
-     'http://host/ewallet/api/v1/customerType/all',
+     '/ewallet/api/v1/customerType/all',
      'virtual-accounts/va-reference-data.md'),
 ]
 
@@ -2618,47 +2632,47 @@ VA_INDEX = [
     ('VA Currencies', 'GET',
      'Returns the settlement currencies enabled for Virtual Accounts under a send client.',
      'VA onboarding',
-     'http://host/ewallet/api/v1/currency/virtualAccountCurrency/{sendClientCode}',
+     '/ewallet/api/v1/currency/virtualAccountCurrency/{sendClientCode}',
      'virtual-accounts/va-currencies.md'),
     ('VA Document Type List', 'GET',
      'Returns the document checklist for a VA customer type.',
      'VA onboarding',
-     'http://host/ewallet/api/v1/virtualAccount/customerDocumentType/getByCustomerTypeCode/{customerTypeCode}',
+     '/ewallet/api/v1/virtualAccount/customerDocumentType/getByCustomerTypeCode/{customerTypeCode}',
      'virtual-accounts/document-requirements.md'),
     ('Upload VA Document', 'POST',
      'Uploads a single VA document against its document type.',
      'VA onboarding',
-     'http://host/ewallet/api/v1/documentUpload/upload/virtualCustomer',
+     '/ewallet/api/v1/documentUpload/upload/virtualCustomer',
      'virtual-accounts/upload-documents.md'),
     ('Get Uploaded VA Documents', 'GET',
      'Returns the VA documents already uploaded for a wallet owner.',
      'VA onboarding',
-     'http://host/ewallet/api/v1/documentUpload/virtualDocument/{walletOwnerCode}',
+     '/ewallet/api/v1/documentUpload/virtualDocument/{walletOwnerCode}',
      'virtual-accounts/get-documents.md'),
     ('VA Customer Registration (individual)', 'POST',
      'Registers an individual VA customer. Shared endpoint, VA-specific request.',
      'VA onboarding',
-     'http://host/ewallet/api/v1/customer-registration',
+     '/ewallet/api/v1/customer-registration',
      'virtual-accounts/individual/create.md'),
     ('VA Customer Registration (business)', 'POST',
      'Registers a business VA customer. Shared endpoint, VA-specific request.',
      'VA onboarding',
-     'http://host/ewallet/api/v1/customer-registration',
+     '/ewallet/api/v1/customer-registration',
      'virtual-accounts/business/create.md'),
     ('Retrieve VA Customer', 'GET',
      'Returns a registered VA customer record.',
      'VA onboarding',
-     'http://host/ewallet/api/v1/customer-registration/{code}',
+     '/ewallet/api/v1/customer-registration/{code}',
      'virtual-accounts/individual/retrieve.md'),
     ('Edit VA Customer', 'PUT',
      'Updates the editable fields of a registered VA customer.',
      'VA onboarding',
-     'http://host/ewallet/api/v1/customer-registration/{code}',
+     '/ewallet/api/v1/customer-registration/{code}',
      'virtual-accounts/individual/edit.md'),
     ('VA Request Status', 'GET',
      'Returns the state of submitted VA account requests.',
      'VA post-registration',
-     'http://host/ewallet/api/v1/collectionBank/individual/virtualAccount/customer/all',
+     '/ewallet/api/v1/collectionBank/individual/virtualAccount/customer/all',
      'virtual-accounts/va-request-status.md'),
 ]
 
@@ -2728,8 +2742,9 @@ def build_api_index():
                   '[VA reference data](/docs/virtual-accounts/va-reference-data).', '']
         lines += ['<div className="rhub-apitable">', ''] + render(VA_MASTER_INDEX) + ['', '</div>', '']
     lines += ['', ':::note', '',
-              'Endpoint strings are reproduced exactly as RHUB writes them, including the literal '
-              '`http://host` placeholder where RHUB uses it.', '', ':::', '',
+              'Endpoints are listed as paths. Append them to the base URL of your '
+              'environment — see [API environments](/docs/getting-started/environments).',
+              '', ':::', '',
               '## Related', '',
               '- [Integration flow](/docs/getting-started/integration-flow)',
               '- [How to read this reference](/docs/getting-started/conventions)',

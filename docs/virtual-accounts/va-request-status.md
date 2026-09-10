@@ -34,6 +34,10 @@ Base URLs for each environment are listed under
     <span className="rhub-method rhub-method--get">GET</span>
     <code className="rhub-endpoint__url">{'/ewallet/api/v1/collectionBank/individual/virtualAccount/customer/all'}</code>
   </div>
+  <div className="rhub-endpoint__envs">
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Sandbox</span><code>https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/collectionBank/individual/virtualAccount/customer/all</code></span>
+    <span className="rhub-endpoint__env"><span className="rhub-endpoint__envname">Production</span><code>https://prod-api.remittanceshub.com:9091/ewallet/api/v1/collectionBank/individual/virtualAccount/customer/all</code></span>
+  </div>
 </div>
 
 ### Query Parameters
