@@ -232,7 +232,7 @@
         "n": 7,
         "name": "Payout",
         "kind": "Core transaction API",
-        "summary": "Submit the payout request."
+        "summary": "Submit the payout request using the applicable route, including the INR UPI route where supported."
       },
       {
         "n": 8,

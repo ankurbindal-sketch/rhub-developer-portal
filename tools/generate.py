@@ -1072,6 +1072,145 @@ Coded fields in the request draw their values from the master APIs — for examp
         'individual customers.')
 
 
+
+# --------------------------------------------------------------------------
+# INR UPI payout route (confirmed RHUB rules)
+# --------------------------------------------------------------------------
+
+# UPI is a payout route on the existing C2C flow and the existing Payout endpoint —
+# not a new API, endpoint, transaction type or authentication/quotation flow. Only
+# the rules RHUB has confirmed are documented here: paymentMode = UPI, INR payouts,
+# and two receiver fields mandatory on this route.
+
+UPI_ROUTE_SECTION = """## C2C UPI Payout
+
+RHUB supports UPI payouts for **INR** using the existing C2C payout flow and this same
+Payout API. There is no separate UPI endpoint: complete the normal flow —
+[Authentication](/docs/authentication/authentication) →
+[Quotation](/docs/quotation/quotation) → the customer and document preparation that
+applies → Payout → [Transaction Enquiry](/docs/transactions/transaction-enquiry).
+
+For a UPI payout, set:
+
+| Field | Value |
+|---|---|
+| `type` | `C2C` |
+| `payoutCurrency` | `INR` |
+| `destinationCountryCode` | `IND` |
+| `paymentMode` | `UPI` |
+| `receiverAccountNumber` | the beneficiary's UPI ID / VPA |
+| `receiverAccountHolderName` | mandatory on this route |
+| `receiverServiceProviderCode` | mandatory on this route |
+
+All other mandatory C2C fields in the contract below continue to apply. UPI is
+documented for INR payouts only.
+
+"""
+
+UPI_RECEIVER_SECTION = """### Additional receiver fields for UPI
+
+On the INR UPI route these receiver fields carry UPI values and the last two are
+mandatory.
+
+| Field | Requirement | UPI usage |
+|---|---|---|
+| `receiverAccountNumber` | Existing C2C requirement | The beneficiary's UPI ID / VPA, for example `jane.doe@ybl` |
+| `receiverAccountHolderName` | Mandatory for UPI | Beneficiary / account-holder name |
+| `receiverServiceProviderCode` | Mandatory for UPI | UPI service-provider code |
+
+:::note[Bank-routing fields on this route]
+
+In the documented UPI request, routing is performed using the beneficiary UPI ID and
+`receiverServiceProviderCode`, so `receiverBankName`, `receiverSwiftCode` and
+`receiverBankCode` are not sent. This describes that request only; it does not change
+their requirement status for other payout routes.
+
+:::
+
+"""
+
+UPI_EXAMPLE_SECTION = """## C2C UPI Payout — Request Example
+
+A working INR UPI request. Personal values are synthetic; field names, structure and
+API semantics are as sent.
+
+```json
+{
+  "payout": {
+    "transactionInfo": {
+      "payinAmount": 2.12,
+      "payinCurrency": "USD-USA",
+      "type": "C2C",
+      "requestDate": "24-07-2025",
+      "sendClientTrxReference": "INV1234567892",
+      "descriptionText": "1234567890",
+      "paymentMode": "UPI",
+      "sendClientCode": "1000008960",
+      "payoutCurrency": "INR",
+      "payoutAmount": "200",
+      "settlementCurrency": "USD-USA",
+      "sourceCountry": "MWI",
+      "fxRateValue": "95.107518",
+      "senderMargin": "95.107518",
+      "destinationCountryCode": "IND"
+    },
+    "sender": {
+      "customer": {
+        "isAutoRegistered": true,
+        "declaration": true,
+        "docReferenceNumber": "DOC1234568",
+        "senderFirstName": "John",
+        "senderLastName": "Doe",
+        "senderGender": "male",
+        "senderNationality": "MWI",
+        "senderDOB": "1999-09-08",
+        "senderIdType": "RHD006",
+        "senderIdNumber": "ID9000000001",
+        "senderIssueDate": "2020-07-30",
+        "senderIdCountry": "MWI",
+        "senderIdExpiration": "2034-07-31",
+        "senderMsisdn": "9876543213",
+        "senderAddressLineOne": "12 Example Road",
+        "senderAddressLineTwo": "Area 3",
+        "senderCountry": "MWI",
+        "senderAddressState": "Central Region",
+        "senderAddresssCity": "Lilongwe",
+        "senderPinCode": "123456"
+      }
+    },
+    "receiver": {
+      "customer": {
+        "receiverMsisdn": "9876543214",
+        "receiverFirstName": "Jane",
+        "receiverLastName": "Doe",
+        "receiverGender": "female",
+        "receiverNationality": "IOT",
+        "receiverIdType": "RHD005",
+        "receiverIdNumber": "ID9000000002",
+        "receiverIdExpiration": "2029-10-31",
+        "receiverAddressLineOne": "45 Sample Avenue",
+        "receiverCountry": "IND",
+        "receiverPinCode": "231111",
+        "receiverAddressState": "New Delhi",
+        "receiverAddresssCity": "New Delhi",
+        "receiverAccountNumber": "jane.doe@ybl",
+        "receiverAccountHolderName": "Jane Doe",
+        "receiverServiceProviderCode": "INUPI01"
+      }
+    },
+    "compliance": {
+      "forexQuoteId": "123456",
+      "remittancePurpose": "RHP004",
+      "sourceOfFund": "RHS004",
+      "relationship": "RHR004"
+    }
+  }
+}
+```
+
+"""
+
+
 def build_payout():
     secs = split_api_sections(FILES['PAYOUT-Api.md'])
     s = secs[0]
@@ -1119,7 +1258,8 @@ returns them today.
 
 :::
 
-## Contract""" % (payout_prerequisites_list(), transaction_matrix_table())
+%s## Contract""" % (payout_prerequisites_list(), transaction_matrix_table(),
+                    UPI_ROUTE_SECTION)
     doc_note = (':::note[Two different references]\n\n'
                 '`docReferenceNumber` carries the uploaded **KYC/KYB document** reference for '
                 'the payout. `sendClientTrxReference` carries the **invoice** reference for '
@@ -1127,6 +1267,16 @@ returns them today.
                 'omitted or sent blank. They are not interchangeable.\n\n:::\n\n')
     conv = conv.replace('## transactionInfo Req Param',
                         doc_note + '## transactionInfo Req Param', 1)
+    # UPI receiver guidance sits with the receiver parameters it qualifies
+    conv = conv.replace('## compliance Req Param',
+                        UPI_RECEIVER_SECTION + '## compliance Req Param', 1)
+    # paymentMode already exists in the contract; only its description gains UPI
+    conv = conv.replace(
+        '| paymentMode | Alpha | 04 | M | The following modes that can be used for '
+        'payment. eg:Cash • Cash • Bank |',
+        '| paymentMode | Alpha | 04 | M | The following modes that can be used for '
+        'payment. eg:Cash • Cash • Bank • For INR UPI payouts, set the value to UPI |', 1)
+    conv = conv + '\n\n' + UPI_EXAMPLE_SECTION
     api_page('payout/payout.md',
              {'title': 'Payout', 'sidebar_label': 'Payout',
               'slug': '/payout/payout',
