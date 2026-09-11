@@ -1082,10 +1082,9 @@ Coded fields in the request draw their values from the master APIs — for examp
 # the rules RHUB has confirmed are documented here: paymentMode = UPI, INR payouts,
 # and two receiver fields mandatory on this route.
 
-UPI_ROUTE_SECTION = """## C2C UPI Payout
+UPI_ROUTE_SECTION = """## UPI Payout
 
-RHUB supports UPI payouts for **INR** using the existing C2C payout flow and this same
-Payout API. There is no separate UPI endpoint: complete the normal flow —
+UPI payouts for **INR** use the existing C2C payout flow and this same Payout API. There is no separate UPI endpoint: complete the normal flow —
 [Authentication](/docs/authentication/authentication) →
 [Quotation](/docs/quotation/quotation) → the customer and document preparation that
 applies → Payout → [Transaction Enquiry](/docs/transactions/transaction-enquiry).
@@ -1129,7 +1128,7 @@ their requirement status for other payout routes.
 
 """
 
-UPI_EXAMPLE_SECTION = """## C2C UPI Payout — Request Example
+UPI_EXAMPLE_SECTION = """## UPI Payout — Request Example
 
 A working INR UPI request. Personal values are synthetic; field names, structure and
 API semantics are as sent.
@@ -1274,8 +1273,8 @@ returns them today.
     conv = conv.replace(
         '| paymentMode | Alpha | 04 | M | The following modes that can be used for '
         'payment. eg:Cash • Cash • Bank |',
-        '| paymentMode | Alpha | 04 | M | The following modes that can be used for '
-        'payment. eg:Cash • Cash • Bank • For INR UPI payouts, set the value to UPI |', 1)
+        '| paymentMode | Alpha | 04 | M | The payment mode used for the payout. Supported '
+        'values include Cash and Bank. For INR UPI payouts, set the value to UPI. |', 1)
     conv = conv + '\n\n' + UPI_EXAMPLE_SECTION
     api_page('payout/payout.md',
              {'title': 'Payout', 'sidebar_label': 'Payout',

@@ -37,7 +37,17 @@ const sidebars = {
         {
           type: 'category',
           label: 'Payout',
-          items: ['payout/payout', 'payout/wpt-payout'],
+          items: [
+            'payout/payout',
+            // Deep link into the UPI section of the Payout page. UPI is a route on the
+            // existing Payout API, not a separate operation, so there is no page of its own.
+            {
+              type: 'link',
+              label: 'UPI Payout',
+              href: '/docs/payout/payout#upi-payout',
+            },
+            'payout/wpt-payout',
+          ],
         },
         {
           type: 'category',

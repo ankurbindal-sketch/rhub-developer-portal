@@ -63,10 +63,9 @@ returns them today.
 
 :::
 
-## C2C UPI Payout
+## UPI Payout
 
-RHUB supports UPI payouts for **INR** using the existing C2C payout flow and this same
-Payout API. There is no separate UPI endpoint: complete the normal flow —
+UPI payouts for **INR** use the existing C2C payout flow and this same Payout API. There is no separate UPI endpoint: complete the normal flow —
 [Authentication](/docs/authentication/authentication) →
 [Quotation](/docs/quotation/quotation) → the customer and document preparation that
 applies → Payout → [Transaction Enquiry](/docs/transactions/transaction-enquiry).
@@ -138,7 +137,7 @@ This helps ensure all transactions adhere to legal and jurisdictional requiremen
 | type | Alphanumeric | 03 | M | The harmonized Transaction Type. Fixed default value B2C B2B, and C2C, C2B. eg:B2B, B2C |
 | requestDate | Date | 10 - 19 | M | dd-mm-yyyy eg: 10-01-2025 |
 | sendClient TrxReference | Alphanumeric | 10 - 30 | M | The RHUB transaction reference must contain 10 to 30 alphanumeric characters. eg:DDHD446CNNUY |
-| paymentMode | Alpha | 04 | M | The following modes that can be used for payment. eg:Cash • Cash • Bank • For INR UPI payouts, set the value to UPI |
+| paymentMode | Alpha | 04 | M | The payment mode used for the payout. Supported values include Cash and Bank. For INR UPI payouts, set the value to UPI. |
 | descriptionText | Alphanumeric | 01 - 25 | M | The text description of the transaction provided by the client. eg:GJGJ877HNGG (maximum 25 alphanumeric characters) |
 | sendClientCode | Numeric | 10 | M | The send client’s transaction reference number. eg:1000009999 |
 | payoutCurrency | Alphanumeric with hyphens | 03 - 20 | M | The currency in which money is credited to the end receiver’s bank account. eg:USD-USA, EUR |
@@ -588,7 +587,7 @@ Rest request details remain same as mentioned above.
 }
 ```
 
-## C2C UPI Payout — Request Example
+## UPI Payout — Request Example
 
 A working INR UPI request. Personal values are synthetic; field names, structure and
 API semantics are as sent.
