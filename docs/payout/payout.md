@@ -63,6 +63,29 @@ returns them today.
 
 :::
 
+## C2C UPI Payout
+
+RHUB supports UPI payouts for **INR** using the existing C2C payout flow and this same
+Payout API. There is no separate UPI endpoint: complete the normal flow —
+[Authentication](/docs/authentication/authentication) →
+[Quotation](/docs/quotation/quotation) → the customer and document preparation that
+applies → Payout → [Transaction Enquiry](/docs/transactions/transaction-enquiry).
+
+For a UPI payout, set:
+
+| Field | Value |
+|---|---|
+| `type` | `C2C` |
+| `payoutCurrency` | `INR` |
+| `destinationCountryCode` | `IND` |
+| `paymentMode` | `UPI` |
+| `receiverAccountNumber` | the beneficiary's UPI ID / VPA |
+| `receiverAccountHolderName` | mandatory on this route |
+| `receiverServiceProviderCode` | mandatory on this route |
+
+All other mandatory C2C fields in the contract below continue to apply. UPI is
+documented for INR payouts only.
+
 ## Contract
 
 <div className="rhub-endpoint">
@@ -115,7 +138,7 @@ This helps ensure all transactions adhere to legal and jurisdictional requiremen
 | type | Alphanumeric | 03 | M | The harmonized Transaction Type. Fixed default value B2C B2B, and C2C, C2B. eg:B2B, B2C |
 | requestDate | Date | 10 - 19 | M | dd-mm-yyyy eg: 10-01-2025 |
 | sendClient TrxReference | Alphanumeric | 10 - 30 | M | The RHUB transaction reference must contain 10 to 30 alphanumeric characters. eg:DDHD446CNNUY |
-| paymentMode | Alpha | 04 | M | The following modes that can be used for payment. eg:Cash • Cash • Bank |
+| paymentMode | Alpha | 04 | M | The following modes that can be used for payment. eg:Cash • Cash • Bank • For INR UPI payouts, set the value to UPI |
 | descriptionText | Alphanumeric | 01 - 25 | M | The text description of the transaction provided by the client. eg:GJGJ877HNGG (maximum 25 alphanumeric characters) |
 | sendClientCode | Numeric | 10 | M | The send client’s transaction reference number. eg:1000009999 |
 | payoutCurrency | Alphanumeric with hyphens | 03 - 20 | M | The currency in which money is credited to the end receiver’s bank account. eg:USD-USA, EUR |
@@ -235,6 +258,26 @@ This helps ensure all transactions adhere to legal and jurisdictional requiremen
 | receiverSwiftCode | Alphanumeric | 01 - 20 | C | It's a unique alphanumeric code used to identify a specific bank or financial institution in international financial transactions. eg: BOJPJPJTXXX (This information may be requested by certain correspondents.) Local RAIL Validations SWIFT RAIL Validations |
 
 *Requirement legend: M = Mandatory · O = Optional · C = Conditional*
+
+### Additional receiver fields for UPI
+
+On the INR UPI route these receiver fields carry UPI values and the last two are
+mandatory.
+
+| Field | Requirement | UPI usage |
+|---|---|---|
+| `receiverAccountNumber` | Existing C2C requirement | The beneficiary's UPI ID / VPA, for example `jane.doe@ybl` |
+| `receiverAccountHolderName` | Mandatory for UPI | Beneficiary / account-holder name |
+| `receiverServiceProviderCode` | Mandatory for UPI | UPI service-provider code |
+
+:::note[Bank-routing fields on this route]
+
+In the documented UPI request, routing is performed using the beneficiary UPI ID and
+`receiverServiceProviderCode`, so `receiverBankName`, `receiverSwiftCode` and
+`receiverBankCode` are not sent. This describes that request only; it does not change
+their requirement status for other payout routes.
+
+:::
 
 ## compliance Req Param
 
@@ -541,6 +584,85 @@ Rest request details remain same as mentioned above.
 "customerId": "100000000000001B",
 "customerCode": "1000000850",
 "paymentMode": "Cash",
+  }
+}
+```
+
+## C2C UPI Payout — Request Example
+
+A working INR UPI request. Personal values are synthetic; field names, structure and
+API semantics are as sent.
+
+```json
+{
+  "payout": {
+    "transactionInfo": {
+      "payinAmount": 2.12,
+      "payinCurrency": "USD-USA",
+      "type": "C2C",
+      "requestDate": "24-07-2025",
+      "sendClientTrxReference": "INV1234567892",
+      "descriptionText": "1234567890",
+      "paymentMode": "UPI",
+      "sendClientCode": "1000008960",
+      "payoutCurrency": "INR",
+      "payoutAmount": "200",
+      "settlementCurrency": "USD-USA",
+      "sourceCountry": "MWI",
+      "fxRateValue": "95.107518",
+      "senderMargin": "95.107518",
+      "destinationCountryCode": "IND"
+    },
+    "sender": {
+      "customer": {
+        "isAutoRegistered": true,
+        "declaration": true,
+        "docReferenceNumber": "DOC1234568",
+        "senderFirstName": "John",
+        "senderLastName": "Doe",
+        "senderGender": "male",
+        "senderNationality": "MWI",
+        "senderDOB": "1999-09-08",
+        "senderIdType": "RHD006",
+        "senderIdNumber": "ID9000000001",
+        "senderIssueDate": "2020-07-30",
+        "senderIdCountry": "MWI",
+        "senderIdExpiration": "2034-07-31",
+        "senderMsisdn": "9876543213",
+        "senderAddressLineOne": "12 Example Road",
+        "senderAddressLineTwo": "Area 3",
+        "senderCountry": "MWI",
+        "senderAddressState": "Central Region",
+        "senderAddresssCity": "Lilongwe",
+        "senderPinCode": "123456"
+      }
+    },
+    "receiver": {
+      "customer": {
+        "receiverMsisdn": "9876543214",
+        "receiverFirstName": "Jane",
+        "receiverLastName": "Doe",
+        "receiverGender": "female",
+        "receiverNationality": "IOT",
+        "receiverIdType": "RHD005",
+        "receiverIdNumber": "ID9000000002",
+        "receiverIdExpiration": "2029-10-31",
+        "receiverAddressLineOne": "45 Sample Avenue",
+        "receiverCountry": "IND",
+        "receiverPinCode": "231111",
+        "receiverAddressState": "New Delhi",
+        "receiverAddresssCity": "New Delhi",
+        "receiverAccountNumber": "jane.doe@ybl",
+        "receiverAccountHolderName": "Jane Doe",
+        "receiverServiceProviderCode": "INUPI01"
+      }
+    },
+    "compliance": {
+      "forexQuoteId": "123456",
+      "remittancePurpose": "RHP004",
+      "sourceOfFund": "RHS004",
+      "relationship": "RHR004"
+    }
   }
 }
 ```

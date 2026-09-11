@@ -118,7 +118,7 @@ Fetch the master and reference values required by the selected transaction type,
 
 **[Payout](/docs/payout/payout)**
 
-Submit the payout request.
+Submit the payout request using the applicable route, including the INR UPI route where supported.
 
 </div>
 
