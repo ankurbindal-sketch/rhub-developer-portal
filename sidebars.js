@@ -52,7 +52,7 @@ const sidebars = {
         {
           type: 'category',
           label: 'Transactions',
-          items: ['transactions/transaction-enquiry'],
+          items: ['transactions/transaction-enquiry', 'transactions/payin-notification'],
         },
         {
           type: 'category',

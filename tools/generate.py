@@ -659,6 +659,9 @@ You can price a transaction first and resolve registration afterwards.
 - [Master / reference APIs](/docs/master-apis) — fetch the coded values your transaction type,
   route and payload require. There is no requirement to call them all.
 - [Balance Enquiry](/docs/balance/balance-enquiry) — the current wallet or account balance.
+- [Payin Notification](/docs/transactions/payin-notification) — retrieves partner wallet
+  statement records for a date range and customer. Call it when you need that transaction
+  information; it is not part of the payout sequence.
 - [Currency validations](/docs/validation/currency-validations) and
   [country validations](/docs/validation/country-validations) — which conditional fields a
   given correspondent, currency or country requires.
@@ -1305,6 +1308,259 @@ returns them today.
                       ('Integration flow', '/docs/getting-started/integration-flow')])
     rec('PAYOUT-WPT.md', 'docs/payout/wpt-payout.md', 'COMPLETE',
         'Published WPT Payout contract carried over in full.')
+
+
+
+# --------------------------------------------------------------------------
+# Payin Notification (supporting / reference API)
+# --------------------------------------------------------------------------
+
+# A GET query endpoint that returns partner wallet transaction records. It is not a
+# webhook or push mechanism, and it is not part of the core payout sequence. Only the
+# material RHUB supplied is documented: the path, the eleven query parameters, the
+# response structure and the fields present in the sample. Field meanings, requirement
+# flags and lengths are not stated because RHUB has not supplied them.
+
+PAYIN_PATH = '/ewallet/api/v1/miniStatement/partnerStatement'
+
+PAYIN_QUERY_ROWS = [
+    ('sortBy', 'creationDate', 'Field used to sort the transaction records.'),
+    ('limit', '500', 'Maximum number of records requested.'),
+    ('sort', 'desc', 'Sort direction.'),
+    ('fromDate', '2026-08-01', 'Start date for the transaction search.'),
+    ('toDate', '2026-09-01', 'End date for the transaction search.'),
+    ('walletCode', '&#123;walletCode&#125;', 'Wallet code used for the statement query.'),
+    ('selectedCategory', '100008', 'Transaction category.'),
+    ('transactionId', 'null', 'Transaction ID filter.'),
+    ('sendClientCustomerCode', '&#123;customerId&#125;',
+     'Customer identifier used to filter transactions.'),
+    ('transactionType', '100002', 'Transaction type.'),
+    ('transactionSubType', '100002', 'Transaction subtype.'),
+]
+
+# Field | Type | Example, taken from the supplied sample. No meanings are inferred.
+PAYIN_TOP_ROWS = [
+    ('transactionId', 'String', '"null"'),
+    ('requestTime', 'String', 'Tue Oct 06 15:57:44 IST 2026'),
+    ('responseTime', 'String', 'Tue Oct 06 15:57:44 IST 2026'),
+    ('resultCode', 'String', '0'),
+    ('resultDescription', 'String', 'Transaction successful'),
+]
+
+PAYIN_PAGEABLE_ROWS = [
+    ('limit', 'Number', '500'),
+    ('totalRecords', 'Number', '9'),
+    ('sort', 'String', 'desc'),
+    ('sortBy', 'String', 'creationDate'),
+]
+
+PAYIN_TXN_ROWS = [
+    ('id', 'Number', '100001'),
+    ('code', 'String', '1000100001'),
+    ('transactionId', 'String', '200001'),
+    ('fromWalletOwnerCode', 'String', '1000000001'),
+    ('toWalletOwnerCode', 'String', '1000000002'),
+    ('fromWalletOwnerName', 'String', 'EXAMPLE1234'),
+    ('toWalletOwnerName', 'String', 'John Doe'),
+    ('toWalletOwnerMsisdn', 'String', '9876543210'),
+    ('fromAmount', 'Number', '90.0'),
+    ('fromWalletCode', 'String', '1000000010'),
+    ('fromWalletName', 'String', 'Main Wallet'),
+    ('toWalletCode', 'String', '1000000020'),
+    ('toWalletName', 'String', 'Main Wallet'),
+    ('fromCurrencyCode', 'String', '100003'),
+    ('toCurrencyCode', 'String', '100003'),
+    ('fromCurrencyName', 'String', 'USD-USA'),
+    ('toCurrencyName', 'String', 'USD-USA'),
+    ('fromCurrencySymbol', 'String', '$'),
+    ('toCurrencySymbol', 'String', '$'),
+    ('transactionTypeCode', 'String', '100002'),
+    ('transactionTypeName', 'String', 'Received from send client'),
+    ('creationDate', 'String', '2026-08-31 19:21:54'),
+    ('fee', 'Number', '10.0'),
+    ('status', 'String', 'SUCCESS'),
+    ('srcPostBalance', 'Number', '-4910.0'),
+    ('srcPreviousBalance', 'Number', '-5000.0'),
+    ('destPreviousBalance', 'Number', '10000.0'),
+    ('destPostBalance', 'Number', '10080.0'),
+    ('transactionAmount', 'Number', '100.0'),
+    ('fromWalletTypeCode', 'String', '100008'),
+    ('toWalletTypeCode', 'String', '100008'),
+    ('debitAmount', 'Number', '0.0'),
+    ('creditAmount', 'Number', '80.0'),
+    ('postBalance', 'Number', '10080.0'),
+    ('payoutFee', 'Number', '10.0'),
+    ('rate', 'Number', '0.0'),
+    ('rateAfterMargin', 'Number', '0.0'),
+    ('remarkToClient', 'String', 'Example client remark'),
+    ('paymentMode', 'String', 'NA'),
+    ('toRemittanceUserType', 'String', '100000'),
+    ('purposeOfPaymentCode', 'String', 'PREP'),
+    ('purposeOfPaymentName', 'String', 'Pre-Fund'),
+    ('featureCode', 'String', '100054'),
+    ('token', 'String', 'TKN1234567'),
+    ('toAmount', 'Number', '80.0'),
+]
+
+PAYIN_SAMPLE = """&#123;
+  "transactionId": "null",
+  "requestTime": "Tue Oct 06 15:57:44 IST 2026",
+  "responseTime": "Tue Oct 06 15:57:44 IST 2026",
+  "resultCode": "0",
+  "resultDescription": "Transaction successful",
+  "pageable": &#123;
+    "limit": 500,
+    "totalRecords": 9,
+    "sort": "desc",
+    "sortBy": "creationDate"
+  &#125;,
+  "miniStatement": &#123;
+    "walletTransactionList": [
+      &#123;
+        "id": 100001,
+        "code": "1000100001",
+        "transactionId": "200001",
+        "fromWalletOwnerCode": "1000000001",
+        "toWalletOwnerCode": "1000000002",
+        "fromWalletOwnerName": "EXAMPLE1234",
+        "toWalletOwnerName": "John Doe",
+        "toWalletOwnerMsisdn": "9876543210",
+        "fromAmount": 90.0,
+        "fromWalletCode": "1000000010",
+        "fromWalletName": "Main Wallet",
+        "toWalletCode": "1000000020",
+        "toWalletName": "Main Wallet",
+        "fromCurrencyCode": "100003",
+        "toCurrencyCode": "100003",
+        "fromCurrencyName": "USD-USA",
+        "toCurrencyName": "USD-USA",
+        "fromCurrencySymbol": "$",
+        "toCurrencySymbol": "$",
+        "transactionTypeCode": "100002",
+        "transactionTypeName": "Received from send client",
+        "creationDate": "2026-08-31 19:21:54",
+        "fee": 10.0,
+        "status": "SUCCESS",
+        "srcPostBalance": -4910.0,
+        "srcPreviousBalance": -5000.0,
+        "destPreviousBalance": 10000.0,
+        "destPostBalance": 10080.0,
+        "transactionAmount": 100.0,
+        "fromWalletTypeCode": "100008",
+        "toWalletTypeCode": "100008",
+        "debitAmount": 0.0,
+        "creditAmount": 80.0,
+        "postBalance": 10080.0,
+        "payoutFee": 10.0,
+        "rate": 0.0,
+        "rateAfterMargin": 0.0,
+        "remarkToClient": "Example client remark",
+        "paymentMode": "NA",
+        "toRemittanceUserType": "100000",
+        "purposeOfPaymentCode": "PREP",
+        "purposeOfPaymentName": "Pre-Fund",
+        "featureCode": "100054",
+        "token": "TKN1234567",
+        "toAmount": 80.0
+      &#125;
+    ]
+  &#125;
+&#125;"""
+
+
+def build_payin_notification():
+    def table(rows, head):
+        out = ['| ' + ' | '.join(head) + ' |', '|' + '|'.join(['---'] * len(head)) + '|']
+        out += ['| ' + ' | '.join('`%s`' % c if i == 0 else c
+                                  for i, c in enumerate(r)) + ' |' for r in rows]
+        return '\n'.join(out)
+
+    query = '&'.join('%s=%s' % (name, ex) for name, ex, _ in PAYIN_QUERY_ROWS)
+    body = []
+    body.append('<div className="rhub-endpoint">')
+    body.append('  <div className="rhub-endpoint__row">')
+    body.append('    <span className="rhub-method rhub-method--get">GET</span>')
+    body.append("    <code className=\"rhub-endpoint__url\">{%s}</code>" % repr(PAYIN_PATH))
+    body.append('  </div>')
+    body += R.environment_lines(PAYIN_PATH)
+    body.append('</div>')
+    body.append('')
+    body.append('The Payin Notification API retrieves partner wallet transaction records for a '
+                'specified date range and customer. The response provides detailed transaction '
+                'information including transaction identifiers, wallet details, amounts, '
+                'currencies, transaction type, balances, fees, status, payment mode, purpose of '
+                'payment, token and other transaction attributes.')
+    body.append('')
+    body.append(':::note[A query endpoint, not a push notification]')
+    body.append('')
+    body.append('This is a `GET` statement query: you call it to retrieve transaction records. '
+                'RHUB has not documented any webhook, callback or push behaviour for it.')
+    body.append('')
+    body.append(':::')
+    body.append('')
+    body.append('## Query Parameters')
+    body.append('')
+    body.append(table([(n, e, d) for n, e, d in PAYIN_QUERY_ROWS],
+                      ['Parameter', 'Example', 'Description']))
+    body.append('')
+    body.append('A complete request appends the query string to the endpoint path. The '
+                'template below carries the placeholders exactly as RHUB supplies them:')
+    body.append('')
+    body.append('```http')
+    body.append('GET %s?sortBy=creationDate&limit=500&sort=desc&fromDate={formDate}'
+                '&toDate={toDate}&walletCode={walletCode}&selectedCategory=100008'
+                '&transactionId=null&sendClientCustomerCode={customerId}'
+                '&transactionType=100002&transactionSubType=100002' % PAYIN_PATH)
+    body.append('```')
+    body.append('')
+    body.append('With the documented example values:')
+    body.append('')
+    body.append('```http')
+    body.append('GET %s?%s' % (PAYIN_PATH, query.replace('&#123;', '{').replace('&#125;', '}')))
+    body.append('```')
+    body.append('')
+    body.append(':::note[Placeholder spelling]')
+    body.append('')
+    body.append('The parameter is `fromDate`; the placeholder RHUB supplies for it is written '
+                '`&#123;formDate&#125;`. Both are reproduced exactly as given.')
+    body.append('')
+    body.append(':::')
+    body.append('')
+    body.append('## Response')
+    body.append('')
+    body.append('Example values are synthetic. The structure, field names, nesting and data '
+                'types are as returned.')
+    body.append('')
+    body.append('```json')
+    body.append(PAYIN_SAMPLE.replace('&#123;', '{').replace('&#125;', '}'))
+    body.append('```')
+    body.append('')
+    body.append('## Response Parameters')
+    body.append('')
+    body.append('Types and examples are taken from the response above. RHUB has not supplied '
+                'field descriptions, requirement flags or lengths for this API, so none are '
+                'stated here.')
+    body.append('')
+    body.append('### Top level')
+    body.append('')
+    body.append(table(PAYIN_TOP_ROWS, ['Field', 'Type', 'Example']))
+    body.append('')
+    body.append('### pageable')
+    body.append('')
+    body.append(table(PAYIN_PAGEABLE_ROWS, ['Field', 'Type', 'Example']))
+    body.append('')
+    body.append('### miniStatement.walletTransactionList[]')
+    body.append('')
+    body.append(table(PAYIN_TXN_ROWS, ['Field', 'Type', 'Example']))
+    conv = '\n'.join(body)
+    api_page('transactions/payin-notification.md',
+             {'title': 'Payin Notification', 'sidebar_label': 'Payin Notification',
+              'description': 'RHUB Payin Notification API — retrieve partner wallet '
+                             'transaction records for a date range and customer.'},
+             'GET', 'Payin Notification', conv, '',
+             related=[('Transaction Enquiry', '/docs/transactions/transaction-enquiry'),
+                      ('Balance Enquiry', '/docs/balance/balance-enquiry'),
+                      ('Integration flow', '/docs/getting-started/integration-flow')])
 
 
 def build_enquiry():
@@ -2833,6 +3089,7 @@ INDEX_STAGES = {
     'payout/payout.md': 'Transaction',
     'payout/wpt-payout.md': 'Transaction',
     'transactions/transaction-enquiry.md': 'Post-payout',
+    'transactions/payin-notification.md': 'Supporting / reference',
     'balance/balance-enquiry.md': 'Final / supporting',
 }
 
@@ -2924,6 +3181,7 @@ def main():
     build_quotation()
     build_payout()
     build_enquiry()
+    build_payin_notification()
     build_document_upload()
     master_rows = build_master()
     build_validation()

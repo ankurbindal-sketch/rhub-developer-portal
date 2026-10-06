@@ -12,6 +12,7 @@
   "payout/wpt-payout.md",
   "transactions/transaction-enquiry.md",
   "balance/balance-enquiry.md",
+  "transactions/payin-notification.md",
   "documents/document-upload.md",
   "master-apis/remittance-purpose.md",
   "master-apis/source-of-fund.md",
@@ -129,6 +130,13 @@
    "/ewallet/api/v1/wallet/walletOwner/{walletOwnerCode}",
    "balance/balance-enquiry.md",
    "The Balance API is used to fetch the current balance in the ledger of the partner."
+  ],
+  [
+   "Payin Notification",
+   "GET",
+   "/ewallet/api/v1/miniStatement/partnerStatement",
+   "transactions/payin-notification.md",
+   "The Payin Notification API retrieves partner wallet transaction records for a specified date range and customer."
   ],
   [
    "Document Upload",
