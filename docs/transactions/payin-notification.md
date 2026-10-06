@@ -36,10 +36,10 @@ This is a `GET` statement query: you call it to retrieve transaction records. RH
 | `sort` | desc | Sort direction. |
 | `fromDate` | 2026-08-01 | Start date for the transaction search. |
 | `toDate` | 2026-09-01 | End date for the transaction search. |
-| `walletCode` | &#123;walletCode&#125; | Wallet code used for the statement query. |
+| `walletCode` | 1000070032 | Wallet code used for the statement query. |
 | `selectedCategory` | 100008 | Transaction category. |
 | `transactionId` | null | Transaction ID filter. |
-| `sendClientCustomerCode` | &#123;customerId&#125; | Customer identifier used to filter transactions. |
+| `sendClientCustomerCode` | 100000909313736I | Customer identifier used to filter transactions. |
 | `transactionType` | 100002 | Transaction type. |
 | `transactionSubType` | 100002 | Transaction subtype. |
 
@@ -52,7 +52,7 @@ GET /ewallet/api/v1/miniStatement/partnerStatement?sortBy=creationDate&limit=500
 With the documented example values:
 
 ```http
-GET /ewallet/api/v1/miniStatement/partnerStatement?sortBy=creationDate&limit=500&sort=desc&fromDate=2026-08-01&toDate=2026-09-01&walletCode={walletCode}&selectedCategory=100008&transactionId=null&sendClientCustomerCode={customerId}&transactionType=100002&transactionSubType=100002
+GET /ewallet/api/v1/miniStatement/partnerStatement?sortBy=creationDate&limit=500&sort=desc&fromDate=2026-08-01&toDate=2026-09-01&walletCode=1000070032&selectedCategory=100008&transactionId=null&sendClientCustomerCode=100000909313736I&transactionType=100002&transactionSubType=100002
 ```
 
 :::note[Placeholder spelling]
