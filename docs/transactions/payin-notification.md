@@ -57,7 +57,7 @@ GET /ewallet/api/v1/miniStatement/partnerStatement?sortBy=creationDate&limit=500
 
 :::note[Placeholder spelling]
 
-The parameter is `fromDate`; the placeholder RHUB supplies for it is written `&#123;formDate&#125;`. Both are reproduced exactly as given.
+The parameter is `fromDate`; the placeholder RHUB supplies for it is written `{formDate}`. Both are reproduced exactly as given.
 
 :::
 

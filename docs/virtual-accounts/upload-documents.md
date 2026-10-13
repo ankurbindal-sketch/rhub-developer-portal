@@ -102,7 +102,7 @@ Base URLs for each environment are listed under
 
 :::info
 
-ℹ If multiple documents are missing, they're combined into **one message**comma-separated: `"Please upload mandatory virtual account documents: &#123;doc 1&#125;, &#123;doc 2&#125;, ..."`
+ℹ If multiple documents are missing, they're combined into **one message**comma-separated: `"Please upload mandatory virtual account documents: {doc 1}, {doc 2}, ..."`
 
 :::
 

@@ -288,8 +288,14 @@ def section_markdown(section, level=2):
 
     text = re.sub(r'```.*?```', stash, text, flags=re.S)
     text = re.sub(r'<div className="rhub-endpoint">.*?\n</div>', stash, text, flags=re.S)
-    text = text.replace('{', '&#123;').replace('}', '&#125;')
-    text = re.sub(r'<(?!br\s*/?>)', '&lt;', text)
+    # Braces are escaped only outside inline code: inside backticks MDX treats them as
+    # literal text, so escaping there would surface &#123; to the reader.
+    def esc(seg):
+        seg = seg.replace('{', '&#123;').replace('}', '&#125;')
+        return re.sub(r'<(?!br\s*/?>)', '&lt;', seg)
+
+    parts = re.split(r'(`[^`\n]*`)', text)
+    text = ''.join(part if i % 2 else esc(part) for i, part in enumerate(parts))
     text = SECTION_RE.sub(_section_link, text)
     for i, block in enumerate(keep):
         text = text.replace('@@VAKEEP%d@@' % i, block)

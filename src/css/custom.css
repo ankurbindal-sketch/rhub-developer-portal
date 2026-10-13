@@ -303,7 +303,7 @@ article h4 {
 
 /* top-level categories read as section labels, children as items */
 .menu > .menu__list > .menu__list-item > .menu__list-item-collapsible > .menu__link,
-.menu > .menu__list > .menu__list-item > .menu__link {
+.menu > .menu__list > .menu__list-item > .menu__link:not([href]) {
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.07em;
@@ -317,6 +317,15 @@ article h4 {
 
 .menu > .menu__list > .menu__list-item:first-child {
   margin-top: 0;
+}
+
+/* a plain top-level page link keeps normal sentence case */
+.menu > .menu__list > .menu__list-item > a.menu__link {
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--rhub-ink-2);
 }
 
 .menu__link--active:not(.menu__link--sublist) {
@@ -865,17 +874,18 @@ article {
 /* ========================================================================== */
 
 .rhub-hero {
-  padding: var(--rhub-space-7) 0 var(--rhub-space-6);
+  padding: var(--rhub-space-6) 0 var(--rhub-space-6);
   border-bottom: 1px solid var(--rhub-hairline);
   background: var(--rhub-surface-2);
 }
 
 .rhub-hero__logo {
   display: block;
-  height: 46px;
+  height: 34px;
   width: auto;
   max-width: 100%;
-  margin-bottom: var(--rhub-space-5);
+  margin-bottom: var(--rhub-space-4);
+  opacity: 0.92;
 }
 
 .rhub-eyebrow {
@@ -889,17 +899,18 @@ article {
 }
 
 .rhub-hero h1 {
-  font-size: clamp(1.9rem, 4.2vw, 2.75rem);
-  line-height: 1.12;
-  letter-spacing: -0.028em;
-  margin: var(--rhub-space-3) 0 var(--rhub-space-4);
-  max-width: 20ch;
+  font-size: clamp(1.8rem, 3.4vw, 2.35rem);
+  line-height: 1.16;
+  letter-spacing: -0.022em;
+  margin: var(--rhub-space-2) 0 var(--rhub-space-4);
+  max-width: 26ch;
   color: var(--rhub-ink);
 }
 
 .rhub-hero p {
-  max-width: 60ch;
-  font-size: 1.02rem;
+  max-width: 62ch;
+  font-size: 1rem;
+  line-height: 1.6;
   color: var(--rhub-ink-3);
 }
 
@@ -1604,13 +1615,36 @@ article {
   margin-top: var(--rhub-space-4);
 }
 
-/* documentation directory cards list tightly */
+/* Documentation-home cards: the link lists read as rows, not bullet points, and the
+ * cards align to a common height so the grid is even. */
+.rhub-cards {
+  align-items: stretch;
+}
+
 .rhub-card ul {
   margin: 0;
-  padding-left: 1.05rem;
+  padding-left: 0;
+  list-style: none;
   font-size: 0.9rem;
 }
 
 .rhub-card li {
-  padding: 0.12rem 0;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--rhub-hairline);
+}
+
+.rhub-card li:first-child {
+  border-top: none;
+}
+
+.rhub-card li a {
+  display: block;
+  padding: 0.42rem 0;
+  color: var(--rhub-ink-2);
+  text-decoration: none;
+}
+
+.rhub-card li a:hover {
+  color: var(--rhub-orange-ink);
 }

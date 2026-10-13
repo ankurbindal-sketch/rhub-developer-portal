@@ -1593,7 +1593,7 @@ def build_payin_notification():
     body.append(':::note[Placeholder spelling]')
     body.append('')
     body.append('The parameter is `fromDate`; the placeholder RHUB supplies for it is written '
-                '`&#123;formDate&#125;`. Both are reproduced exactly as given.')
+                '`{formDate}`. Both are reproduced exactly as given.')
     body.append('')
     body.append(':::')
     body.append('')
