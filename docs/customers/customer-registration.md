@@ -51,6 +51,55 @@ Coded fields in the request draw their values from the master APIs — for examp
 [Occupation](/docs/master-apis/occupation) and
 [Document ID Type](/docs/master-apis/document-id-type).
 
+## KYC/KYB Document Requirements
+
+The documents RHUB accepts and requires when registering a customer. Which of them applies depends on the customer you are onboarding; they are not all submitted in a single API call.
+
+### KYC — Individual Customers
+
+Accepted document types for an individual customer:
+
+- Citizenship Card
+- Driving License
+- Emirates ID
+- GCC ID
+- Govt. Approved ID
+- National ID Card
+- Passport
+- Residence Permit
+- Senior Citizen Card
+
+### KYB — Business Customers
+
+Required documents for a business customer, by category:
+
+**Business registration and incorporation**
+
+- Trade/Commercial License
+- Certificate of Incorporation
+- Memorandum and Articles of Association
+
+**Owners, shareholders and partners**
+
+- Certified ID copies of all Owners/Shareholders/Partners
+- Address proof of all Owners/Shareholders/Partners
+
+**Authorized signatories and representatives**
+
+- Approved Authorized Signatory List with specimen signatures
+- Certified ID copy of Authorized signatories
+- Certified ID copy of Authorized representatives
+
+**Company address**
+
+- Company Address proof (not older than 3 months)
+
+:::note[Codes and upload mechanics]
+
+RHUB has not published a mapping between these document names and `idTypeCode`, the document ID type codes or any master API value, so none is given here. Upload mechanics — supported formats, size limits and how a reference is returned — are on [Document Upload](/docs/documents/document-upload).
+
+:::
+
 ## Contract
 
 There are two methods for registering a customer:

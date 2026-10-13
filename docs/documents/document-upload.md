@@ -56,6 +56,10 @@ B2C and C2B payout processing, and the invoice/transaction reference is represen
 Payout request by `sendClientTrxReference`. It does not apply as an invoice requirement to
 C2C.
 
+The documents RHUB accepts for individual KYC and requires for business KYB are listed
+under [KYC/KYB document requirements](/docs/customers/customer-registration#kyckyb-document-requirements)
+on the Customer Registration page.
+
 The source establishes a single document upload contract, reproduced below; it does not
 define a separate invoice endpoint or separate invoice-specific request fields. Where your
 implementation needs that distinction at endpoint level, confirm it with RHUB.

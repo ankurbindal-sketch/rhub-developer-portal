@@ -1019,6 +1019,10 @@ B2C and C2B payout processing, and the invoice/transaction reference is represen
 Payout request by `sendClientTrxReference`. It does not apply as an invoice requirement to
 C2C.
 
+The documents RHUB accepts for individual KYC and requires for business KYB are listed
+under [KYC/KYB document requirements](/docs/customers/customer-registration#kyckyb-document-requirements)
+on the Customer Registration page.
+
 The source establishes a single document upload contract, reproduced below; it does not
 define a separate invoice endpoint or separate invoice-specific request fields. Where your
 implementation needs that distinction at endpoint level, confirm it with RHUB.
@@ -1035,6 +1039,72 @@ implementation needs that distinction at endpoint level, confirm it with RHUB.
                        '/docs/master-apis/customer-individual-document-type')])
     rec('DocumentUpload.md', 'docs/documents/document-upload.md', 'COMPLETE',
         'Published Document Upload contract carried over in full.')
+
+
+
+# --------------------------------------------------------------------------
+# KYC / KYB document requirements (confirmed checklist)
+# --------------------------------------------------------------------------
+
+# Supplied by RHUB as the accepted KYC document types and the required KYB documents
+# for customer registration. Names are reproduced exactly. No mapping to idTypeCode,
+# document ID type codes or master values is stated, because none was supplied, and
+# nothing here is attributed to Virtual Account onboarding.
+
+KYC_DOCUMENT_TYPES = [
+    'Citizenship Card',
+    'Driving License',
+    'Emirates ID',
+    'GCC ID',
+    'Govt. Approved ID',
+    'National ID Card',
+    'Passport',
+    'Residence Permit',
+    'Senior Citizen Card',
+]
+
+KYB_DOCUMENT_REQUIREMENTS = [
+    ('Business registration and incorporation', [
+        'Trade/Commercial License',
+        'Certificate of Incorporation',
+        'Memorandum and Articles of Association',
+    ]),
+    ('Owners, shareholders and partners', [
+        'Certified ID copies of all Owners/Shareholders/Partners',
+        'Address proof of all Owners/Shareholders/Partners',
+    ]),
+    ('Authorized signatories and representatives', [
+        'Approved Authorized Signatory List with specimen signatures',
+        'Certified ID copy of Authorized signatories',
+        'Certified ID copy of Authorized representatives',
+    ]),
+    ('Company address', [
+        'Company Address proof (not older than 3 months)',
+    ]),
+]
+
+
+def kyc_kyb_section():
+    """The KYC/KYB checklist, grouped as RHUB supplies it."""
+    out = ['## KYC/KYB Document Requirements', '',
+           'The documents RHUB accepts and requires when registering a customer. Which of them '
+           'applies depends on the customer you are onboarding; they are not all submitted in a '
+           'single API call.', '',
+           '### KYC — Individual Customers', '',
+           'Accepted document types for an individual customer:', '']
+    out += ['- %s' % d for d in KYC_DOCUMENT_TYPES]
+    out += ['', '### KYB — Business Customers', '',
+            'Required documents for a business customer, by category:', '']
+    for group, items in KYB_DOCUMENT_REQUIREMENTS:
+        out += ['**%s**' % group, '']
+        out += ['- %s' % i for i in items]
+        out += ['']
+    out += [':::note[Codes and upload mechanics]', '',
+            'RHUB has not published a mapping between these document names and `idTypeCode`, '
+            'the document ID type codes or any master API value, so none is given here. Upload '
+            'mechanics — supported formats, size limits and how a reference is returned — are '
+            'on [Document Upload](/docs/documents/document-upload).', '', ':::', '']
+    return '\n'.join(out)
 
 
 def build_customer_registration():
@@ -1060,7 +1130,8 @@ Coded fields in the request draw their values from the master APIs — for examp
 [Occupation](/docs/master-apis/occupation) and
 [Document ID Type](/docs/master-apis/document-id-type).
 
-## Contract""" % customer_paths_cards()
+%s
+## Contract""" % (customer_paths_cards(), kyc_kyb_section())
     api_page('customers/customer-registration.md',
 
              {'title': 'Customer Registration', 'sidebar_label': 'Customer Registration',
