@@ -28,21 +28,37 @@
 /* 1. Tokens                                                                  */
 /* ========================================================================== */
 
+/* Stage 1 design foundation. These tokens are the single source of truth for colour,
+ * spacing and radius across the portal: every component below reads from them, so a
+ * future palette change happens here and nowhere else.
+ *
+ * Light theme separates the page from its content: a soft grey page with white
+ * surfaces for code, tables, cards and callouts. Dark theme is a designed slate
+ * palette, not an inversion of the light one.
+ *
+ * RHUB orange #EC8404 is the brand accent. Because it clears only ~2.3:1 on the page
+ * background it is never used for body-sized text; link and label text use the darker
+ * --rhub-orange-ink (~4.9:1), while the pure brand tone carries rules, markers and
+ * badges where contrast is not a legibility requirement.
+ */
+
 :root {
   /* brand */
-  --rhub-orange: #ff9000;
-  --rhub-orange-ink: #b25e00;
-  --rhub-orange-wash: #fff6ea;
-  --rhub-grey: #7d7d7d;
+  --rhub-orange: #ec8404;
+  --rhub-orange-ink: #a85d04;
+  --rhub-orange-wash: #fdf4e8;
+  --rhub-orange-edge: #f3c893;
 
   /* neutrals */
-  --rhub-ink: #10151c;
-  --rhub-ink-2: #33404f;
-  --rhub-ink-3: #5a6470;
-  --rhub-hairline: #e3e6ea;
-  --rhub-hairline-strong: #ccd2d9;
-  --rhub-surface: #f7f8f9;
-  --rhub-surface-2: #fbfcfc;
+  --rhub-ink: #202833;
+  --rhub-ink-2: #3c4654;
+  --rhub-ink-3: #64748b;
+  --rhub-hairline: #e7ebf0;
+  --rhub-hairline-strong: #d3dae3;
+  --rhub-page: #f8f9fb;
+  --rhub-surface: #ffffff;
+  --rhub-surface-2: #f3f5f8;
+  --rhub-code-bg: #ffffff;
 
   /* method hues, desaturated */
   --rhub-get: #0e6e62;
@@ -53,6 +69,10 @@
   --rhub-put-wash: #fbf4e6;
   --rhub-del: #9b2c2c;
   --rhub-del-wash: #fbeeee;
+
+  /* callout hues */
+  --rhub-info: #1f6feb;
+  --rhub-info-wash: #eef4fe;
 
   /* spacing scale */
   --rhub-space-1: 0.25rem;
@@ -66,15 +86,15 @@
   --rhub-radius-sm: 5px;
 
   /* Infima overrides */
-  --ifm-color-primary: #b25e00;
-  --ifm-color-primary-dark: #9d5300;
-  --ifm-color-primary-darker: #8a4900;
-  --ifm-color-primary-darkest: #6d3a00;
-  --ifm-color-primary-light: #c86a00;
-  --ifm-color-primary-lighter: #dc7600;
-  --ifm-color-primary-lightest: #ff9000;
+  --ifm-color-primary: #a85d04;
+  --ifm-color-primary-dark: #975304;
+  --ifm-color-primary-darker: #864a03;
+  --ifm-color-primary-darkest: #6b3b03;
+  --ifm-color-primary-light: #c26c05;
+  --ifm-color-primary-lighter: #d87805;
+  --ifm-color-primary-lightest: #ec8404;
   --ifm-link-color: var(--rhub-orange-ink);
-  --ifm-link-hover-color: #8a4900;
+  --ifm-link-hover-color: #864a03;
 
   --ifm-font-family-base: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, Helvetica, Arial, sans-serif;
@@ -82,78 +102,120 @@
     Consolas, monospace;
 
   --ifm-font-size-base: 16px;
-  --ifm-line-height-base: 1.7;
+  --ifm-line-height-base: 1.65;
   --ifm-heading-font-weight: 600;
   --ifm-heading-color: var(--rhub-ink);
   --ifm-font-color-base: var(--rhub-ink-2);
+  --ifm-background-color: var(--rhub-page);
+  --ifm-background-surface-color: var(--rhub-surface);
   --ifm-code-font-size: 87.5%;
-  --ifm-code-background: var(--rhub-surface);
+  --ifm-code-background: var(--rhub-surface-2);
   --ifm-code-border-radius: 4px;
+  --ifm-pre-background: var(--rhub-code-bg);
 
   --ifm-toc-border-color: var(--rhub-hairline);
   --ifm-table-border-color: var(--rhub-hairline);
-  --ifm-table-head-background: var(--rhub-surface);
+  --ifm-table-head-background: var(--rhub-surface-2);
   --ifm-table-stripe-background: var(--rhub-surface-2);
-  --ifm-table-cell-padding: 0.6rem 0.8rem;
+  --ifm-table-cell-padding: 0.62rem 0.85rem;
 
-  --ifm-navbar-height: 3.75rem;
-  --ifm-navbar-background-color: #ffffff;
+  --ifm-navbar-height: 4rem;
+  --ifm-navbar-background-color: var(--rhub-surface);
   --ifm-navbar-shadow: inset 0 -1px 0 var(--rhub-hairline);
   --ifm-navbar-link-color: var(--rhub-ink-2);
   --ifm-navbar-link-hover-color: var(--rhub-ink);
+  --ifm-navbar-search-input-background-color: var(--rhub-surface-2);
   --ifm-menu-color: var(--rhub-ink-2);
   --ifm-menu-color-background-active: transparent;
-  --ifm-menu-color-background-hover: var(--rhub-surface);
+  --ifm-menu-color-background-hover: var(--rhub-surface-2);
 
   --ifm-breadcrumb-size-multiplier: 0.9;
-  --ifm-breadcrumb-item-background-active: var(--rhub-surface);
+  --ifm-breadcrumb-item-background-active: var(--rhub-surface-2);
   --ifm-global-shadow-lw: none;
   --ifm-global-shadow-md: none;
   --docusaurus-highlighted-code-line-bg: var(--rhub-orange-wash);
 }
 
 [data-theme='dark'] {
-  --rhub-orange-ink: #ffa733;
-  --rhub-orange-wash: #241a0c;
+  --rhub-orange: #f59b35;
+  --rhub-orange-ink: #f0a24a;
+  --rhub-orange-wash: #2a1e10;
+  --rhub-orange-edge: #6b4a1d;
 
-  --rhub-ink: #eef2f6;
-  --rhub-ink-2: #c3ccd6;
-  --rhub-ink-3: #93a1af;
-  --rhub-hairline: #262d35;
-  --rhub-hairline-strong: #38424d;
-  --rhub-surface: #161b21;
-  --rhub-surface-2: #12171c;
+  --rhub-ink: #e6edf5;
+  --rhub-ink-2: #c2cedd;
+  --rhub-ink-3: #93a4b8;
+  --rhub-hairline: #273142;
+  --rhub-hairline-strong: #3a475c;
+  --rhub-page: #0f141a;
+  --rhub-surface: #161c24;
+  --rhub-surface-2: #1b222b;
+  --rhub-code-bg: #141a21;
 
   --rhub-get: #58c3b4;
-  --rhub-get-wash: #10231f;
+  --rhub-get-wash: #11261f;
   --rhub-post: #8db2f0;
-  --rhub-post-wash: #131c2b;
+  --rhub-post-wash: #141e2e;
   --rhub-put: #d7a54a;
-  --rhub-put-wash: #231b0d;
+  --rhub-put-wash: #251d0e;
   --rhub-del: #e2909a;
-  --rhub-del-wash: #251317;
+  --rhub-del-wash: #281518;
 
-  --ifm-color-primary: #ffa733;
-  --ifm-color-primary-dark: #ff9a1a;
-  --ifm-color-primary-darker: #f08e00;
-  --ifm-color-primary-darkest: #cc7800;
-  --ifm-color-primary-light: #ffb85c;
-  --ifm-color-primary-lighter: #ffc78a;
-  --ifm-color-primary-lightest: #ffd9a3;
-  --ifm-link-color: var(--rhub-orange-ink);
-  --ifm-link-hover-color: #ffc06b;
+  --rhub-info: #7fb0f5;
+  --rhub-info-wash: #131d2c;
 
-  --ifm-background-color: #0e1216;
-  --ifm-background-surface-color: #161b21;
+  --ifm-color-primary: #f0a24a;
+  --ifm-color-primary-dark: #ee9530;
+  --ifm-color-primary-darker: #ed8e23;
+  --ifm-color-primary-darkest: #c7730f;
+  --ifm-color-primary-light: #f2af64;
+  --ifm-color-primary-lighter: #f3b671;
+  --ifm-color-primary-lightest: #f7cb9a;
+  --ifm-link-color: #f0a24a;
+  --ifm-link-hover-color: #f7cb9a;
+
+  --ifm-background-color: var(--rhub-page);
+  --ifm-background-surface-color: var(--rhub-surface);
   --ifm-heading-color: var(--rhub-ink);
   --ifm-font-color-base: var(--rhub-ink-2);
-  --ifm-navbar-background-color: #0e1216;
-  --ifm-table-head-background: #161b21;
-  --ifm-table-stripe-background: #12171c;
-  --ifm-code-background: #161b21;
+  --ifm-navbar-background-color: var(--rhub-surface);
+  --ifm-navbar-search-input-background-color: var(--rhub-surface-2);
+  --ifm-table-head-background: var(--rhub-surface-2);
+  --ifm-table-stripe-background: var(--rhub-surface-2);
+  --ifm-code-background: var(--rhub-surface-2);
+  --ifm-pre-background: var(--rhub-code-bg);
   --ifm-menu-color: var(--rhub-ink-2);
-  --ifm-menu-color-background-hover: #161b21;
+  --ifm-menu-color-background-hover: var(--rhub-surface-2);
   --docusaurus-highlighted-code-line-bg: #26313d;
+}
+
+/* ========================================================================== */
+/* 1b. Surfaces and focus                                                     */
+/* ========================================================================== */
+
+/* The doc column, navbar and sidebar are the white surfaces; the page behind
+ * them carries the soft grey. */
+.navbar,
+.theme-doc-sidebar-container,
+.main-wrapper > .docs-wrapper .theme-doc-sidebar-container {
+  background: var(--rhub-surface);
+}
+
+.theme-doc-markdown {
+  background: transparent;
+}
+
+/* One visible focus treatment everywhere, keyboard only */
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+input:focus-visible,
+.menu__link:focus-visible,
+.navbar__link:focus-visible,
+.pagination-nav__link:focus-visible {
+  outline: 2px solid var(--rhub-orange);
+  outline-offset: 2px;
+  border-radius: 3px;
 }
 
 /* ========================================================================== */
@@ -161,14 +223,14 @@
 /* ========================================================================== */
 
 article h1 {
-  font-size: 2rem;
-  line-height: 1.18;
-  letter-spacing: -0.022em;
+  font-size: 1.95rem;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
   margin-bottom: var(--rhub-space-4);
 }
 
 article h2 {
-  font-size: 1.3rem;
+  font-size: 1.28rem;
   line-height: 1.3;
   letter-spacing: -0.012em;
   margin-top: var(--rhub-space-7);
@@ -177,9 +239,16 @@ article h2 {
 }
 
 article h3 {
-  font-size: 1.05rem;
+  font-size: 1.04rem;
   letter-spacing: -0.005em;
   margin-top: var(--rhub-space-6);
+}
+
+/* captions and small labels */
+.markdown em:only-child,
+.rhub-caption {
+  color: var(--rhub-ink-3);
+  font-size: 0.88rem;
 }
 
 article h4 {
@@ -261,6 +330,27 @@ article h4 {
   font-size: 0.92rem;
   font-weight: 500;
   padding-inline: var(--rhub-space-3);
+  border-radius: var(--rhub-radius-sm);
+}
+
+.navbar__link:hover {
+  background: var(--rhub-surface-2);
+}
+
+/* search field reads as part of the system rather than a stock control */
+.navbar .navbar__search-input {
+  height: 2.25rem;
+  border: 1px solid var(--rhub-hairline);
+  border-radius: var(--rhub-radius-sm);
+  background-color: var(--rhub-surface-2);
+  font-size: 0.88rem;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.navbar .navbar__search-input:focus {
+  border-color: var(--rhub-orange-edge);
+  background-color: var(--rhub-surface);
+  outline: none;
 }
 
 .navbar__link--active {
@@ -613,12 +703,14 @@ article {
   text-align: left;
   vertical-align: bottom;
   white-space: nowrap;
-  background: var(--rhub-surface);
+  background: var(--rhub-table-head, var(--rhub-surface-2));
+  border-bottom: 1px solid var(--rhub-hairline-strong);
 }
 
 .markdown table td {
   vertical-align: top;
   line-height: 1.55;
+  background: var(--rhub-surface);
 }
 
 .markdown table td:first-child {
@@ -711,12 +803,26 @@ article {
   border-radius: var(--rhub-radius);
   box-shadow: none !important;
   margin-bottom: var(--rhub-space-5) !important;
+  overflow: hidden;
+}
+
+/* The Prism theme sets its background inline, so the surface is reasserted here
+ * to keep code blocks on the same white as the other content surfaces. */
+.theme-code-block pre,
+.theme-code-block > div {
+  background-color: var(--rhub-code-bg) !important;
 }
 
 .theme-code-block pre {
   font-size: 0.82rem;
-  line-height: 1.6;
+  line-height: 1.62;
+  padding: var(--rhub-space-4);
   max-height: 34rem;
+}
+
+.theme-code-block .clean-btn {
+  background: var(--rhub-surface-2);
+  border: 1px solid var(--rhub-hairline);
 }
 
 .theme-code-block .clean-btn {
@@ -733,18 +839,44 @@ article {
   border-left-width: 3px;
   box-shadow: none;
   font-size: 0.92rem;
+  line-height: 1.6;
   padding: var(--rhub-space-4);
+  background: var(--rhub-surface);
 }
 
 .theme-admonition p:last-child {
   margin-bottom: 0;
 }
 
-/* REVIEW REQUIRED notices: unmistakable, but they must not shout down the page */
+.theme-admonition code {
+  background: var(--rhub-surface-2);
+}
+
+/* note / tip: neutral, the quietest of the set */
+.theme-admonition-note,
+.theme-admonition-secondary,
+.theme-admonition-tip,
+.theme-admonition-success {
+  border-left-color: var(--rhub-hairline-strong);
+}
+
+/* info: informational, distinct from a warning */
+.theme-admonition-info {
+  background: var(--rhub-info-wash);
+  border-left-color: var(--rhub-info);
+}
+
+/* warning / caution carries REVIEW REQUIRED: unmistakable in brand orange,
+ * but a bordered panel rather than a block of colour */
 .theme-admonition-warning,
 .theme-admonition-caution {
   background: var(--rhub-orange-wash);
   border-left-color: var(--rhub-orange);
+}
+
+.theme-admonition-danger {
+  background: var(--rhub-del-wash);
+  border-left-color: var(--rhub-del);
 }
 
 /* ========================================================================== */
