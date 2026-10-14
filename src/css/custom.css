@@ -1179,6 +1179,77 @@ article {
   margin: 0;
 }
 
+/* --- homepage search affordance ---
+ * Links to the search route the local search plugin publishes, so it works
+ * without JavaScript and cannot drift out of sync with the navbar control. */
+
+.rhub-hero__search {
+  display: flex;
+  align-items: center;
+  gap: var(--rhub-space-3);
+  max-width: 34rem;
+  margin-top: var(--rhub-space-5);
+  padding: 0.65rem var(--rhub-space-4);
+  background: var(--rhub-surface);
+  border: 1px solid var(--rhub-hairline-strong);
+  border-radius: var(--rhub-radius);
+  color: var(--rhub-ink-3);
+  text-decoration: none !important;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.rhub-hero__search:hover {
+  border-color: var(--rhub-orange);
+  color: var(--rhub-ink-2);
+}
+
+.rhub-hero__search-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--rhub-orange-ink);
+}
+
+.rhub-hero__search-text {
+  font-size: 0.92rem;
+}
+
+/* --- reference strip: every remaining documented area, one click away ------ */
+
+.rhub-section--tight {
+  padding: var(--rhub-space-6) 0;
+}
+
+.rhub-reflinks {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: var(--rhub-hairline);
+  border: 1px solid var(--rhub-hairline);
+  border-radius: var(--rhub-radius);
+  overflow: hidden;
+}
+
+.rhub-reflinks li {
+  background: var(--rhub-surface);
+}
+
+.rhub-reflinks a {
+  display: block;
+  padding: 0.7rem var(--rhub-space-4);
+  font-size: 0.9rem;
+  color: var(--rhub-ink-2);
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.rhub-reflinks a:hover {
+  background: var(--rhub-surface-2);
+  color: var(--rhub-orange-ink);
+}
+
 /* ========================================================================== */
 /* 10. Responsive                                                             */
 /* ========================================================================== */
@@ -1205,6 +1276,10 @@ article {
 
   .rhub-hero {
     padding: var(--rhub-space-6) 0 var(--rhub-space-5);
+  }
+
+  .rhub-hero__search {
+    max-width: none;
   }
 
   article h1 {

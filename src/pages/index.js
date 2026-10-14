@@ -124,6 +124,12 @@ const CAPABILITIES = [
     to: '/docs/balance/balance-enquiry',
   },
   {
+    kicker: 'Virtual Accounts',
+    title: 'VA customer onboarding',
+    body: 'Currencies, document requirements, individual and business registration, request status.',
+    to: '/docs/virtual-accounts',
+  },
+  {
     kicker: 'Reference data',
     title: '14 master APIs',
     body: 'Remittance purpose, source of fund, relationship, occupation, bank list, wallet list and more.',
@@ -166,6 +172,12 @@ function Hero() {
             Browse the API index
           </Link>
         </div>
+        <Link className="rhub-hero__search" to="/search">
+          <span className="rhub-hero__search-icon" aria-hidden="true">⌕</span>
+          <span className="rhub-hero__search-text">
+            Search the documentation — endpoints, fields, error codes
+          </span>
+        </Link>
       </div>
     </header>
   );
@@ -226,6 +238,37 @@ function EntryPoints() {
   );
 }
 
+const REFERENCE_LINKS = [
+  {label: 'API environments', to: '/docs/getting-started/environments'},
+  {label: 'How to read this reference', to: '/docs/getting-started/conventions'},
+  {label: 'Transaction flows', to: '/docs/getting-started/transaction-flows'},
+  {label: 'Quotation', to: '/docs/quotation/quotation'},
+  {label: 'Payout', to: '/docs/payout/payout'},
+  {label: 'Transaction Enquiry', to: '/docs/transactions/transaction-enquiry'},
+  {label: 'Payin Notification', to: '/docs/transactions/payin-notification'},
+  {label: 'Current API error codes', to: '/docs/errors/current-error-codes'},
+  {label: 'Transaction status codes', to: '/docs/errors/transaction-status-codes'},
+  {label: 'Country validations', to: '/docs/validation/country-validations'},
+];
+
+function Reference() {
+  return (
+    <section className="rhub-section rhub-section--tight">
+      <div className="container">
+        <span className="rhub-eyebrow">Reference</span>
+        <h2>Jump straight to a page</h2>
+        <ul className="rhub-reflinks">
+          {REFERENCE_LINKS.map((l) => (
+            <li key={l.to}>
+              <Link to={l.to}>{l.label}</Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
 function Capabilities() {
   return (
     <section className="rhub-section">
@@ -255,6 +298,7 @@ export default function Home() {
       <EntryPoints />
       <Journey />
       <Capabilities />
+      <Reference />
     </Layout>
   );
 }
