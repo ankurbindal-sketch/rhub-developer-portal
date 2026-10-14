@@ -27,7 +27,7 @@ Base URLs for each environment are listed under
 
 :::
 
-### Endpoint
+## Endpoint
 
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
@@ -42,9 +42,9 @@ Base URLs for each environment are listed under
 
 - **Path Parameter** — **REQUIRED** `sendClientCode` — your 10-digit client code
 
-### Sample Response
+## Sample Response
 
-```json
+```json5
 {
   "resultCode": "0",                        // "0" = success, see Section 17
   "resultDescription": "Transaction successful",
@@ -63,7 +63,7 @@ Base URLs for each environment are listed under
 }
 ```
 
-### Key Response Fields
+## Key Response Fields
 
 | Field | Notes |
 |---|---|

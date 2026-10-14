@@ -27,7 +27,7 @@ Base URLs for each environment are listed under
 
 :::
 
-### Endpoint
+## Endpoint
 
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
@@ -42,7 +42,7 @@ Base URLs for each environment are listed under
 
 - **Path Parameter** — **REQUIRED** `code`
 
-### Additional Fields vs Create
+## Additional Fields vs Create
 
 | Field | Notes |
 |---|---|

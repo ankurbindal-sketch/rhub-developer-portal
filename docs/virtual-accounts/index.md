@@ -33,11 +33,11 @@ This API onboards a customer onto a **Virtual Account (VA)** — a dedicated col
 
 :::
 
-### Individual Customer
+## Individual Customer
 
 A natural person. Registration collects personal identity (name, DOB, gender, nationality), a single government ID, and a home address. 3 mandatory KYC documents.
 
-### Business Customer
+## Business Customer
 
 A registered company. Registration collects business/legal identity, a registration document, and a list of
 Ultimate Beneficial Owners (UBOs)

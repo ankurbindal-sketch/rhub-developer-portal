@@ -27,7 +27,7 @@ Base URLs for each environment are listed under
 
 :::
 
-### Endpoint
+## Endpoint
 
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
@@ -40,7 +40,7 @@ Base URLs for each environment are listed under
   </div>
 </div>
 
-### Request Fields
+## Request Fields
 
 | Field | Required? | Notes |
 |---|---|---|
@@ -79,7 +79,7 @@ Base URLs for each environment are listed under
 | isPayoutBanned | **OPTIONAL** | Default `false` |
 | payoutClientCodes | **OPTIONAL** | Default empty array `[]` |
 
-### Complete Request Example
+## Complete Request Example
 
 Individual customer
 

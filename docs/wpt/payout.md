@@ -81,7 +81,7 @@ The Payout API is used to perform all types of transactions (B2B,C2C,C2B,B2C).
 
 ## Request Details  B2B (already registered)
 
-```json
+```json5
 {
 "payout": {
   "transactionInfo": {
@@ -182,7 +182,7 @@ The Payout API is used to perform all types of transactions (B2B,C2C,C2B,B2C).
 
 ## Response Details
 
-```json
+```json5
 {
 "requestTime": "Thu Aug 03 12:22:10 IST 2023",
 "responseTime": "Thu Aug 03 12:22:10 IST 2023",

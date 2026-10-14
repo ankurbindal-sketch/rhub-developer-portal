@@ -27,7 +27,7 @@ Base URLs for each environment are listed under
 
 :::
 
-### Endpoint
+## Endpoint
 
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
@@ -46,7 +46,7 @@ Base URLs for each environment are listed under
 
 :::
 
-### Fields That Can Actually Be Updated
+## Fields That Can Actually Be Updated
 
 | Field | Payload Key |
 |---|---|
@@ -65,7 +65,7 @@ All other fields (trade name, legal status, business relationship, ID details, `
 
 :::
 
-### Payload Diff vs Create
+## Payload Diff vs Create
 
 ```http
 "code": "1000000857",   // was "customerCode": "" on Create — field renamed to "code" on Edit

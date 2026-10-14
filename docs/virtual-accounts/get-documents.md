@@ -27,7 +27,7 @@ Base URLs for each environment are listed under
 
 :::
 
-### Endpoint
+## Endpoint
 
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
@@ -42,7 +42,7 @@ Base URLs for each environment are listed under
 
 - **Path Parameter** — **REQUIRED** `walletOwnerCode`
 
-### Query Parameters
+## Query Parameters
 
 | Parameter | What It Is | Required? | Notes |
 |---|---|---|---|
@@ -52,7 +52,7 @@ Base URLs for each environment are listed under
 | limit | Page size | **OPTIONAL** | e.g. `10` |
 | docReferenceNumber | Filter to one customer's document set | **OPTIONAL** | Recommended — otherwise returns all documents for the wallet owner. |
 
-### Sample Response
+## Sample Response
 
 ```json
 {

@@ -27,7 +27,7 @@ Base URLs for each environment are listed under
 
 :::
 
-### Endpoint
+## Endpoint
 
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
@@ -42,7 +42,7 @@ Base URLs for each environment are listed under
 
 - **Path Parameter** — **REQUIRED** `customerTypeCode` — `100001` Individual or `100002` Business
 
-### Individual · 100001
+## Individual · 100001
 
 | Code | Document | Mandatory? |
 |---|---|---|
@@ -50,7 +50,7 @@ Base URLs for each environment are listed under
 | RHD020 | Proof of Address (Utility Bill / Bank Statement, within 90 days) | **YES** |
 | RHD021 | Due Diligence Questionnaire — Individual | **YES** |
 
-### Business · 100002
+## Business · 100002
 
 | Code | Document | Mandatory? |
 |---|---|---|

@@ -35,7 +35,7 @@ Note: “YES” indicates that the field is mandatory, while “NO” indicates 
 
 :::
 
-### Sender Customer
+## Sender Customer
 
 [Sender fields in the Payout API](/docs/payout/payout#sender-req-param)
 
@@ -371,7 +371,7 @@ Note: “YES” indicates that the field is mandatory, while “NO” indicates 
 
 </div>
 
-### Receiver Customer
+## Receiver Customer
 
 [Receiver fields in the Payout API](/docs/payout/payout#receiver-req-param)
 
@@ -979,7 +979,7 @@ Note: “YES” indicates that the field is mandatory, while “NO” indicates 
 
 *Decimal values are not allowed in the payout amount for these currencies.
 
-### Sender Business
+## Sender Business
 
 [Sender fields in the Payout API](/docs/payout/payout#sender-req-param)
 
@@ -1288,7 +1288,7 @@ Note: “YES” indicates that the field is mandatory, while “NO” indicates 
 
 </div>
 
-### Receiver Business
+## Receiver Business
 
 [Receiver fields in the Payout API](/docs/payout/payout#receiver-req-param)
 

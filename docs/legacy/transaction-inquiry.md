@@ -121,7 +121,7 @@ fromDate=2023-10-01&toDate=2023-10-27&types=all&status=all&sendingPartnerCode=10
 
 ## Response Details
 
-```json
+```json5
    {
 
 "requestTime": "Thu Aug 03 12:28:16 IST 2023",

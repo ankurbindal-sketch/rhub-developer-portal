@@ -100,7 +100,7 @@ call this operation.
 
 </div>
 
-### Recommended Order of API Calls
+## Recommended Order of API Calls
 
 | # | Step | API | Why This Step? |
 |---|---|---|---|

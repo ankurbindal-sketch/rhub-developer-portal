@@ -27,7 +27,7 @@ Base URLs for each environment are listed under
 
 :::
 
-### Individual Customer Lookups
+## Individual Customer Lookups
 
 | Field | Endpoint (GET) | List Key |
 |---|---|---|
@@ -35,7 +35,7 @@ Base URLs for each environment are listed under
 | transactionVolumeCode | `/ewallet/api/v1/businessTxnVolume/getByCustomerTypeCode/100001` | `businessTxnVolumeList` |
 | idTypeCode | `/ewallet/api/v1/customerDocumentType/getByCustomerTypeCode/100001` | `customerDocumentTypeList` |
 
-### Business Customer Lookups
+## Business Customer Lookups
 
 | Field | Endpoint (GET) | List Key |
 |---|---|---|
@@ -44,7 +44,7 @@ Base URLs for each environment are listed under
 | businessRelationshipCode | `/ewallet/api/v1/purposeOfOpeningBusiness/getByCustomerTypeCode/100002` | `purposeOfOpeningBusinessList` |
 | transactionVolumeCode | `/ewallet/api/v1/businessTxnVolume/getByCustomerTypeCode/100002` | `businessTxnVolumeList` |
 
-### Owner (UBO) Lookups
+## Owner (UBO) Lookups
 
 | Field | Endpoint (GET) | List Key |
 |---|---|---|
@@ -52,9 +52,9 @@ Base URLs for each environment are listed under
 | residenceStatusCode | `/ewallet/api/v1/residenceStatus/customerTypeCode/100001` | `residenceStatusList` |
 | idTypeCode | `/ewallet/api/v1/idType/getByCustomerTypeCode/100002` | `idTypeList` |
 
-### Sample Response Shape
+## Sample Response Shape
 
-```json
+```json5
 {
   "resultCode": "0",
   "resultDescription": "Transaction successful",

@@ -64,7 +64,7 @@ GET - https://sandbox-client.remittanceshub.com:8130/api/v1/balance/all
 
 ## Response Details of all Currency
 
-```json
+```json5
 {
 
 "requestTime": "Wed May 17 12:45:00 IST 2023",

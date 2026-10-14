@@ -27,7 +27,7 @@ Base URLs for each environment are listed under
 
 :::
 
-### Endpoint
+## Endpoint
 
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
@@ -40,7 +40,7 @@ Base URLs for each environment are listed under
   </div>
 </div>
 
-### Request Fields — Business Level
+## Request Fields — Business Level
 
 | Field | Required? | Notes |
 |---|---|---|
@@ -82,7 +82,7 @@ Each owner's required fields depend on its own `customerTypeCode` — `100001` (
 
 :::
 
-### Owner Type 100001 · Individual
+## Owner Type 100001 · Individual
 
 | Field | Required? |
 |---|---|
@@ -100,7 +100,7 @@ Each owner's required fields depend on its own `customerTypeCode` — `100001` (
 | noIssueDate / noIdExpiry | **OPTIONAL** |
 | ownerPercentage / ownerStatus | **OPTIONAL** |
 
-### Owner Type 100002 · Business
+## Owner Type 100002 · Business
 
 | Field | Required? |
 |---|---|
@@ -117,11 +117,11 @@ Each owner's required fields depend on its own `customerTypeCode` — `100001` (
 | noIssueDate / noIdExpiry | **OPTIONAL** |
 | ownerPercentage / ownerStatus | **OPTIONAL** |
 
-### Complete Request Example
+## Complete Request Example
 
 Business customer with 2 owners (1 individual, 1 business)
 
-```json
+```json5
 {
   "customerTypeCode": "100002",
   "customerSubTypeCode": "100001",
@@ -131,11 +131,11 @@ Business customer with 2 owners (1 individual, 1 business)
   "tradeName": "AFREE technology",
   "natureOfBusinessCode": "RHT004",
   "mobileNumber": "9098987711",
-  "email": "john.doe@example.com",
-  "addressLine1": "12 Example Road",
+  "email": "pankaj.singh@esteltelecom.com",
+  "addressLine1": "malawi",
   "countryCode": "MWI",
-  "state": "Central Region",
-  "city": "Lilongwe",
+  "state": "malawi",
+  "city": "malawi",
   "pincode": "676567",
   "businessRelationshipCode": "100003",
   "legalStatusCode": "RHB002",
@@ -147,15 +147,15 @@ Business customer with 2 owners (1 individual, 1 business)
     {
       // Owner 1 — individual owner (customerTypeCode 100001)
       "customerTypeCode": "100001",
-      "firstName": "Johnss",
-      "lastName": "Doe",
+      "firstName": "Rajeshss",
+      "lastName": "Mishra",
       "dateOfBirth": "2008-08-22",
       "gender": "male",
       "companyName": "FGRTTT technology",
-      "addressLine1": "12 Example Road",
+      "addressLine1": "malawi",
       "countryCode": "MWI",
       "state": "Malawi",
-      "city": "Lilongwe",
+      "city": "malawi",
       "pincode": "121122",
       "idTypeCode": "RHD007",
       "idNumber": "ID8887877711",
@@ -165,10 +165,10 @@ Business customer with 2 owners (1 individual, 1 business)
       // Owner 2 — business owner (customerTypeCode 100002)
       "customerTypeCode": "100002",
       "companyName": "Estedeee technology",
-      "addressLine1": "12 Example Road",
+      "addressLine1": "malawi",
       "countryCode": "MWI",
-      "state": "Central Region",
-      "city": "Lilongwe"
+      "state": "malawi",
+      "city": "malawi"
     }
   ]
 }

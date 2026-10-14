@@ -1770,6 +1770,7 @@ def build_master():
 
 def build_validation():
     cur = matrix_to_details(R.convert(FILES['CURRENCYVALIDATIONS.md']), 'Currency')
+    cur = re.sub(r'^### ', '## ', cur, flags=re.M)
     cur = re.sub(r'^##\s*\*\*Currency Validations\*\*\s*$', '', cur, count=1, flags=re.M)
     body = f"""# Currency validations (LOCAL rail)
 
@@ -2708,7 +2709,7 @@ def build_virtual_accounts():
     written = []
 
     # ---- Overview -----------------------------------------------------------
-    overview = VA.section_markdown(va_section('01'))
+    overview = re.sub(r'^### ', '## ', VA.section_markdown(va_section('01')), flags=re.M)
     body = """# Virtual Accounts
 
 A Virtual Account (VA) is a dedicated collection account used for receiving inbound funds.
@@ -2798,7 +2799,7 @@ RHUB Admin/Operations links the customer to the applicable collection bank accou
                          body))
 
     # ---- Integration flow ---------------------------------------------------
-    flow = VA.section_markdown(va_section('02'))
+    flow = re.sub(r'^### ', '## ', VA.section_markdown(va_section('02')), flags=re.M)
     body = """# VA integration flow
 
 The sequence below is the order RHUB supports for Virtual Account onboarding. Steps 1 to 6
@@ -2914,7 +2915,9 @@ call this operation.
             head += ['<span className="rhub-method rhub-method--%s">%s</span>'
                      % (badge.lower(), badge), '']
         head += [VA_AUTH_NOTE, '']
-        body = '\n'.join(head) + VA.section_markdown(sec)
+        # VA source cards are h3; directly under the page h1 that skips a level and
+        # flattens the TOC, so they are promoted to h2.
+        body = '\n'.join(head) + re.sub(r'^### ', '## ', VA.section_markdown(sec), flags=re.M)
         if path == 'virtual-accounts/va-reference-data.md':
             body += ("\n\n## Shared master APIs\n\n"
                      "Several of the lookups above are the platform's own master APIs, used "
@@ -2995,7 +2998,7 @@ rather than by your integration.
                          body))
 
     # ---- response envelope + VA error codes --------------------------------
-    envelope = VA.section_markdown(va_section('17'))
+    envelope = re.sub(r'^### ', '## ', VA.section_markdown(va_section('17')), flags=re.M)
     body = """# VA responses and errors
 
 VA follows the platform error model: `resultCode` is the error category and

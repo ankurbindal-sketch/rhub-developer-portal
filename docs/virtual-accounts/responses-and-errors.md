@@ -17,7 +17,7 @@ Every endpoint in this API wraps its payload in the same envelope. Only the payl
 
 :::
 
-### Envelope Fields
+## Envelope Fields
 
 | Field | Description |
 |---|---|
@@ -26,7 +26,7 @@ Every endpoint in this API wraps its payload in the same envelope. Only the payl
 | resultCode | `"0"` = success. Non-zero indicates failure — check `resultDescription` |
 | resultDescription | Human-readable outcome, e.g. `"Transaction successful"` |
 
-### Known Error Codes
+## Known Error Codes
 
 | resultCode | resultDescription |
 |---|---|
@@ -37,9 +37,9 @@ Every endpoint in this API wraps its payload in the same envelope. Only the payl
 | 5001 | Customer already registered with customer ID |
 | 4114 | Customer Registration Not Found |
 
-### Envelope Shape
+## Envelope Shape
 
-```json
+```json5
 {
   "transactionId": "10793472",
   "requestTime": "Mon Jul 13 13:12:53 IST 2026",

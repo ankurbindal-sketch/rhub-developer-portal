@@ -33,7 +33,7 @@ Base URLs for each environment are listed under
 
 :::
 
-### Endpoint
+## Endpoint
 
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
@@ -48,7 +48,7 @@ Base URLs for each environment are listed under
 
 - **Content-Type** — `multipart/form-data`
 
-### Request Parameters (Form Data)
+## Request Parameters (Form Data)
 
 | Parameter | What It Is | Required? | Notes |
 |---|---|---|---|
@@ -60,9 +60,9 @@ Base URLs for each environment are listed under
 | createdBy | User/agent code performing the upload | **OPTIONAL** | e.g. `1000009093` |
 | transId | Internal tracking id | **OPTIONAL** | Left blank in practice — system-generated, no need to send a value. |
 
-### Sample Response
+## Sample Response
 
-```json
+```json5
 {
   "resultCode": "0",
   "resultDescription": "Transaction successful",
@@ -78,7 +78,7 @@ Base URLs for each environment are listed under
 }
 ```
 
-### Missing-Document Error Messages — Individual
+## Missing-Document Error Messages — Individual
 
 | Code | Document | Error Message |
 |---|---|---|
@@ -86,7 +86,7 @@ Base URLs for each environment are listed under
 | RHD020 | Proof of Address | Please upload mandatory virtual account documents: Proof of Address (Utility Bill or Bank statement issued within 90 days) |
 | RHD021 | Due Diligence Questionnaire — Individual | Please upload mandatory virtual account documents: Due Diligence Questionnaire Individual |
 
-### Missing-Document Error Messages — Business
+## Missing-Document Error Messages — Business
 
 | Code | Document | Error Message |
 |---|---|---|

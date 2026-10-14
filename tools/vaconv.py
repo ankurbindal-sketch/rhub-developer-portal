@@ -129,6 +129,9 @@ def _code(pre):
         lines.pop()
     body = '\n'.join(lines)
     lang = 'json' if body.lstrip()[:1] in '{[' else 'http'
+    # see rhubconv._code_token: samples with comments or trailing commas are json5
+    if lang == 'json' and (re.search(r'(^|\s)//', body) or re.search(r',\s*[}\]]', body)):
+        lang = 'json5'
     return '```%s\n%s\n```' % (lang, body)
 
 

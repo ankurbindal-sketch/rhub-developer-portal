@@ -257,7 +257,7 @@ GET https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/payoutbranchli
 
 #### Response Details
 
-```json
+```json5
 {
 "transactionId": "7559853",
 "requestTime": "Thu Aug 03 12:16:21 IST 2023",
@@ -474,7 +474,7 @@ GET - https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/residenceSta
 
 #### Response Details of Individual Cus. Resident Status
 
-```json
+```json5
 {"transactionId": "8301012 ",
 "requestTime": "Wed Apr 17 21:06:35 IST 2024",
 "responseTime": "Wed Apr 17 21:06:36 IST 2024",
@@ -811,7 +811,7 @@ GET - https://sandbox-client.remittanceshub.com:8130/api/v1/idType/all
 
 #### Response Details of all ID Types
 
-```json
+```json5
 {
 "transactionId": "8304103",
 "requestTime": "Wed Apr 17 21:06:35 IST 2024",
@@ -885,7 +885,7 @@ GET - https://sandbox-client.remittanceshub.com:8130/api/v1/idType/getByCustomer
 
 #### Response Details of the Individual ID Type
 
-```json
+```json5
 {
 "transactionId": "8304122",
 "requestTime": "Wed Apr 17 21:06:35 IST 2024",
@@ -915,7 +915,7 @@ GET - https://sandbox-client.remittanceshub.com:8130/api/v1/idType/getByCustomer
 
 #### Response Details of the Business ID Type
 
-```json
+```json5
 {
 "transactionId": "8304719",
 "requestTime": "Fri Apr 19 12:58:51 IST 2024",
@@ -1103,7 +1103,7 @@ GET https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/payoutValidato
 
 #### Response Details
 
-```json
+```json5
 {
 "transactionId": "8155703",
 "requestTime": "Fri Feb 09 10:50:08 IST 2024",

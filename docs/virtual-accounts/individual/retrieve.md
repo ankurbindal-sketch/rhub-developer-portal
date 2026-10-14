@@ -27,7 +27,7 @@ Base URLs for each environment are listed under
 
 :::
 
-### Endpoint
+## Endpoint
 
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
@@ -42,7 +42,7 @@ Base URLs for each environment are listed under
 
 - **Path Parameter** — **REQUIRED** `code` — the `customerRegistration.code` returned by Create
 
-### Additional Fields in the Response
+## Additional Fields in the Response
 
 | Field | Notes |
 |---|---|

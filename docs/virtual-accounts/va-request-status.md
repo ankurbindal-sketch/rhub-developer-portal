@@ -27,7 +27,7 @@ Base URLs for each environment are listed under
 
 :::
 
-### Endpoint
+## Endpoint
 
 <div className="rhub-endpoint">
   <div className="rhub-endpoint__row">
@@ -40,7 +40,7 @@ Base URLs for each environment are listed under
   </div>
 </div>
 
-### Query Parameters
+## Query Parameters
 
 | Parameter | Required? | Notes |
 |---|---|---|
@@ -49,9 +49,9 @@ Base URLs for each environment are listed under
 | sendClientCustomerId | **OPTIONAL** | Filter to one customer |
 | customerTypeCode | **OPTIONAL** | Filter to `100001` Individual or `100002` Business |
 
-### Sample Response
+## Sample Response
 
-```json
+```json5
 {
   "resultCode": "0",
   "pageable": { "limit": 10, "offset": 0, "totalRecords": 96 },
@@ -85,7 +85,7 @@ Base URLs for each environment are listed under
 }
 ```
 
-### State Reference
+## State Reference
 
 | state | stateName | Meaning |
 |---|---|---|

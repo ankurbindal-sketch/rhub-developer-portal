@@ -169,7 +169,7 @@ const config = {
     prism: {
       theme: themes.github,
       darkTheme: themes.vsDark,
-      additionalLanguages: ['json', 'bash', 'http', 'java', 'csharp'],
+      additionalLanguages: ['json', 'json5', 'bash', 'http', 'java', 'csharp'],
     },
   }),
 };

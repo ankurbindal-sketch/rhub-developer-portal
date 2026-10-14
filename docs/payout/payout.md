@@ -427,7 +427,7 @@ Rest request details remain same as mentioned above.
 
 ## Registered Customer Request Details
 
-```json
+```json5
 {
 "payout": {
   "transactionInfo": {
@@ -435,7 +435,7 @@ Rest request details remain same as mentioned above.
       "payinCurrency": "USD-USA",
       "type": "B2B",
       "requestDate": "17-01-2025",
-      "sendClientTrxReference": "INV1234567890",
+      "sendClientTrxReference": "ASDEWEDE66",
       "descriptionText": "324532423423",
       "paymentMode": "Cash",
       "paymentOption": "Account",
@@ -465,36 +465,36 @@ Rest request details remain same as mentioned above.
   "receiver": {
       //for B2B/C2B
       "business": {
-          "businessName": "Sample Exports Ltd",
+          "businessName": "Gujarat titans",
           "businessType": "RHT011",
           "businessRegistrationType": "RHB002",
           "businessRegistrationIssuedAt": "ARE",
-          "businessAddress1": "123 Example Street",
-          "businessAddressState": "Dubai",
-          "businessAddresssCity": "Dubai",
-          "businessPrimaryContactNumber": "9876543210",
+          "businessAddress1": "new delhi new",
+          "businessAddressState": "new delhi",
+          "businessAddresssCity": "new delhi",
+          "businessPrimaryContactNumber": "9899998988",
           "businessCountryCode": "ARE",
-          "businessAccountNumber": "AE070331234567890123456",
-          "businessAccountHolderName": "Sample Exports Ltd ",
+          "businessAccountNumber": "AE110260000959024298101",
+          "businessAccountHolderName": "Gujarat titans ",
           "businessBankName": "Emirates NBD",
           "businessBankCode": "",
           "businessSwiftCode": "EBILAEAD"
       }
       //for B2C/C2C
       "customer": {
-          "receiverFirstName": "Jane",
-          "receiverLastName": "Doe",
+          "receiverFirstName": "kuldeep",
+          "receiverLastName": "singh",
           "receiverGender": "male",
           "receiverNationality": "ARE",
-          "receiverAddressLineOne": "45 Sample Avenue",
-          "receiverAddressLineTwo": "Business Bay",
+          "receiverAddressLineOne": "dubai",
+          "receiverAddressLineTwo": "dubai",
           "receiverCountry": "ARE",
-          "receiverAddressState": "Dubai",
-          "receiverAddresssCity": "Dubai",
+          "receiverAddressState": "dubai",
+          "receiverAddresssCity": "dubai",
           "receiverBankName": "Emirates NBD",
           "receiverBankCode": "",
-          "receiverAccountNumber": "AE070331234567890123456",
-          "receiverAccountHolderName": "Jane Doe",
+          "receiverAccountNumber": "AE110260000959024298101",
+          "receiverAccountHolderName": "kuldeep singh",
           "receiverSwiftCode": "EBILAEAD"
       }
       },
@@ -549,7 +549,7 @@ Rest request details remain same as mentioned above.
 
 ## Response Details
 
-```json
+```json5
 {
 "requestTime": "Thu Aug 03 12:22:10 IST 2023",
 "responseTime": "Thu Aug 03 12:22:10 IST 2023",
@@ -558,11 +558,11 @@ Rest request details remain same as mentioned above.
 "payoutResponseBean": {
 "transReference": "197930",
 "payinDate": "2023-08-03T12:22:10.904+0530",
-"clientReferenceNumber": "REF1234567890",
+"clientReferenceNumber": "PAYAFMRF61",
 "sendClientCode": "1000008340",
-"senderName": "Example Trading Ltd",
+"senderName": "HCL Technologies",
 "senderNumber": "5123456789",
-"beneficiaryName": "Sample Exports Ltd",
+"beneficiaryName": "HCL Software",
 "beneficiaryNumber": "123456789",
 "beneficiaryBank": "Mizuho Bank,Ltd.-0001",
 "accountNumber": "1234567",
@@ -575,12 +575,12 @@ Rest request details remain same as mentioned above.
 "senderMargin": 0.9899999999,
 "descriptionText": "invoiceno789777",
 "sendClientMarginValue": 0.0,
-"beneficiaryAccountHolderName": "Sample Exports Ltd ",
-"sendClientName": "EXAMPLE",
+"beneficiaryAccountHolderName": "Gujarat titans ",
+"sendClientName": "ESTEL",
 "senderCountry": "Malawi",
-"sendClientPhoneNumber": "265991234567",
-"sendClientAddress1": "12 Example Road, Lilongwe",
-"customerId": "100000000000001B",
+"sendClientPhoneNumber": "533545636654",
+"sendClientAddress1": "Malawi, Malawi",
+"customerId": "100000892911850B",
 "customerCode": "1000000850",
 "paymentMode": "Cash",
   }

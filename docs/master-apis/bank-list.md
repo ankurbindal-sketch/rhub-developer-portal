@@ -58,7 +58,7 @@ GET https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/payoutbanklist
 
 The response of the Bank List API may differ depending on the correspondent’s configuration or integration settings.
 
-```json
+```json5
 {
 "transactionId": "7915642",
 "requestTime": "Tue Feb 04 12:09:50 IST 2025",

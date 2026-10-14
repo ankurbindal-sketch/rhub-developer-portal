@@ -271,6 +271,11 @@ def _code_token(body, store):
     lang = 'json' if stripped[:1] in '{[' else 'http'
     if lang == 'http' and '{' in code and code.lstrip().startswith('{'):
         lang = 'json'
+    # Some RHUB samples carry // comments or a trailing comma. They are reproduced
+    # verbatim, so the block is labelled json5 rather than json: the highlighter then
+    # renders them correctly instead of flagging valid source content as malformed.
+    if lang == 'json' and (re.search(r'(^|\s)//', code) or re.search(r',\s*[}\]]', code)):
+        lang = 'json5'
     token = CODE_TOKEN % len(store)
     store.append('```%s\n%s\n```' % (lang, code))
     return '\n\n' + token + '\n\n'

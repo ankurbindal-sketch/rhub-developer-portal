@@ -270,7 +270,7 @@ POST https://sandbox-client.remittanceshub.com:8030/ewallet/api/v1/payoutProcess
 
 ## Response Details
 
-```json
+```json5
 {
 "transactionId": "7560333",
 "requestTime": "Thu Aug 03 12:22:10 IST 2023",

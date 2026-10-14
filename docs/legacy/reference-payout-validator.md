@@ -76,7 +76,7 @@ GET https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/payoutValidato
 
 ## Response Details
 
-```json
+```json5
 {
 "transactionId": "8155703",
 "requestTime": "Fri Feb 09 10:50:08 IST 2024",

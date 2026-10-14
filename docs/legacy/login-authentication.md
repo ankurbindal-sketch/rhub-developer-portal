@@ -74,7 +74,7 @@ password=21ED0D51B012DFB4375AB9A8ED2123B6
 
 ## Response Details
 
-```json
+```json5
   {
 "access_token": "ebf44678-d205-42ac-9dae-2bdea2fbdca5",
 "token_type": "bearer",

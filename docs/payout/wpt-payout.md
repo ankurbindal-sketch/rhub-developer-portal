@@ -335,7 +335,7 @@ POST https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/payoutProcess
 
 ## Response Details
 
-```json
+```json5
 {
 "requestTime": "Thu Aug 03 12:22:10 IST 2023",
 "responseTime": "Thu Aug 03 12:22:10 IST 2023",
@@ -344,11 +344,11 @@ POST https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/payoutProcess
 "payoutResponseBean": {
 "transReference": "197930",
 "payinDate": "2023-08-03T12:22:10.904+0530",
-"clientReferenceNumber": "REF1234567890",
+"clientReferenceNumber": "PAYAFMRF61",
 "sendClientCode": "1000008340",
-"senderName": "Example Trading Ltd",
+"senderName": "HCL Technologies",
 "senderNumber": "5123456789",
-"beneficiaryName": "Sample Exports Ltd",
+"beneficiaryName": "HCL Software",
 "beneficiaryNumber": "123456789",
 "beneficiaryBank": "Mizuho Bank,Ltd.-0001",
 "accountNumber": "1234567",
@@ -360,13 +360,13 @@ POST https://sandbox-client.remittanceshub.com:8130/ewallet/api/v1/payoutProcess
 "status": "In Process",
 "senderMargin": 0.9899999999,
 "sendClientMarginValue": 0.0,
-"beneficiaryAccountHolderName": "Sample Exports Ltd ",
-"sendClientName": "EXAMPLE",
+"beneficiaryAccountHolderName": "Gujarat titans ",
+"sendClientName": "ESTEL",
 "senderCountry": "Malawi",
 "descriptionText": "invoice67676767",
-"sendClientPhoneNumber": "265991234567",
-"sendClientAddress1": "12 Example Road, Lilongwe",
-"customerId": "100000000000001B",
+"sendClientPhoneNumber": "533545636654",
+"sendClientAddress1": "Malawi, Malawi",
+"customerId": "100000892911850B",
 "customerCode": "1000000850",
 "paymentMode": "Cash",
   }
