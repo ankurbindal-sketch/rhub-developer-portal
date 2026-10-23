@@ -88,9 +88,9 @@ Individual customer
   "customerTypeCode": "100001",
   "customerSubTypeCode": "100001",
   "serviceTypeCode": "VIRTUAL",
-  "docReferenceNumber": "GGGFDAAABB",
+  "docReferenceNumber": "DOC1234569",
   "walletOwnerCode": "1000008547",
-  "firstName": "Madhurans",
+  "firstName": "Jane",
   "lastName": "Doe",
   "dateOfBirth": "1981-08-21",
   "occupationCode": "RHO010",
@@ -98,9 +98,9 @@ Individual customer
   "jobIndustry": "Job Industrye",
   "gender": "male",
   "nationality": "CAN",
-  "mobileNumber": "9899990099",
+  "mobileNumber": "9876543216",
   "addressLine1": "canada",
-  "email": "pankaj.Doe@remittanceshub.com",
+  "email": "jane.doe@example.com",
   "issueDate": "1988-08-22",
   "idCountry": "MWI",
   "countryCode": "CAN",
@@ -108,7 +108,7 @@ Individual customer
   "city": "canada",
   "pincode": "232222",
   "idTypeCode": "RHD002",
-  "idNumber": "ID8888780077",
+  "idNumber": "ID9000000003",
   "idExpiryDate": "2027-02-09"
 }
 ```

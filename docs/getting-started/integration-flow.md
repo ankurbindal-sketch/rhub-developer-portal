@@ -158,9 +158,11 @@ The final API in the documented sequence; may be used to retrieve the current ba
 - [Master / reference APIs](/docs/master-apis) — fetch the coded values your transaction type,
   route and payload require. There is no requirement to call them all.
 - [Balance Enquiry](/docs/balance/balance-enquiry) — the current wallet or account balance.
-- [Payin Notification](/docs/transactions/payin-notification) — retrieves partner wallet
-  statement records for a date range and customer. Call it when you need that transaction
-  information; it is not part of the payout sequence.
+- [Payin Notification](/docs/virtual-accounts/payin-notification) — retrieves partner
+  wallet statement records for a date range and customer, for payins received through
+  Virtual Accounts. It is not part of the payout sequence.
+- [Payout Notification](/docs/transactions/payout-notification) — the payout statement for
+  a date range.
 - [Currency validations](/docs/validation/currency-validations) and
   [country validations](/docs/validation/country-validations) — which conditional fields a
   given correspondent, currency or country requires.

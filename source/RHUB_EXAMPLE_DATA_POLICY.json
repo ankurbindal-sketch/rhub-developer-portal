@@ -21,6 +21,62 @@
   },
   "replacements": [
     [
+      "pankaj.singh@remittanceshub.com",
+      "jane.doe@example.com"
+    ],
+    [
+      "\"firstName\": \"Madhurans\"",
+      "\"firstName\": \"Jane\""
+    ],
+    [
+      "pankaj.Doe@remittanceshub.com",
+      "jane.doe@example.com"
+    ],
+    [
+      "pankaj.singh@esteltelecom.com",
+      "accounts@example.com"
+    ],
+    [
+      "\"tradeName\": \"AFREE technology\"",
+      "\"tradeName\": \"Example Company\""
+    ],
+    [
+      "\"companyName\": \"FGRTTT technology\"",
+      "\"companyName\": \"Example Company\""
+    ],
+    [
+      "\"companyName\": \"Estedeee technology\"",
+      "\"companyName\": \"Sample Exports Ltd\""
+    ],
+    [
+      "\"firstName\": \"Rajeshss\"",
+      "\"firstName\": \"John\""
+    ],
+    [
+      "\"lastName\": \"Mishra\"",
+      "\"lastName\": \"Doe\""
+    ],
+    [
+      "\"mobileNumber\": \"9098987711\"",
+      "\"mobileNumber\": \"9876543215\""
+    ],
+    [
+      "\"mobileNumber\": \"9899990099\"",
+      "\"mobileNumber\": \"9876543216\""
+    ],
+    [
+      "\"docReferenceNumber\": \"GGGFDAAABB\"",
+      "\"docReferenceNumber\": \"DOC1234569\""
+    ],
+    [
+      "\"idNumber\": \"ID8888780077\"",
+      "\"idNumber\": \"ID9000000003\""
+    ],
+    [
+      "\"businessAddress1\": \"new delhi new\"",
+      "\"businessAddress1\": \"45 Sample Avenue\""
+    ],
+    [
       "Yau Tsim Mong",
       "Kowloon"
     ],
@@ -347,6 +403,14 @@
     [
       "\"businessRegistrationIssuedAt\": \"MWI\",\n            \"businessAddress1\": \"123 Example Street\",\n            \"businessAddressState\": \"New Delhi\",\n            \"businessAddresssCity\": \"New Delhi\",",
       "\"businessRegistrationIssuedAt\": \"MWI\",\n            \"businessAddress1\": \"123 Example Street\",\n            \"businessAddressState\": \"Central Region\",\n            \"businessAddresssCity\": \"Lilongwe\","
+    ],
+    [
+      "pankaj",
+      "john"
+    ],
+    [
+      "Pankaj",
+      "John"
     ]
   ]
 }

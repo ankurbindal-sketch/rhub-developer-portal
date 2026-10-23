@@ -79,7 +79,9 @@ def sanitise_examples(text):
             SANITISED['blocks'] += 1
         return block
 
-    out = re.sub(r'```[a-z]*\n.*?```', fix, text, flags=re.S)
+    # [a-z0-9] so json5 blocks are covered too: labelling them json5 in the QA pass
+    # silently took them out of sanitisation while this pattern matched letters only.
+    out = re.sub(r'```[a-z0-9]*\n.*?```', fix, text, flags=re.S)
 
     # field-table descriptions carry sample values too ("eg: Rahul"); the same policy applies
     def fix_line(line):
@@ -659,9 +661,11 @@ You can price a transaction first and resolve registration afterwards.
 - [Master / reference APIs](/docs/master-apis) — fetch the coded values your transaction type,
   route and payload require. There is no requirement to call them all.
 - [Balance Enquiry](/docs/balance/balance-enquiry) — the current wallet or account balance.
-- [Payin Notification](/docs/transactions/payin-notification) — retrieves partner wallet
-  statement records for a date range and customer. Call it when you need that transaction
-  information; it is not part of the payout sequence.
+- [Payin Notification](/docs/virtual-accounts/payin-notification) — retrieves partner
+  wallet statement records for a date range and customer, for payins received through
+  Virtual Accounts. It is not part of the payout sequence.
+- [Payout Notification](/docs/transactions/payout-notification) — the payout statement for
+  a date range.
 - [Currency validations](/docs/validation/currency-validations) and
   [country validations](/docs/validation/country-validations) — which conditional fields a
   given correspondent, currency or country requires.
@@ -1624,14 +1628,232 @@ def build_payin_notification():
     body.append('')
     body.append(table(PAYIN_TXN_ROWS, ['Field', 'Type', 'Example']))
     conv = '\n'.join(body)
-    api_page('transactions/payin-notification.md',
+    api_page('virtual-accounts/payin-notification.md',
              {'title': 'Payin Notification', 'sidebar_label': 'Payin Notification',
               'description': 'RHUB Payin Notification API — retrieve partner wallet '
                              'transaction records for a date range and customer.'},
              'GET', 'Payin Notification', conv, '',
+             related=[('Virtual Accounts overview', '/docs/virtual-accounts'),
+                      ('VA request status', '/docs/virtual-accounts/va-request-status'),
+                      ('Balance Enquiry', '/docs/balance/balance-enquiry')])
+
+
+
+# --------------------------------------------------------------------------
+# Payout Notification (payout statement)
+# --------------------------------------------------------------------------
+
+# Documented strictly from what RHUB supplied: the statement endpoint, its query
+# parameters and one response. Parameter descriptions are reused from the Payin
+# Notification page, where the same parameter names are already documented. No
+# Excel or download endpoint exists in the supplied material, so none is documented.
+
+PAYOUT_STMT_PATH = '/ewallet/api/v1/miniStatement/partnerStatement'
+
+PAYOUT_STMT_QUERY = [
+    ('sortBy', 'creationDate', 'Field used to sort the transaction records.'),
+    ('limit', '500', 'Maximum number of records requested.'),
+    ('sort', 'desc', 'Sort direction.'),
+    ('fromDate', '2026-08-01', 'Start date for the transaction search.'),
+    ('toDate', '2026-09-01', 'End date for the transaction search.'),
+    ('walletCode', '1000000010', 'Wallet code used for the statement query.'),
+    ('selectedCategory', '100008', 'Transaction category.'),
+    ('transactionId', '200001', 'Transaction ID filter.'),
+    ('sendClientCustomerCode', '100000000000005B',
+     'Customer identifier used to filter transactions.'),
+    ('transactionType', 'all', 'Transaction type.'),
+    ('transactionSubType', '*(empty)*', 'Transaction subtype.'),
+]
+
+# Labels exactly as RHUB supplied them; no meaning is inferred from the numbers.
+PAYOUT_TXN_TYPES = [
+    ('Payout', '101442'),
+    ('Incoming', '100001'),
+    ('Incoming VA', '100002'),
+    ('All', 'all'),
+]
+
+# Supplied filter combinations, reproduced exactly.
+PAYOUT_FILTER_EXAMPLES = [
+    ('Incoming', 'transactionType=100002&transactionSubType=100001'),
+    ('Incoming VA', 'transactionType=100002&transactionSubType=100002'),
+    ('All transactions', 'transactionType=all&transactionSubType='),
+    ('Payout', 'transactionType=101442'),
+]
+
+# Sanitised from the supplied response. Every field name, the nesting, the value
+# types and the "null" string are preserved; names, msisdns, owner codes and
+# balances carry synthetic values, and the balance arithmetic stays consistent
+# with the transaction amount.
+PAYOUT_STMT_SAMPLE = """{
+  "transactionId": "null",
+  "requestTime": "Fri Oct 23 16:46:15 IST 2026",
+  "responseTime": "Fri Oct 23 16:46:15 IST 2026",
+  "resultCode": "0",
+  "resultDescription": "Transaction successful",
+  "pageable": {
+    "limit": 500,
+    "totalRecords": 1,
+    "sort": "desc",
+    "sortBy": "creationDate"
+  },
+  "miniStatement": {
+    "walletTransactionList": [
+      {
+        "id": 100001,
+        "code": "1000100001",
+        "transactionId": "200001",
+        "fromWalletOwnerCode": "1000000001",
+        "toWalletOwnerCode": "1000000002",
+        "fromWalletOwnerName": "Example-Send-Client",
+        "toWalletOwnerName": "RHUB",
+        "fromWalletOwnerMsisdn": "987654321",
+        "toWalletOwnerMsisdn": "9876543210",
+        "fromAmount": 10.51,
+        "fromWalletCode": "1000000010",
+        "fromWalletName": "Main Wallet",
+        "toWalletCode": "1000000020",
+        "toWalletName": "Main Wallet",
+        "fromCurrencyCode": "100003",
+        "toCurrencyCode": "100069",
+        "fromCurrencyName": "USD-USA",
+        "toCurrencyName": "USD-USA",
+        "fromCurrencySymbol": "$",
+        "toCurrencySymbol": "$",
+        "transactionTypeCode": "101442",
+        "transactionTypeName": "Payout",
+        "creationDate": "2026-08-10 18:04:09",
+        "fee": 0.0,
+        "status": "SUCCESS",
+        "srcPostBalance": 1.234566749E7,
+        "srcPreviousBalance": 1.23456780E7,
+        "destPreviousBalance": -1.2345678E8,
+        "destPostBalance": -1.2345676949E8,
+        "transactionAmount": 10.51,
+        "fromWalletTypeCode": "100008",
+        "toWalletTypeCode": "100008",
+        "debitAmount": 10.51,
+        "creditAmount": 0.0,
+        "convertedFeeAmount": 0.0,
+        "convertedMarginAmount": 0.0,
+        "payinCurrencyName": "USD-USA",
+        "postBalance": 1.234566749E7,
+        "payoutFee": 0.0,
+        "paymentMode": "Cash",
+        "fromRemittanceUserType": "100000",
+        "sendClientFeeReverse": false,
+        "payoutClientFeeReverse": false,
+        "token": null,
+        "toAmount": 10.51
+      }
+    ]
+  }
+}"""
+
+def build_payout_notification():
+    def row(cells):
+        return '| ' + ' | '.join(cells) + ' |'
+
+    query = '&'.join('%s=%s' % (n, '' if e.startswith('*') else e)
+                     for n, e, _ in PAYOUT_STMT_QUERY)
+    body = []
+    body.append('Retrieve the partner wallet statement for a date range. This is a query '
+                'endpoint: it returns transaction records on request and sends no '
+                'notification or callback. For the detail of one transaction, use '
+                '[Transaction Enquiry](/docs/transactions/transaction-enquiry).')
+    body.append('')
+    body.append('## Payout Statement')
+    body.append('')
+    body.append('<div className="rhub-endpoint">')
+    body.append('  <div className="rhub-endpoint__row">')
+    body.append('    <span className="rhub-method rhub-method--get">GET</span>')
+    body.append("    <code className=\"rhub-endpoint__url\">{%s}</code>" % repr(PAYOUT_STMT_PATH))
+    body.append('  </div>')
+    body += R.environment_lines(PAYOUT_STMT_PATH)
+    body.append('</div>')
+    body.append('')
+    body.append('Returns partner wallet transaction records for the requested date range, '
+                'wallet and filters, in JSON.')
+    body.append('')
+    body.append(VA_AUTH_NOTE.replace('Virtual Account APIs use', 'This API uses')
+                .replace('on every VA call', 'on every call')
+                .replace('\n\nBase URLs for each environment are listed under\n'
+                         '[API environments](/docs/getting-started/environments).', ''))
+    body.append('')
+    body.append('### Query Parameters')
+    body.append('')
+    body.append(row(['Parameter', 'Example', 'Description']))
+    body.append('|---|---|---|')
+    for n, e, d in PAYOUT_STMT_QUERY:
+        body.append(row(['`%s`' % n, e, d]))
+    body.append('')
+    body.append('A complete request appends the query string to the endpoint path:')
+    body.append('')
+    body.append('```http')
+    body.append('GET %s?%s' % (PAYOUT_STMT_PATH, query))
+    body.append('```')
+    body.append('')
+    body.append('### Transaction type filters')
+    body.append('')
+    body.append('RHUB supplies these transaction type values:')
+    body.append('')
+    body.append(row(['Label', 'Value']))
+    body.append('|---|---|')
+    for label, value in PAYOUT_TXN_TYPES:
+        body.append(row([label, '`%s`' % value]))
+    body.append('')
+    body.append('and these filter combinations, reproduced as given:')
+    body.append('')
+    body.append(row(['Filter', 'Query']))
+    body.append('|---|---|')
+    for label, q in PAYOUT_FILTER_EXAMPLES:
+        body.append(row([label, '`%s`' % q]))
+    body.append('')
+    body.append(':::note[Result limit]')
+    body.append('')
+    body.append('The statement query limit is `500`. The response reports how many records '
+                'matched in `pageable.totalRecords`. Records beyond the 500-record limit are '
+                'available through the dashboard/portal. RHUB has not documented an offset, '
+                'cursor or page parameter for this endpoint, so none is listed here.')
+    body.append('')
+    body.append(':::')
+    body.append('')
+    body.append('### Response')
+    body.append('')
+    body.append('Example values are synthetic. The structure, field names, nesting and value '
+                'types are as returned.')
+    body.append('')
+    body.append('```json')
+    body.append(PAYOUT_STMT_SAMPLE)
+    body.append('```')
+    body.append('')
+    body.append('### Response structure')
+    body.append('')
+    body.append(row(['Element', 'Contents']))
+    body.append('|---|---|')
+    body.append(row(['Top level',
+                     '`transactionId`, `requestTime`, `responseTime`, `resultCode` and '
+                     '`resultDescription` — request/response metadata and the result.']))
+    body.append(row(['`pageable`',
+                     'Statement result metadata: `limit`, `totalRecords`, `sort`, `sortBy`.']))
+    body.append(row(['`miniStatement.walletTransactionList`',
+                     'An array of transaction records. Each record carries identifiers, '
+                     'wallet owners, wallet information, currencies, transaction amounts, '
+                     'fees, status, timestamps, balances, payment mode and related '
+                     'transaction attributes, as shown above.']))
+    body.append('')
+    body.append('Field-level descriptions RHUB has published for the same record shape are on '
+                '[Payin Notification](/docs/virtual-accounts/payin-notification). Fields that '
+                'appear only in this response are left undescribed rather than guessed.')
+    body.append('')
+    conv = '\n'.join(body)
+    api_page('transactions/payout-notification.md',
+             {'title': 'Payout Notification', 'sidebar_label': 'Payout Notification',
+              'description': 'RHUB payout statement for a wallet and date range.'},
+             'GET', 'Payout Notification', conv, '',
              related=[('Transaction Enquiry', '/docs/transactions/transaction-enquiry'),
-                      ('Balance Enquiry', '/docs/balance/balance-enquiry'),
-                      ('Integration flow', '/docs/getting-started/integration-flow')])
+                      ('Payin Notification', '/docs/virtual-accounts/payin-notification'),
+                      ('Payout', '/docs/payout/payout')])
 
 
 def build_enquiry():
@@ -3163,7 +3385,8 @@ INDEX_STAGES = {
     'payout/payout.md': 'Transaction',
     'payout/wpt-payout.md': 'Transaction',
     'transactions/transaction-enquiry.md': 'Post-payout',
-    'transactions/payin-notification.md': 'Supporting / reference',
+    'virtual-accounts/payin-notification.md': 'VA post-registration',
+    'transactions/payout-notification.md': 'Post-payout',
     'balance/balance-enquiry.md': 'Final / supporting',
 }
 
@@ -3256,6 +3479,7 @@ def main():
     build_payout()
     build_enquiry()
     build_payin_notification()
+    build_payout_notification()
     build_document_upload()
     master_rows = build_master()
     build_validation()

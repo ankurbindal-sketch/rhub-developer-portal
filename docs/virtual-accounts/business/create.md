@@ -128,14 +128,14 @@ Business customer with 2 owners (1 individual, 1 business)
   "serviceTypeCode": "VIRTUAL",
   "docReferenceNumber": "GTGGGG7766",
   "walletOwnerCode": "1000008547",
-  "tradeName": "AFREE technology",
+  "tradeName": "Example Company",
   "natureOfBusinessCode": "RHT004",
-  "mobileNumber": "9098987711",
-  "email": "pankaj.singh@esteltelecom.com",
-  "addressLine1": "malawi",
+  "mobileNumber": "9876543215",
+  "email": "accounts@example.com",
+  "addressLine1": "12 Example Road",
   "countryCode": "MWI",
-  "state": "malawi",
-  "city": "malawi",
+  "state": "Central Region",
+  "city": "Lilongwe",
   "pincode": "676567",
   "businessRelationshipCode": "100003",
   "legalStatusCode": "RHB002",
@@ -147,15 +147,15 @@ Business customer with 2 owners (1 individual, 1 business)
     {
       // Owner 1 — individual owner (customerTypeCode 100001)
       "customerTypeCode": "100001",
-      "firstName": "Rajeshss",
-      "lastName": "Mishra",
+      "firstName": "John",
+      "lastName": "Doe",
       "dateOfBirth": "2008-08-22",
       "gender": "male",
-      "companyName": "FGRTTT technology",
-      "addressLine1": "malawi",
+      "companyName": "Example Company",
+      "addressLine1": "12 Example Road",
       "countryCode": "MWI",
       "state": "Malawi",
-      "city": "malawi",
+      "city": "Lilongwe",
       "pincode": "121122",
       "idTypeCode": "RHD007",
       "idNumber": "ID8887877711",
@@ -164,11 +164,11 @@ Business customer with 2 owners (1 individual, 1 business)
     {
       // Owner 2 — business owner (customerTypeCode 100002)
       "customerTypeCode": "100002",
-      "companyName": "Estedeee technology",
-      "addressLine1": "malawi",
+      "companyName": "Sample Exports Ltd",
+      "addressLine1": "12 Example Road",
       "countryCode": "MWI",
-      "state": "malawi",
-      "city": "malawi"
+      "state": "Central Region",
+      "city": "Lilongwe"
     }
   ]
 }

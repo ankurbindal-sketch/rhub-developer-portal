@@ -22,8 +22,9 @@ Every API in the public reference, with the stage of an integration at which it 
 | Payout | `POST` | The Payout API is used to perform all types of transactions (B2B,C2C,C2B,B2C). | Transaction | `/ewallet/api/v1/payoutProcess/api` | [Open](/docs/payout/payout) |
 | WPT Payout | `POST` | This Payout API is used to perform all types of Wallet transactions (C2C). | Transaction | `/ewallet/api/v1/payoutProcess/api` | [Open](/docs/payout/wpt-payout) |
 | Transaction Enquiry | `GET` | The Transaction Enquiry API is used to fetch the statement for the specified period. | Post-payout | `/ewallet/api/v1/transactionInfo/api?types=all&status=all&transId={value}` | [Open](/docs/transactions/transaction-enquiry) |
+| Payout Notification | `GET` | Returns partner wallet transaction records for the requested date range, wallet and filters, in JSON. | Post-payout | `/ewallet/api/v1/miniStatement/partnerStatement` | [Open](/docs/transactions/payout-notification) |
 | Balance Enquiry | `GET` | The Balance API is used to fetch the current balance in the ledger of the partner. | Final / supporting | `/ewallet/api/v1/wallet/walletOwner/{walletOwnerCode}` | [Open](/docs/balance/balance-enquiry) |
-| Payin Notification | `GET` | The Payin Notification API retrieves partner wallet transaction records for a specified date range and customer. | Supporting / reference | `/ewallet/api/v1/miniStatement/partnerStatement` | [Open](/docs/transactions/payin-notification) |
+| Payin Notification | `GET` | The Payin Notification API retrieves partner wallet transaction records for a specified date range and customer. | VA post-registration | `/ewallet/api/v1/miniStatement/partnerStatement` | [Open](/docs/virtual-accounts/payin-notification) |
 
 </div>
 

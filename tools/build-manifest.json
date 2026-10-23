@@ -12,7 +12,8 @@
   "payout/wpt-payout.md",
   "transactions/transaction-enquiry.md",
   "balance/balance-enquiry.md",
-  "transactions/payin-notification.md",
+  "virtual-accounts/payin-notification.md",
+  "transactions/payout-notification.md",
   "documents/document-upload.md",
   "master-apis/remittance-purpose.md",
   "master-apis/source-of-fund.md",
@@ -135,8 +136,15 @@
    "Payin Notification",
    "GET",
    "/ewallet/api/v1/miniStatement/partnerStatement",
-   "transactions/payin-notification.md",
+   "virtual-accounts/payin-notification.md",
    "The Payin Notification API retrieves partner wallet transaction records for a specified date range and customer."
+  ],
+  [
+   "Payout Notification",
+   "GET",
+   "/ewallet/api/v1/miniStatement/partnerStatement",
+   "transactions/payout-notification.md",
+   "Returns partner wallet transaction records for the requested date range, wallet and filters, in JSON."
   ],
   [
    "Document Upload",
