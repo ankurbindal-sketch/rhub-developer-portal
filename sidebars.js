@@ -52,7 +52,7 @@ const sidebars = {
         {
           type: 'category',
           label: 'Transactions',
-          items: ['transactions/transaction-enquiry', 'transactions/payin-notification'],
+          items: ['transactions/transaction-enquiry', 'transactions/payout-notification'],
         },
         {
           type: 'category',
@@ -122,6 +122,7 @@ const sidebars = {
             'virtual-accounts/business/edit',
           ],
         },
+        'virtual-accounts/payin-notification',
         'virtual-accounts/va-request-status',
         'virtual-accounts/va-approval-process',
         'virtual-accounts/va-reference-data',

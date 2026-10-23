@@ -1,0 +1,33 @@
+# codespell configuration for RHUB Developer Portal 1.0
+#
+# Purpose: catch typos in *editorial* text — the guidance, page introductions and
+# navigation copy authored for this portal.
+#
+# It must NOT flag RHUB's own material. API field names, enum values, response text and
+# field descriptions are reproduced exactly as RHUB has them, including spellings that look
+# wrong: a client matching on "Comission Wallet" needs the misspelling, and a request field
+# named recieverCode is spelled that way in the API. "Correcting" those would make the
+# documentation wrong about a system that is right as built.
+#
+# Every entry below was checked against the source before being added:
+#
+#   recieved, reciever   RHUB field names and descriptions (e.g. recieverCode, recieverName)
+#   tansaction           RHUB field description ("Max tansaction limit value")
+#   comission            RHUB response value ("Comission Wallet")
+#   successfull          RHUB resultDescription text ("Transaction Successfull")
+#   maxium               RHUB field description ("Maxium length")
+#   beneficary           RHUB validation table heading ("Beneficary (Individual)")
+#   ist                  timezone in RHUB timestamps ("Thu Aug 03 11:57:05 IST 2023")
+#   zar                  ISO currency code
+#   wll                  RHUB legal status master value
+#   tha                  ISO country code
+#   yau                  place name in a sample address (Yau Tsim Mong, Hong Kong)
+#
+# Before adding a new word: confirm it comes from RHUB's material rather than from prose
+# written for this portal. If it is our own typo, fix the text instead.
+
+[codespell]
+skip = ./node_modules,./build,./.docusaurus,./.git,*.json,package-lock.json
+ignore-words-list = recieved,reciever,tansaction,comission,successfull,maxium,beneficary,ist,zar,wll,tha,yau
+check-filenames =
+quiet-level = 2
