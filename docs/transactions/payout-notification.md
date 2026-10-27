@@ -8,7 +8,13 @@ description: "RHUB payout statement for a wallet and date range."
 
 <span className="rhub-method rhub-method--get">GET</span>
 
-Retrieve the partner wallet statement for a date range. This is a query endpoint: it returns transaction records on request and sends no notification or callback. For the detail of one transaction, use [Transaction Enquiry](/docs/transactions/transaction-enquiry).
+Retrieve a collection of payout-related transaction records matching the supported statement filters and date range. This is a query endpoint: it returns records on request and sends no notification or callback.
+
+:::note[Statement or enquiry?]
+
+Use this endpoint for a set of records across a wallet and date range. For the details and state of one transaction you already have an id for, use [Transaction Enquiry](/docs/transactions/transaction-enquiry).
+
+:::
 
 ## Payout Statement
 

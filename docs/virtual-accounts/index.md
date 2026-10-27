@@ -98,6 +98,18 @@ RHUB Admin/Operations links the customer to the applicable collection bank accou
 
 </div>
 
+## Receiving payins
+
+Once a VA request reaches **Approved**, the customer is linked to a collection bank account
+(see [VA request status](/docs/virtual-accounts/va-request-status)). Funds received through
+that account appear as partner wallet transaction records, which you retrieve with
+[Payin Notification](/docs/virtual-accounts/payin-notification) — a query endpoint, not a
+push notification.
+
+RHUB has not published the payin lifecycle beyond this: settlement timing, how and when
+wallet balances update, and any notification or retry behaviour are not documented. Those
+points are open with RHUB.
+
 ## Where to start
 
 | Step | Page |
@@ -107,6 +119,7 @@ RHUB Admin/Operations links the customer to the applicable collection bank accou
 | Find the document checklist | [VA document requirements](/docs/virtual-accounts/document-requirements) |
 | Register a customer | [Individual](/docs/virtual-accounts/individual/create) · [Business](/docs/virtual-accounts/business/create) |
 | Track the request | [VA request status](/docs/virtual-accounts/va-request-status) |
+| Retrieve payin records | [Payin Notification](/docs/virtual-accounts/payin-notification) |
 | Understand approval | [VA approval process](/docs/virtual-accounts/va-approval-process) |
 
 ## Related

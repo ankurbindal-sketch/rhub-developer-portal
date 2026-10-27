@@ -6,8 +6,9 @@ description: "The Virtual Account onboarding sequence, from authentication to ap
 
 # VA integration flow
 
-The sequence below is the order RHUB supports for Virtual Account onboarding. Steps 1 to 6
-are client actions; the final step is carried out by RHUB Admin/Operations.
+The sequence below is the order RHUB supports for Virtual Account onboarding. Steps 1 to 7
+and step 9 are client actions; step 8 — approval and collection-bank setup — is carried out
+by RHUB Admin/Operations.
 
 <div className="rhub-journey">
 
@@ -98,18 +99,32 @@ call this operation.
 
 </div>
 
+<div className="rhub-journey__step">
+<span className="rhub-journey__index">09</span>
+<span className="rhub-journey__kind">Client · after approval</span>
+
+**[Payin Notification](/docs/virtual-accounts/payin-notification)**
+
+Once the collection bank account is linked, retrieve the wallet transaction records for
+payins received through it. RHUB has not documented settlement timing or balance behaviour.
+
+</div>
+
 </div>
 
 ## Recommended Order of API Calls
 
-| # | Step | API | Why This Step? |
+| Stage | Step | API | Why This Step? |
 |---|---|---|---|
-| 1 | **Check Currencies** | Get VA Currency API | Confirm which currencies are VA-settlement enabled (`vaSettlementFlag: true`) before onboarding. |
-| 2 | **Fetch Document Checklist** | VA Document Type List API | Get the mandatory/optional document list for the customer type (Individual vs Business). |
-| 3 | **Upload Documents** | Upload VA Document API | Upload each document from the checklist. Each call returns a `docReferenceNumber`. |
-| 4 | **Verify Uploads (optional)** | Get Uploaded VA Documents API | List what's been uploaded so far for a wallet owner, useful for a progress checklist UI. |
-| 5 | **Register the Customer** | Create Individual / Business Customer API | Submit the full registration payload, referencing the `docReferenceNumber` from Step 3. |
-| 6 | **Fetch the Receipt (optional)** | Customer Receipt API | Re-fetch the registration to confirm what was saved and its screening/approval state. |
-| 7 | **Edit if Needed** | Edit Individual / Business Customer API | Update the customer record — same payload shape as Create, keyed by `customerCode`. |
-| 8 | **Track VA Request** | VA Account Request Status API | Ops-side: view the queue of pending/approved VA account requests. |
-| 9 | **Approve & Link Bank** | VA Customer Account Approve API | Ops-side: link the customer to a collection bank account and activate the Virtual Account. |
+| 02 | **Check Currencies** | Get VA Currency API | Confirm which currencies are VA-settlement enabled (`vaSettlementFlag: true`) before onboarding. |
+| 03 | **Fetch Document Checklist** | VA Document Type List API | Get the mandatory/optional document list for the customer type (Individual vs Business). |
+| 04 | **Upload Documents** | Upload VA Document API | Upload each document from the checklist. Each call returns a `docReferenceNumber`. |
+| 05 | **Register the Customer** | Create Individual / Business Customer API | Submit the full registration payload, referencing the `docReferenceNumber` from Step 3. |
+| 06 | **Verify Uploads (optional)** | Get Uploaded VA Documents API | List what's been uploaded so far for a wallet owner, useful for a progress checklist UI. |
+| 06 | **Fetch the Receipt (optional)** | Customer Receipt API | Re-fetch the registration to confirm what was saved and its screening/approval state. |
+| 06 | **Edit if Needed** | Edit Individual / Business Customer API | Update the customer record — same payload shape as Create, keyed by `customerCode`. |
+| 07 | **Track VA Request** | VA Account Request Status API | Ops-side: view the queue of pending/approved VA account requests. |
+| 08 | **Approve & Link Bank** | VA Customer Account Approve API | Ops-side: link the customer to a collection bank account and activate the Virtual Account. |
+| 09 | **Retrieve Payin Records** | Payin Notification API | After approval and collection-bank setup, retrieve the wallet transaction records for payins received through the account. |
+
+Stage numbers match the nine steps above. Several optional calls belong to the same stage.

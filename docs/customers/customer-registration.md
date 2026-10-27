@@ -53,6 +53,8 @@ Coded fields in the request draw their values from the master APIs — for examp
 
 ## KYC/KYB Document Requirements
 
+**KYC** (Know Your Customer) applies to individual customers. **KYB** (Know Your Business) applies to business customers.
+
 The documents RHUB accepts and requires when registering a customer. Which of them applies depends on the customer you are onboarding; they are not all submitted in a single API call.
 
 ### KYC — Individual Customers

@@ -1091,6 +1091,8 @@ KYB_DOCUMENT_REQUIREMENTS = [
 def kyc_kyb_section():
     """The KYC/KYB checklist, grouped as RHUB supplies it."""
     out = ['## KYC/KYB Document Requirements', '',
+           '**KYC** (Know Your Customer) applies to individual customers. **KYB** (Know Your '
+           'Business) applies to business customers.', '',
            'The documents RHUB accepts and requires when registering a customer. Which of them '
            'applies depends on the customer you are onboarding; they are not all submitted in a '
            'single API call.', '',
@@ -1757,10 +1759,17 @@ def build_payout_notification():
     query = '&'.join('%s=%s' % (n, '' if e.startswith('*') else e)
                      for n, e, _ in PAYOUT_STMT_QUERY)
     body = []
-    body.append('Retrieve the partner wallet statement for a date range. This is a query '
-                'endpoint: it returns transaction records on request and sends no '
-                'notification or callback. For the detail of one transaction, use '
+    body.append('Retrieve a collection of payout-related transaction records matching the '
+                'supported statement filters and date range. This is a query endpoint: it '
+                'returns records on request and sends no notification or callback.')
+    body.append('')
+    body.append(':::note[Statement or enquiry?]')
+    body.append('')
+    body.append('Use this endpoint for a set of records across a wallet and date range. For '
+                'the details and state of one transaction you already have an id for, use '
                 '[Transaction Enquiry](/docs/transactions/transaction-enquiry).')
+    body.append('')
+    body.append(':::')
     body.append('')
     body.append('## Payout Statement')
     body.append('')
@@ -1863,6 +1872,20 @@ def build_enquiry():
 
     tx = by_title['Transaction Enquiry']
     conv = R.convert(tx['body'], promote_headings=1)
+    # Authorised correction: the source sentence described this endpoint as fetching
+    # "the statement for the specified period", which is what the payout statement does.
+    # The contract here takes a transaction id, so the purpose line is corrected and the
+    # two endpoints are cross-linked. Parameters, paths and examples are untouched.
+    conv = conv.replace(
+        'The Transaction Enquiry API is used to fetch the statement for the specified '
+        'period.',
+        'The Transaction Enquiry API returns the details and state of a specific '
+        'transaction, identified by the transaction id in `value`.\n\n'
+        ':::note[Enquiry or statement?]\n\n'
+        'Use **Transaction Enquiry** for one transaction you already have an id for. Use '
+        'the [payout statement](/docs/transactions/payout-notification) for a collection '
+        'of records matching a wallet, a date range and the supported filters.\n\n'
+        ':::', 1)
     api_page('transactions/transaction-enquiry.md',
              {'title': 'Transaction Enquiry', 'sidebar_label': 'Transaction Enquiry',
               'description': 'RHUB Transaction Enquiry API — check the status of a previously initiated payout.'},
@@ -2925,6 +2948,44 @@ def va_section(num):
     return None
 
 
+
+def align_call_order_table(md):
+    """Renumber RHUB's "Recommended Order of API Calls" table to the stage numbers used by
+    the nine-step flow above it, and order the rows by stage.
+
+    Without this the two sections disagree: the table numbered its API calls 1-9 with no
+    authentication row, so its 8 and 9 (track, approve) collided with the flow's 8 and 9
+    (approve, payin). Row text, API names and reasons are untouched; one row is added for
+    the payin step the flow ends on.
+    """
+    lines = md.split('\n')
+    start = next((i for i, l in enumerate(lines) if l.startswith('| # | Step |')), None)
+    if start is None:
+        return md
+    end = start
+    while end + 1 < len(lines) and lines[end + 1].startswith('|'):
+        end += 1
+    rows = lines[start + 2:end + 1]
+
+    # original row index (1-based) -> stage in the flow above
+    stage = {1: '02', 2: '03', 3: '04', 4: '06', 5: '05', 6: '06', 7: '06', 8: '07', 9: '08'}
+    renumbered = []
+    for i, row in enumerate(rows, start=1):
+        cells = row.split('|')
+        if len(cells) > 2 and i in stage:
+            cells[1] = ' %s ' % stage[i]
+        renumbered.append('|'.join(cells))
+    renumbered.sort(key=lambda r: r.split('|')[1].strip())
+    renumbered.append('| 09 | **Retrieve Payin Records** | Payin Notification API | After '
+                      'approval and collection-bank setup, retrieve the wallet transaction '
+                      'records for payins received through the account. |')
+
+    header = ['| Stage | Step | API | Why This Step? |', '|---|---|---|---|']
+    note = ['', 'Stage numbers match the nine steps above. Several optional calls belong to '
+                'the same stage.']
+    return '\n'.join(lines[:start] + header + renumbered + note + lines[end + 1:])
+
+
 def build_virtual_accounts():
     if not VA_SECTIONS:
         return []
@@ -2996,6 +3057,18 @@ RHUB Admin/Operations links the customer to the applicable collection bank accou
 
 </div>
 
+## Receiving payins
+
+Once a VA request reaches **Approved**, the customer is linked to a collection bank account
+(see [VA request status](/docs/virtual-accounts/va-request-status)). Funds received through
+that account appear as partner wallet transaction records, which you retrieve with
+[Payin Notification](/docs/virtual-accounts/payin-notification) — a query endpoint, not a
+push notification.
+
+RHUB has not published the payin lifecycle beyond this: settlement timing, how and when
+wallet balances update, and any notification or retry behaviour are not documented. Those
+points are open with RHUB.
+
 ## Where to start
 
 | Step | Page |
@@ -3005,6 +3078,7 @@ RHUB Admin/Operations links the customer to the applicable collection bank accou
 | Find the document checklist | [VA document requirements](/docs/virtual-accounts/document-requirements) |
 | Register a customer | [Individual](/docs/virtual-accounts/individual/create) · [Business](/docs/virtual-accounts/business/create) |
 | Track the request | [VA request status](/docs/virtual-accounts/va-request-status) |
+| Retrieve payin records | [Payin Notification](/docs/virtual-accounts/payin-notification) |
 | Understand approval | [VA approval process](/docs/virtual-accounts/va-approval-process) |
 
 ## Related
@@ -3022,10 +3096,12 @@ RHUB Admin/Operations links the customer to the applicable collection bank accou
 
     # ---- Integration flow ---------------------------------------------------
     flow = re.sub(r'^### ', '## ', VA.section_markdown(va_section('02')), flags=re.M)
+    flow = align_call_order_table(flow)
     body = """# VA integration flow
 
-The sequence below is the order RHUB supports for Virtual Account onboarding. Steps 1 to 6
-are client actions; the final step is carried out by RHUB Admin/Operations.
+The sequence below is the order RHUB supports for Virtual Account onboarding. Steps 1 to 7
+and step 9 are client actions; step 8 — approval and collection-bank setup — is carried out
+by RHUB Admin/Operations.
 
 <div className="rhub-journey">
 
@@ -3113,6 +3189,17 @@ Follow the request through to its resulting state.
 
 RHUB reviews the request and establishes the collection bank relationship. Clients do not
 call this operation.
+
+</div>
+
+<div className="rhub-journey__step">
+<span className="rhub-journey__index">09</span>
+<span className="rhub-journey__kind">Client · after approval</span>
+
+**[Payin Notification](/docs/virtual-accounts/payin-notification)**
+
+Once the collection bank account is linked, retrieve the wallet transaction records for
+payins received through it. RHUB has not documented settlement timing or balance behaviour.
 
 </div>
 

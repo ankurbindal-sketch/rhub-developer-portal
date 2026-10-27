@@ -23,7 +23,13 @@ Check the state of a transaction after the [payout](/docs/payout/payout) has bee
   </div>
 </div>
 
-The Transaction Enquiry API is used to fetch the statement for the specified period.
+The Transaction Enquiry API returns the details and state of a specific transaction, identified by the transaction id in `value`.
+
+:::note[Enquiry or statement?]
+
+Use **Transaction Enquiry** for one transaction you already have an id for. Use the [payout statement](/docs/transactions/payout-notification) for a collection of records matching a wallet, a date range and the supported filters.
+
+:::
 
 ## Request Parameter
 
