@@ -3227,6 +3227,13 @@ payins received through it. RHUB has not documented settlement timing or balance
         # VA source cards are h3; directly under the page h1 that skips a level and
         # flattens the TOC, so they are promoted to h2.
         body = '\n'.join(head) + re.sub(r'^### ', '## ', VA.section_markdown(sec), flags=re.M)
+        if path == 'virtual-accounts/upload-documents.md':
+            # Documentation correction: the form-data parameter is documented as
+            # documentType. Only the Form Data row changes — docTypeCode and docTypeName
+            # are separate parameters, and the response example is left as the API
+            # returns it.
+            body = body.replace('| docType | The Service Type |',
+                                '| documentType | The Service Type |', 1)
         if path == 'virtual-accounts/va-reference-data.md':
             body += ("\n\n## Shared master APIs\n\n"
                      "Several of the lookups above are the platform's own master APIs, used "

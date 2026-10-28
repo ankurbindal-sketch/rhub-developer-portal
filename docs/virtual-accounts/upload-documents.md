@@ -55,7 +55,7 @@ Base URLs for each environment are listed under
 | file | The document binary | **REQUIRED** | The actual file — not base64. |
 | walletOwnerCode | Send client / wallet owner code | **REQUIRED** | e.g. `1000009093` |
 | docReferenceNumber | Your unique reference for this document | **REQUIRED** | e.g. `CUSPMAGS1U` — reuse the same value for every document belonging to one customer registration. |
-| docType | The Service Type | **REQUIRED** | e.g. VA |
+| documentType | The Service Type | **REQUIRED** | e.g. VA |
 | docTypeCode | Which checklist document this is | **REQUIRED** | Must match a `code` from the [VA document requirements](/docs/virtual-accounts/document-requirements) document type list, e.g. `RHD019`. |
 | createdBy | User/agent code performing the upload | **OPTIONAL** | e.g. `1000009093` |
 | transId | Internal tracking id | **OPTIONAL** | Left blank in practice — system-generated, no need to send a value. |
